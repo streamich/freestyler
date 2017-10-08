@@ -2,6 +2,7 @@ import {Component, createElement as h} from 'react';
 import * as React from 'react';
 import {render} from 'react-dom';
 import {createFreestyler} from '../../src/index';
+import {Theme, Themed, themed} from "../../src/theme";
 
 const css = createFreestyler(React);
 
@@ -205,6 +206,14 @@ const Style = ({children}) => {
     return h(EmitCss);
 };
 
+const BgBorder = ({theme}) => h('div', {style: {border: '1px solid ' + theme.background}}, 'bg-border');
+const ThemedBgBorder = themed(BgBorder);
+
+const BgBorder2 = css.div(({theme}) => ({
+    bd: '1px solid ' + theme.background,
+}));
+const ThemedBgBorder2 = themed(BgBorder2);
+
 class App extends Component {
     state = {
         hide: false,
@@ -319,7 +328,19 @@ class App extends Component {
             }),
             h(Wrapped, {}, 'LOL'),
             h(Frame(Underlined(Bold(Italic('span')))), {}, 'Hello there'),
-            h(Frame(BoldItalicUnderlinedDiv), {}, 'Hello there 2')
+            h(Frame(BoldItalicUnderlinedDiv), {}, 'Hello there 2'),
+            h(Theme, {value: {color: 'blue', background: 'red'}},
+                h(Theme, {value: {color: 'white'}},
+                    h(Themed, {}, value => {
+                        return h('div', {style: {
+                            color: value.color,
+                            background: value.background,
+                        }}, h('pre', {}, JSON.stringify(value, null, 2)));
+                    }),
+                    h(ThemedBgBorder),
+                    h(ThemedBgBorder2, {}, 'trololo'),
+                ),
+            ),
         );
     }
 }

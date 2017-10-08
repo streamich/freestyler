@@ -1,32 +1,34 @@
-import {Component} from "react";
+import {Component, createElement as h} from "react";
+import {Consumer, Provider, TValue} from "./context";
+import {THoc} from "./index";
 
-const observable = (state) => {
-    let listeners = [];
-    let currentState = state;
+export type TTheme = TValue;
 
-    const getState = () => currentState;
-
-    const setState = state => {
-        currentState = state;
-        for (const listener of listeners) listener(currentState);
-    };
-
-    const subscribe = listener => {
-        listeners.push(listener);
-
-        return () => listeners = listeners.filter(item => item !== listener);
-    };
-
-    return {
-        getState,
-        setState,
-        subscribe,
-    };
-};
-
-export class Theme extends Component {
-
+export interface IThemeProps {
+    name?: string,
+    value: TTheme,
 }
 
+export class Theme extends Component<IThemeProps, any> {
+    render() {
+        const {name = 'theme', value, children} = this.props;
+        return h(Provider, {name, value}, children);
+    }
+}
 
+export interface IThemedProps {
+    name?: string,
+}
 
+export class Themed extends Component<IThemedProps, any> {
+    render() {
+        const {name = 'theme', children} = this.props;
+        return h(Consumer, {name}, children);
+    }
+}
+
+export const themed: THoc = (Element, name = 'theme') => props => (
+    h(Consumer, {name}, value => {
+        return h(Element, {...props, [name]: value});
+    })
+);

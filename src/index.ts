@@ -15,7 +15,7 @@ export type TStyled<TResult> = (
     dynamicTemplate?: TCssTemplate
 ) => TResult;
 
-export type THoc = (Element: TElement) => TComponentConstructor;
+export type THoc = (Element: TElement) => TElement;
 
 export interface ICss {
     (tpl: TCssTemplate, dynamic?: boolean): (a, b, c) => any;

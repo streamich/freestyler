@@ -43,73 +43,81 @@ lines of code), and gives every freestyler a [gazillion of features](#feat).
   - Browser state styles to support `:hover`, `:focus`, and `:active`
   - middleware
 
-> ## Terminology
->
-> **CSS template**
->
-> A *CSS template* is a *plain* JavaScript object of the form:
->
-> ```js
-> const template = {
->     color: 'red',
->     'border-radius': '3px',
-> };
-> ```
->
-> Or, it can be a function that returns a CSS template in object form, with the following signature:
->
-> ```js
-> const template = (props, state, context) => {
->     return {
->         color: 'red',
->         'border-radius': '3px',
->     };
-> };
-> ```
->
-> **Static vs Dynamic templates**
->
-> *Static template* is injected into the DOM only *once* and only when the component is actually rendered
-> *for the first time*. It stays in the DOM forever.
->
-> *Dynamic template* is updated on *every* re-render of a component and is removed from the DOM once the component
-> in unmounted.
->
-> **First generation**
-> 
-> First generation React styling don't allow you to write styling in JavaScript, instead, you have to use a *CSS pre-processor*.
->
->   - *Notable example*: [`css-modules`](https://github.com/css-modules/css-modules)
->
-> **Second generation**
-> 
-> Second generation React styling libraries emit inline styles in `style` property of your JSX elements (i.e. use *inline styles*).
->
->   - *Notable example*: [`Radium`](https://github.com/FormidableLabs/radium)
->
-> **Third generation**
-> 
-> Third generation React styling libraries emit CSS into DOM in `<style>` tags and generate unique scoped `className`
-> properties, but the styles are *static*.
->
->   - *Notable examples*: [`aphrodite`](https://github.com/Khan/aphrodite), [`cssx`](https://github.com/krasimir/cssx)
->
-> **Fourth generation**
-> 
-> Fourth generation React styling libraries also emit CSS into DOM `<style>` tags, but the styles are *dynamic*, 
-> i.e. the CSS changes when `props` or `state` changes.
->
->   - *Notable examples*: `freestyler`, [`styled-components`](https://github.com/styled-components/styled-components), [`glamorous`](https://github.com/paypal/glamorous)
->
-> **Fifth generation**
-> 
-> Please report any fifth generation React styling libraries, I know only of [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).
+
+-----
+
+
+## Terminology
+
+**CSS template**
+
+A *CSS template* is a *plain* JavaScript object of the form:
+
+```js
+const template = {
+    color: 'red',
+    'border-radius': '3px',
+};
+```
+
+Or, it can be a function that returns a CSS template in object form, with the following signature:
+
+```js
+const template = (props, state, context) ={
+    return {
+        color: 'red',
+        'border-radius': '3px',
+    };
+};
+```
+
+**Static vs Dynamic templates**
+
+*Static template* is injected into the DOM only *once* and only when the component is actually rendered
+*for the first time*. It stays in the DOM forever.
+
+*Dynamic template* is updated on *every* re-render of a component and is removed from the DOM once the component
+in unmounted.
+
+**First generation**
+
+First generation React styling don't allow you to write styling in JavaScript, instead, you have to use a *CSS pre-processor*.
+
+  - *Notable example*: [`css-modules`](https://github.com/css-modules/css-modules)
+
+**Second generation**
+
+Second generation React styling libraries emit inline styles in `style` property of your JSX elements (i.e. use *inline styles*).
+
+  - *Notable example*: [`Radium`](https://github.com/FormidableLabs/radium)
+
+**Third generation**
+
+Third generation React styling libraries emit CSS into DOM in `<style` tags and generate unique scoped `className`
+properties, but the styles are *static*.
+
+  - *Notable examples*: [`aphrodite`](https://github.com/Khan/aphrodite), [`cssx`](https://github.com/krasimir/cssx)
+
+**Fourth generation**
+
+Fourth generation React styling libraries also emit CSS into DOM `<style` tags, but the styles are *dynamic*, 
+i.e. the CSS changes when `props` or `state` changes.
+
+  - *Notable examples*: `freestyler`, [`styled-components`](https://github.com/styled-components/styled-components), [`glamorous`](https://github.com/paypal/glamorous)
+
+**Fifth generation**
+
+Please report any fifth generation React styling libraries, I know only of [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).
+
+
+-----
 
 
 ### Fifth generation
 
-`freestyler` is a 4.5th generation React styling library - it injects CSS into `<style>` tags at runtime, only when
-your React component is being rendered for the first time and styles can dynamically depend on `props`, `state`, and `context`.
+`freestyler` is 5th generation React styling library - it injects CSS into `<style>` tags at runtime, only when
+your React component is being rendered for the first time and styles dynamically depend not only on `props`, `state`, and `context`,
+but also the CSS template itself can be changed dynamically.
 
 ### Lightweight
 
@@ -136,7 +144,7 @@ const template = {
 
 ### Mixins
 
-Use JavaScript's spread syntax for mixins:
+Use JavaScript's spread syntax for mixing:
 
 ```js
 const mixinRedText = {

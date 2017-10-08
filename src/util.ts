@@ -1,3 +1,4 @@
+export const noop = () => {};
 export const sym = name => `@@freestyler/${name}`;
 
 export const $$cn = sym('cn');
