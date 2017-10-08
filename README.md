@@ -63,7 +63,7 @@ const template = {
 Or, it can be a function that returns a CSS template in object form, with the following signature:
 
 ```js
-const template = (props, state, context) ={
+const template = (props, state, context) = {
     return {
         color: 'red',
         'border-radius': '3px',
@@ -74,14 +74,14 @@ const template = (props, state, context) ={
 **Static vs Dynamic templates**
 
 *Static template* is injected into the DOM only *once* and only when the component is actually rendered
-*for the first time*. It stays in the DOM forever.
+*for the first time*. It stays in the DOM until there is at least one mounted component that uses that template.
 
-*Dynamic template* is updated on *every* re-render of a component and is removed from the DOM once the component
-in unmounted.
+*Dynamic template* is updated on *every* re-render of a component it is specific to that components instance
+and is removed from the DOM once the component in unmounted.
 
 **First generation**
 
-First generation React styling don't allow you to write styling in JavaScript, instead, you have to use a *CSS pre-processor*.
+First generation React styling libraries don't allow you to write styling in JavaScript, instead, you have to use a *CSS pre-processors*.
 
   - *Notable example*: [`css-modules`](https://github.com/css-modules/css-modules)
 
@@ -93,25 +93,35 @@ Second generation React styling libraries emit inline styles in `style` property
 
 **Third generation**
 
-Third generation React styling libraries emit CSS into DOM in `<style` tags and generate unique scoped `className`
-properties, but the styles are *static*.
+Third generation React styling libraries allow you to write CSS in JavaScript and emit CSS into
+DOM in `<style>` tags and generate unique scoped `className` properties. However, the style templates are *static*,
+they are defined in module scope, thus they don't depend component `props`.
 
   - *Notable examples*: [`aphrodite`](https://github.com/Khan/aphrodite), [`cssx`](https://github.com/krasimir/cssx)
 
 **Fourth generation**
 
-Fourth generation React styling libraries also emit CSS into DOM `<style` tags, but the styles are *dynamic*, 
-i.e. the CSS changes when `props` or `state` changes.
+Just like 3rd generation libraries, fourth generation React styling libraries also emit CSS into DOM `<style>` tags, 
+but the styles are *dynamic*, i.e. the CSS changes when `props` or `state` of you component changes.
 
-  - *Notable examples*: `freestyler`, [`styled-components`](https://github.com/styled-components/styled-components), [`glamorous`](https://github.com/paypal/glamorous)
+  - *Notable examples*: [`styled-components`](https://github.com/styled-components/styled-components), [`glamorous`](https://github.com/paypal/glamorous)
 
 **Fifth generation**
 
-Please report any fifth generation React styling libraries, I know only of [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).
+Fifth generation React styling libraries have all the features of fourth generation but the templates are even more 
+dynamic (similar to how FaCCs are more dynamic than HOCs):
 
+  - Styled components can be created dynamically inside `render` functions
+  -  
+
+  - *Notable example*: `freestyler`
+  
+Please report any other fifth generation React styling libraries, 
+I have found only [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).
 
 -----
 
+# Features
 
 ### Fifth generation
 
@@ -122,7 +132,7 @@ but also the CSS template itself can be changed dynamically.
 ### Lightweight
 
 `freestyler` itself is only a couple hundred lines of code and depends on [`css-light`](https://www.npmjs.com/package/css-light)
-which is only hundred lines of code.
+which is only one hundred lines of code.
 
 ### Lightning fast
 
@@ -158,7 +168,7 @@ const template = {
 
 ### Nesting selectors
 
-`freestyler` template selectors can be nested arbitrarily deep. However, don't over use this feature, multiple levels
+`freestyler` template selectors can be nested arbitrarily deep. However, don't overuse this feature, multiple levels
 deep selectors is an anti-patter in React.
 
 Nesting example:
@@ -178,12 +188,12 @@ const template = {
 The `&` operand allows you reference the parent selector:
 
 ```js
-const template = {
+const template = props => ({
     color: 'red',
     '&:hover': {
-        color: 'blue',
+        color: props.color,
     }
-};
+});
 ```
 
 `&` can be placed anywhere in the selector string, so you can even reference global parent class names:
@@ -248,7 +258,7 @@ class Button extends Component {
 ```
 
 To make your component's styles conditional on some parent global class name, better use
-nesting operand `&` instead of global styles (this is an anti-pattern as well):
+nesting operand `&` instead of global styles (however it is an anti-pattern as well):
 
 ```jsx
 const Frame = css.styled({

@@ -1,9 +1,3 @@
-/**
- * Creates a observable that can be listened to, i.e. simple event emitter
- *
- * @see https://github.com/ReactTraining/react-broadcast
- */
-
 export type TObservalbeUnsub = (() => void);
 export type TObservableSet<T> = (state: T) => void
 export interface IObservable<T> {

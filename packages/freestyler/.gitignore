@@ -5,3 +5,6 @@ node_modules
 coverage
 package-lock.json
 yarn.lock
+/modules/
+/dist/
+/lib/

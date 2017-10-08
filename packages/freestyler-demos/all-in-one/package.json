@@ -1,7 +1,6 @@
 {
-    "name": "redux-oop-demo-react",
+    "name": "freestyler-demos-all-in-one",
     "version": "1.0.0",
-    "description": "redux-oop React demo",
     "scripts": {
         "build": "webpack"
     },
@@ -11,7 +10,6 @@
     },
     "devDependencies": {
         "webpack": "^3.6.0",
-        "typescript": "^2.5.3",
         "ts-loader": "^2.3.7"
     }
 }

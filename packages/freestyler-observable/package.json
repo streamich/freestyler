@@ -1,0 +1,26 @@
+{
+  "name": "freestyler-observable",
+  "version": "1.0.0",
+  "description": "Observable factory",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "prettier": "prettier --write 'src/**/*.{ts}'",
+    "precommit": "lint-staged",
+    "prepublish": "npm run build",
+    "build": "npm run build-ts",
+    "build-ts": "gulp build-ts",
+    "watch": "watch 'npm run build' ./src"
+  },
+  "lint-staged": {
+    "*.{ts}": ["prettier --write", "git add"]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
+  }
+}

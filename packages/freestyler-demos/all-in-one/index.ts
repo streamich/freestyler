@@ -1,8 +1,8 @@
 import {Component, createElement as h} from 'react';
 import * as React from 'react';
 import {render} from 'react-dom';
-import {createFreestyler} from '../../src/index';
-import {Theme, Themed, themed} from "../../src/theme";
+import {Theme, Themed, themed} from "../../freestyler/src/theme";
+import {createFreestyler} from "freestyler";
 
 const css = createFreestyler(React);
 
@@ -338,7 +338,7 @@ class App extends Component {
                         }}, h('pre', {}, JSON.stringify(value, null, 2)));
                     }),
                     h(ThemedBgBorder),
-                    h(ThemedBgBorder2, {}, 'trololo'),
+                    h(ThemedBgBorder2, {}, 'trololo4'),
                 ),
             ),
         );
