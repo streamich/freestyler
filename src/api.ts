@@ -5,18 +5,31 @@ import {
     TCssTemplate,
     TCssTemplateObject,
 } from './types';
-import {$$css, hidden} from './util';
+import {$$cn, $$cnt, hidden} from './util';
+
+export type TStyles = object;
 
 let classNameCounter = 1;
-export const genClassName = (...args: string[]) =>
-    `_${args.join('_')}_${classNameCounter++}`;
+export const genClassName = process.env.NODE_ENV === 'production'
+    ? (...args: string[]) => `_${classNameCounter++}`
+    : (...args: string[]) => `_${args.join('_')}_${classNameCounter++}`;
 
-const getComponentName = Component => Component.name;
-const getInstanceName = instance => getComponentName(instance.constructor);
+export const getName = Component => (typeof Component === 'object') || (typeof Component === 'function')
+    ? Component.displayName || Component.name
+    : String(Component);
+const getInstanceName = instance => getName(instance.constructor);
 const tplToStyles: (tpl: TCssTemplate, args: any[]) => TCssTemplateObject = (
     tpl,
     args
 ) => (typeof tpl === 'function' ? tpl(...args) : tpl);
+
+function removeDomElement(el) {
+    el.parentNode.removeChild(el);
+}
+
+function getById(id) {
+    return document.getElementById(id);
+}
 
 function hoistGlobalsAndWrapContext(styles, className) {
     let global = {
@@ -37,14 +50,17 @@ function hoistGlobalsAndWrapContext(styles, className) {
 }
 
 export function injectStatic(
-    Component: TComponentConstructor,
+    Comp: TComponentConstructor,
     tpl: TCssTemplate,
     args: any[]
 ) {
-    let className = Component[$$css];
-    if (className) return className;
+    let className = Comp[$$cn];
+    if (className) {
+        Comp[$$cnt]++;
+        return className;
+    }
 
-    const name = getComponentName(Component);
+    const name = getName(Comp);
     className = genClassName(...(name ? [name] : []));
 
     let styles = tplToStyles(tpl, args);
@@ -54,9 +70,27 @@ export function injectStatic(
     const el = inject(cssString);
     el.id = className;
 
-    hidden(Component, $$css, className);
+    hidden(Comp, $$cn, className);
+    hidden(Comp, $$cnt, 1);
 
     return className;
+}
+
+export function removeStatic(Comp: TComponentConstructor) {
+    const className = Comp[$$cn];
+    if (className) {
+        let cnt = Comp[$$cnt];
+        if (cnt) {
+            Comp[$$cnt]--;
+            cnt = Comp[$$cnt];
+            if (cnt < 1) {
+                const el = getById(className) as HTMLStyleElement;
+                if (el) removeDomElement(el);
+                delete Comp[$$cnt];
+                delete Comp[$$cn];
+            }
+        }
+    }
 }
 
 export function injectDynamic(
@@ -64,17 +98,17 @@ export function injectDynamic(
     tpl: TCssTemplateObject,
     args: any[]
 ) {
-    let className = instance[$$css];
+    let className = instance[$$cn];
     let el: HTMLStyleElement = null;
 
     if (!className) {
         const name = getInstanceName(instance);
         className = genClassName(...(name ? ['_', name] : ['_']));
-        hidden(instance, $$css, className);
+        hidden(instance, $$cn, className);
         el = inject('');
         el.id = className;
     } else {
-        el = document.getElementById(className) as HTMLStyleElement;
+        el = getById(className) as HTMLStyleElement;
     }
 
     let styles = tplToStyles(tpl, args);
@@ -86,11 +120,9 @@ export function injectDynamic(
 }
 
 export function removeDynamic(instance: TComponent) {
-    let className = instance[$$css];
+    const className = instance[$$cn];
     if (className) {
-        const el = document.getElementById(className) as HTMLStyleElement;
-        if (el) {
-            el.parentNode.removeChild(el);
-        }
+        const el = getById(className) as HTMLStyleElement;
+        if (el) if (el) removeDomElement(el);
     }
 }

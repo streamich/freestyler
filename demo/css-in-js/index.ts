@@ -1,6 +1,9 @@
 import {Component, createElement as h} from 'react';
+import * as React from 'react';
 import {render} from 'react-dom';
-import {css} from '../../src/index';
+import {createFreestyler} from '../../src/index';
+
+const css = createFreestyler(React);
 
 class Button extends Component {
     state = {
@@ -75,7 +78,6 @@ const SomeText = props => h('div', props, 'Some text 1');
 const YellowText = yellowBackgroundHoc(SomeText as any);
 
 class Tween extends Component<any, any> {
-
     time = Date.now();
 
     state = {
@@ -90,7 +92,7 @@ class Tween extends Component<any, any> {
 
     onInterval = () => {
         const time = Date.now();
-        if(time > this.time + this.props.time) {
+        if (time > this.time + this.props.time) {
             this.setState({value: 1});
             clearInterval(this.interval);
         } else {
@@ -110,7 +112,6 @@ class Tween extends Component<any, any> {
 }
 
 class Toggle extends Component<any, any> {
-
     state = {
         isVisible: true,
     };
@@ -121,6 +122,88 @@ class Toggle extends Component<any, any> {
         return this.props.children(this.onToggle, this.state.isVisible);
     }
 }
+
+
+const ContainerFacc = css.facc('div', {
+    border: '1px solid red',
+})((onToggle, isVisible) => Comp => [{
+    '> .content': {
+        vis: isVisible ? 'visible' : 'hidden',
+    },
+},
+    h(Comp, {},
+        h('div', {onClick: onToggle}, 'Title 4'),
+        h('div', {className: 'content'}, 'Content')
+    )
+]);
+
+const TweenFacc = css.facc('div', {
+    w: '20px',
+    h: '20px',
+    bg: 'tomato',
+    pos: 'fixed',
+    top: '40px',
+})(value => Comp => [{
+    left: (10 + value * 200) + 'px',
+}, h(Comp)]);
+
+
+
+
+const Wrapped = css.wrap('div', null, () => {
+    return (props, state, context) => {
+        return {
+            bg: 'tomato',
+            col: 'white',
+        };
+    };
+});
+
+const Bold = css.hoc({fw: 'bold'});
+const Italic = css.hoc({fs: 'italic'});
+const Underlined = css.hoc({td: 'underline'});
+const Frame = css.hoc({bd: '1px solid red'});
+
+const BoldItalicUnderlinedDiv = Bold(Italic(Underlined('div')));
+
+const Null = () => null;
+const GlobalCssHoc = (staticTemplate, dynamic?) =>
+    css.styled(Null)({_: staticTemplate}, (...args) => ({_: dynamic ? dynamic(...args) : {}}));
+
+const GlobalStyles = GlobalCssHoc({
+    body: {
+        'font-family': 'monospace',
+        // More global styling...
+    }
+});
+
+const CssReset = GlobalCssHoc({
+    html: {
+        bxz: 'border-box',
+        fz: '16px',
+    },
+    '*, *:before, *:after': {
+        bxz: 'inherit',
+    },
+    'body, h1, h2, h3, h4, h5, h6, p, ol, ul': {
+        mar: 0,
+        pad: 0,
+        fw: 'normal',
+    },
+});
+
+const DynamicGlobalStyles = GlobalCssHoc(null, ({background, theme}) => ({
+    body: {
+        background,
+        // Change globa styles dynamically as `theme` mutates.
+        col: theme.textColor,
+    }
+}));
+
+const Style = ({children}) => {
+    const EmitCss = GlobalCssHoc(null, () => children);
+    return h(EmitCss);
+};
 
 class App extends Component {
     state = {
@@ -133,9 +216,51 @@ class App extends Component {
         };
     })
     render() {
+
+        let tweenTemplate = {
+            '> .content': {
+                vis: 'visible',
+            },
+        };
+        const ToggleWrapComp = css.wrap('div', null, () => tweenTemplate);
+        ToggleWrapComp.setCss = (tpl) => tweenTemplate = tpl;
+
+
+        const Box = css.div({
+            w: '20px',
+            h: '20px',
+            bg: 'tomato',
+            pos: 'fixed',
+            top: '70px',
+        });
+
+        const TweenFacc2 = css.styled(Box)();
+
+        const Box2 = css.div({
+            w: '20px',
+            h: '20px',
+            bg: 'tomato',
+            pos: 'fixed',
+            top: '90px',
+        });
+
+        const BoxTweenFacc = css.facc(Box2)(value => Comp => [
+            {left: (10 + value * 200) + 'px'},
+            h(Comp),
+        ]);
+
         // prettier-ignore
         return h('div', {},
-            h(Button),
+            // h(GlobalStyles),
+            h(CssReset),
+            h(DynamicGlobalStyles, {background: "#eee", theme: {textColor: 'black'}}),
+            // h(Style, null, {
+            //     body: {
+            //         background: 'black',
+            //         color: 'green',
+            //     }
+            // }),
+            // h(Button),
             this.state.hide ? null : h(Button),
             h('div', {
                 onClick: () => this.setState({hide: !this.state.hide}),
@@ -160,6 +285,14 @@ class App extends Component {
                     left: (10 + value * 200) + 'px',
                 }));
             }),
+            h(Tween, {time: 2000}, TweenFacc),
+            h(Tween, {time: 2000}, (value) => {
+                TweenFacc2.css({
+                    left: (10 + value * 200) + 'px',
+                });
+                return h(TweenFacc2);
+            }),
+            h(Tween, {time: 2000}, BoxTweenFacc),
             h(Toggle, {}, (onToggle, isVisible) => {
                 const Container = css.div(null, {
                     '& .content': {
@@ -168,10 +301,25 @@ class App extends Component {
                 });
 
                 return h(Container, {},
-                    h('div', {onClick: onToggle}, 'Title'),
+                    h('div', {onClick: onToggle}, 'Title 1'),
                     h('div', {className: 'content'}, 'Content')
                 );
             }),
+            h(Toggle, {}, ContainerFacc),
+            h(Toggle, {}, (onToggle, isVisible) => {
+                ToggleWrapComp.setCss({
+                    '> .content': {
+                        vis: isVisible ? 'visible' : 'hidden',
+                    },
+                });
+                return h(ToggleWrapComp, {},
+                    h('div', {onClick: onToggle}, 'Title 3'),
+                    h('div', {className: 'content'}, 'Content')
+                );
+            }),
+            h(Wrapped, {}, 'LOL'),
+            h(Frame(Underlined(Bold(Italic('span')))), {}, 'Hello there'),
+            h(Frame(BoldItalicUnderlinedDiv), {}, 'Hello there 2')
         );
     }
 }

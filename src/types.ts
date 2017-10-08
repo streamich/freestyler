@@ -1,6 +1,4 @@
-import {Component} from 'react';
-
-export type TComponent = Component;
+export type TComponent = any;
 export type TComponentConstructor = new (...args) => TComponent;
 
 export type TCssTemplateObject = {[rule: string]: any};

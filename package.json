@@ -4,10 +4,16 @@
     "description": "4th+ generation React styling library",
     "main": "lib/index.js",
     "scripts": {
+        "clean": "rimraf modules lib dist",
         "test": "jest",
-        "prettier": "prettier --write '**/*.{js,json,css,ts}'",
+        "prettier": "prettier --write 'src/**/*.{js,json,css,ts}'",
         "precommit": "lint-staged",
-        "build": "npm run build-ts && npm run build-js",
+        "build":
+            "npm run clean && npm run build-lib && npm run build-modules && npm run build-dist && npm run build-dist-js",
+        "build-dist-js": "babel dist/common.js -o dist/common.es5.js",
+        "build-dist": "node rollup.js",
+        "build-modules": "gulp build-modules",
+        "build-lib": "npm run build-ts && npm run build-js",
         "build-ts": "gulp build-ts",
         "build-js": "babel src --out-dir lib",
         "test:coverage": "jest --coverage",
@@ -49,6 +55,9 @@
         "gulp-typescript": "3.2.1",
         "source-map-support": "0.4.15",
         "rollup": "^0.50.0",
-        "rollup-plugin-filesize": "^1.4.2"
+        "rollup-plugin-filesize": "^1.4.2",
+        "rollup-plugin-node-resolve": "^3.0.0",
+        "rollup-plugin-commonjs": "^8.2.1",
+        "rimraf": "^2.6.2"
     }
 }

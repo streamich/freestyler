@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const ts = require('gulp-typescript');
 
-gulp.task('build-lib', () => {
+gulp.task('build-ts', () => {
     return gulp
         .src(['src/**/*.ts', '!src/**/__tests__/**'])
         .pipe(

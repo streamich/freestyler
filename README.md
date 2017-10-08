@@ -1,6 +1,6 @@
 # freestyler
 
-`freestyler` is a **fourth generation** [React](https://reactjs.org/) styling library; it is *lightning fast*, super lean (only few hundred
+`freestyler` is a **fifth generation** [React](https://reactjs.org/) styling library; it is *lightning fast*, super lean (only few hundred
 lines of code), and gives every freestyler a [gazillion of features](#feat).
 
 ```
@@ -12,24 +12,24 @@ lines of code), and gives every freestyler a [gazillion of features](#feat).
 
 - Bomfunk MC's - [Freestyler](https://www.youtube.com/watch?v=ymNFyxvIdaM) 
 
-## Feat
+## feat.
 
-  - [Fourth generation](#fourth-generation)
+  - [Fifth generation](#fifth-generation)
   - [Lightweight](#lightweight)
-  - Lightning fast
+  - [Lightning fast](#lightning-fast)
+  - [Variables](#variables)
+  - [Nested selectors](#nesting-selectors)
+  - [Mixins](#mixins)
+  - [Global styles](#global-styles)
   - *"Styled"* component syntax
   - Theming
   - Media queries
-  - HOC
+  - [HOC generator](#hoc-generator)
   - FaCC
   - Render props
   - Lazy
-  - Globals
   - Static styles
   - Dynamic styles
-  - Variables
-  - Mixins
-  - Nested selectors
   - Excellent DX
   - Auto-prefixer (pluggable by env vars);
   - Atoms
@@ -106,7 +106,7 @@ lines of code), and gives every freestyler a [gazillion of features](#feat).
 > Please report any fifth generation React styling libraries, I know only of [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).
 
 
-### Fourth generation
+### Fifth generation
 
 `freestyler` is a 4.5th generation React styling library - it injects CSS into `<style>` tags at runtime, only when
 your React component is being rendered for the first time and styles can dynamically depend on `props`, `state`, and `context`.
@@ -119,6 +119,75 @@ which is only hundred lines of code.
 ### Lightning fast
 
 `freestyler` should be much faster than [`styled-components`](https://github.com/styled-components/styled-components) (I hope so, fingers crossed, somebody pls bench).
+
+### Variables
+
+Use JavaScript variables in your CSS templates:
+
+```js
+const color = 'red';
+const border = `${borderWidth}px solid red`;
+const template = {
+    color,
+    border,
+    background: '#eee',
+}
+```
+
+### Mixins
+
+Use JavaScript's spread syntax for mixins:
+
+```js
+const mixinRedText = {
+    color: 'red',
+};
+const template = {
+    ...mixinRedText,
+    background: '#eee',
+};
+```
+
+### Nesting selectors
+
+`freestyler` template selectors can be nested arbitrarily deep. However, don't over use this feature, multiple levels
+deep selectors is an anti-patter in React.
+
+Nesting example:
+
+```js
+const template = {
+    color: 'red',
+    '> div': {
+        background: '#eee',
+    },
+    '> .item': {
+        'border-left': '1px solid green',
+    },
+};
+```
+
+The `&` operand allows you reference the parent selector:
+
+```js
+const template = {
+    color: 'red',
+    '&:hover': {
+        color: 'blue',
+    }
+};
+```
+
+`&` can be placed anywhere in the selector string, so you can even reference global parent class names:
+
+```js
+const template = {
+    color: 'red',
+    '.is-mobile &': {
+        color: 'blue',
+    }
+};
+```
 
 ### Styled components
 
@@ -150,8 +219,192 @@ css.div(staticTemplate, dynamicTemplate);
 css.styled(tagName)(staticTemplate, dynamicTemplate);
 ```
 
+### Global styles
+
+Global styling is an anti-pattern, use them sparingly. In all CSS templates 
+you can use `:global` or `_` escape hatch to emit global styles:
+
+```jsx
+class Button extends Component {
+    @css({
+        ':global': {
+            '.btn-rendered': {
+                // ...
+            }
+        },
+    })
+    render() {
+        // ...
+    }
+}
+```
+
+To make your component's styles conditional on some parent global class name, better use
+nesting operand `&` instead of global styles (this is an anti-pattern as well):
+
+```jsx
+const Frame = css.styled({
+    '.is-mobile &': {
+        // Make the frame look different on mobile.
+    }
+});
+```
+
+You can use this feature to create a HOC that will allow you to just emit global CSS:
+
+```jsx
+const Null = () => null;
+const GlobalCssHoc = (staticTemplate, dynamic) =>
+    css.styled(Null)({_: staticTemplate}, (...args) => ({_: dynamic ? dynamic(...args) : {}}));
+```
+
+Now set some basic global styles for your App:
+
+```jsx
+const GlobalStyles = GlobalCssHoc({
+    body: {
+        'font-family': 'monospace',
+        // More global styling...
+    }
+});
+
+<GlobalStyles />
+```
+
+CSS reset:
+
+```jsx
+const CssReset = GlobalCssHoc({
+    html: {
+        bxz: 'border-box',
+        fz: '16px',
+    },
+    '*, *:before, *:after': {
+        bxz: 'inherit',
+    },
+    'body, h1, h2, h3, h4, h5, h6, p, ol, ul': {
+        mar: 0,
+        pad: 0,
+        fw: 'normal',
+    },
+});
+
+<CssReset />
+```
+
+Customize global styles with props and make global styles change dynamically
+as your theme changes:
+
+```jsx
+const DynamicGlobalStyles = GlobalCssHoc(null, ({background, theme}) => ({
+    body: {
+        background,
+        // Change globa styles dynamically as `theme` mutates.
+        col: theme.textColor,
+    }
+}));
+
+<DynamicGlobalStyles background="#eee" />
+```
+
+Create a *css-prop* `<Style>` component:
+
+```jsx
+const Style = ({children}) => {
+    const EmitCss = GlobalCssHoc(null, () => children);
+    return h(EmitCss);
+};
+```
+
+Now use it anywhere in your JSX like this:
+
+```jsx
+// Matrix theme.
+<div>
+    <Style>{{
+        body: {
+            background: 'black',
+            color: 'green',            
+        }
+    }}</Style>
+</div>
+```
+
 ### Atoms
 
+Atoms are a shorthand notation for common CSS rules. For example, instead of writing
+
+```js
+const template = {
+    width: '100px',
+    height: '100px',
+    'border-radius': '5px',
+    'background-color': 'yellow',
+};
+```
+
+you can instead use atoms:
+
+```js
+const template = {
+    w: '100px',
+    h: '100px',
+    bdrad: '5px',
+    bgc: 'yellow',
+};
+```
+
+List of supported atoms:
+
+```js
+{
+    d:      'display',
+    mar:    'margin',
+    mart:   'margin-top',
+    marr:   'margin-right',
+    marb:   'margin-bottom',
+    marl:   'margin-left',
+    pad:    'padding',
+    padt:   'padding-top',
+    padr:   'padding-right',
+    padb:   'padding-bottom',
+    padl:   'padding-left',
+    bd:     'border',
+    bdt:    'border-top',
+    bdr:    'border-right',
+    bdb:    'border-bottom',
+    bdl:    'border-left',
+    bdrad:  'border-radius',
+    col:    'color',
+    op:     'opacity',
+    bg:     'background',
+    bgc:    'background-color',
+    fz:     'font-size',
+    fs:     'font-style',
+    fw:     'font-weight',
+    ff:     'font-family',
+    lh:     'line-height',
+    bxz:    'box-sizing',
+    cur:    'cursor',
+    ov:     'overflow',
+    pos:    'position',
+    ls:     'list-style',
+    ta:     'text-align',
+    td:     'text-decoration',
+    fl:     'float',
+    w:      'width',
+    h:      'height',
+    trs:    'transition',
+    out:    'outline',
+    vis:    'visibility',
+    ww:     'word-wrap',
+    con:    'content',
+}
+```
 > R.I.P. [`absurdjs`](https://github.com/krasimir/absurd), your [Atoms](http://absurdjs.com/pages/css-preprocessing/organic-css/atoms/) will be in our hearts forever.
+
+## 4th Generation vs 5th Generation styling libraries
+
+
 
 Are you a freestyler?
