@@ -1,7 +1,7 @@
-import {Component} from "react";
+import {Component} from 'react';
 import * as PropTypes from 'prop-types';
-import {IObservable, observable, TObservalbeUnsub} from "./observable";
-import {noop, sym} from "./util";
+import {IObservable, observable, TObservalbeUnsub} from 'freestyler-observable';
+import {noop, sym} from 'freestyler-util';
 
 const $$context = sym('context');
 export type TValue = {[key: string]: any};
@@ -29,7 +29,9 @@ export class Provider extends Component<any, any> {
     parentValue: TValue = null;
 
     componentWillMount() {
-        const parentObservable = (this.context[$$context] || {})[this.props.name];
+        const parentObservable = (this.context[$$context] || {})[
+            this.props.name
+        ];
         if (parentObservable) {
             this.parentValue = parentObservable.get();
             this.parentUnsub = parentObservable.sub(value => {
@@ -38,7 +40,7 @@ export class Provider extends Component<any, any> {
             });
         }
 
-        this.observable = observable(this.mergeValues(this.props.value))
+        this.observable = observable(this.mergeValues(this.props.value));
     }
 
     getChildContext() {
@@ -47,13 +49,13 @@ export class Provider extends Component<any, any> {
             [$$context]: {
                 ...(this.context[$$context] || {}),
                 [this.props.name]: this.observable,
-            }
+            },
         };
     }
 
     componentWillReceiveProps(props) {
         if (this.props.value !== props.value)
-            this.observable.set(this.mergeValues(props.value))
+            this.observable.set(this.mergeValues(props.value));
     }
 
     componentWillUnmount() {
@@ -70,7 +72,6 @@ export class Provider extends Component<any, any> {
 }
 
 export class Consumer extends Component<any, any> {
-
     static propTypes = {
         name: PropTypes.string.isRequired,
         children: PropTypes.func.isRequired,
@@ -91,7 +92,9 @@ export class Consumer extends Component<any, any> {
 
         if (process.env.NODE_ENV !== 'production') {
             if (!observable) {
-                throw new Error(`Context observable "${this.props.name}" not found.`);
+                throw new Error(
+                    `Context observable "${this.props.name}" not found.`
+                );
             }
         }
 
@@ -106,8 +109,8 @@ export class Consumer extends Component<any, any> {
 
     componentDidMount() {
         this.unsub = this.observable().sub(value => {
-            this.setState({value})
-        })
+            this.setState({value});
+        });
     }
 
     componentWillUnmount() {

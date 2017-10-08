@@ -1,5 +1,12 @@
 import {TComponentConstructor, TCssTemplate} from './types';
-import {getName, injectDynamic, injectStatic, removeDynamic, removeStatic, TStyles} from './api';
+import {
+    getName,
+    injectDynamic,
+    injectStatic,
+    removeDynamic,
+    removeStatic,
+    TStyles,
+} from './api';
 
 export type TElement =
     | string
@@ -147,9 +154,14 @@ export function createFreestyler(
 
     function styled(Element: TElement): TStyled<TComponentConstructor> {
         return (template?: TCssTemplate, dynamicTemplate?: TCssTemplate) => {
-            const Comp = wrap(Element, template, () => dynamicTemplate, 'styled') as any;
+            const Comp = wrap(
+                Element,
+                template,
+                () => dynamicTemplate,
+                'styled'
+            ) as any;
 
-            Comp.css = (newDynamicTemplate) => {
+            Comp.css = newDynamicTemplate => {
                 dynamicTemplate = newDynamicTemplate;
             };
 
@@ -165,9 +177,14 @@ export function createFreestyler(
         dynamicTemplate?: TCssTemplate
     ): THoc {
         return (Element: TElement) => {
-            const Comp = wrap(Element, template, () => dynamicTemplate, 'hoc') as any;
+            const Comp = wrap(
+                Element,
+                template,
+                () => dynamicTemplate,
+                'hoc'
+            ) as any;
 
-            Comp.css = (newDynamicTemplate) => {
+            Comp.css = newDynamicTemplate => {
                 dynamicTemplate = newDynamicTemplate;
             };
 
@@ -175,15 +192,15 @@ export function createFreestyler(
         };
     }
 
-    function facc (Element: TElement = 'div', template: TCssTemplate = null) {
+    function facc(Element: TElement = 'div', template: TCssTemplate = null) {
         let dynamicTemplate = null;
         const Comp = wrap(Element, template, () => dynamicTemplate, 'facc');
 
-        return (childrenCallback) => {
+        return childrenCallback => {
             return (...args) => {
                 let ast;
                 [dynamicTemplate, ast] = childrenCallback(...args)(Comp);
-                return ast
+                return ast;
             };
         };
     }

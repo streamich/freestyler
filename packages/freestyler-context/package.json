@@ -1,0 +1,21 @@
+{
+  "name": "freestyler-context",
+  "version": "1.0.0",
+  "description": "React context provider and consumer HOC and FaCC",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "prepublish": "npm run build",
+    "build": "gulp build"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$":
+      "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
+    },
+    "transformIgnorePatterns": [],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
+  }
+}

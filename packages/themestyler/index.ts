@@ -1,12 +1,16 @@
-import {Component, createElement as h} from "react";
-import {Consumer, Provider, TValue} from "./context";
-import {THoc} from "./index";
+import {Component, createElement as h} from 'react';
+import {Consumer, Provider, TValue} from 'freestyler-context';
 
+export type TElement =
+    | string
+    | (new (...args) => Component)
+    | ((props?, state?, context?) => any);
+export type THoc = (Element: TElement) => TElement;
 export type TTheme = TValue;
 
 export interface IThemeProps {
-    name?: string,
-    value: TTheme,
+    name?: string;
+    value: TTheme;
 }
 
 export class Theme extends Component<IThemeProps, any> {
@@ -17,7 +21,7 @@ export class Theme extends Component<IThemeProps, any> {
 }
 
 export interface IThemedProps {
-    name?: string,
+    name?: string;
 }
 
 export class Themed extends Component<IThemedProps, any> {
@@ -27,8 +31,7 @@ export class Themed extends Component<IThemedProps, any> {
     }
 }
 
-export const themed: THoc = (Element, name = 'theme') => props => (
+export const themed: THoc = (Element, name = 'theme') => props =>
     h(Consumer, {name}, value => {
         return h(Element, {...props, [name]: value});
-    })
-);
+    });

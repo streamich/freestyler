@@ -5,18 +5,20 @@ import {
     TCssTemplate,
     TCssTemplateObject,
 } from './types';
-import {$$cn, $$cnt, hidden} from './util';
+import {$$cn, $$cnt, hidden} from 'freestyler-util';
 
 export type TStyles = object;
 
 let classNameCounter = 1;
-export const genClassName = process.env.NODE_ENV === 'production'
-    ? (...args: string[]) => `_${classNameCounter++}`
-    : (...args: string[]) => `_${args.join('_')}_${classNameCounter++}`;
+export const genClassName =
+    process.env.NODE_ENV === 'production'
+        ? (...args: string[]) => `_${classNameCounter++}`
+        : (...args: string[]) => `_${args.join('_')}_${classNameCounter++}`;
 
-export const getName = Component => (typeof Component === 'object') || (typeof Component === 'function')
-    ? Component.displayName || Component.name
-    : String(Component);
+export const getName = Component =>
+    typeof Component === 'object' || typeof Component === 'function'
+        ? Component.displayName || Component.name
+        : String(Component);
 const getInstanceName = instance => getName(instance.constructor);
 const tplToStyles: (tpl: TCssTemplate, args: any[]) => TCssTemplateObject = (
     tpl,

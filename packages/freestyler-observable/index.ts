@@ -1,12 +1,12 @@
 export type TObservalbeUnsub = (() => void);
-export type TObservableSet<T> = (state: T) => void
+export type TObservableSet<T> = (state: T) => void;
 export interface IObservable<T> {
     get: () => T;
     set: TObservableSet<T>;
     sub: (listener: TObservableSet<T>) => TObservalbeUnsub;
 }
 
-export const observable: <T>(state: T) => IObservable<T> = (state) => {
+export const observable: <T>(state: T) => IObservable<T> = state => {
     let listeners = [];
     let currentState = state;
 
@@ -20,7 +20,7 @@ export const observable: <T>(state: T) => IObservable<T> = (state) => {
     const sub = listener => {
         listeners.push(listener);
 
-        return () => listeners = listeners.filter(item => item !== listener);
+        return () => (listeners = listeners.filter(item => item !== listener));
     };
 
     return {

@@ -12,3 +12,4 @@ coverage
 package-lock.json
 yarn.lock
 tsconfig.json
+gulpfile.js

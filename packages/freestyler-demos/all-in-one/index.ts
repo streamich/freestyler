@@ -1,8 +1,8 @@
 import {Component, createElement as h} from 'react';
 import * as React from 'react';
 import {render} from 'react-dom';
-import {Theme, Themed, themed} from "../../freestyler/src/theme";
-import {createFreestyler} from "freestyler";
+import {Theme, Themed, themed} from '../../freestyler/src/theme';
+import {createFreestyler} from 'freestyler';
 
 const css = createFreestyler(React);
 
@@ -124,18 +124,20 @@ class Toggle extends Component<any, any> {
     }
 }
 
-
 const ContainerFacc = css.facc('div', {
     border: '1px solid red',
-})((onToggle, isVisible) => Comp => [{
-    '> .content': {
-        vis: isVisible ? 'visible' : 'hidden',
+})((onToggle, isVisible) => Comp => [
+    {
+        '> .content': {
+            vis: isVisible ? 'visible' : 'hidden',
+        },
     },
-},
-    h(Comp, {},
+    h(
+        Comp,
+        {},
         h('div', {onClick: onToggle}, 'Title 4'),
         h('div', {className: 'content'}, 'Content')
-    )
+    ),
 ]);
 
 const TweenFacc = css.facc('div', {
@@ -144,12 +146,12 @@ const TweenFacc = css.facc('div', {
     bg: 'tomato',
     pos: 'fixed',
     top: '40px',
-})(value => Comp => [{
-    left: (10 + value * 200) + 'px',
-}, h(Comp)]);
-
-
-
+})(value => Comp => [
+    {
+        left: 10 + value * 200 + 'px',
+    },
+    h(Comp),
+]);
 
 const Wrapped = css.wrap('div', null, () => {
     return (props, state, context) => {
@@ -169,13 +171,15 @@ const BoldItalicUnderlinedDiv = Bold(Italic(Underlined('div')));
 
 const Null = () => null;
 const GlobalCssHoc = (staticTemplate, dynamic?) =>
-    css.styled(Null)({_: staticTemplate}, (...args) => ({_: dynamic ? dynamic(...args) : {}}));
+    css.styled(Null)({_: staticTemplate}, (...args) => ({
+        _: dynamic ? dynamic(...args) : {},
+    }));
 
 const GlobalStyles = GlobalCssHoc({
     body: {
         'font-family': 'monospace',
         // More global styling...
-    }
+    },
 });
 
 const CssReset = GlobalCssHoc({
@@ -198,7 +202,7 @@ const DynamicGlobalStyles = GlobalCssHoc(null, ({background, theme}) => ({
         background,
         // Change globa styles dynamically as `theme` mutates.
         col: theme.textColor,
-    }
+    },
 }));
 
 const Style = ({children}) => {
@@ -206,7 +210,8 @@ const Style = ({children}) => {
     return h(EmitCss);
 };
 
-const BgBorder = ({theme}) => h('div', {style: {border: '1px solid ' + theme.background}}, 'bg-border');
+const BgBorder = ({theme}) =>
+    h('div', {style: {border: '1px solid ' + theme.background}}, 'bg-border');
 const ThemedBgBorder = themed(BgBorder);
 
 const BgBorder2 = css.div(({theme}) => ({
@@ -225,15 +230,13 @@ class App extends Component {
         };
     })
     render() {
-
         let tweenTemplate = {
             '> .content': {
                 vis: 'visible',
             },
         };
         const ToggleWrapComp = css.wrap('div', null, () => tweenTemplate);
-        ToggleWrapComp.setCss = (tpl) => tweenTemplate = tpl;
-
+        ToggleWrapComp.setCss = tpl => (tweenTemplate = tpl);
 
         const Box = css.div({
             w: '20px',
@@ -254,7 +257,7 @@ class App extends Component {
         });
 
         const BoxTweenFacc = css.facc(Box2)(value => Comp => [
-            {left: (10 + value * 200) + 'px'},
+            {left: 10 + value * 200 + 'px'},
             h(Comp),
         ]);
 
