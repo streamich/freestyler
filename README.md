@@ -42,7 +42,34 @@ lines of code), and gives every freestyler a [gazillion of features](#feat).
   - Keyframes animation helper
   - Browser state styles to support `:hover`, `:focus`, and `:active`
   - middleware
+  - Uses CSS variables for dynamic templates
 
+# Usage
+
+Style stateful components:
+
+```jsx
+import {createFreestyler} from 'freestyler';
+
+const css = createFreestyler();
+
+class App extends Component {
+    @css({
+        border: '1px solid red',
+    })
+    render () {
+        return <div>Hello world</div>;
+    }
+}
+```
+
+Create "styled" components:
+
+```jsx
+const Bordered = css.div({
+    border: '1px solid red',
+});
+```
 
 -----
 
@@ -97,14 +124,23 @@ Third generation React styling libraries allow you to write CSS in JavaScript an
 DOM in `<style>` tags and generate unique scoped `className` properties. However, the style templates are *static*,
 they are defined in module scope, thus they don't depend component `props`.
 
-  - *Notable examples*: [`aphrodite`](https://github.com/Khan/aphrodite), [`cssx`](https://github.com/krasimir/cssx)
+*Notable examples*:
+
+  - [`aphrodite`](https://github.com/Khan/aphrodite)
+  - [`cssx`](https://github.com/krasimir/cssx)
+  - [`glamor`](https://github.com/threepointone/glamor)
 
 **Fourth generation**
 
 Just like 3rd generation libraries, fourth generation React styling libraries also emit CSS into DOM `<style>` tags, 
 but the styles are *dynamic*, i.e. the CSS changes when `props` or `state` of you component changes.
 
-  - *Notable examples*: [`styled-components`](https://github.com/styled-components/styled-components), [`glamorous`](https://github.com/paypal/glamorous)
+*Notable examples*:
+
+  - [`styled-components`](https://github.com/styled-components/styled-components)
+  - [`glamorous`](https://github.com/paypal/glamorous)
+  
+*Note: please report any other 4th gen solutions.*
 
 **Fifth generation**
 
@@ -112,9 +148,13 @@ Fifth generation React styling libraries have all the features of fourth generat
 dynamic (similar to how FaCCs are more dynamic than HOCs):
 
   - Styled components can be created dynamically inside `render` functions
-  -  
+  - The css template can change dynamically at any point, even inside the `render` functions or in FaCC functions
 
-  - *Notable example*: `freestyler`
+*Notable example*:
+  
+  - `freestyler`
+  
+*Note: please report any other 5th gen solutions.*
   
 Please report any other fifth generation React styling libraries, 
 I have found only [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).
