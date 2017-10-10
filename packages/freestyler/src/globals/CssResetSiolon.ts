@@ -1,4 +1,4 @@
-import {global} from './util';
+import {global} from './index';
 
 export default global({
     '*': {

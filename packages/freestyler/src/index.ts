@@ -4,7 +4,7 @@ import {
     TCssDynamicTemplate,
     TCssTemplate,
 } from './types';
-import createStandardRenderer from './renderers/createStandardRenderer';
+import createDefaultRenderer from './renderers/createDefaultRenderer';
 import {getName, IRenderer} from './renderers/util';
 import {TStyles} from './ast';
 import createStyled from './primitives/createStyled';
@@ -47,142 +47,132 @@ export interface IFreestylerOpts {
     renderer?: IRenderer;
 }
 
-export function createFreestyler(opts: IFreestylerOpts = {}): ICss {
-    let renderer = opts.renderer || createStandardRenderer();
+let renderer = createDefaultRenderer();
 
-    const css: ICss = function css(tpl: TCssTemplate, dynamic?: boolean) {
-        return (instance, key, descriptor) => {
-            if (!tpl) return descriptor;
+export const css: ICss = function css(tpl: TCssTemplate, dynamic?: boolean) {
+    return (instance, key, descriptor) => {
+        if (!tpl) return descriptor;
 
-            const Comp: TComponentConstructor = instance.constructor;
-            const {value} = descriptor;
-            const {componentWillUnmount} = instance;
+        const Comp: TComponentConstructor = instance.constructor;
+        const {value} = descriptor;
+        const {componentWillUnmount} = instance;
 
-            instance.componentWillUnmount = function() {
-                if (componentWillUnmount)
-                    componentWillUnmount.apply(this, arguments);
-                if (dynamic) {
-                    renderer.removeDynamic(this);
-                } else {
-                    renderer.removeStatic(Comp);
-                }
-            };
-
-            return {
-                ...descriptor,
-                value: function render() {
-                    const rendered = value.apply(this, arguments);
-                    const {props} = rendered;
-                    const {state, context} = this;
-                    const className = dynamic
-                        ? renderer.injectDynamic(this, tpl, [
-                              props,
-                              state,
-                              context,
-                          ])
-                        : renderer.injectStatic(Comp, tpl, [
-                              props,
-                              state,
-                              context,
-                          ]);
-                    const oldClassName = props.className || '';
-                    return cloneElement(
-                        rendered,
-                        {
-                            ...props,
-                            className:
-                                oldClassName +
-                                (oldClassName ? ' ' : '') +
-                                className,
-                        },
-                        rendered.props.children
-                    );
-                },
-            };
+        instance.componentWillUnmount = function() {
+            if (componentWillUnmount)
+                componentWillUnmount.apply(this, arguments);
+            if (dynamic) {
+                renderer.removeDynamic(this);
+            } else {
+                renderer.removeStatic(Comp);
+            }
         };
-    } as ICss;
 
-    function wrap(
-        Element: TElement,
-        template?: TCssTemplate,
-        dynamicTemplateGetter?: TCssDynamicTemplate,
-        displayName: string = 'wrap'
-    ) {
-        let staticClassName: string;
-        const name = getName(Element);
-        const Wrap = class Wrap extends Component<any, any> {
-            static displayName = displayName + (name ? `__${name}` : '');
+        return {
+            ...descriptor,
+            value: function render() {
+                const rendered = value.apply(this, arguments);
+                const {props} = rendered;
+                const {state, context} = this;
+                const className = dynamic
+                    ? renderer.injectDynamic(this, tpl, [props, state, context])
+                    : renderer.injectStatic(Comp, tpl, [props, state, context]);
+                const oldClassName = props.className || '';
+                return cloneElement(
+                    rendered,
+                    {
+                        ...props,
+                        className:
+                            oldClassName +
+                            (oldClassName ? ' ' : '') +
+                            className,
+                    },
+                    rendered.props.children
+                );
+            },
+        };
+    };
+} as ICss;
 
-            cN: string = '';
+export function wrap(
+    Element: TElement,
+    template?: TCssTemplate,
+    dynamicTemplateGetter?: TCssDynamicTemplate,
+    displayName: string = 'wrap'
+) {
+    let staticClassName: string;
+    const name = getName(Element);
+    const Wrap = class Wrap extends Component<any, any> {
+        static displayName = displayName + (name ? `__${name}` : '');
 
-            onRender(props, state, context) {
-                if (!dynamicTemplateGetter) return;
-                const dynamicTemplate = dynamicTemplateGetter();
-                if (!dynamicTemplate) return;
+        cN: string = '';
 
-                this.cN = renderer.injectDynamic(this, dynamicTemplate, [
+        onRender(props, state, context) {
+            if (!dynamicTemplateGetter) return;
+            const dynamicTemplate = dynamicTemplateGetter();
+            if (!dynamicTemplate) return;
+
+            this.cN = renderer.injectDynamic(this, dynamicTemplate, [
+                props,
+                state,
+                context,
+            ]);
+        }
+
+        componentWillMount() {
+            const {props, state, context} = this;
+
+            if (template) {
+                staticClassName = renderer.injectStatic(Wrap, template, [
                     props,
                     state,
                     context,
                 ]);
             }
 
-            componentWillMount() {
-                const {props, state, context} = this;
+            this.onRender(props, state, context);
+        }
 
-                if (template) {
-                    staticClassName = renderer.injectStatic(Wrap, template, [
-                        props,
-                        state,
-                        context,
-                    ]);
-                }
+        componentWillUpdate(props, state, context) {
+            this.onRender(props, state, context);
+        }
 
-                this.onRender(props, state, context);
-            }
+        componentWillUnmount() {
+            renderer.removeDynamic(this);
+            renderer.removeStatic(Wrap);
+        }
 
-            componentWillUpdate(props, state, context) {
-                this.onRender(props, state, context);
-            }
-
-            componentWillUnmount() {
-                renderer.removeDynamic(this);
-                renderer.removeStatic(Wrap);
-            }
-
-            render() {
-                let {className, ...props} = this.props;
-                className = className || '';
-                if (staticClassName)
-                    className += (className ? ' ' : '') + staticClassName;
-                if (this.cN) className += (className ? ' ' : '') + this.cN;
-                return h(Element, {...props, className});
-            }
-        };
-
-        return Wrap;
-    }
-
-    const styled = createStyled(wrap);
-    const hoc = createHoc(wrap);
-    const facc = createFacc(wrap);
-
-    const div = styled('div');
-    const span = styled('span');
-
-    const freestyler = {
-        css,
-        wrap,
-        styled,
-        hoc,
-        facc,
-        div,
-        span,
+        render() {
+            let {className, ...props} = this.props;
+            className = className || '';
+            if (staticClassName)
+                className += (className ? ' ' : '') + staticClassName;
+            if (this.cN) className += (className ? ' ' : '') + this.cN;
+            return h(Element, {...props, className});
+        }
     };
 
-    for (const name in freestyler) css[name] = freestyler[name];
-
-    return css;
+    return Wrap;
 }
 
-export const css = createFreestyler();
+export const styled = createStyled(wrap);
+export const hoc = createHoc(wrap);
+export const facc = createFacc(wrap);
+
+export const div = styled('div');
+export const span = styled('span');
+
+const freestyler = {
+    css,
+    wrap,
+    styled,
+    hoc,
+    facc,
+    div,
+    span,
+
+    setRenderer: r => (renderer = r),
+};
+
+for (const name in freestyler) css[name] = freestyler[name];
+
+export default freestyler;

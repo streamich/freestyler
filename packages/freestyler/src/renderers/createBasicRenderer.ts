@@ -113,6 +113,9 @@ const createStandardRenderer: TRendererFactory = () => {
         tpl: TCssTemplateObject,
         args: any[]
     ) => {
+        let styles = tplToStyles(tpl, args);
+        if (!styles) return;
+
         let className = instance[$$cn];
         let el: HTMLStyleElement = null;
 
@@ -126,7 +129,6 @@ const createStandardRenderer: TRendererFactory = () => {
             el = getById(className) as HTMLStyleElement;
         }
 
-        let styles = tplToStyles(tpl, args);
         styles = hoistGlobalsAndWrapContext(styles, className);
         const stylesheet = toStyleSheet(styles);
         const cssString = toCss(stylesheet);

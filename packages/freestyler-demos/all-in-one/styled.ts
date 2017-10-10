@@ -5,6 +5,8 @@ import CssReset from '../../freestyler/src/globals/CssResetTripoli';
 
 const Box = css.div({
     bd: '1px solid red',
+    bg: 'tomato',
+    col: '#fff',
     w: '100px',
     h: '100px',
     '.nested': {
@@ -20,6 +22,7 @@ class App extends Component {
         // prettier-ignore
         return h('div', {},
             h(CssReset),
+            h(Box, {}, '1'),
             h(Box, {}, '2'),
         );
     }

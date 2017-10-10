@@ -1,7 +1,12 @@
-freestyler-observable
+# freestyler-observable
 
-Creates a simple observale object, with `.get(value)`, `.set()` and `.sub(listener) => unsub()`
-methods. You can add any number of listeners to it.
+Creates a simple observale object, with the following API:
+
+  - `.get(value)`
+  - `.set()`
+  - `.sub(listener) => unsub()`
+
+You can add any number of listeners using `.sub()`, it returns and *unsubscribe* method.
 
 ```js
 import {observable} from 'freestyle-observable';
