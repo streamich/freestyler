@@ -36,8 +36,9 @@ const visitor: TVisitor = {
                 selectors +
                 '-' +
                 property;
+            variableName = variableName.substr(1);
             variableName = variableName.replace(/[^a-zA-Z0-9_]/g, '-');
-            variableName = '--__' + variableName;
+            variableName = '--' + variableName;
             // newDeclarations.push([variableName, value]);
             document.documentElement.style.setProperty(
                 variableName,
