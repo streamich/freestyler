@@ -5,7 +5,14 @@ import {
     TCssTemplateObject,
 } from '../types';
 import {$$cn, $$cnt, hidden} from '../../../freestyler-util/index';
-import {toCss, toStyleSheet, TStyles, TStyleSheet} from '../ast';
+import {
+    TAtrule,
+    toCss,
+    toStyleSheet,
+    TRule,
+    TStyles,
+    TStyleSheet,
+} from '../ast';
 import {
     getInstanceName,
     getName,
@@ -15,8 +22,8 @@ import {
     TRendererFactory,
 } from './util';
 import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
+import {TVisitor, visit} from '../visit';
 
-/*
 const visitor: TVisitor = {
     rule: (rule: TRule, atrule?: TAtrule) => {
         const [selectors, declarations] = rule;
@@ -41,7 +48,7 @@ const visitor: TVisitor = {
 
         return [selectors, newDeclarations];
     },
-};*/
+};
 
 const createStandardRenderer: TRendererFactory = () => {
     let middlewares: IMiddleware[] = [];
@@ -150,6 +157,7 @@ const createStandardRenderer: TRendererFactory = () => {
         }
 
         const stylesheet = stylesToStylesheet(styles, className);
+        visit(stylesheet, visitor);
         const cssString = toCss(stylesheet);
         if (el.innerText !== cssString) el.innerText = cssString;
 

@@ -1,7 +1,14 @@
 # freestyler
 
-`freestyler` is a [**fifth generation**](#fifth-generation) [React](https://reactjs.org/) styling library; it is *lightning fast*, super lean (only few hundred
-lines of code), and gives every freestyler a [gazillion of features](#feat).
+[![][npm-badge]][npm-url] [![][travis-badge]][travis-url]
+
+[npm-url]: https://www.npmjs.com/package/freestyler
+[npm-badge]: https://img.shields.io/npm/v/freestyler.svg
+[travis-url]: https://travis-ci.org/streamich/freestyler
+[travis-badge]: https://travis-ci.org/streamich/freestyler.svg?branch=master
+
+[`freestyler`][npm-url] is a [**fifth generation**](#fifth-generation) [React](https://reactjs.org/) styling library; 
+it is *lightning fast*, super lean and gives every freestyler a [gazillion of features](#feat).
 
 ```
     Yeah, straight from the top of my dome
@@ -41,11 +48,17 @@ lines of code), and gives every freestyler a [gazillion of features](#feat).
   - [ ] TODO: Source order independence
   - [ ] TODO: Highly expressive
   - [ ] TODO: Browser state styles to support `:hover`, `:focus`, and `:active`
-  - [ ] TODO: Middleware
   - [ ] TODO: Uses CSS variables for dynamic templates
   - [ ] TODO: Testing, snapshots
+  - [ ] TODO: Middleware
+  - [ ] TODO: Renderers
 
-# Example
+# Usage
+
+Install:
+
+    npm install --save freestyler themestyler
+    yarn add freestyler themestyler
 
 First import the library:
 
@@ -138,7 +151,7 @@ they are defined in module scope, thus they don't depend component `props`.
 **Fourth generation**
 
 Just like 3rd generation libraries, fourth generation React styling libraries also emit CSS into DOM `<style>` tags, 
-but the styles are *dynamic*, i.e. the CSS changes when `props` or `state` of you component changes.
+but the styles are *dynamic*, i.e. the CSS changes when `props` or `state` of your component changes.
 
 *Notable examples*:
 
@@ -158,11 +171,9 @@ dynamic (similar to how FaCCs are more dynamic than HOCs):
 *Notable example*:
   
   - `freestyler`
-  
-*Note: please report any other 5th gen solutions.*
-  
-Please report any other fifth generation React styling libraries, 
-I have found only [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).
+
+*Note: Please report any other fifth generation React styling libraries, 
+I have found only [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).*
 
 -----
 
@@ -633,7 +644,7 @@ import {Themed} from 'themestyler';
 
 # 4th Generation vs 5th Generation styling libraries
 
-To put it simply, the 4th generation CSS styling libraries is a function of props:
+To put it simply, a CSS template in 4th generation styling libraries is a function of props:
 
     (props) => CSS
     
@@ -641,7 +652,10 @@ In `freestyler` the template is a closure that is being return by another level 
 
     () => (props) => CSS
     
-This way the template (`(props) => CSS`) itself can be changed at any time.
+This way the template (`(props) => CSS`) itself can be changed dynamically.
+
+
+
 
 
 # Packages
@@ -649,6 +663,18 @@ This way the template (`(props) => CSS`) itself can be changed at any time.
   - `themestyler` - theming primitives designed for `freestyler`, but can be used in any React project.
   - `freestyler-context` - generic React context pub/sub that shallowly merges contexts with the same name.
   - `freestyler-observable` - observable factory.
+
+
+
+
+# Reference
+
+  - [ ] TODO: Primitives
+  - [ ] TODO: `wrap`
+  - [ ] TODO: Low-level API
+  - [ ] TODO: Middleware
+  - [ ] TODO: Renderers
+
 
 
 -------

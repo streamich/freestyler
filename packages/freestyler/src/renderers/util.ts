@@ -4,6 +4,12 @@ import {
     TCssTemplate,
     TCssTemplateObject,
 } from '../types';
+import {TStyles, TStyleSheet} from '../ast';
+
+export interface IMiddleware {
+    styles: (TStyles) => TStyles;
+    stylesheet: (TStyleSheet) => TStyleSheet;
+}
 
 export interface IRenderer {
     injectStatic(
@@ -14,6 +20,7 @@ export interface IRenderer {
     removeStatic(Comp: TComponentConstructor);
     injectDynamic(instance: TComponent, tpl: TCssTemplateObject, args: any[]);
     removeDynamic(instance: TComponent);
+    use(middleware: IMiddleware);
 }
 
 export type TRendererFactory = () => IRenderer;

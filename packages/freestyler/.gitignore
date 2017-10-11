@@ -5,6 +5,7 @@ node_modules
 coverage
 package-lock.json
 yarn.lock
+yarn-error.log
 /modules/
 /dist/
 /lib/

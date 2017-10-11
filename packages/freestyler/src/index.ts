@@ -41,12 +41,6 @@ export interface ICss {
     facc;
 }
 
-export type TMiddleware = (styles: TStyles) => TStyles;
-
-export interface IFreestylerOpts {
-    renderer?: IRenderer;
-}
-
 let renderer = createDefaultRenderer();
 
 export const css: ICss = function css(tpl: TCssTemplate, dynamic?: boolean) {
@@ -169,9 +163,10 @@ const freestyler = {
     facc,
     div,
     span,
-
-    setRenderer: r => (renderer = r),
 };
+
+export const getRenderer = () => renderer;
+export const setRenderer = (r: IRenderer) => (renderer = r);
 
 for (const name in freestyler) css[name] = freestyler[name];
 
