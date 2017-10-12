@@ -51,7 +51,7 @@ const visitor: TVisitor = {
     },
 };
 
-const createStandardRenderer: TRendererFactory = () => {
+const createVirtualStaticsRenderer: TRendererFactory = () => {
     let middlewares: IMiddleware[] = [];
     let classNameCounter = 1;
 
@@ -181,4 +181,4 @@ const createStandardRenderer: TRendererFactory = () => {
     };
 };
 
-export default createStandardRenderer;
+export default createVirtualStaticsRenderer;

@@ -2,7 +2,7 @@ import {
     TComponent,
     TComponentConstructor,
     TCssTemplate,
-    TCssTemplateObject,
+    IStyles,
 } from '../types';
 import {TStyles, TStyleSheet} from '../ast';
 
@@ -18,7 +18,7 @@ export interface IRenderer {
         args: any[]
     ): string;
     removeStatic(Comp: TComponentConstructor);
-    injectDynamic(instance: TComponent, tpl: TCssTemplateObject, args: any[]);
+    injectDynamic(instance: TComponent, tpl: IStyles, args: any[]);
     removeDynamic(instance: TComponent);
     use(middleware: IMiddleware);
 }

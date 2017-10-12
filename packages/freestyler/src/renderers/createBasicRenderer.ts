@@ -2,7 +2,7 @@ import {
     TComponent,
     TComponentConstructor,
     TCssTemplate,
-    TCssTemplateObject,
+    IStyles,
 } from '../types';
 import {$$cn, $$cnt, hidden} from '../../../freestyler-util/index';
 import {toCss, toStyleSheet, TStyles, TStyleSheet} from '../ast';
@@ -52,11 +52,10 @@ const createStandardRenderer: TRendererFactory = () => {
             ? (...args: string[]) => `_${classNameCounter++}`
             : (...args: string[]) => `_${args.join('_')}_${classNameCounter++}`;
 
-    const tplToStyles: (
-        tpl: TCssTemplate,
-        args: any[]
-    ) => TCssTemplateObject = (tpl, args) =>
-        typeof tpl === 'function' ? tpl(...args) : tpl;
+    const tplToStyles: (tpl: TCssTemplate, args: any[]) => IStyles = (
+        tpl,
+        args
+    ) => (typeof tpl === 'function' ? tpl(...args) : tpl);
 
     function removeDomElement(el) {
         el.parentNode.removeChild(el);
@@ -128,11 +127,7 @@ const createStandardRenderer: TRendererFactory = () => {
         }
     };
 
-    const injectDynamic = (
-        instance: TComponent,
-        tpl: TCssTemplateObject,
-        args: any[]
-    ) => {
+    const injectDynamic = (instance: TComponent, tpl: IStyles, args: any[]) => {
         let styles = tplToStyles(tpl, args);
         if (!styles) return;
 

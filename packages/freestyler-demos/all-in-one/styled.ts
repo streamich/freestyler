@@ -4,6 +4,7 @@ import {css, getRenderer, setRenderer} from '../../freestyler/src';
 import CssReset from '../../freestyler/src/globals/CssResetTripoli';
 import logger from '../../freestyler/src/middleware/logger';
 import createCssVarsRenderer from '../../freestyler/src/renderers/createBasicCssVarsRenderer';
+import {IStyles} from '../../freestyler/src/types';
 
 const renderer = createCssVarsRenderer();
 renderer.use(logger);

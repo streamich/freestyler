@@ -7,6 +7,7 @@
 [travis-url]: https://travis-ci.org/streamich/freestyler
 [travis-badge]: https://travis-ci.org/streamich/freestyler.svg?branch=master
 
+
 [`freestyler`][npm-url] is a [**fifth generation**](#fifth-generation) [React](https://reactjs.org/) styling library; 
 it is *lightning fast*, super lean and gives every freestyler a [gazillion of features](#feat).
 
@@ -30,6 +31,7 @@ it is *lightning fast*, super lean and gives every freestyler a [gazillion of fe
   - [Variables](#variables)
   - [Scoped styles without selectors](#scoped-styles)
   - [Nested selectors](#nesting-selectors)
+    - [ ] Use `$` for nesting
   - [Mixins](#mixins)
   - [Media queries, keyframes, ...](#media-queries)
   - [Atoms](#atoms)
@@ -52,6 +54,8 @@ it is *lightning fast*, super lean and gives every freestyler a [gazillion of fe
   - [ ] TODO: Testing, snapshots
   - [ ] TODO: Middleware
   - [ ] TODO: Renderers
+  - [ ] TODO: Type-safe, typescript support
+  - [ ] TODO: Use ["virtual CSS"](https://ryantsao.com/blog/virtual-css-with-styletron) in static templates  
 
 # Usage
 
@@ -126,15 +130,19 @@ and is removed from the DOM once the component in unmounted.
 
 **First generation**
 
-First generation React styling libraries don't allow you to write styling in JavaScript, instead, you have to use a *CSS pre-processors*.
+First generation React styling libraries don't allow you to write styling in JavaScript, instead, you have to use *CSS pre-processors*.
 
-  - *Notable example*: [`css-modules`](https://github.com/css-modules/css-modules)
+  - *Notable example*: [`css-modules`][lib-css-modules]
+  
+[lib-css-modules]: https://github.com/css-modules/css-modules
 
 **Second generation**
 
 Second generation React styling libraries emit inline styles in `style` property of your JSX elements (i.e. use *inline styles*).
 
-  - *Notable example*: [`Radium`](https://github.com/FormidableLabs/radium)
+  - *Notable example*: [`Radium`][lib-radius]
+  
+[lib-radium]: https://github.com/FormidableLabs/radium
 
 **Third generation**
 
@@ -142,21 +150,22 @@ Third generation React styling libraries allow you to write CSS in JavaScript an
 DOM in `<style>` tags and generate unique scoped `className` properties. However, the style templates are *static*,
 they are defined in module scope, thus they don't depend component `props`.
 
-*Notable examples*:
+*Examples*: [`aphrodite`][lib-aphrodite], [`cssx`][lib-cssx], [`glamor`][lib-glamor], [`typestype`][lib-typestype]
 
-  - [`aphrodite`](https://github.com/Khan/aphrodite)
-  - [`cssx`](https://github.com/krasimir/cssx)
-  - [`glamor`](https://github.com/threepointone/glamor)
+[lib-aphrodite]: https://github.com/Khan/aphrodite
+[lib-cssx]: https://github.com/krasimir/cssx
+[lib-glamor]: https://github.com/threepointone/glamor
+[lib-typestype]: https://github.com/typestyle/typestyle
 
 **Fourth generation**
 
 Just like 3rd generation libraries, fourth generation React styling libraries also emit CSS into DOM `<style>` tags, 
 but the styles are *dynamic*, i.e. the CSS changes when `props` or `state` of your component changes.
 
-*Notable examples*:
-
-  - [`styled-components`](https://github.com/styled-components/styled-components)
-  - [`glamorous`](https://github.com/paypal/glamorous)
+*Examples*: [`styled-components`][lib-styled-components], [`glamorous`][lib-glamorous]
+  
+[lib-styled-components]: https://github.com/styled-components/styled-components
+[lib-glamorous]: https://github.com/paypal/glamorous
   
 *Note: please report any other 4th gen solutions.*
 
@@ -168,9 +177,11 @@ dynamic (similar to how FaCCs are more dynamic than HOCs):
   - Styled components can be created dynamically inside `render` functions
   - The css template can change dynamically at any point, even inside the `render` functions or in FaCC functions
 
-*Notable example*:
-  
-  - `freestyler`
+*Examples*: [`freestyler`][lib-freestyler], [`style-it`][lib-style-it], [`superstyle`][lib-superstyle]
+
+[lib-freestyler]: https://github.com/streamich/freestyler
+[lib-style-it]: https://github.com/buildbreakdo/style-it
+[lib-superstyle]: https://github.com/jxnblk/superstyle
 
 *Note: Please report any other fifth generation React styling libraries, 
 I have found only [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).*
@@ -333,7 +344,7 @@ const template = {
 
 ### Atoms
 
-Atoms are a shorthand notation for common CSS rules. For example, instead of writing
+Atoms are shorthand notations for common CSS rules. For example, instead of writing
 
 ```js
 const template = {
@@ -344,7 +355,7 @@ const template = {
 };
 ```
 
-you can instead use atoms:
+you can instead write:
 
 ```js
 const template = {
@@ -492,7 +503,7 @@ import {global} from 'freestyler/globals';
 const DynamicGlobalStyles = global(null, ({background, theme}) => ({
     body: {
         background,
-        // Change globa styles dynamically as `theme` mutates.
+        // Change global styles dynamically as `theme` mutates.
         col: theme.textColor,
     }
 }));
@@ -562,7 +573,7 @@ const App = () =>
 
 ### Styled components
 
-`freestyler` allows you to write *"presentational"* components using the "styled component" syntax:
+`freestyler` allows you to write *presentational* components using the "styled component" syntax:
 
 ```js
 const RedText = css.span({
@@ -596,9 +607,8 @@ css.styled(tagName)(staticTemplate, dynamicTemplate);
 ### Theming
 
 One of core objectives of `freestyler` is to be super-lightweight, therefore, theming has be extracted into
-a separate package [`themestyler`](./packages/themestyler/).
-
-It is a generic React theme manager you can use in any project, but works best with `freestyler`.
+a separate package [`themestyler`](./packages/themestyler/). It is a generic React theme manager you can use 
+in any project, but works best with `freestyler`.
 
 Create a theme:
 
@@ -648,11 +658,11 @@ To put it simply, a CSS template in 4th generation styling libraries is a functi
 
     (props) => CSS
     
-In `freestyler` the template is a closure that is being return by another level of functions:
+In `freestyler` the template is a closure that is being returned by another function:
 
     () => (props) => CSS
     
-This way the template (`(props) => CSS`) itself can be changed dynamically.
+This way the template `(props) => CSS` itself is a variable.
 
 
 
