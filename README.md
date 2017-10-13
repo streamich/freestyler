@@ -150,12 +150,13 @@ Third generation React styling libraries allow you to write CSS in JavaScript an
 DOM in `<style>` tags and generate unique scoped `className` properties. However, the style templates are *static*,
 they are defined in module scope, thus they don't depend component `props`.
 
-*Examples*: [`aphrodite`][lib-aphrodite], [`cssx`][lib-cssx], [`glamor`][lib-glamor], [`typestype`][lib-typestype]
+*Examples*: [`aphrodite`][lib-aphrodite], [`cssx`][lib-cssx], [`glamor`][lib-glamor], [`typestype`][lib-typestype], [`styletron`](lib-styletron)
 
 [lib-aphrodite]: https://github.com/Khan/aphrodite
 [lib-cssx]: https://github.com/krasimir/cssx
 [lib-glamor]: https://github.com/threepointone/glamor
 [lib-typestype]: https://github.com/typestyle/typestyle
+[lib-styletron]: https://github.com/rtsao/styletron
 
 **Fourth generation**
 

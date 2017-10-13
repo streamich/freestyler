@@ -10,6 +10,7 @@ import {TStyles} from './ast';
 import createStyled from './primitives/createStyled';
 import createHoc from './primitives/createHoc';
 import createFacc from './primitives/createFacc';
+import {IStyles} from './types';
 
 export type TElement =
     | string
@@ -43,7 +44,7 @@ export interface ICss {
 
 let renderer = createDefaultRenderer();
 
-export const css: ICss = function css(tpl: TCssTemplate, dynamic?: boolean) {
+export const css: ICss = function css(tpl: IStyles, dynamic?: boolean) {
     return (instance, key, descriptor) => {
         if (!tpl) return descriptor;
 
@@ -55,7 +56,7 @@ export const css: ICss = function css(tpl: TCssTemplate, dynamic?: boolean) {
             if (componentWillUnmount)
                 componentWillUnmount.apply(this, arguments);
             if (dynamic) {
-                renderer.removeDynamic(this);
+                renderer.removeDynamic(this, null);
             } else {
                 renderer.removeStatic(Comp);
             }
@@ -68,7 +69,11 @@ export const css: ICss = function css(tpl: TCssTemplate, dynamic?: boolean) {
                 const {props} = rendered;
                 const {state, context} = this;
                 const className = dynamic
-                    ? renderer.injectDynamic(this, tpl, [props, state, context])
+                    ? renderer.injectDynamic(this, null, tpl, [
+                          props,
+                          state,
+                          context,
+                      ])
                     : renderer.injectStatic(Comp, tpl, [props, state, context]);
                 const oldClassName = props.className || '';
                 return cloneElement(
@@ -96,16 +101,14 @@ export function wrap(
     let staticClassName: string;
     const name = getName(Element);
     const Wrap = class Wrap extends Component<any, any> {
-        static displayName = displayName + (name ? `__${name}` : '');
-
-        cN: string = '';
+        cNs: string[] = [];
 
         onRender(props, state, context) {
             if (!dynamicTemplateGetter) return;
             const dynamicTemplate = dynamicTemplateGetter();
             if (!dynamicTemplate) return;
 
-            this.cN = renderer.injectDynamic(this, dynamicTemplate, [
+            this.cNs = renderer.injectDynamic(this, null, dynamicTemplate, [
                 props,
                 state,
                 context,
@@ -131,7 +134,7 @@ export function wrap(
         }
 
         componentWillUnmount() {
-            renderer.removeDynamic(this);
+            renderer.removeDynamic(this, null);
             renderer.removeStatic(Wrap);
         }
 
@@ -140,10 +143,15 @@ export function wrap(
             className = className || '';
             if (staticClassName)
                 className += (className ? ' ' : '') + staticClassName;
-            if (this.cN) className += (className ? ' ' : '') + this.cN;
+            if (this.cNs.length)
+                className += (className ? ' ' : '') + this.cNs.join(' ');
             return h(Element, {...props, className});
         }
     };
+
+    if (process.env.NODE_ENV !== 'production') {
+        (Wrap as any).displayName = displayName + (name ? `__${name}` : '');
+    }
 
     return Wrap;
 }

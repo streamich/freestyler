@@ -4,6 +4,7 @@ export type TStyles = object;
 
 export type TAtrulePrelude = string;
 export type TSelectors = string;
+export type TPseudo = string; // `:hover` part of the selector
 export type TProperty = string;
 export type TValue = string | number;
 

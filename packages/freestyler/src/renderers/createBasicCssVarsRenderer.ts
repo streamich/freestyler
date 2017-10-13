@@ -23,6 +23,36 @@ import {
 } from './util';
 import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
 import {TVisitor, visit} from '../visit';
+import {VSheet} from '../virtual';
+
+// Low cardinality virtual style properties that should be batched.
+const LOW_CARDINALITY_PROPERTIES = {
+    'z-index': 1,
+    display: 1,
+    cursor: 1,
+    position: 1,
+    'text-align': 1,
+};
+
+// High cardinality virtual style properties that should be atomic.
+const HIGH_CARDINALITY_PROPERTIES = {
+    width: 1,
+    height: 1,
+    top: 1,
+    right: 1,
+    bottom: 1,
+    left: 1,
+    'margin-top': 1,
+    'margin-right': 1,
+    'margin-bottom': 1,
+    'margin-left': 1,
+    'padding-top': 1,
+    'padding-right': 1,
+    'padding-bottom': 1,
+    'padding-left': 1,
+};
+
+// All other style properties are considered to have infinite cardinality.
 
 const visitor: TVisitor = {
     rule: (rule: TRule, atrule?: TAtrule) => {
@@ -51,51 +81,44 @@ const visitor: TVisitor = {
     },
 };
 
-const createStandardRenderer: TRendererFactory = () => {
-    let middlewares: IMiddleware[] = [];
-    let classNameCounter = 1;
+let classNameCounter = 1;
+const genClassName =
+    process.env.NODE_ENV !== 'production'
+        ? (...args: string[]) => `_${classNameCounter++}`
+        : (...args: string[]) => `_${args.join('_')}_${classNameCounter++}`;
 
-    const genClassName =
-        process.env.NODE_ENV === 'production'
-            ? (...args: string[]) => `_${classNameCounter++}`
-            : (...args: string[]) => `_${args.join('_')}_${classNameCounter++}`;
+// prettier-ignore
+const tplToStyles: (tpl: TCssTemplate, args: any[]) => IStyles =
+    (tpl, args) => (typeof tpl === 'function' ? tpl(...args) : tpl);
 
-    const tplToStyles: (tpl: TCssTemplate, args: any[]) => IStyles = (
-        tpl,
-        args
-    ) => (typeof tpl === 'function' ? tpl(...args) : tpl);
+function removeDomElement(el) {
+    el.parentNode.removeChild(el);
+}
 
-    function removeDomElement(el) {
-        el.parentNode.removeChild(el);
-    }
+function getById(id) {
+    return document.getElementById(id);
+}
 
-    function getById(id) {
-        return document.getElementById(id);
-    }
+class SpecRenderer implements IRenderer {
+    middlewares: IMiddleware[] = [];
+    vsheet = new VSheet();
 
-    function stylesToStylesheet(
-        styles: TStyles,
-        className: string
-    ): TStyleSheet {
+    stylesToStylesheet(styles: TStyles, className: string): TStyleSheet {
         styles = hoistGlobalsAndWrapContext(styles, className);
-        for (let i = 0; i < middlewares.length; i++) {
-            const middleware = middlewares[i];
+        for (let i = 0; i < this.middlewares.length; i++) {
+            const middleware = this.middlewares[i];
             if (middleware.styles) styles = middleware.styles(styles);
         }
         let stylesheet = toStyleSheet(styles);
-        for (let i = 0; i < middlewares.length; i++) {
-            const middleware = middlewares[i];
+        for (let i = 0; i < this.middlewares.length; i++) {
+            const middleware = this.middlewares[i];
             if (middleware.stylesheet)
                 stylesheet = middleware.stylesheet(stylesheet);
         }
         return stylesheet;
     }
 
-    const injectStatic = (
-        Comp: TComponentConstructor,
-        tpl: TCssTemplate,
-        args: any[]
-    ) => {
+    injectStatic(Comp: TComponentConstructor, tpl: TCssTemplate, args: any[]) {
         let className = Comp[$$cn];
         if (className) {
             Comp[$$cnt]++;
@@ -106,7 +129,7 @@ const createStandardRenderer: TRendererFactory = () => {
         className = genClassName(...(name ? [name] : []));
 
         let styles = tplToStyles(tpl, args);
-        const stylesheet = stylesToStylesheet(styles, className);
+        const stylesheet = this.stylesToStylesheet(styles, className);
         const cssString = toCss(stylesheet);
 
         const el = inject(cssString);
@@ -116,69 +139,81 @@ const createStandardRenderer: TRendererFactory = () => {
         hidden(Comp, $$cnt, 1);
 
         return className;
-    };
+    }
 
-    const removeStatic = (Comp: TComponentConstructor) => {
-        const className = Comp[$$cn];
-        if (className) {
-            let cnt = Comp[$$cnt];
-            if (cnt) {
-                Comp[$$cnt]--;
-                cnt = Comp[$$cnt];
-                if (cnt < 1) {
-                    const el = getById(className) as HTMLStyleElement;
-                    if (el) removeDomElement(el);
-                    delete Comp[$$cnt];
-                    delete Comp[$$cn];
-                }
-            }
-        }
-    };
+    removeStatic(Comp: TComponentConstructor) {}
 
-    const injectDynamic = (instance: TComponent, tpl: IStyles, args: any[]) => {
+    injectDynamic(
+        instance: TComponent,
+        root: Element,
+        tpl: IStyles,
+        args: any[]
+    ) {
         let styles = tplToStyles(tpl, args);
         if (!styles) return;
 
         let className = instance[$$cn];
-        let el: HTMLStyleElement = null;
+        let style: HTMLStyleElement = null;
 
         if (!className) {
             const name = getInstanceName(instance);
-            className = genClassName(...(name ? ['_', name] : ['_']));
+            className = genClassName(name ? '__' + name : '');
             hidden(instance, $$cn, className);
-            el = inject('');
-            el.id = className;
+            style = inject('');
+            style.id = className;
         } else {
-            el = getById(className) as HTMLStyleElement;
+            style = getById(className) as HTMLStyleElement;
         }
 
-        const stylesheet = stylesToStylesheet(styles, className);
+        const classNames = [className];
+        const stylesheet = this.stylesToStylesheet(styles, className);
+        const ownRules: TRule = stylesheet[0] as TRule;
+        if (ownRules) {
+            const [__, declarations] = ownRules;
+            const remainingDecls = [];
+            let lowCardinalityDecls = [];
+
+            for (let i = 0; i < declarations.length; i++) {
+                const declaration = declarations[i];
+                const [prop, value] = declaration;
+                if (HIGH_CARDINALITY_PROPERTIES[prop]) {
+                    classNames.push(this.vsheet.getId('', '', prop, value));
+                } else if (LOW_CARDINALITY_PROPERTIES[prop]) {
+                    lowCardinalityDecls.push(declaration);
+                } else {
+                    remainingDecls.push(declaration);
+                }
+            }
+            ownRules[1] = remainingDecls;
+
+            if (lowCardinalityDecls.length) {
+                lowCardinalityDecls = lowCardinalityDecls.sort(
+                    ([prop1], [prop2]) => (prop1 > prop2 ? 1 : -1)
+                );
+                classNames.push(
+                    this.vsheet.getIdBatch('', '', lowCardinalityDecls)
+                );
+            }
+        }
+
         visit(stylesheet, visitor);
         const cssString = toCss(stylesheet);
-        if (el.innerText !== cssString) el.innerText = cssString;
+        if (style.innerText !== cssString) style.innerText = cssString;
 
-        return className;
-    };
+        return classNames;
+    }
 
-    const removeDynamic = (instance: TComponent) => {
+    removeDynamic(instance: TComponent, root: Element) {
         const className = instance[$$cn];
         if (className) {
             const el = getById(className) as HTMLStyleElement;
             if (el) if (el) removeDomElement(el);
         }
-    };
+    }
 
-    const use = middleware => {
-        middlewares.push(middleware);
-    };
+    use(middleware) {
+        this.middlewares.push(middleware);
+    }
+}
 
-    return {
-        injectStatic,
-        removeStatic,
-        injectDynamic,
-        removeDynamic,
-        use,
-    };
-};
-
-export default createStandardRenderer;
+export default () => new SpecRenderer();

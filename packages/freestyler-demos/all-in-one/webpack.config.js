@@ -3,6 +3,7 @@ module.exports = {
     entry: {
         index: "./index",
         styled: "./styled",
+        virtual: './virtual'
     },
     output: {
         path: __dirname + '/dist',

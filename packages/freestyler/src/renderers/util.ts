@@ -18,8 +18,13 @@ export interface IRenderer {
         args: any[]
     ): string;
     removeStatic(Comp: TComponentConstructor);
-    injectDynamic(instance: TComponent, tpl: IStyles, args: any[]);
-    removeDynamic(instance: TComponent);
+    injectDynamic(
+        instance: TComponent,
+        root: Element,
+        tpl: TCssTemplate,
+        args: any[]
+    );
+    removeDynamic(instance: TComponent, root: Element);
     use(middleware: IMiddleware);
 }
 
