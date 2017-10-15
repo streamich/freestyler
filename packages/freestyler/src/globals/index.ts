@@ -1,4 +1,4 @@
-import {css} from '../index';
+import {styled} from '../index';
 import {TCssTemplate} from '../types';
 
 const Global = () => null;
@@ -15,7 +15,7 @@ export const global = (
     staticTemplate: TCssTemplate,
     dynamicTemplate?: TCssTemplate
 ) =>
-    css.styled(Global)(
+    styled(Global)(
         globalizeTemplate(staticTemplate),
         globalizeTemplate(dynamicTemplate)
     );

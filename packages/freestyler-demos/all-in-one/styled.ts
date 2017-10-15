@@ -1,6 +1,6 @@
 import {Component, createElement as h} from 'react';
 import {render} from 'react-dom';
-import {css, getRenderer, setRenderer} from '../../freestyler/src';
+import css from '../../freestyler/src';
 import CssReset from '../../freestyler/src/globals/CssResetTripoli';
 import logger from '../../freestyler/src/middleware/logger';
 import {IStyles} from '../../freestyler/src/types';
@@ -11,6 +11,7 @@ const Box = css.div(
         col: '#fff',
         w: '100px',
         h: '100px',
+        borderRadius: '10px',
         '.nested': {
             col: 'red',
         },
