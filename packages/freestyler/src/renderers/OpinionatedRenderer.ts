@@ -84,7 +84,7 @@ const visitor: TVisitor = {
 let classNameCounter = 1;
 const genClassName =
     process.env.NODE_ENV !== 'production'
-        ? (...args: string[]) => `_${classNameCounter++}`
+        ? (...args) => `_${classNameCounter++}`
         : (...args: string[]) => `_${args.join('_')}_${classNameCounter++}`;
 
 // prettier-ignore
@@ -99,23 +99,24 @@ function getById(id) {
     return document.getElementById(id);
 }
 
-class SpecRenderer implements IRenderer {
-    middlewares: IMiddleware[] = [];
+class OpinionatedRenderer implements IRenderer {
     vsheet = new VSheet();
 
     stylesToStylesheet(styles: TStyles, className: string): TStyleSheet {
         styles = hoistGlobalsAndWrapContext(styles, className);
-        for (let i = 0; i < this.middlewares.length; i++) {
-            const middleware = this.middlewares[i];
-            if (middleware.styles) styles = middleware.styles(styles);
-        }
         let stylesheet = toStyleSheet(styles);
-        for (let i = 0; i < this.middlewares.length; i++) {
-            const middleware = this.middlewares[i];
-            if (middleware.stylesheet)
-                stylesheet = middleware.stylesheet(stylesheet);
-        }
         return stylesheet;
+    }
+
+    genClassName() {
+        return genClassName();
+    }
+
+    genDynamic(styles: IStyles) {
+        const className = genClassName();
+        const stylesheet = this.stylesToStylesheet(styles, className);
+        const css = toCss(stylesheet);
+        return css;
     }
 
     injectStatic(Comp: TComponentConstructor, tpl: TCssTemplate, args: any[]) {
@@ -146,7 +147,7 @@ class SpecRenderer implements IRenderer {
     injectDynamic(
         instance: TComponent,
         root: Element,
-        tpl: IStyles,
+        tpl: TCssTemplate,
         args: any[]
     ) {
         let styles = tplToStyles(tpl, args);
@@ -196,9 +197,12 @@ class SpecRenderer implements IRenderer {
             }
         }
 
-        visit(stylesheet, visitor);
+        // visit(stylesheet, visitor);
         const cssString = toCss(stylesheet);
-        if (style.innerText !== cssString) style.innerText = cssString;
+        if ((style as any)._innerText !== cssString) {
+            style.innerText = cssString;
+            (style as any)._innerText = cssString;
+        }
 
         return classNames;
     }
@@ -212,8 +216,8 @@ class SpecRenderer implements IRenderer {
     }
 
     use(middleware) {
-        this.middlewares.push(middleware);
+        // this.middlewares.push(middleware);
     }
 }
 
-export default () => new SpecRenderer();
+export default OpinionatedRenderer;

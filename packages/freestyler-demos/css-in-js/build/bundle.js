@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -407,6 +407,20 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
+if (process.env.NODE_ENV === 'production') {
+  module.exports = __webpack_require__(17);
+} else {
+  module.exports = __webpack_require__(18);
+}
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
 
 
 var emptyObject = {};
@@ -419,7 +433,7 @@ module.exports = emptyObject;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -472,20 +486,6 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(16);
-} else {
-  module.exports = __webpack_require__(17);
-}
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -498,7 +498,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(2);
-  var warning = __webpack_require__(5);
+  var warning = __webpack_require__(6);
   var ReactPropTypesSecret = __webpack_require__(8);
   var loggedTypeFailures = {};
 }
@@ -676,7 +676,7 @@ module.exports = shallowEqual;
 "use strict";
 
 
-var isTextNode = __webpack_require__(20);
+var isTextNode = __webpack_require__(21);
 
 function containsNode(outerNode, innerNode) {
   if (!outerNode || !innerNode) {
@@ -743,17 +743,41 @@ module.exports = getActiveElement;
 "use strict";
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function inject(cssString) {
+    var el = document.createElement('style');
+    el.innerText = cssString;
+    document.body.appendChild(el);
+    return el;
+}
+exports.inject = inject;
+exports.getName = function (Component) {
+    return (typeof Component === "undefined" ? "undefined" : _typeof(Component)) === 'object' || typeof Component === 'function' ? Component.displayName || Component.name : String(Component);
+};
+exports.getInstanceName = function (instance) {
+    return exports.getName(instance.constructor);
+};
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _dec, _desc, _value, _class;
 
-var _react = __webpack_require__(6);
+var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(18);
+var _reactDom = __webpack_require__(19);
 
-var _freestyler = __webpack_require__(32);
+var _freestyler = __webpack_require__(33);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -825,7 +849,7 @@ document.body.appendChild(el);
 (0, _reactDom.render)(_react2.default.createElement(App, null), el);
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -835,7 +859,7 @@ document.body.appendChild(el);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var f = __webpack_require__(3),
-    p = __webpack_require__(4);__webpack_require__(2);var r = __webpack_require__(1);
+    p = __webpack_require__(5);__webpack_require__(2);var r = __webpack_require__(1);
 function t(a) {
   for (var b = arguments.length - 1, d = "Minified React error #" + a + "; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d" + a, e = 0; e < b; e++) {
     d += "\x26args[]\x3d" + encodeURIComponent(arguments[e + 1]);
@@ -947,7 +971,7 @@ module.exports = { Children: { map: S.map, forEach: S.forEach, count: S.count, t
     } }, Component: B.Component, PureComponent: B.PureComponent, unstable_AsyncComponent: B.AsyncComponent, createElement: G.createElement, cloneElement: G.cloneElement, isValidElement: G.isValidElement, createFactory: G.createFactory, version: "16.0.0", __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: { ReactCurrentOwner: C, assign: f } };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -969,8 +993,8 @@ if (process.env.NODE_ENV !== "production") {
     'use strict';
 
     var objectAssign$1 = __webpack_require__(3);
-    var require$$0 = __webpack_require__(5);
-    var emptyObject = __webpack_require__(4);
+    var require$$0 = __webpack_require__(6);
+    var emptyObject = __webpack_require__(5);
     var invariant = __webpack_require__(2);
     var emptyFunction = __webpack_require__(1);
     var checkPropTypes = __webpack_require__(7);
@@ -2185,7 +2209,7 @@ if (process.env.NODE_ENV !== "production") {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2207,14 +2231,14 @@ function checkDCE() {
 
 if (process.env.NODE_ENV === 'production') {
   checkDCE();
-  module.exports = __webpack_require__(19);
+  module.exports = __webpack_require__(20);
 } else {
-  module.exports = __webpack_require__(22);
+  module.exports = __webpack_require__(23);
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2223,11 +2247,11 @@ if (process.env.NODE_ENV === 'production') {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var aa = __webpack_require__(6);__webpack_require__(2);var l = __webpack_require__(9),
+var aa = __webpack_require__(4);__webpack_require__(2);var l = __webpack_require__(9),
     n = __webpack_require__(3),
     ba = __webpack_require__(10),
     ca = __webpack_require__(1),
-    da = __webpack_require__(4),
+    da = __webpack_require__(5),
     ea = __webpack_require__(11),
     fa = __webpack_require__(12),
     ha = __webpack_require__(13),
@@ -4605,13 +4629,13 @@ var ek = { createPortal: dk, hydrate: function hydrate(a, b, c) {
   unstable_deferredUpdates: Xj.deferredUpdates, flushSync: Xj.flushSync, __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: { EventPluginHub: Jb, EventPluginRegistry: sa, EventPropagators: Th, ReactControlledComponent: nb, ReactDOMComponentTree: G, ReactDOMEventListener: L } };Cj({ findFiberByHostInstance: G.getClosestInstanceFromNode, findHostInstanceByFiber: Xj.findHostInstance, bundleType: 0, version: "16.0.0", rendererPackageName: "react-dom" });module.exports = ek;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isNode = __webpack_require__(21);
+var isNode = __webpack_require__(22);
 
 function isTextNode(object) {
   return isNode(object) && object.nodeType == 3;
@@ -4620,7 +4644,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4637,7 +4661,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4648,7 +4672,7 @@ module.exports = isNode;
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj;};if(process.env.NODE_ENV!=="production"){(function(){'use strict';var react=__webpack_require__(6);var invariant=__webpack_require__(2);var ExecutionEnvironment=__webpack_require__(9);var _assign=__webpack_require__(3);var EventListener=__webpack_require__(10);var require$$0=__webpack_require__(5);var hyphenateStyleName=__webpack_require__(23);var emptyFunction=__webpack_require__(1);var camelizeStyleName=__webpack_require__(25);var performanceNow=__webpack_require__(27);var propTypes=__webpack_require__(29);var emptyObject=__webpack_require__(4);var checkPropTypes=__webpack_require__(7);var shallowEqual=__webpack_require__(11);var containsNode=__webpack_require__(12);var focusNode=__webpack_require__(13);var getActiveElement=__webpack_require__(14);!react?invariant(false,'ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.'):void 0;var HTML_NAMESPACE='http://www.w3.org/1999/xhtml';var MATH_NAMESPACE='http://www.w3.org/1998/Math/MathML';var SVG_NAMESPACE='http://www.w3.org/2000/svg';var Namespaces={html:HTML_NAMESPACE,mathml:MATH_NAMESPACE,svg:SVG_NAMESPACE};function getIntrinsicNamespace(type){switch(type){case'svg':return SVG_NAMESPACE;case'math':return MATH_NAMESPACE;default:return HTML_NAMESPACE;}}function getChildNamespace$1(parentNamespace,type){if(parentNamespace==null||parentNamespace===HTML_NAMESPACE){return getIntrinsicNamespace(type);}if(parentNamespace===SVG_NAMESPACE&&type==='foreignObject'){return HTML_NAMESPACE;}return parentNamespace;}var Namespaces_1=Namespaces;var getIntrinsicNamespace_1=getIntrinsicNamespace;var getChildNamespace_1=getChildNamespace$1;var DOMNamespaces={Namespaces:Namespaces_1,getIntrinsicNamespace:getIntrinsicNamespace_1,getChildNamespace:getChildNamespace_1};var eventPluginOrder=null;var namesToPlugins={};function recomputePluginOrdering(){if(!eventPluginOrder){return;}for(var pluginName in namesToPlugins){var pluginModule=namesToPlugins[pluginName];var pluginIndex=eventPluginOrder.indexOf(pluginName);!(pluginIndex>-1)?invariant(false,'EventPluginRegistry: Cannot inject event plugins that do not exist in the plugin ordering, `%s`.',pluginName):void 0;if(EventPluginRegistry.plugins[pluginIndex]){continue;}!pluginModule.extractEvents?invariant(false,'EventPluginRegistry: Event plugins must implement an `extractEvents` method, but `%s` does not.',pluginName):void 0;EventPluginRegistry.plugins[pluginIndex]=pluginModule;var publishedEvents=pluginModule.eventTypes;for(var eventName in publishedEvents){!publishEventForPlugin(publishedEvents[eventName],pluginModule,eventName)?invariant(false,'EventPluginRegistry: Failed to publish event `%s` for plugin `%s`.',eventName,pluginName):void 0;}}}function publishEventForPlugin(dispatchConfig,pluginModule,eventName){!!EventPluginRegistry.eventNameDispatchConfigs.hasOwnProperty(eventName)?invariant(false,'EventPluginHub: More than one plugin attempted to publish the same event name, `%s`.',eventName):void 0;EventPluginRegistry.eventNameDispatchConfigs[eventName]=dispatchConfig;var phasedRegistrationNames=dispatchConfig.phasedRegistrationNames;if(phasedRegistrationNames){for(var phaseName in phasedRegistrationNames){if(phasedRegistrationNames.hasOwnProperty(phaseName)){var phasedRegistrationName=phasedRegistrationNames[phaseName];publishRegistrationName(phasedRegistrationName,pluginModule,eventName);}}return true;}else if(dispatchConfig.registrationName){publishRegistrationName(dispatchConfig.registrationName,pluginModule,eventName);return true;}return false;}function publishRegistrationName(registrationName,pluginModule,eventName){!!EventPluginRegistry.registrationNameModules[registrationName]?invariant(false,'EventPluginHub: More than one plugin attempted to publish the same registration name, `%s`.',registrationName):void 0;EventPluginRegistry.registrationNameModules[registrationName]=pluginModule;EventPluginRegistry.registrationNameDependencies[registrationName]=pluginModule.eventTypes[eventName].dependencies;{var lowerCasedName=registrationName.toLowerCase();EventPluginRegistry.possibleRegistrationNames[lowerCasedName]=registrationName;if(registrationName==='onDoubleClick'){EventPluginRegistry.possibleRegistrationNames.ondblclick=registrationName;}}}var EventPluginRegistry={plugins:[],eventNameDispatchConfigs:{},registrationNameModules:{},registrationNameDependencies:{},possibleRegistrationNames:{},injectEventPluginOrder:function injectEventPluginOrder(injectedEventPluginOrder){!!eventPluginOrder?invariant(false,'EventPluginRegistry: Cannot inject event plugin ordering more than once. You are likely trying to load more than one copy of React.'):void 0;eventPluginOrder=Array.prototype.slice.call(injectedEventPluginOrder);recomputePluginOrdering();},injectEventPluginsByName:function injectEventPluginsByName(injectedNamesToPlugins){var isOrderingDirty=false;for(var pluginName in injectedNamesToPlugins){if(!injectedNamesToPlugins.hasOwnProperty(pluginName)){continue;}var pluginModule=injectedNamesToPlugins[pluginName];if(!namesToPlugins.hasOwnProperty(pluginName)||namesToPlugins[pluginName]!==pluginModule){!!namesToPlugins[pluginName]?invariant(false,'EventPluginRegistry: Cannot inject two different event plugins using the same name, `%s`.',pluginName):void 0;namesToPlugins[pluginName]=pluginModule;isOrderingDirty=true;}}if(isOrderingDirty){recomputePluginOrdering();}}};var EventPluginRegistry_1=EventPluginRegistry;var RESERVED_PROPS={children:true,dangerouslySetInnerHTML:true,autoFocus:true,defaultValue:true,defaultChecked:true,innerHTML:true,suppressContentEditableWarning:true,style:true};function checkMask(value,bitmask){return(value&bitmask)===bitmask;}var DOMPropertyInjection={MUST_USE_PROPERTY:0x1,HAS_BOOLEAN_VALUE:0x4,HAS_NUMERIC_VALUE:0x8,HAS_POSITIVE_NUMERIC_VALUE:0x10|0x8,HAS_OVERLOADED_BOOLEAN_VALUE:0x20,HAS_STRING_BOOLEAN_VALUE:0x40,injectDOMPropertyConfig:function injectDOMPropertyConfig(domPropertyConfig){var Injection=DOMPropertyInjection;var Properties=domPropertyConfig.Properties||{};var DOMAttributeNamespaces=domPropertyConfig.DOMAttributeNamespaces||{};var DOMAttributeNames=domPropertyConfig.DOMAttributeNames||{};var DOMMutationMethods=domPropertyConfig.DOMMutationMethods||{};for(var propName in Properties){!!DOMProperty.properties.hasOwnProperty(propName)?invariant(false,'injectDOMPropertyConfig(...): You\'re trying to inject DOM property \'%s\' which has already been injected. You may be accidentally injecting the same DOM property config twice, or you may be injecting two configs that have conflicting property names.',propName):void 0;var lowerCased=propName.toLowerCase();var propConfig=Properties[propName];var propertyInfo={attributeName:lowerCased,attributeNamespace:null,propertyName:propName,mutationMethod:null,mustUseProperty:checkMask(propConfig,Injection.MUST_USE_PROPERTY),hasBooleanValue:checkMask(propConfig,Injection.HAS_BOOLEAN_VALUE),hasNumericValue:checkMask(propConfig,Injection.HAS_NUMERIC_VALUE),hasPositiveNumericValue:checkMask(propConfig,Injection.HAS_POSITIVE_NUMERIC_VALUE),hasOverloadedBooleanValue:checkMask(propConfig,Injection.HAS_OVERLOADED_BOOLEAN_VALUE),hasStringBooleanValue:checkMask(propConfig,Injection.HAS_STRING_BOOLEAN_VALUE)};!(propertyInfo.hasBooleanValue+propertyInfo.hasNumericValue+propertyInfo.hasOverloadedBooleanValue<=1)?invariant(false,'DOMProperty: Value can be one of boolean, overloaded boolean, or numeric value, but not a combination: %s',propName):void 0;if(DOMAttributeNames.hasOwnProperty(propName)){var attributeName=DOMAttributeNames[propName];propertyInfo.attributeName=attributeName;}if(DOMAttributeNamespaces.hasOwnProperty(propName)){propertyInfo.attributeNamespace=DOMAttributeNamespaces[propName];}if(DOMMutationMethods.hasOwnProperty(propName)){propertyInfo.mutationMethod=DOMMutationMethods[propName];}DOMProperty.properties[propName]=propertyInfo;}}};var ATTRIBUTE_NAME_START_CHAR=':A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD';var DOMProperty={ID_ATTRIBUTE_NAME:'data-reactid',ROOT_ATTRIBUTE_NAME:'data-reactroot',ATTRIBUTE_NAME_START_CHAR:ATTRIBUTE_NAME_START_CHAR,ATTRIBUTE_NAME_CHAR:ATTRIBUTE_NAME_START_CHAR+'\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040',properties:{},shouldSetAttribute:function shouldSetAttribute(name,value){if(DOMProperty.isReservedProp(name)){return false;}if((name[0]==='o'||name[0]==='O')&&(name[1]==='n'||name[1]==='N')){return false;}if(value===null){return true;}switch(typeof value==='undefined'?'undefined':_typeof(value)){case'boolean':return DOMProperty.shouldAttributeAcceptBooleanValue(name);case'undefined':case'number':case'string':case'object':return true;default:return false;}},getPropertyInfo:function getPropertyInfo(name){return DOMProperty.properties.hasOwnProperty(name)?DOMProperty.properties[name]:null;},shouldAttributeAcceptBooleanValue:function shouldAttributeAcceptBooleanValue(name){if(DOMProperty.isReservedProp(name)){return true;}var propertyInfo=DOMProperty.getPropertyInfo(name);if(propertyInfo){return propertyInfo.hasBooleanValue||propertyInfo.hasStringBooleanValue||propertyInfo.hasOverloadedBooleanValue;}var prefix=name.toLowerCase().slice(0,5);return prefix==='data-'||prefix==='aria-';},isReservedProp:function isReservedProp(name){return RESERVED_PROPS.hasOwnProperty(name);},injection:DOMPropertyInjection};var DOMProperty_1=DOMProperty;var ReactDOMComponentFlags={hasCachedChildNodes:1<<0};var ReactDOMComponentFlags_1=ReactDOMComponentFlags;var ReactTypeOfWork={IndeterminateComponent:0,FunctionalComponent:1,ClassComponent:2,HostRoot:3,HostPortal:4,HostComponent:5,HostText:6,CoroutineComponent:7,CoroutineHandlerPhase:8,YieldComponent:9,Fragment:10};var HTMLNodeType={ELEMENT_NODE:1,TEXT_NODE:3,COMMENT_NODE:8,DOCUMENT_NODE:9,DOCUMENT_FRAGMENT_NODE:11};var HTMLNodeType_1=HTMLNodeType;var HostComponent=ReactTypeOfWork.HostComponent;var HostText=ReactTypeOfWork.HostText;var ELEMENT_NODE$1=HTMLNodeType_1.ELEMENT_NODE;var COMMENT_NODE$1=HTMLNodeType_1.COMMENT_NODE;var ATTR_NAME=DOMProperty_1.ID_ATTRIBUTE_NAME;var Flags=ReactDOMComponentFlags_1;var randomKey=Math.random().toString(36).slice(2);var internalInstanceKey='__reactInternalInstance$'+randomKey;var internalEventHandlersKey='__reactEventHandlers$'+randomKey;function shouldPrecacheNode(node,nodeID){return node.nodeType===ELEMENT_NODE$1&&node.getAttribute(ATTR_NAME)===''+nodeID||node.nodeType===COMMENT_NODE$1&&node.nodeValue===' react-text: '+nodeID+' '||node.nodeType===COMMENT_NODE$1&&node.nodeValue===' react-empty: '+nodeID+' ';}function getRenderedHostOrTextFromComponent(component){var rendered;while(rendered=component._renderedComponent){component=rendered;}return component;}function precacheNode(inst,node){var hostInst=getRenderedHostOrTextFromComponent(inst);hostInst._hostNode=node;node[internalInstanceKey]=hostInst;}function precacheFiberNode$1(hostInst,node){node[internalInstanceKey]=hostInst;}function uncacheNode(inst){var node=inst._hostNode;if(node){delete node[internalInstanceKey];inst._hostNode=null;}}function precacheChildNodes(inst,node){if(inst._flags&Flags.hasCachedChildNodes){return;}var children=inst._renderedChildren;var childNode=node.firstChild;outer:for(var name in children){if(!children.hasOwnProperty(name)){continue;}var childInst=children[name];var childID=getRenderedHostOrTextFromComponent(childInst)._domID;if(childID===0){continue;}for(;childNode!==null;childNode=childNode.nextSibling){if(shouldPrecacheNode(childNode,childID)){precacheNode(childInst,childNode);continue outer;}}invariant(false,'Unable to find element with ID %s.',childID);}inst._flags|=Flags.hasCachedChildNodes;}function getClosestInstanceFromNode(node){if(node[internalInstanceKey]){return node[internalInstanceKey];}var parents=[];while(!node[internalInstanceKey]){parents.push(node);if(node.parentNode){node=node.parentNode;}else{return null;}}var closest;var inst=node[internalInstanceKey];if(inst.tag===HostComponent||inst.tag===HostText){return inst;}for(;node&&(inst=node[internalInstanceKey]);node=parents.pop()){closest=inst;if(parents.length){precacheChildNodes(inst,node);}}return closest;}function getInstanceFromNode(node){var inst=node[internalInstanceKey];if(inst){if(inst.tag===HostComponent||inst.tag===HostText){return inst;}else if(inst._hostNode===node){return inst;}else{return null;}}inst=getClosestInstanceFromNode(node);if(inst!=null&&inst._hostNode===node){return inst;}else{return null;}}function getNodeFromInstance(inst){if(inst.tag===HostComponent||inst.tag===HostText){return inst.stateNode;}!(inst._hostNode!==undefined)?invariant(false,'getNodeFromInstance: Invalid argument.'):void 0;if(inst._hostNode){return inst._hostNode;}var parents=[];while(!inst._hostNode){parents.push(inst);!inst._hostParent?invariant(false,'React DOM tree root should always have a node reference.'):void 0;inst=inst._hostParent;}for(;parents.length;inst=parents.pop()){precacheChildNodes(inst,inst._hostNode);}return inst._hostNode;}function getFiberCurrentPropsFromNode(node){return node[internalEventHandlersKey]||null;}function updateFiberProps$1(node,props){node[internalEventHandlersKey]=props;}var ReactDOMComponentTree={getClosestInstanceFromNode:getClosestInstanceFromNode,getInstanceFromNode:getInstanceFromNode,getNodeFromInstance:getNodeFromInstance,precacheChildNodes:precacheChildNodes,precacheNode:precacheNode,uncacheNode:uncacheNode,precacheFiberNode:precacheFiberNode$1,getFiberCurrentPropsFromNode:getFiberCurrentPropsFromNode,updateFiberProps:updateFiberProps$1};var ReactDOMComponentTree_1=ReactDOMComponentTree;var ReactInstanceMap={remove:function remove(key){key._reactInternalFiber=undefined;},get:function get(key){return key._reactInternalFiber;},has:function has(key){return key._reactInternalFiber!==undefined;},set:function set(key,value){key._reactInternalFiber=value;}};var ReactInstanceMap_1=ReactInstanceMap;var ReactInternals=react.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;var ReactGlobalSharedState={ReactCurrentOwner:ReactInternals.ReactCurrentOwner};{_assign(ReactGlobalSharedState,{ReactComponentTreeHook:ReactInternals.ReactComponentTreeHook,ReactDebugCurrentFrame:ReactInternals.ReactDebugCurrentFrame});}var ReactGlobalSharedState_1=ReactGlobalSharedState;function getComponentName(instanceOrFiber){if(typeof instanceOrFiber.getName==='function'){var instance=instanceOrFiber;return instance.getName();}if(typeof instanceOrFiber.tag==='number'){var fiber=instanceOrFiber;var type=fiber.type;if(typeof type==='string'){return type;}if(typeof type==='function'){return type.displayName||type.name;}}return null;}var getComponentName_1=getComponentName;var ReactTypeOfSideEffect={NoEffect:0,PerformedWork:1,Placement:2,Update:4,PlacementAndUpdate:6,Deletion:8,ContentReset:16,Callback:32,Err:64,Ref:128};var ReactCurrentOwner=ReactGlobalSharedState_1.ReactCurrentOwner;{var warning$1=require$$0;}var ClassComponent=ReactTypeOfWork.ClassComponent;var HostComponent$1=ReactTypeOfWork.HostComponent;var HostRoot$1=ReactTypeOfWork.HostRoot;var HostPortal=ReactTypeOfWork.HostPortal;var HostText$1=ReactTypeOfWork.HostText;var NoEffect=ReactTypeOfSideEffect.NoEffect;var Placement=ReactTypeOfSideEffect.Placement;var MOUNTING=1;var MOUNTED=2;var UNMOUNTED=3;function isFiberMountedImpl(fiber){var node=fiber;if(!fiber.alternate){if((node.effectTag&Placement)!==NoEffect){return MOUNTING;}while(node['return']){node=node['return'];if((node.effectTag&Placement)!==NoEffect){return MOUNTING;}}}else{while(node['return']){node=node['return'];}}if(node.tag===HostRoot$1){return MOUNTED;}return UNMOUNTED;}var isFiberMounted=function isFiberMounted(fiber){return isFiberMountedImpl(fiber)===MOUNTED;};var isMounted=function isMounted(component){{var owner=ReactCurrentOwner.current;if(owner!==null&&owner.tag===ClassComponent){var ownerFiber=owner;var instance=ownerFiber.stateNode;warning$1(instance._warnedAboutRefsInRender,'%s is accessing isMounted inside its render() function. '+'render() should be a pure function of props and state. It should '+'never access something that requires stale data from the previous '+'render, such as refs. Move this logic to componentDidMount and '+'componentDidUpdate instead.',getComponentName_1(ownerFiber)||'A component');instance._warnedAboutRefsInRender=true;}}var fiber=ReactInstanceMap_1.get(component);if(!fiber){return false;}return isFiberMountedImpl(fiber)===MOUNTED;};function assertIsMounted(fiber){!(isFiberMountedImpl(fiber)===MOUNTED)?invariant(false,'Unable to find node on an unmounted component.'):void 0;}function findCurrentFiberUsingSlowPath(fiber){var alternate=fiber.alternate;if(!alternate){var state=isFiberMountedImpl(fiber);!(state!==UNMOUNTED)?invariant(false,'Unable to find node on an unmounted component.'):void 0;if(state===MOUNTING){return null;}return fiber;}var a=fiber;var b=alternate;while(true){var parentA=a['return'];var parentB=parentA?parentA.alternate:null;if(!parentA||!parentB){break;}if(parentA.child===parentB.child){var child=parentA.child;while(child){if(child===a){assertIsMounted(parentA);return fiber;}if(child===b){assertIsMounted(parentA);return alternate;}child=child.sibling;}invariant(false,'Unable to find node on an unmounted component.');}if(a['return']!==b['return']){a=parentA;b=parentB;}else{var didFindChild=false;var _child=parentA.child;while(_child){if(_child===a){didFindChild=true;a=parentA;b=parentB;break;}if(_child===b){didFindChild=true;b=parentA;a=parentB;break;}_child=_child.sibling;}if(!didFindChild){_child=parentB.child;while(_child){if(_child===a){didFindChild=true;a=parentB;b=parentA;break;}if(_child===b){didFindChild=true;b=parentB;a=parentA;break;}_child=_child.sibling;}!didFindChild?invariant(false,'Child was not found in either parent set. This indicates a bug in React related to the return pointer. Please file an issue.'):void 0;}}!(a.alternate===b)?invariant(false,'Return fibers should always be each others\' alternates. This error is likely caused by a bug in React. Please file an issue.'):void 0;}!(a.tag===HostRoot$1)?invariant(false,'Unable to find node on an unmounted component.'):void 0;if(a.stateNode.current===a){return fiber;}return alternate;}var findCurrentFiberUsingSlowPath_1=findCurrentFiberUsingSlowPath;var findCurrentHostFiber=function findCurrentHostFiber(parent){var currentParent=findCurrentFiberUsingSlowPath(parent);if(!currentParent){return null;}var node=currentParent;while(true){if(node.tag===HostComponent$1||node.tag===HostText$1){return node;}else if(node.child){node.child['return']=node;node=node.child;continue;}if(node===currentParent){return null;}while(!node.sibling){if(!node['return']||node['return']===currentParent){return null;}node=node['return'];}node.sibling['return']=node['return'];node=node.sibling;}return null;};var findCurrentHostFiberWithNoPortals=function findCurrentHostFiberWithNoPortals(parent){var currentParent=findCurrentFiberUsingSlowPath(parent);if(!currentParent){return null;}var node=currentParent;while(true){if(node.tag===HostComponent$1||node.tag===HostText$1){return node;}else if(node.child&&node.tag!==HostPortal){node.child['return']=node;node=node.child;continue;}if(node===currentParent){return null;}while(!node.sibling){if(!node['return']||node['return']===currentParent){return null;}node=node['return'];}node.sibling['return']=node['return'];node=node.sibling;}return null;};var ReactFiberTreeReflection={isFiberMounted:isFiberMounted,isMounted:isMounted,findCurrentFiberUsingSlowPath:findCurrentFiberUsingSlowPath_1,findCurrentHostFiber:findCurrentHostFiber,findCurrentHostFiberWithNoPortals:findCurrentHostFiberWithNoPortals};var ReactErrorUtils={_caughtError:null,_hasCaughtError:false,_rethrowError:null,_hasRethrowError:false,injection:{injectErrorUtils:function injectErrorUtils(injectedErrorUtils){!(typeof injectedErrorUtils.invokeGuardedCallback==='function')?invariant(false,'Injected invokeGuardedCallback() must be a function.'):void 0;_invokeGuardedCallback=injectedErrorUtils.invokeGuardedCallback;}},invokeGuardedCallback:function invokeGuardedCallback(name,func,context,a,b,c,d,e,f){_invokeGuardedCallback.apply(ReactErrorUtils,arguments);},invokeGuardedCallbackAndCatchFirstError:function invokeGuardedCallbackAndCatchFirstError(name,func,context,a,b,c,d,e,f){ReactErrorUtils.invokeGuardedCallback.apply(this,arguments);if(ReactErrorUtils.hasCaughtError()){var error=ReactErrorUtils.clearCaughtError();if(!ReactErrorUtils._hasRethrowError){ReactErrorUtils._hasRethrowError=true;ReactErrorUtils._rethrowError=error;}}},rethrowCaughtError:function rethrowCaughtError(){return _rethrowCaughtError.apply(ReactErrorUtils,arguments);},hasCaughtError:function hasCaughtError(){return ReactErrorUtils._hasCaughtError;},clearCaughtError:function clearCaughtError(){if(ReactErrorUtils._hasCaughtError){var error=ReactErrorUtils._caughtError;ReactErrorUtils._caughtError=null;ReactErrorUtils._hasCaughtError=false;return error;}else{invariant(false,'clearCaughtError was called but no error was captured. This error is likely caused by a bug in React. Please file an issue.');}}};var _invokeGuardedCallback=function _invokeGuardedCallback(name,func,context,a,b,c,d,e,f){ReactErrorUtils._hasCaughtError=false;ReactErrorUtils._caughtError=null;var funcArgs=Array.prototype.slice.call(arguments,3);try{func.apply(context,funcArgs);}catch(error){ReactErrorUtils._caughtError=error;ReactErrorUtils._hasCaughtError=true;}};{if(typeof window!=='undefined'&&typeof window.dispatchEvent==='function'&&typeof document!=='undefined'&&typeof document.createEvent==='function'){var fakeNode=document.createElement('react');var invokeGuardedCallbackDev=function invokeGuardedCallbackDev(name,func,context,a,b,c,d,e,f){var didError=true;var funcArgs=Array.prototype.slice.call(arguments,3);function callCallback(){fakeNode.removeEventListener(evtType,callCallback,false);func.apply(context,funcArgs);didError=false;}var error=void 0;var didSetError=false;var isCrossOriginError=false;function onError(event){error=event.error;didSetError=true;if(error===null&&event.colno===0&&event.lineno===0){isCrossOriginError=true;}}var evtType='react-'+(name?name:'invokeguardedcallback');window.addEventListener('error',onError);fakeNode.addEventListener(evtType,callCallback,false);var evt=document.createEvent('Event');evt.initEvent(evtType,false,false);fakeNode.dispatchEvent(evt);if(didError){if(!didSetError){error=new Error('An error was thrown inside one of your components, but React '+"doesn't know what it was. This is likely due to browser "+'flakiness. React does its best to preserve the "Pause on '+'exceptions" behavior of the DevTools, which requires some '+"DEV-mode only tricks. It's possible that these don't work in "+'your browser. Try triggering the error in production mode, '+'or switching to a modern browser. If you suspect that this is '+'actually an issue with React, please file an issue.');}else if(isCrossOriginError){error=new Error("A cross-origin error was thrown. React doesn't have access to "+'the actual error object in development. '+'See https://fb.me/react-crossorigin-error for more information.');}ReactErrorUtils._hasCaughtError=true;ReactErrorUtils._caughtError=error;}else{ReactErrorUtils._hasCaughtError=false;ReactErrorUtils._caughtError=null;}window.removeEventListener('error',onError);};_invokeGuardedCallback=invokeGuardedCallbackDev;}}var _rethrowCaughtError=function _rethrowCaughtError(){if(ReactErrorUtils._hasRethrowError){var error=ReactErrorUtils._rethrowError;ReactErrorUtils._rethrowError=null;ReactErrorUtils._hasRethrowError=false;throw error;}};var ReactErrorUtils_1=ReactErrorUtils;{var warning$2=require$$0;}var ComponentTree;var injection={injectComponentTree:function injectComponentTree(Injected){ComponentTree=Injected;{warning$2(Injected&&Injected.getNodeFromInstance&&Injected.getInstanceFromNode,'EventPluginUtils.injection.injectComponentTree(...): Injected '+'module is missing getNodeFromInstance or getInstanceFromNode.');}}};function isEndish(topLevelType){return topLevelType==='topMouseUp'||topLevelType==='topTouchEnd'||topLevelType==='topTouchCancel';}function isMoveish(topLevelType){return topLevelType==='topMouseMove'||topLevelType==='topTouchMove';}function isStartish(topLevelType){return topLevelType==='topMouseDown'||topLevelType==='topTouchStart';}var validateEventDispatches;{validateEventDispatches=function validateEventDispatches(event){var dispatchListeners=event._dispatchListeners;var dispatchInstances=event._dispatchInstances;var listenersIsArr=Array.isArray(dispatchListeners);var listenersLen=listenersIsArr?dispatchListeners.length:dispatchListeners?1:0;var instancesIsArr=Array.isArray(dispatchInstances);var instancesLen=instancesIsArr?dispatchInstances.length:dispatchInstances?1:0;warning$2(instancesIsArr===listenersIsArr&&instancesLen===listenersLen,'EventPluginUtils: Invalid `event`.');};}function executeDispatch(event,simulated,listener,inst){var type=event.type||'unknown-event';event.currentTarget=EventPluginUtils.getNodeFromInstance(inst);ReactErrorUtils_1.invokeGuardedCallbackAndCatchFirstError(type,listener,undefined,event);event.currentTarget=null;}function executeDispatchesInOrder(event,simulated){var dispatchListeners=event._dispatchListeners;var dispatchInstances=event._dispatchInstances;{validateEventDispatches(event);}if(Array.isArray(dispatchListeners)){for(var i=0;i<dispatchListeners.length;i++){if(event.isPropagationStopped()){break;}executeDispatch(event,simulated,dispatchListeners[i],dispatchInstances[i]);}}else if(dispatchListeners){executeDispatch(event,simulated,dispatchListeners,dispatchInstances);}event._dispatchListeners=null;event._dispatchInstances=null;}function executeDispatchesInOrderStopAtTrueImpl(event){var dispatchListeners=event._dispatchListeners;var dispatchInstances=event._dispatchInstances;{validateEventDispatches(event);}if(Array.isArray(dispatchListeners)){for(var i=0;i<dispatchListeners.length;i++){if(event.isPropagationStopped()){break;}if(dispatchListeners[i](event,dispatchInstances[i])){return dispatchInstances[i];}}}else if(dispatchListeners){if(dispatchListeners(event,dispatchInstances)){return dispatchInstances;}}return null;}function executeDispatchesInOrderStopAtTrue(event){var ret=executeDispatchesInOrderStopAtTrueImpl(event);event._dispatchInstances=null;event._dispatchListeners=null;return ret;}function executeDirectDispatch(event){{validateEventDispatches(event);}var dispatchListener=event._dispatchListeners;var dispatchInstance=event._dispatchInstances;!!Array.isArray(dispatchListener)?invariant(false,'executeDirectDispatch(...): Invalid `event`.'):void 0;event.currentTarget=dispatchListener?EventPluginUtils.getNodeFromInstance(dispatchInstance):null;var res=dispatchListener?dispatchListener(event):null;event.currentTarget=null;event._dispatchListeners=null;event._dispatchInstances=null;return res;}function hasDispatches(event){return!!event._dispatchListeners;}var EventPluginUtils={isEndish:isEndish,isMoveish:isMoveish,isStartish:isStartish,executeDirectDispatch:executeDirectDispatch,executeDispatchesInOrder:executeDispatchesInOrder,executeDispatchesInOrderStopAtTrue:executeDispatchesInOrderStopAtTrue,hasDispatches:hasDispatches,getFiberCurrentPropsFromNode:function getFiberCurrentPropsFromNode(node){return ComponentTree.getFiberCurrentPropsFromNode(node);},getInstanceFromNode:function getInstanceFromNode(node){return ComponentTree.getInstanceFromNode(node);},getNodeFromInstance:function getNodeFromInstance(node){return ComponentTree.getNodeFromInstance(node);},injection:injection};var EventPluginUtils_1=EventPluginUtils;var fiberHostComponent=null;var ReactControlledComponentInjection={injectFiberControlledHostComponent:function injectFiberControlledHostComponent(hostComponentImpl){fiberHostComponent=hostComponentImpl;}};var restoreTarget=null;var restoreQueue=null;function restoreStateOfTarget(target){var internalInstance=EventPluginUtils_1.getInstanceFromNode(target);if(!internalInstance){return;}if(typeof internalInstance.tag==='number'){!(fiberHostComponent&&typeof fiberHostComponent.restoreControlledState==='function')?invariant(false,'Fiber needs to be injected to handle a fiber target for controlled events. This error is likely caused by a bug in React. Please file an issue.'):void 0;var props=EventPluginUtils_1.getFiberCurrentPropsFromNode(internalInstance.stateNode);fiberHostComponent.restoreControlledState(internalInstance.stateNode,internalInstance.type,props);return;}!(typeof internalInstance.restoreControlledState==='function')?invariant(false,'The internal instance must be a React host component. This error is likely caused by a bug in React. Please file an issue.'):void 0;internalInstance.restoreControlledState();}var ReactControlledComponent={injection:ReactControlledComponentInjection,enqueueStateRestore:function enqueueStateRestore(target){if(restoreTarget){if(restoreQueue){restoreQueue.push(target);}else{restoreQueue=[target];}}else{restoreTarget=target;}},restoreStateIfNeeded:function restoreStateIfNeeded(){if(!restoreTarget){return;}var target=restoreTarget;var queuedTargets=restoreQueue;restoreTarget=null;restoreQueue=null;restoreStateOfTarget(target);if(queuedTargets){for(var i=0;i<queuedTargets.length;i++){restoreStateOfTarget(queuedTargets[i]);}}}};var ReactControlledComponent_1=ReactControlledComponent;var stackBatchedUpdates=function stackBatchedUpdates(fn,a,b,c,d,e){return fn(a,b,c,d,e);};var fiberBatchedUpdates=function fiberBatchedUpdates(fn,bookkeeping){return fn(bookkeeping);};function performFiberBatchedUpdates(fn,bookkeeping){return fiberBatchedUpdates(fn,bookkeeping);}function batchedUpdates(fn,bookkeeping){return stackBatchedUpdates(performFiberBatchedUpdates,fn,bookkeeping);}var isNestingBatched=false;function batchedUpdatesWithControlledComponents(fn,bookkeeping){if(isNestingBatched){return batchedUpdates(fn,bookkeeping);}isNestingBatched=true;try{return batchedUpdates(fn,bookkeeping);}finally{isNestingBatched=false;ReactControlledComponent_1.restoreStateIfNeeded();}}var ReactGenericBatchingInjection={injectStackBatchedUpdates:function injectStackBatchedUpdates(_batchedUpdates){stackBatchedUpdates=_batchedUpdates;},injectFiberBatchedUpdates:function injectFiberBatchedUpdates(_batchedUpdates){fiberBatchedUpdates=_batchedUpdates;}};var ReactGenericBatching={batchedUpdates:batchedUpdatesWithControlledComponents,injection:ReactGenericBatchingInjection};var ReactGenericBatching_1=ReactGenericBatching;var TEXT_NODE$1=HTMLNodeType_1.TEXT_NODE;function getEventTarget(nativeEvent){var target=nativeEvent.target||nativeEvent.srcElement||window;if(target.correspondingUseElement){target=target.correspondingUseElement;}return target.nodeType===TEXT_NODE$1?target.parentNode:target;}var getEventTarget_1=getEventTarget;var HostRoot=ReactTypeOfWork.HostRoot;var CALLBACK_BOOKKEEPING_POOL_SIZE=10;var callbackBookkeepingPool=[];function findRootContainerNode(inst){if(typeof inst.tag==='number'){while(inst['return']){inst=inst['return'];}if(inst.tag!==HostRoot){return null;}return inst.stateNode.containerInfo;}else{while(inst._hostParent){inst=inst._hostParent;}var rootNode=ReactDOMComponentTree_1.getNodeFromInstance(inst);return rootNode.parentNode;}}function getTopLevelCallbackBookKeeping(topLevelType,nativeEvent,targetInst){if(callbackBookkeepingPool.length){var instance=callbackBookkeepingPool.pop();instance.topLevelType=topLevelType;instance.nativeEvent=nativeEvent;instance.targetInst=targetInst;return instance;}return{topLevelType:topLevelType,nativeEvent:nativeEvent,targetInst:targetInst,ancestors:[]};}function releaseTopLevelCallbackBookKeeping(instance){instance.topLevelType=null;instance.nativeEvent=null;instance.targetInst=null;instance.ancestors.length=0;if(callbackBookkeepingPool.length<CALLBACK_BOOKKEEPING_POOL_SIZE){callbackBookkeepingPool.push(instance);}}function handleTopLevelImpl(bookKeeping){var targetInst=bookKeeping.targetInst;var ancestor=targetInst;do{if(!ancestor){bookKeeping.ancestors.push(ancestor);break;}var root=findRootContainerNode(ancestor);if(!root){break;}bookKeeping.ancestors.push(ancestor);ancestor=ReactDOMComponentTree_1.getClosestInstanceFromNode(root);}while(ancestor);for(var i=0;i<bookKeeping.ancestors.length;i++){targetInst=bookKeeping.ancestors[i];ReactDOMEventListener._handleTopLevel(bookKeeping.topLevelType,targetInst,bookKeeping.nativeEvent,getEventTarget_1(bookKeeping.nativeEvent));}}var ReactDOMEventListener={_enabled:true,_handleTopLevel:null,setHandleTopLevel:function setHandleTopLevel(handleTopLevel){ReactDOMEventListener._handleTopLevel=handleTopLevel;},setEnabled:function setEnabled(enabled){ReactDOMEventListener._enabled=!!enabled;},isEnabled:function isEnabled(){return ReactDOMEventListener._enabled;},trapBubbledEvent:function trapBubbledEvent(topLevelType,handlerBaseName,element){if(!element){return null;}return EventListener.listen(element,handlerBaseName,ReactDOMEventListener.dispatchEvent.bind(null,topLevelType));},trapCapturedEvent:function trapCapturedEvent(topLevelType,handlerBaseName,element){if(!element){return null;}return EventListener.capture(element,handlerBaseName,ReactDOMEventListener.dispatchEvent.bind(null,topLevelType));},dispatchEvent:function dispatchEvent(topLevelType,nativeEvent){if(!ReactDOMEventListener._enabled){return;}var nativeEventTarget=getEventTarget_1(nativeEvent);var targetInst=ReactDOMComponentTree_1.getClosestInstanceFromNode(nativeEventTarget);if(targetInst!==null&&typeof targetInst.tag==='number'&&!ReactFiberTreeReflection.isFiberMounted(targetInst)){targetInst=null;}var bookKeeping=getTopLevelCallbackBookKeeping(topLevelType,nativeEvent,targetInst);try{ReactGenericBatching_1.batchedUpdates(handleTopLevelImpl,bookKeeping);}finally{releaseTopLevelCallbackBookKeeping(bookKeeping);}}};var ReactDOMEventListener_1=ReactDOMEventListener;function accumulateInto(current,next){!(next!=null)?invariant(false,'accumulateInto(...): Accumulated items must not be null or undefined.'):void 0;if(current==null){return next;}if(Array.isArray(current)){if(Array.isArray(next)){current.push.apply(current,next);return current;}current.push(next);return current;}if(Array.isArray(next)){return[current].concat(next);}return[current,next];}var accumulateInto_1=accumulateInto;function forEachAccumulated(arr,cb,scope){if(Array.isArray(arr)){arr.forEach(cb,scope);}else if(arr){cb.call(scope,arr);}}var forEachAccumulated_1=forEachAccumulated;var eventQueue=null;var executeDispatchesAndRelease=function executeDispatchesAndRelease(event,simulated){if(event){EventPluginUtils_1.executeDispatchesInOrder(event,simulated);if(!event.isPersistent()){event.constructor.release(event);}}};var executeDispatchesAndReleaseSimulated=function executeDispatchesAndReleaseSimulated(e){return executeDispatchesAndRelease(e,true);};var executeDispatchesAndReleaseTopLevel=function executeDispatchesAndReleaseTopLevel(e){return executeDispatchesAndRelease(e,false);};function isInteractive(tag){return tag==='button'||tag==='input'||tag==='select'||tag==='textarea';}function shouldPreventMouseEvent(name,type,props){switch(name){case'onClick':case'onClickCapture':case'onDoubleClick':case'onDoubleClickCapture':case'onMouseDown':case'onMouseDownCapture':case'onMouseMove':case'onMouseMoveCapture':case'onMouseUp':case'onMouseUpCapture':return!!(props.disabled&&isInteractive(type));default:return false;}}var EventPluginHub={injection:{injectEventPluginOrder:EventPluginRegistry_1.injectEventPluginOrder,injectEventPluginsByName:EventPluginRegistry_1.injectEventPluginsByName},getListener:function getListener(inst,registrationName){var listener;if(typeof inst.tag==='number'){var stateNode=inst.stateNode;if(!stateNode){return null;}var props=EventPluginUtils_1.getFiberCurrentPropsFromNode(stateNode);if(!props){return null;}listener=props[registrationName];if(shouldPreventMouseEvent(registrationName,inst.type,props)){return null;}}else{var currentElement=inst._currentElement;if(typeof currentElement==='string'||typeof currentElement==='number'){return null;}if(!inst._rootNodeID){return null;}var _props=currentElement.props;listener=_props[registrationName];if(shouldPreventMouseEvent(registrationName,currentElement.type,_props)){return null;}}!(!listener||typeof listener==='function')?invariant(false,'Expected `%s` listener to be a function, instead got a value of `%s` type.',registrationName,typeof listener==='undefined'?'undefined':_typeof(listener)):void 0;return listener;},extractEvents:function extractEvents(topLevelType,targetInst,nativeEvent,nativeEventTarget){var events;var plugins=EventPluginRegistry_1.plugins;for(var i=0;i<plugins.length;i++){var possiblePlugin=plugins[i];if(possiblePlugin){var extractedEvents=possiblePlugin.extractEvents(topLevelType,targetInst,nativeEvent,nativeEventTarget);if(extractedEvents){events=accumulateInto_1(events,extractedEvents);}}}return events;},enqueueEvents:function enqueueEvents(events){if(events){eventQueue=accumulateInto_1(eventQueue,events);}},processEventQueue:function processEventQueue(simulated){var processingEventQueue=eventQueue;eventQueue=null;if(simulated){forEachAccumulated_1(processingEventQueue,executeDispatchesAndReleaseSimulated);}else{forEachAccumulated_1(processingEventQueue,executeDispatchesAndReleaseTopLevel);}!!eventQueue?invariant(false,'processEventQueue(): Additional events were enqueued while processing an event queue. Support for this has not yet been implemented.'):void 0;ReactErrorUtils_1.rethrowCaughtError();}};var EventPluginHub_1=EventPluginHub;function runEventQueueInBatch(events){EventPluginHub_1.enqueueEvents(events);EventPluginHub_1.processEventQueue(false);}var ReactEventEmitterMixin={handleTopLevel:function handleTopLevel(topLevelType,targetInst,nativeEvent,nativeEventTarget){var events=EventPluginHub_1.extractEvents(topLevelType,targetInst,nativeEvent,nativeEventTarget);runEventQueueInBatch(events);}};var ReactEventEmitterMixin_1=ReactEventEmitterMixin;var useHasFeature;if(ExecutionEnvironment.canUseDOM){useHasFeature=document.implementation&&document.implementation.hasFeature&&document.implementation.hasFeature('','')!==true;}/**
+ */var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj;};if(process.env.NODE_ENV!=="production"){(function(){'use strict';var react=__webpack_require__(4);var invariant=__webpack_require__(2);var ExecutionEnvironment=__webpack_require__(9);var _assign=__webpack_require__(3);var EventListener=__webpack_require__(10);var require$$0=__webpack_require__(6);var hyphenateStyleName=__webpack_require__(24);var emptyFunction=__webpack_require__(1);var camelizeStyleName=__webpack_require__(26);var performanceNow=__webpack_require__(28);var propTypes=__webpack_require__(30);var emptyObject=__webpack_require__(5);var checkPropTypes=__webpack_require__(7);var shallowEqual=__webpack_require__(11);var containsNode=__webpack_require__(12);var focusNode=__webpack_require__(13);var getActiveElement=__webpack_require__(14);!react?invariant(false,'ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.'):void 0;var HTML_NAMESPACE='http://www.w3.org/1999/xhtml';var MATH_NAMESPACE='http://www.w3.org/1998/Math/MathML';var SVG_NAMESPACE='http://www.w3.org/2000/svg';var Namespaces={html:HTML_NAMESPACE,mathml:MATH_NAMESPACE,svg:SVG_NAMESPACE};function getIntrinsicNamespace(type){switch(type){case'svg':return SVG_NAMESPACE;case'math':return MATH_NAMESPACE;default:return HTML_NAMESPACE;}}function getChildNamespace$1(parentNamespace,type){if(parentNamespace==null||parentNamespace===HTML_NAMESPACE){return getIntrinsicNamespace(type);}if(parentNamespace===SVG_NAMESPACE&&type==='foreignObject'){return HTML_NAMESPACE;}return parentNamespace;}var Namespaces_1=Namespaces;var getIntrinsicNamespace_1=getIntrinsicNamespace;var getChildNamespace_1=getChildNamespace$1;var DOMNamespaces={Namespaces:Namespaces_1,getIntrinsicNamespace:getIntrinsicNamespace_1,getChildNamespace:getChildNamespace_1};var eventPluginOrder=null;var namesToPlugins={};function recomputePluginOrdering(){if(!eventPluginOrder){return;}for(var pluginName in namesToPlugins){var pluginModule=namesToPlugins[pluginName];var pluginIndex=eventPluginOrder.indexOf(pluginName);!(pluginIndex>-1)?invariant(false,'EventPluginRegistry: Cannot inject event plugins that do not exist in the plugin ordering, `%s`.',pluginName):void 0;if(EventPluginRegistry.plugins[pluginIndex]){continue;}!pluginModule.extractEvents?invariant(false,'EventPluginRegistry: Event plugins must implement an `extractEvents` method, but `%s` does not.',pluginName):void 0;EventPluginRegistry.plugins[pluginIndex]=pluginModule;var publishedEvents=pluginModule.eventTypes;for(var eventName in publishedEvents){!publishEventForPlugin(publishedEvents[eventName],pluginModule,eventName)?invariant(false,'EventPluginRegistry: Failed to publish event `%s` for plugin `%s`.',eventName,pluginName):void 0;}}}function publishEventForPlugin(dispatchConfig,pluginModule,eventName){!!EventPluginRegistry.eventNameDispatchConfigs.hasOwnProperty(eventName)?invariant(false,'EventPluginHub: More than one plugin attempted to publish the same event name, `%s`.',eventName):void 0;EventPluginRegistry.eventNameDispatchConfigs[eventName]=dispatchConfig;var phasedRegistrationNames=dispatchConfig.phasedRegistrationNames;if(phasedRegistrationNames){for(var phaseName in phasedRegistrationNames){if(phasedRegistrationNames.hasOwnProperty(phaseName)){var phasedRegistrationName=phasedRegistrationNames[phaseName];publishRegistrationName(phasedRegistrationName,pluginModule,eventName);}}return true;}else if(dispatchConfig.registrationName){publishRegistrationName(dispatchConfig.registrationName,pluginModule,eventName);return true;}return false;}function publishRegistrationName(registrationName,pluginModule,eventName){!!EventPluginRegistry.registrationNameModules[registrationName]?invariant(false,'EventPluginHub: More than one plugin attempted to publish the same registration name, `%s`.',registrationName):void 0;EventPluginRegistry.registrationNameModules[registrationName]=pluginModule;EventPluginRegistry.registrationNameDependencies[registrationName]=pluginModule.eventTypes[eventName].dependencies;{var lowerCasedName=registrationName.toLowerCase();EventPluginRegistry.possibleRegistrationNames[lowerCasedName]=registrationName;if(registrationName==='onDoubleClick'){EventPluginRegistry.possibleRegistrationNames.ondblclick=registrationName;}}}var EventPluginRegistry={plugins:[],eventNameDispatchConfigs:{},registrationNameModules:{},registrationNameDependencies:{},possibleRegistrationNames:{},injectEventPluginOrder:function injectEventPluginOrder(injectedEventPluginOrder){!!eventPluginOrder?invariant(false,'EventPluginRegistry: Cannot inject event plugin ordering more than once. You are likely trying to load more than one copy of React.'):void 0;eventPluginOrder=Array.prototype.slice.call(injectedEventPluginOrder);recomputePluginOrdering();},injectEventPluginsByName:function injectEventPluginsByName(injectedNamesToPlugins){var isOrderingDirty=false;for(var pluginName in injectedNamesToPlugins){if(!injectedNamesToPlugins.hasOwnProperty(pluginName)){continue;}var pluginModule=injectedNamesToPlugins[pluginName];if(!namesToPlugins.hasOwnProperty(pluginName)||namesToPlugins[pluginName]!==pluginModule){!!namesToPlugins[pluginName]?invariant(false,'EventPluginRegistry: Cannot inject two different event plugins using the same name, `%s`.',pluginName):void 0;namesToPlugins[pluginName]=pluginModule;isOrderingDirty=true;}}if(isOrderingDirty){recomputePluginOrdering();}}};var EventPluginRegistry_1=EventPluginRegistry;var RESERVED_PROPS={children:true,dangerouslySetInnerHTML:true,autoFocus:true,defaultValue:true,defaultChecked:true,innerHTML:true,suppressContentEditableWarning:true,style:true};function checkMask(value,bitmask){return(value&bitmask)===bitmask;}var DOMPropertyInjection={MUST_USE_PROPERTY:0x1,HAS_BOOLEAN_VALUE:0x4,HAS_NUMERIC_VALUE:0x8,HAS_POSITIVE_NUMERIC_VALUE:0x10|0x8,HAS_OVERLOADED_BOOLEAN_VALUE:0x20,HAS_STRING_BOOLEAN_VALUE:0x40,injectDOMPropertyConfig:function injectDOMPropertyConfig(domPropertyConfig){var Injection=DOMPropertyInjection;var Properties=domPropertyConfig.Properties||{};var DOMAttributeNamespaces=domPropertyConfig.DOMAttributeNamespaces||{};var DOMAttributeNames=domPropertyConfig.DOMAttributeNames||{};var DOMMutationMethods=domPropertyConfig.DOMMutationMethods||{};for(var propName in Properties){!!DOMProperty.properties.hasOwnProperty(propName)?invariant(false,'injectDOMPropertyConfig(...): You\'re trying to inject DOM property \'%s\' which has already been injected. You may be accidentally injecting the same DOM property config twice, or you may be injecting two configs that have conflicting property names.',propName):void 0;var lowerCased=propName.toLowerCase();var propConfig=Properties[propName];var propertyInfo={attributeName:lowerCased,attributeNamespace:null,propertyName:propName,mutationMethod:null,mustUseProperty:checkMask(propConfig,Injection.MUST_USE_PROPERTY),hasBooleanValue:checkMask(propConfig,Injection.HAS_BOOLEAN_VALUE),hasNumericValue:checkMask(propConfig,Injection.HAS_NUMERIC_VALUE),hasPositiveNumericValue:checkMask(propConfig,Injection.HAS_POSITIVE_NUMERIC_VALUE),hasOverloadedBooleanValue:checkMask(propConfig,Injection.HAS_OVERLOADED_BOOLEAN_VALUE),hasStringBooleanValue:checkMask(propConfig,Injection.HAS_STRING_BOOLEAN_VALUE)};!(propertyInfo.hasBooleanValue+propertyInfo.hasNumericValue+propertyInfo.hasOverloadedBooleanValue<=1)?invariant(false,'DOMProperty: Value can be one of boolean, overloaded boolean, or numeric value, but not a combination: %s',propName):void 0;if(DOMAttributeNames.hasOwnProperty(propName)){var attributeName=DOMAttributeNames[propName];propertyInfo.attributeName=attributeName;}if(DOMAttributeNamespaces.hasOwnProperty(propName)){propertyInfo.attributeNamespace=DOMAttributeNamespaces[propName];}if(DOMMutationMethods.hasOwnProperty(propName)){propertyInfo.mutationMethod=DOMMutationMethods[propName];}DOMProperty.properties[propName]=propertyInfo;}}};var ATTRIBUTE_NAME_START_CHAR=':A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD';var DOMProperty={ID_ATTRIBUTE_NAME:'data-reactid',ROOT_ATTRIBUTE_NAME:'data-reactroot',ATTRIBUTE_NAME_START_CHAR:ATTRIBUTE_NAME_START_CHAR,ATTRIBUTE_NAME_CHAR:ATTRIBUTE_NAME_START_CHAR+'\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040',properties:{},shouldSetAttribute:function shouldSetAttribute(name,value){if(DOMProperty.isReservedProp(name)){return false;}if((name[0]==='o'||name[0]==='O')&&(name[1]==='n'||name[1]==='N')){return false;}if(value===null){return true;}switch(typeof value==='undefined'?'undefined':_typeof(value)){case'boolean':return DOMProperty.shouldAttributeAcceptBooleanValue(name);case'undefined':case'number':case'string':case'object':return true;default:return false;}},getPropertyInfo:function getPropertyInfo(name){return DOMProperty.properties.hasOwnProperty(name)?DOMProperty.properties[name]:null;},shouldAttributeAcceptBooleanValue:function shouldAttributeAcceptBooleanValue(name){if(DOMProperty.isReservedProp(name)){return true;}var propertyInfo=DOMProperty.getPropertyInfo(name);if(propertyInfo){return propertyInfo.hasBooleanValue||propertyInfo.hasStringBooleanValue||propertyInfo.hasOverloadedBooleanValue;}var prefix=name.toLowerCase().slice(0,5);return prefix==='data-'||prefix==='aria-';},isReservedProp:function isReservedProp(name){return RESERVED_PROPS.hasOwnProperty(name);},injection:DOMPropertyInjection};var DOMProperty_1=DOMProperty;var ReactDOMComponentFlags={hasCachedChildNodes:1<<0};var ReactDOMComponentFlags_1=ReactDOMComponentFlags;var ReactTypeOfWork={IndeterminateComponent:0,FunctionalComponent:1,ClassComponent:2,HostRoot:3,HostPortal:4,HostComponent:5,HostText:6,CoroutineComponent:7,CoroutineHandlerPhase:8,YieldComponent:9,Fragment:10};var HTMLNodeType={ELEMENT_NODE:1,TEXT_NODE:3,COMMENT_NODE:8,DOCUMENT_NODE:9,DOCUMENT_FRAGMENT_NODE:11};var HTMLNodeType_1=HTMLNodeType;var HostComponent=ReactTypeOfWork.HostComponent;var HostText=ReactTypeOfWork.HostText;var ELEMENT_NODE$1=HTMLNodeType_1.ELEMENT_NODE;var COMMENT_NODE$1=HTMLNodeType_1.COMMENT_NODE;var ATTR_NAME=DOMProperty_1.ID_ATTRIBUTE_NAME;var Flags=ReactDOMComponentFlags_1;var randomKey=Math.random().toString(36).slice(2);var internalInstanceKey='__reactInternalInstance$'+randomKey;var internalEventHandlersKey='__reactEventHandlers$'+randomKey;function shouldPrecacheNode(node,nodeID){return node.nodeType===ELEMENT_NODE$1&&node.getAttribute(ATTR_NAME)===''+nodeID||node.nodeType===COMMENT_NODE$1&&node.nodeValue===' react-text: '+nodeID+' '||node.nodeType===COMMENT_NODE$1&&node.nodeValue===' react-empty: '+nodeID+' ';}function getRenderedHostOrTextFromComponent(component){var rendered;while(rendered=component._renderedComponent){component=rendered;}return component;}function precacheNode(inst,node){var hostInst=getRenderedHostOrTextFromComponent(inst);hostInst._hostNode=node;node[internalInstanceKey]=hostInst;}function precacheFiberNode$1(hostInst,node){node[internalInstanceKey]=hostInst;}function uncacheNode(inst){var node=inst._hostNode;if(node){delete node[internalInstanceKey];inst._hostNode=null;}}function precacheChildNodes(inst,node){if(inst._flags&Flags.hasCachedChildNodes){return;}var children=inst._renderedChildren;var childNode=node.firstChild;outer:for(var name in children){if(!children.hasOwnProperty(name)){continue;}var childInst=children[name];var childID=getRenderedHostOrTextFromComponent(childInst)._domID;if(childID===0){continue;}for(;childNode!==null;childNode=childNode.nextSibling){if(shouldPrecacheNode(childNode,childID)){precacheNode(childInst,childNode);continue outer;}}invariant(false,'Unable to find element with ID %s.',childID);}inst._flags|=Flags.hasCachedChildNodes;}function getClosestInstanceFromNode(node){if(node[internalInstanceKey]){return node[internalInstanceKey];}var parents=[];while(!node[internalInstanceKey]){parents.push(node);if(node.parentNode){node=node.parentNode;}else{return null;}}var closest;var inst=node[internalInstanceKey];if(inst.tag===HostComponent||inst.tag===HostText){return inst;}for(;node&&(inst=node[internalInstanceKey]);node=parents.pop()){closest=inst;if(parents.length){precacheChildNodes(inst,node);}}return closest;}function getInstanceFromNode(node){var inst=node[internalInstanceKey];if(inst){if(inst.tag===HostComponent||inst.tag===HostText){return inst;}else if(inst._hostNode===node){return inst;}else{return null;}}inst=getClosestInstanceFromNode(node);if(inst!=null&&inst._hostNode===node){return inst;}else{return null;}}function getNodeFromInstance(inst){if(inst.tag===HostComponent||inst.tag===HostText){return inst.stateNode;}!(inst._hostNode!==undefined)?invariant(false,'getNodeFromInstance: Invalid argument.'):void 0;if(inst._hostNode){return inst._hostNode;}var parents=[];while(!inst._hostNode){parents.push(inst);!inst._hostParent?invariant(false,'React DOM tree root should always have a node reference.'):void 0;inst=inst._hostParent;}for(;parents.length;inst=parents.pop()){precacheChildNodes(inst,inst._hostNode);}return inst._hostNode;}function getFiberCurrentPropsFromNode(node){return node[internalEventHandlersKey]||null;}function updateFiberProps$1(node,props){node[internalEventHandlersKey]=props;}var ReactDOMComponentTree={getClosestInstanceFromNode:getClosestInstanceFromNode,getInstanceFromNode:getInstanceFromNode,getNodeFromInstance:getNodeFromInstance,precacheChildNodes:precacheChildNodes,precacheNode:precacheNode,uncacheNode:uncacheNode,precacheFiberNode:precacheFiberNode$1,getFiberCurrentPropsFromNode:getFiberCurrentPropsFromNode,updateFiberProps:updateFiberProps$1};var ReactDOMComponentTree_1=ReactDOMComponentTree;var ReactInstanceMap={remove:function remove(key){key._reactInternalFiber=undefined;},get:function get(key){return key._reactInternalFiber;},has:function has(key){return key._reactInternalFiber!==undefined;},set:function set(key,value){key._reactInternalFiber=value;}};var ReactInstanceMap_1=ReactInstanceMap;var ReactInternals=react.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;var ReactGlobalSharedState={ReactCurrentOwner:ReactInternals.ReactCurrentOwner};{_assign(ReactGlobalSharedState,{ReactComponentTreeHook:ReactInternals.ReactComponentTreeHook,ReactDebugCurrentFrame:ReactInternals.ReactDebugCurrentFrame});}var ReactGlobalSharedState_1=ReactGlobalSharedState;function getComponentName(instanceOrFiber){if(typeof instanceOrFiber.getName==='function'){var instance=instanceOrFiber;return instance.getName();}if(typeof instanceOrFiber.tag==='number'){var fiber=instanceOrFiber;var type=fiber.type;if(typeof type==='string'){return type;}if(typeof type==='function'){return type.displayName||type.name;}}return null;}var getComponentName_1=getComponentName;var ReactTypeOfSideEffect={NoEffect:0,PerformedWork:1,Placement:2,Update:4,PlacementAndUpdate:6,Deletion:8,ContentReset:16,Callback:32,Err:64,Ref:128};var ReactCurrentOwner=ReactGlobalSharedState_1.ReactCurrentOwner;{var warning$1=require$$0;}var ClassComponent=ReactTypeOfWork.ClassComponent;var HostComponent$1=ReactTypeOfWork.HostComponent;var HostRoot$1=ReactTypeOfWork.HostRoot;var HostPortal=ReactTypeOfWork.HostPortal;var HostText$1=ReactTypeOfWork.HostText;var NoEffect=ReactTypeOfSideEffect.NoEffect;var Placement=ReactTypeOfSideEffect.Placement;var MOUNTING=1;var MOUNTED=2;var UNMOUNTED=3;function isFiberMountedImpl(fiber){var node=fiber;if(!fiber.alternate){if((node.effectTag&Placement)!==NoEffect){return MOUNTING;}while(node['return']){node=node['return'];if((node.effectTag&Placement)!==NoEffect){return MOUNTING;}}}else{while(node['return']){node=node['return'];}}if(node.tag===HostRoot$1){return MOUNTED;}return UNMOUNTED;}var isFiberMounted=function isFiberMounted(fiber){return isFiberMountedImpl(fiber)===MOUNTED;};var isMounted=function isMounted(component){{var owner=ReactCurrentOwner.current;if(owner!==null&&owner.tag===ClassComponent){var ownerFiber=owner;var instance=ownerFiber.stateNode;warning$1(instance._warnedAboutRefsInRender,'%s is accessing isMounted inside its render() function. '+'render() should be a pure function of props and state. It should '+'never access something that requires stale data from the previous '+'render, such as refs. Move this logic to componentDidMount and '+'componentDidUpdate instead.',getComponentName_1(ownerFiber)||'A component');instance._warnedAboutRefsInRender=true;}}var fiber=ReactInstanceMap_1.get(component);if(!fiber){return false;}return isFiberMountedImpl(fiber)===MOUNTED;};function assertIsMounted(fiber){!(isFiberMountedImpl(fiber)===MOUNTED)?invariant(false,'Unable to find node on an unmounted component.'):void 0;}function findCurrentFiberUsingSlowPath(fiber){var alternate=fiber.alternate;if(!alternate){var state=isFiberMountedImpl(fiber);!(state!==UNMOUNTED)?invariant(false,'Unable to find node on an unmounted component.'):void 0;if(state===MOUNTING){return null;}return fiber;}var a=fiber;var b=alternate;while(true){var parentA=a['return'];var parentB=parentA?parentA.alternate:null;if(!parentA||!parentB){break;}if(parentA.child===parentB.child){var child=parentA.child;while(child){if(child===a){assertIsMounted(parentA);return fiber;}if(child===b){assertIsMounted(parentA);return alternate;}child=child.sibling;}invariant(false,'Unable to find node on an unmounted component.');}if(a['return']!==b['return']){a=parentA;b=parentB;}else{var didFindChild=false;var _child=parentA.child;while(_child){if(_child===a){didFindChild=true;a=parentA;b=parentB;break;}if(_child===b){didFindChild=true;b=parentA;a=parentB;break;}_child=_child.sibling;}if(!didFindChild){_child=parentB.child;while(_child){if(_child===a){didFindChild=true;a=parentB;b=parentA;break;}if(_child===b){didFindChild=true;b=parentB;a=parentA;break;}_child=_child.sibling;}!didFindChild?invariant(false,'Child was not found in either parent set. This indicates a bug in React related to the return pointer. Please file an issue.'):void 0;}}!(a.alternate===b)?invariant(false,'Return fibers should always be each others\' alternates. This error is likely caused by a bug in React. Please file an issue.'):void 0;}!(a.tag===HostRoot$1)?invariant(false,'Unable to find node on an unmounted component.'):void 0;if(a.stateNode.current===a){return fiber;}return alternate;}var findCurrentFiberUsingSlowPath_1=findCurrentFiberUsingSlowPath;var findCurrentHostFiber=function findCurrentHostFiber(parent){var currentParent=findCurrentFiberUsingSlowPath(parent);if(!currentParent){return null;}var node=currentParent;while(true){if(node.tag===HostComponent$1||node.tag===HostText$1){return node;}else if(node.child){node.child['return']=node;node=node.child;continue;}if(node===currentParent){return null;}while(!node.sibling){if(!node['return']||node['return']===currentParent){return null;}node=node['return'];}node.sibling['return']=node['return'];node=node.sibling;}return null;};var findCurrentHostFiberWithNoPortals=function findCurrentHostFiberWithNoPortals(parent){var currentParent=findCurrentFiberUsingSlowPath(parent);if(!currentParent){return null;}var node=currentParent;while(true){if(node.tag===HostComponent$1||node.tag===HostText$1){return node;}else if(node.child&&node.tag!==HostPortal){node.child['return']=node;node=node.child;continue;}if(node===currentParent){return null;}while(!node.sibling){if(!node['return']||node['return']===currentParent){return null;}node=node['return'];}node.sibling['return']=node['return'];node=node.sibling;}return null;};var ReactFiberTreeReflection={isFiberMounted:isFiberMounted,isMounted:isMounted,findCurrentFiberUsingSlowPath:findCurrentFiberUsingSlowPath_1,findCurrentHostFiber:findCurrentHostFiber,findCurrentHostFiberWithNoPortals:findCurrentHostFiberWithNoPortals};var ReactErrorUtils={_caughtError:null,_hasCaughtError:false,_rethrowError:null,_hasRethrowError:false,injection:{injectErrorUtils:function injectErrorUtils(injectedErrorUtils){!(typeof injectedErrorUtils.invokeGuardedCallback==='function')?invariant(false,'Injected invokeGuardedCallback() must be a function.'):void 0;_invokeGuardedCallback=injectedErrorUtils.invokeGuardedCallback;}},invokeGuardedCallback:function invokeGuardedCallback(name,func,context,a,b,c,d,e,f){_invokeGuardedCallback.apply(ReactErrorUtils,arguments);},invokeGuardedCallbackAndCatchFirstError:function invokeGuardedCallbackAndCatchFirstError(name,func,context,a,b,c,d,e,f){ReactErrorUtils.invokeGuardedCallback.apply(this,arguments);if(ReactErrorUtils.hasCaughtError()){var error=ReactErrorUtils.clearCaughtError();if(!ReactErrorUtils._hasRethrowError){ReactErrorUtils._hasRethrowError=true;ReactErrorUtils._rethrowError=error;}}},rethrowCaughtError:function rethrowCaughtError(){return _rethrowCaughtError.apply(ReactErrorUtils,arguments);},hasCaughtError:function hasCaughtError(){return ReactErrorUtils._hasCaughtError;},clearCaughtError:function clearCaughtError(){if(ReactErrorUtils._hasCaughtError){var error=ReactErrorUtils._caughtError;ReactErrorUtils._caughtError=null;ReactErrorUtils._hasCaughtError=false;return error;}else{invariant(false,'clearCaughtError was called but no error was captured. This error is likely caused by a bug in React. Please file an issue.');}}};var _invokeGuardedCallback=function _invokeGuardedCallback(name,func,context,a,b,c,d,e,f){ReactErrorUtils._hasCaughtError=false;ReactErrorUtils._caughtError=null;var funcArgs=Array.prototype.slice.call(arguments,3);try{func.apply(context,funcArgs);}catch(error){ReactErrorUtils._caughtError=error;ReactErrorUtils._hasCaughtError=true;}};{if(typeof window!=='undefined'&&typeof window.dispatchEvent==='function'&&typeof document!=='undefined'&&typeof document.createEvent==='function'){var fakeNode=document.createElement('react');var invokeGuardedCallbackDev=function invokeGuardedCallbackDev(name,func,context,a,b,c,d,e,f){var didError=true;var funcArgs=Array.prototype.slice.call(arguments,3);function callCallback(){fakeNode.removeEventListener(evtType,callCallback,false);func.apply(context,funcArgs);didError=false;}var error=void 0;var didSetError=false;var isCrossOriginError=false;function onError(event){error=event.error;didSetError=true;if(error===null&&event.colno===0&&event.lineno===0){isCrossOriginError=true;}}var evtType='react-'+(name?name:'invokeguardedcallback');window.addEventListener('error',onError);fakeNode.addEventListener(evtType,callCallback,false);var evt=document.createEvent('Event');evt.initEvent(evtType,false,false);fakeNode.dispatchEvent(evt);if(didError){if(!didSetError){error=new Error('An error was thrown inside one of your components, but React '+"doesn't know what it was. This is likely due to browser "+'flakiness. React does its best to preserve the "Pause on '+'exceptions" behavior of the DevTools, which requires some '+"DEV-mode only tricks. It's possible that these don't work in "+'your browser. Try triggering the error in production mode, '+'or switching to a modern browser. If you suspect that this is '+'actually an issue with React, please file an issue.');}else if(isCrossOriginError){error=new Error("A cross-origin error was thrown. React doesn't have access to "+'the actual error object in development. '+'See https://fb.me/react-crossorigin-error for more information.');}ReactErrorUtils._hasCaughtError=true;ReactErrorUtils._caughtError=error;}else{ReactErrorUtils._hasCaughtError=false;ReactErrorUtils._caughtError=null;}window.removeEventListener('error',onError);};_invokeGuardedCallback=invokeGuardedCallbackDev;}}var _rethrowCaughtError=function _rethrowCaughtError(){if(ReactErrorUtils._hasRethrowError){var error=ReactErrorUtils._rethrowError;ReactErrorUtils._rethrowError=null;ReactErrorUtils._hasRethrowError=false;throw error;}};var ReactErrorUtils_1=ReactErrorUtils;{var warning$2=require$$0;}var ComponentTree;var injection={injectComponentTree:function injectComponentTree(Injected){ComponentTree=Injected;{warning$2(Injected&&Injected.getNodeFromInstance&&Injected.getInstanceFromNode,'EventPluginUtils.injection.injectComponentTree(...): Injected '+'module is missing getNodeFromInstance or getInstanceFromNode.');}}};function isEndish(topLevelType){return topLevelType==='topMouseUp'||topLevelType==='topTouchEnd'||topLevelType==='topTouchCancel';}function isMoveish(topLevelType){return topLevelType==='topMouseMove'||topLevelType==='topTouchMove';}function isStartish(topLevelType){return topLevelType==='topMouseDown'||topLevelType==='topTouchStart';}var validateEventDispatches;{validateEventDispatches=function validateEventDispatches(event){var dispatchListeners=event._dispatchListeners;var dispatchInstances=event._dispatchInstances;var listenersIsArr=Array.isArray(dispatchListeners);var listenersLen=listenersIsArr?dispatchListeners.length:dispatchListeners?1:0;var instancesIsArr=Array.isArray(dispatchInstances);var instancesLen=instancesIsArr?dispatchInstances.length:dispatchInstances?1:0;warning$2(instancesIsArr===listenersIsArr&&instancesLen===listenersLen,'EventPluginUtils: Invalid `event`.');};}function executeDispatch(event,simulated,listener,inst){var type=event.type||'unknown-event';event.currentTarget=EventPluginUtils.getNodeFromInstance(inst);ReactErrorUtils_1.invokeGuardedCallbackAndCatchFirstError(type,listener,undefined,event);event.currentTarget=null;}function executeDispatchesInOrder(event,simulated){var dispatchListeners=event._dispatchListeners;var dispatchInstances=event._dispatchInstances;{validateEventDispatches(event);}if(Array.isArray(dispatchListeners)){for(var i=0;i<dispatchListeners.length;i++){if(event.isPropagationStopped()){break;}executeDispatch(event,simulated,dispatchListeners[i],dispatchInstances[i]);}}else if(dispatchListeners){executeDispatch(event,simulated,dispatchListeners,dispatchInstances);}event._dispatchListeners=null;event._dispatchInstances=null;}function executeDispatchesInOrderStopAtTrueImpl(event){var dispatchListeners=event._dispatchListeners;var dispatchInstances=event._dispatchInstances;{validateEventDispatches(event);}if(Array.isArray(dispatchListeners)){for(var i=0;i<dispatchListeners.length;i++){if(event.isPropagationStopped()){break;}if(dispatchListeners[i](event,dispatchInstances[i])){return dispatchInstances[i];}}}else if(dispatchListeners){if(dispatchListeners(event,dispatchInstances)){return dispatchInstances;}}return null;}function executeDispatchesInOrderStopAtTrue(event){var ret=executeDispatchesInOrderStopAtTrueImpl(event);event._dispatchInstances=null;event._dispatchListeners=null;return ret;}function executeDirectDispatch(event){{validateEventDispatches(event);}var dispatchListener=event._dispatchListeners;var dispatchInstance=event._dispatchInstances;!!Array.isArray(dispatchListener)?invariant(false,'executeDirectDispatch(...): Invalid `event`.'):void 0;event.currentTarget=dispatchListener?EventPluginUtils.getNodeFromInstance(dispatchInstance):null;var res=dispatchListener?dispatchListener(event):null;event.currentTarget=null;event._dispatchListeners=null;event._dispatchInstances=null;return res;}function hasDispatches(event){return!!event._dispatchListeners;}var EventPluginUtils={isEndish:isEndish,isMoveish:isMoveish,isStartish:isStartish,executeDirectDispatch:executeDirectDispatch,executeDispatchesInOrder:executeDispatchesInOrder,executeDispatchesInOrderStopAtTrue:executeDispatchesInOrderStopAtTrue,hasDispatches:hasDispatches,getFiberCurrentPropsFromNode:function getFiberCurrentPropsFromNode(node){return ComponentTree.getFiberCurrentPropsFromNode(node);},getInstanceFromNode:function getInstanceFromNode(node){return ComponentTree.getInstanceFromNode(node);},getNodeFromInstance:function getNodeFromInstance(node){return ComponentTree.getNodeFromInstance(node);},injection:injection};var EventPluginUtils_1=EventPluginUtils;var fiberHostComponent=null;var ReactControlledComponentInjection={injectFiberControlledHostComponent:function injectFiberControlledHostComponent(hostComponentImpl){fiberHostComponent=hostComponentImpl;}};var restoreTarget=null;var restoreQueue=null;function restoreStateOfTarget(target){var internalInstance=EventPluginUtils_1.getInstanceFromNode(target);if(!internalInstance){return;}if(typeof internalInstance.tag==='number'){!(fiberHostComponent&&typeof fiberHostComponent.restoreControlledState==='function')?invariant(false,'Fiber needs to be injected to handle a fiber target for controlled events. This error is likely caused by a bug in React. Please file an issue.'):void 0;var props=EventPluginUtils_1.getFiberCurrentPropsFromNode(internalInstance.stateNode);fiberHostComponent.restoreControlledState(internalInstance.stateNode,internalInstance.type,props);return;}!(typeof internalInstance.restoreControlledState==='function')?invariant(false,'The internal instance must be a React host component. This error is likely caused by a bug in React. Please file an issue.'):void 0;internalInstance.restoreControlledState();}var ReactControlledComponent={injection:ReactControlledComponentInjection,enqueueStateRestore:function enqueueStateRestore(target){if(restoreTarget){if(restoreQueue){restoreQueue.push(target);}else{restoreQueue=[target];}}else{restoreTarget=target;}},restoreStateIfNeeded:function restoreStateIfNeeded(){if(!restoreTarget){return;}var target=restoreTarget;var queuedTargets=restoreQueue;restoreTarget=null;restoreQueue=null;restoreStateOfTarget(target);if(queuedTargets){for(var i=0;i<queuedTargets.length;i++){restoreStateOfTarget(queuedTargets[i]);}}}};var ReactControlledComponent_1=ReactControlledComponent;var stackBatchedUpdates=function stackBatchedUpdates(fn,a,b,c,d,e){return fn(a,b,c,d,e);};var fiberBatchedUpdates=function fiberBatchedUpdates(fn,bookkeeping){return fn(bookkeeping);};function performFiberBatchedUpdates(fn,bookkeeping){return fiberBatchedUpdates(fn,bookkeeping);}function batchedUpdates(fn,bookkeeping){return stackBatchedUpdates(performFiberBatchedUpdates,fn,bookkeeping);}var isNestingBatched=false;function batchedUpdatesWithControlledComponents(fn,bookkeeping){if(isNestingBatched){return batchedUpdates(fn,bookkeeping);}isNestingBatched=true;try{return batchedUpdates(fn,bookkeeping);}finally{isNestingBatched=false;ReactControlledComponent_1.restoreStateIfNeeded();}}var ReactGenericBatchingInjection={injectStackBatchedUpdates:function injectStackBatchedUpdates(_batchedUpdates){stackBatchedUpdates=_batchedUpdates;},injectFiberBatchedUpdates:function injectFiberBatchedUpdates(_batchedUpdates){fiberBatchedUpdates=_batchedUpdates;}};var ReactGenericBatching={batchedUpdates:batchedUpdatesWithControlledComponents,injection:ReactGenericBatchingInjection};var ReactGenericBatching_1=ReactGenericBatching;var TEXT_NODE$1=HTMLNodeType_1.TEXT_NODE;function getEventTarget(nativeEvent){var target=nativeEvent.target||nativeEvent.srcElement||window;if(target.correspondingUseElement){target=target.correspondingUseElement;}return target.nodeType===TEXT_NODE$1?target.parentNode:target;}var getEventTarget_1=getEventTarget;var HostRoot=ReactTypeOfWork.HostRoot;var CALLBACK_BOOKKEEPING_POOL_SIZE=10;var callbackBookkeepingPool=[];function findRootContainerNode(inst){if(typeof inst.tag==='number'){while(inst['return']){inst=inst['return'];}if(inst.tag!==HostRoot){return null;}return inst.stateNode.containerInfo;}else{while(inst._hostParent){inst=inst._hostParent;}var rootNode=ReactDOMComponentTree_1.getNodeFromInstance(inst);return rootNode.parentNode;}}function getTopLevelCallbackBookKeeping(topLevelType,nativeEvent,targetInst){if(callbackBookkeepingPool.length){var instance=callbackBookkeepingPool.pop();instance.topLevelType=topLevelType;instance.nativeEvent=nativeEvent;instance.targetInst=targetInst;return instance;}return{topLevelType:topLevelType,nativeEvent:nativeEvent,targetInst:targetInst,ancestors:[]};}function releaseTopLevelCallbackBookKeeping(instance){instance.topLevelType=null;instance.nativeEvent=null;instance.targetInst=null;instance.ancestors.length=0;if(callbackBookkeepingPool.length<CALLBACK_BOOKKEEPING_POOL_SIZE){callbackBookkeepingPool.push(instance);}}function handleTopLevelImpl(bookKeeping){var targetInst=bookKeeping.targetInst;var ancestor=targetInst;do{if(!ancestor){bookKeeping.ancestors.push(ancestor);break;}var root=findRootContainerNode(ancestor);if(!root){break;}bookKeeping.ancestors.push(ancestor);ancestor=ReactDOMComponentTree_1.getClosestInstanceFromNode(root);}while(ancestor);for(var i=0;i<bookKeeping.ancestors.length;i++){targetInst=bookKeeping.ancestors[i];ReactDOMEventListener._handleTopLevel(bookKeeping.topLevelType,targetInst,bookKeeping.nativeEvent,getEventTarget_1(bookKeeping.nativeEvent));}}var ReactDOMEventListener={_enabled:true,_handleTopLevel:null,setHandleTopLevel:function setHandleTopLevel(handleTopLevel){ReactDOMEventListener._handleTopLevel=handleTopLevel;},setEnabled:function setEnabled(enabled){ReactDOMEventListener._enabled=!!enabled;},isEnabled:function isEnabled(){return ReactDOMEventListener._enabled;},trapBubbledEvent:function trapBubbledEvent(topLevelType,handlerBaseName,element){if(!element){return null;}return EventListener.listen(element,handlerBaseName,ReactDOMEventListener.dispatchEvent.bind(null,topLevelType));},trapCapturedEvent:function trapCapturedEvent(topLevelType,handlerBaseName,element){if(!element){return null;}return EventListener.capture(element,handlerBaseName,ReactDOMEventListener.dispatchEvent.bind(null,topLevelType));},dispatchEvent:function dispatchEvent(topLevelType,nativeEvent){if(!ReactDOMEventListener._enabled){return;}var nativeEventTarget=getEventTarget_1(nativeEvent);var targetInst=ReactDOMComponentTree_1.getClosestInstanceFromNode(nativeEventTarget);if(targetInst!==null&&typeof targetInst.tag==='number'&&!ReactFiberTreeReflection.isFiberMounted(targetInst)){targetInst=null;}var bookKeeping=getTopLevelCallbackBookKeeping(topLevelType,nativeEvent,targetInst);try{ReactGenericBatching_1.batchedUpdates(handleTopLevelImpl,bookKeeping);}finally{releaseTopLevelCallbackBookKeeping(bookKeeping);}}};var ReactDOMEventListener_1=ReactDOMEventListener;function accumulateInto(current,next){!(next!=null)?invariant(false,'accumulateInto(...): Accumulated items must not be null or undefined.'):void 0;if(current==null){return next;}if(Array.isArray(current)){if(Array.isArray(next)){current.push.apply(current,next);return current;}current.push(next);return current;}if(Array.isArray(next)){return[current].concat(next);}return[current,next];}var accumulateInto_1=accumulateInto;function forEachAccumulated(arr,cb,scope){if(Array.isArray(arr)){arr.forEach(cb,scope);}else if(arr){cb.call(scope,arr);}}var forEachAccumulated_1=forEachAccumulated;var eventQueue=null;var executeDispatchesAndRelease=function executeDispatchesAndRelease(event,simulated){if(event){EventPluginUtils_1.executeDispatchesInOrder(event,simulated);if(!event.isPersistent()){event.constructor.release(event);}}};var executeDispatchesAndReleaseSimulated=function executeDispatchesAndReleaseSimulated(e){return executeDispatchesAndRelease(e,true);};var executeDispatchesAndReleaseTopLevel=function executeDispatchesAndReleaseTopLevel(e){return executeDispatchesAndRelease(e,false);};function isInteractive(tag){return tag==='button'||tag==='input'||tag==='select'||tag==='textarea';}function shouldPreventMouseEvent(name,type,props){switch(name){case'onClick':case'onClickCapture':case'onDoubleClick':case'onDoubleClickCapture':case'onMouseDown':case'onMouseDownCapture':case'onMouseMove':case'onMouseMoveCapture':case'onMouseUp':case'onMouseUpCapture':return!!(props.disabled&&isInteractive(type));default:return false;}}var EventPluginHub={injection:{injectEventPluginOrder:EventPluginRegistry_1.injectEventPluginOrder,injectEventPluginsByName:EventPluginRegistry_1.injectEventPluginsByName},getListener:function getListener(inst,registrationName){var listener;if(typeof inst.tag==='number'){var stateNode=inst.stateNode;if(!stateNode){return null;}var props=EventPluginUtils_1.getFiberCurrentPropsFromNode(stateNode);if(!props){return null;}listener=props[registrationName];if(shouldPreventMouseEvent(registrationName,inst.type,props)){return null;}}else{var currentElement=inst._currentElement;if(typeof currentElement==='string'||typeof currentElement==='number'){return null;}if(!inst._rootNodeID){return null;}var _props=currentElement.props;listener=_props[registrationName];if(shouldPreventMouseEvent(registrationName,currentElement.type,_props)){return null;}}!(!listener||typeof listener==='function')?invariant(false,'Expected `%s` listener to be a function, instead got a value of `%s` type.',registrationName,typeof listener==='undefined'?'undefined':_typeof(listener)):void 0;return listener;},extractEvents:function extractEvents(topLevelType,targetInst,nativeEvent,nativeEventTarget){var events;var plugins=EventPluginRegistry_1.plugins;for(var i=0;i<plugins.length;i++){var possiblePlugin=plugins[i];if(possiblePlugin){var extractedEvents=possiblePlugin.extractEvents(topLevelType,targetInst,nativeEvent,nativeEventTarget);if(extractedEvents){events=accumulateInto_1(events,extractedEvents);}}}return events;},enqueueEvents:function enqueueEvents(events){if(events){eventQueue=accumulateInto_1(eventQueue,events);}},processEventQueue:function processEventQueue(simulated){var processingEventQueue=eventQueue;eventQueue=null;if(simulated){forEachAccumulated_1(processingEventQueue,executeDispatchesAndReleaseSimulated);}else{forEachAccumulated_1(processingEventQueue,executeDispatchesAndReleaseTopLevel);}!!eventQueue?invariant(false,'processEventQueue(): Additional events were enqueued while processing an event queue. Support for this has not yet been implemented.'):void 0;ReactErrorUtils_1.rethrowCaughtError();}};var EventPluginHub_1=EventPluginHub;function runEventQueueInBatch(events){EventPluginHub_1.enqueueEvents(events);EventPluginHub_1.processEventQueue(false);}var ReactEventEmitterMixin={handleTopLevel:function handleTopLevel(topLevelType,targetInst,nativeEvent,nativeEventTarget){var events=EventPluginHub_1.extractEvents(topLevelType,targetInst,nativeEvent,nativeEventTarget);runEventQueueInBatch(events);}};var ReactEventEmitterMixin_1=ReactEventEmitterMixin;var useHasFeature;if(ExecutionEnvironment.canUseDOM){useHasFeature=document.implementation&&document.implementation.hasFeature&&document.implementation.hasFeature('','')!==true;}/**
  * Checks if an event is supported in the current execution environment.
  *
  * NOTE: This will not work correctly for non-generic events such as `change`,
@@ -4665,7 +4689,7 @@ module.exports = isNode;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4673,7 +4697,7 @@ module.exports = isNode;
 
 
 
-var hyphenate = __webpack_require__(24);
+var hyphenate = __webpack_require__(25);
 
 var msPattern = /^ms-/;
 
@@ -4684,7 +4708,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4699,7 +4723,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4707,7 +4731,7 @@ module.exports = hyphenate;
 
 
 
-var camelize = __webpack_require__(26);
+var camelize = __webpack_require__(27);
 
 var msPattern = /^-ms-/;
 
@@ -4718,7 +4742,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4735,13 +4759,13 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var performance = __webpack_require__(28);
+var performance = __webpack_require__(29);
 
 var performanceNow;
 
@@ -4758,7 +4782,7 @@ if (performance.now) {
 module.exports = performanceNow;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4777,7 +4801,7 @@ if (ExecutionEnvironment.canUseDOM) {
 module.exports = performance || {};
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4793,14 +4817,14 @@ if (process.env.NODE_ENV !== 'production') {
   };
 
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(30)(isValidElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(31)(isValidElement, throwOnDirectAccess);
 } else {
-  module.exports = __webpack_require__(31)();
+  module.exports = __webpack_require__(32)();
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4812,7 +4836,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var emptyFunction = __webpack_require__(1);
 var invariant = __webpack_require__(2);
-var warning = __webpack_require__(5);
+var warning = __webpack_require__(6);
 var assign = __webpack_require__(3);
 
 var ReactPropTypesSecret = __webpack_require__(8);
@@ -5217,7 +5241,7 @@ module.exports = function (isValidElement, throwOnDirectAccess) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5269,7 +5293,7 @@ module.exports = function () {
 };
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5309,281 +5333,113 @@ var __rest = undefined && undefined.__rest || function (s, e) {
     }return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var api_1 = __webpack_require__(33);
-function createFreestyler(React, middlewares, theme) {
-    if (middlewares === void 0) {
-        middlewares = [];
-    }
-    var Component = React.Component,
-        h = React.createElement,
-        cloneElement = React.cloneElement;
-    var css = function css(tpl, dynamic) {
-        return function (instance, key, descriptor) {
-            if (!tpl) return descriptor;
-            var Comp = instance.constructor;
-            var value = descriptor.value;
-            var componentWillUnmount = instance.componentWillUnmount;
-            instance.componentWillUnmount = function () {
-                if (componentWillUnmount) componentWillUnmount.apply(this, arguments);
-                if (dynamic) {
-                    api_1.removeDynamic(this);
-                } else {
-                    api_1.removeStatic(Comp);
-                }
-            };
-            return __assign({}, descriptor, { value: function render() {
-                    var rendered = value.apply(this, arguments);
-                    var props = rendered.props;
-                    var _a = this,
-                        state = _a.state,
-                        context = _a.context;
-                    var className = dynamic ? api_1.injectDynamic(this, tpl, [props, state, context]) : api_1.injectStatic(Comp, tpl, [props, state, context]);
-                    var oldClassName = props.className || '';
-                    return cloneElement(rendered, __assign({}, props, { className: oldClassName + (oldClassName ? ' ' : '') + className }), rendered.props.children);
-                } });
-        };
-    };
-    function wrap(Element, template, dynamicTemplateGetter, displayName) {
-        if (displayName === void 0) {
-            displayName = 'wrap';
-        }
-        var staticClassName;
-        var name = api_1.getName(Element);
-        var Wrap = (_a = function (_super) {
-            __extends(Wrap, _super);
-            function Wrap() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
-                _this.cN = '';
-                return _this;
+var react_1 = __webpack_require__(4);
+var createDefaultRenderer_1 = __webpack_require__(34);
+var util_1 = __webpack_require__(15);
+var createStyled_1 = __webpack_require__(40);
+var createHoc_1 = __webpack_require__(41);
+var createFacc_1 = __webpack_require__(42);
+var renderer = createDefaultRenderer_1.default();
+exports.css = function css(tpl, dynamic) {
+    return function (instance, key, descriptor) {
+        if (!tpl) return descriptor;
+        var Comp = instance.constructor;
+        var value = descriptor.value;
+        var componentWillUnmount = instance.componentWillUnmount;
+        instance.componentWillUnmount = function () {
+            if (componentWillUnmount) componentWillUnmount.apply(this, arguments);
+            if (dynamic) {
+                renderer.removeDynamic(this);
+            } else {
+                renderer.removeStatic(Comp);
             }
-            Wrap.prototype.onRender = function (props, state, context) {
-                if (!dynamicTemplateGetter) return;
-                var dynamicTemplate = dynamicTemplateGetter();
-                if (!dynamicTemplate) return;
-                this.cN = api_1.injectDynamic(this, dynamicTemplate, [props, state, context]);
-            };
-            Wrap.prototype.componentWillMount = function () {
+        };
+        return __assign({}, descriptor, { value: function render() {
+                var rendered = value.apply(this, arguments);
+                var props = rendered.props;
                 var _a = this,
-                    props = _a.props,
                     state = _a.state,
                     context = _a.context;
-                if (template) {
-                    staticClassName = api_1.injectStatic(Wrap, template, [props, state, context]);
-                }
-                this.onRender(props, state, context);
-            };
-            Wrap.prototype.componentWillUpdate = function (props, state, context) {
-                this.onRender(props, state, context);
-            };
-            Wrap.prototype.componentWillUnmount = function () {
-                api_1.removeDynamic(this);
-                api_1.removeStatic(Wrap);
-            };
-            Wrap.prototype.render = function () {
-                var _a = this.props,
-                    className = _a.className,
-                    props = __rest(_a, ["className"]);
-                className = className || '';
-                if (staticClassName) className += (className ? ' ' : '') + staticClassName;
-                if (this.cN) className += (className ? ' ' : '') + this.cN;
-                return h(Element, __assign({}, props, { className: className }));
-            };
-            return Wrap;
-        }(Component), _a.displayName = displayName + (name ? "__" + name : ''), _a);
-        return Wrap;
-        var _a;
-    }
-    function styled(Element) {
-        return function (template, dynamicTemplate) {
-            var Comp = wrap(Element, template, function () {
-                return dynamicTemplate;
-            }, 'styled');
-            Comp.css = function (newDynamicTemplate) {
-                dynamicTemplate = newDynamicTemplate;
-            };
-            return Comp;
-        };
-    }
-    var div = styled('div');
-    var span = styled('span');
-    function hoc(template, dynamicTemplate) {
-        return function (Element) {
-            var Comp = wrap(Element, template, function () {
-                return dynamicTemplate;
-            }, 'hoc');
-            Comp.css = function (newDynamicTemplate) {
-                dynamicTemplate = newDynamicTemplate;
-            };
-            return Comp;
-        };
-    }
-    function facc(Element, template) {
-        if (Element === void 0) {
-            Element = 'div';
-        }
-        if (template === void 0) {
-            template = null;
-        }
-        var dynamicTemplate = null;
-        var Comp = wrap(Element, template, function () {
-            return dynamicTemplate;
-        }, 'facc');
-        return function (childrenCallback) {
-            return function () {
-                var args = [];
-                for (var _i = 0; _i < arguments.length; _i++) {
-                    args[_i] = arguments[_i];
-                }
-                var ast;
-                _a = childrenCallback.apply(void 0, args)(Comp), dynamicTemplate = _a[0], ast = _a[1];
-                return ast;
-                var _a;
-            };
-        };
-    }
-
-    var freestyler = {
-        css: css,
-        wrap: wrap,
-        styled: styled,
-        div: div,
-        span: span,
-        hoc: hoc,
-        facc: facc
+                var className = dynamic ? renderer.injectDynamic(this, tpl, [props, state, context]) : renderer.injectStatic(Comp, tpl, [props, state, context]);
+                var oldClassName = props.className || '';
+                return react_1.cloneElement(rendered, __assign({}, props, { className: oldClassName + (oldClassName ? ' ' : '') + className }), rendered.props.children);
+            } });
     };
-    for (var name_1 in freestyler) {
-        css[name_1] = freestyler[name_1];
-    }return css;
-}
-exports.createFreestyler = createFreestyler;
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var __assign = undefined && undefined.__assign || Object.assign || function (t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) {
-            if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+};
+function wrap(Element, template, dynamicTemplateGetter, displayName) {
+    if (displayName === void 0) {
+        displayName = 'wrap';
+    }
+    var staticClassName;
+    var name = util_1.getName(Element);
+    var Wrap = (_a = function (_super) {
+        __extends(Wrap, _super);
+        function Wrap() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.cN = '';
+            return _this;
         }
-    }
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var css_light_1 = __webpack_require__(34);
-var freestyler_util_1 = __webpack_require__(36);
-var classNameCounter = 1;
-exports.genClassName = process.env.NODE_ENV === 'production' ? function () {
-    var args = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        args[_i] = arguments[_i];
-    }
-    return "_" + classNameCounter++;
-} : function () {
-    var args = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        args[_i] = arguments[_i];
-    }
-    return "_" + args.join('_') + "_" + classNameCounter++;
-};
-exports.getName = function (Component) {
-    return (typeof Component === "undefined" ? "undefined" : _typeof(Component)) === 'object' || typeof Component === 'function' ? Component.displayName || Component.name : String(Component);
-};
-var getInstanceName = function getInstanceName(instance) {
-    return exports.getName(instance.constructor);
-};
-var tplToStyles = function tplToStyles(tpl, args) {
-    return typeof tpl === 'function' ? tpl.apply(void 0, args) : tpl;
-};
-function removeDomElement(el) {
-    el.parentNode.removeChild(el);
-}
-function getById(id) {
-    return document.getElementById(id);
-}
-function hoistGlobalsAndWrapContext(styles, className) {
-    var global = (_a = {}, _a['.' + className] = styles, _a);
-    for (var rule in styles) {
-        if (rule[0] === '@') {
-            global[rule] = (_b = {}, _b['.' + className] = styles[rule], _b);
-            delete styles[rule];
-        } else if (rule === '_' || rule === ':global') {
-            global = __assign({}, global, styles[rule]);
-            delete styles[rule];
-        }
-    }
-    return global;
-    var _a, _b;
-}
-function injectStatic(Comp, tpl, args) {
-    var className = Comp[freestyler_util_1.$$cn];
-    if (className) {
-        Comp[freestyler_util_1.$$cnt]++;
-        return className;
-    }
-    var name = exports.getName(Comp);
-    className = exports.genClassName.apply(void 0, name ? [name] : []);
-    var styles = tplToStyles(tpl, args);
-    styles = hoistGlobalsAndWrapContext(styles, className);
-    var cssString = css_light_1.css(styles);
-    var el = css_light_1.inject(cssString);
-    el.id = className;
-    freestyler_util_1.hidden(Comp, freestyler_util_1.$$cn, className);
-    freestyler_util_1.hidden(Comp, freestyler_util_1.$$cnt, 1);
-    return className;
-}
-exports.injectStatic = injectStatic;
-function removeStatic(Comp) {
-    var className = Comp[freestyler_util_1.$$cn];
-    if (className) {
-        var cnt = Comp[freestyler_util_1.$$cnt];
-        if (cnt) {
-            Comp[freestyler_util_1.$$cnt]--;
-            cnt = Comp[freestyler_util_1.$$cnt];
-            if (cnt < 1) {
-                var el = getById(className);
-                if (el) removeDomElement(el);
-                delete Comp[freestyler_util_1.$$cnt];
-                delete Comp[freestyler_util_1.$$cn];
+        Wrap.prototype.onRender = function (props, state, context) {
+            if (!dynamicTemplateGetter) return;
+            var dynamicTemplate = dynamicTemplateGetter();
+            if (!dynamicTemplate) return;
+            this.cN = renderer.injectDynamic(this, dynamicTemplate, [props, state, context]);
+        };
+        Wrap.prototype.componentWillMount = function () {
+            var _a = this,
+                props = _a.props,
+                state = _a.state,
+                context = _a.context;
+            if (template) {
+                staticClassName = renderer.injectStatic(Wrap, template, [props, state, context]);
             }
-        }
-    }
+            this.onRender(props, state, context);
+        };
+        Wrap.prototype.componentWillUpdate = function (props, state, context) {
+            this.onRender(props, state, context);
+        };
+        Wrap.prototype.componentWillUnmount = function () {
+            renderer.removeDynamic(this);
+            renderer.removeStatic(Wrap);
+        };
+        Wrap.prototype.render = function () {
+            var _a = this.props,
+                className = _a.className,
+                props = __rest(_a, ["className"]);
+            className = className || '';
+            if (staticClassName) className += (className ? ' ' : '') + staticClassName;
+            if (this.cN) className += (className ? ' ' : '') + this.cN;
+            return react_1.createElement(Element, __assign({}, props, { className: className }));
+        };
+        return Wrap;
+    }(react_1.Component), _a.displayName = displayName + (name ? "__" + name : ''), _a);
+    return Wrap;
+    var _a;
 }
-exports.removeStatic = removeStatic;
-function injectDynamic(instance, tpl, args) {
-    var className = instance[freestyler_util_1.$$cn];
-    var el = null;
-    if (!className) {
-        var name_1 = getInstanceName(instance);
-        className = exports.genClassName.apply(void 0, name_1 ? ['_', name_1] : ['_']);
-        freestyler_util_1.hidden(instance, freestyler_util_1.$$cn, className);
-        el = css_light_1.inject('');
-        el.id = className;
-    } else {
-        el = getById(className);
-    }
-    var styles = tplToStyles(tpl, args);
-    styles = hoistGlobalsAndWrapContext(styles, className);
-    var cssString = css_light_1.css(styles);
-    if (el.innerText !== cssString) el.innerText = cssString;
-    return className;
-}
-exports.injectDynamic = injectDynamic;
-function removeDynamic(instance) {
-    var className = instance[freestyler_util_1.$$cn];
-    if (className) {
-        var el = getById(className);
-        if (el) if (el) removeDomElement(el);
-    }
-}
-exports.removeDynamic = removeDynamic;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+exports.wrap = wrap;
+exports.styled = createStyled_1.default(wrap);
+exports.hoc = createHoc_1.default(wrap);
+exports.facc = createFacc_1.default(wrap);
+exports.div = exports.styled('div');
+exports.span = exports.styled('span');
+var freestyler = {
+    css: exports.css,
+    wrap: wrap,
+    styled: exports.styled,
+    hoc: exports.hoc,
+    facc: exports.facc,
+    div: exports.div,
+    span: exports.span
+};
+exports.getRenderer = function () {
+    return renderer;
+};
+exports.setRenderer = function (r) {
+    return renderer = r;
+};
+for (var name_1 in freestyler) {
+    exports.css[name_1] = freestyler[name_1];
+}exports.default = freestyler;
 
 /***/ }),
 /* 34 */
@@ -5592,11 +5448,273 @@ exports.removeDynamic = removeDynamic;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var createBasicRenderer_1 = __webpack_require__(35);
+exports.default = createBasicRenderer_1.default;
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var index_1 = __webpack_require__(36);
+var ast_1 = __webpack_require__(37);
+var util_1 = __webpack_require__(15);
+var hoistGlobalsAndWrapContext_1 = __webpack_require__(39);
+
+var createStandardRenderer = function createStandardRenderer() {
+    var middlewares = [];
+    var classNameCounter = 1;
+    var genClassName = process.env.NODE_ENV === 'production' ? function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return "_" + classNameCounter++;
+    } : function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return "_" + args.join('_') + "_" + classNameCounter++;
+    };
+    var tplToStyles = function tplToStyles(tpl, args) {
+        return typeof tpl === 'function' ? tpl.apply(void 0, args) : tpl;
+    };
+    function removeDomElement(el) {
+        el.parentNode.removeChild(el);
+    }
+    function getById(id) {
+        return document.getElementById(id);
+    }
+    function stylesToStylesheet(styles, className) {
+        styles = hoistGlobalsAndWrapContext_1.default(styles, className);
+        for (var i = 0; i < middlewares.length; i++) {
+            var middleware = middlewares[i];
+            if (middleware.styles) styles = middleware.styles(styles);
+        }
+        var stylesheet = ast_1.toStyleSheet(styles);
+        for (var i = 0; i < middlewares.length; i++) {
+            var middleware = middlewares[i];
+            if (middleware.stylesheet) stylesheet = middleware.stylesheet(stylesheet);
+        }
+        return stylesheet;
+    }
+    var injectStatic = function injectStatic(Comp, tpl, args) {
+        var className = Comp[index_1.$$cn];
+        if (className) {
+            Comp[index_1.$$cnt]++;
+            return className;
+        }
+        var name = util_1.getName(Comp);
+        className = genClassName.apply(void 0, name ? [name] : []);
+        var styles = tplToStyles(tpl, args);
+        var stylesheet = stylesToStylesheet(styles, className);
+        var cssString = ast_1.toCss(stylesheet);
+        var el = util_1.inject(cssString);
+        el.id = className;
+        index_1.hidden(Comp, index_1.$$cn, className);
+        index_1.hidden(Comp, index_1.$$cnt, 1);
+        return className;
+    };
+    var removeStatic = function removeStatic(Comp) {
+        var className = Comp[index_1.$$cn];
+        if (className) {
+            var cnt = Comp[index_1.$$cnt];
+            if (cnt) {
+                Comp[index_1.$$cnt]--;
+                cnt = Comp[index_1.$$cnt];
+                if (cnt < 1) {
+                    var el = getById(className);
+                    if (el) removeDomElement(el);
+                    delete Comp[index_1.$$cnt];
+                    delete Comp[index_1.$$cn];
+                }
+            }
+        }
+    };
+    var injectDynamic = function injectDynamic(instance, tpl, args) {
+        var styles = tplToStyles(tpl, args);
+        if (!styles) return;
+        var className = instance[index_1.$$cn];
+        var el = null;
+        if (!className) {
+            var name_1 = util_1.getInstanceName(instance);
+            className = genClassName.apply(void 0, name_1 ? ['_', name_1] : ['_']);
+            index_1.hidden(instance, index_1.$$cn, className);
+            el = util_1.inject('');
+            el.id = className;
+        } else {
+            el = getById(className);
+        }
+        var stylesheet = stylesToStylesheet(styles, className);
+        var cssString = ast_1.toCss(stylesheet);
+        if (el.innerText !== cssString) el.innerText = cssString;
+        return className;
+    };
+    var removeDynamic = function removeDynamic(instance) {
+        var className = instance[index_1.$$cn];
+        if (className) {
+            var el = getById(className);
+            if (el) if (el) removeDomElement(el);
+        }
+    };
+    var use = function use(middleware) {
+        middlewares.push(middleware);
+    };
+    return {
+        injectStatic: injectStatic,
+        removeStatic: removeStatic,
+        injectDynamic: injectDynamic,
+        removeDynamic: removeDynamic,
+        use: use
+    };
+};
+exports.default = createStandardRenderer;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.noop = function () {};
+exports.sym = function (name) {
+    return "@@freestyler/" + name;
+};
+exports.$$cn = exports.sym('cn');
+exports.$$cnt = exports.sym('cnt');
+exports.hidden = function (obj, key, value) {
+    return Object.defineProperty(obj, key, {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: value
+    });
+};
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-exports.__esModule = true;
-exports.extend = __webpack_require__(35);
-exports.atoms = {
+Object.defineProperty(exports, "__esModule", { value: true });
+var atoms_1 = __webpack_require__(38);
+var isArray = Array.isArray;
+exports.isRule = function (rule) {
+    return isArray(rule);
+};
+function toStyleSheet(pojso) {
+    var stylesheet = [];
+    var _loop_1 = function _loop_1(selector) {
+        var styles = pojso[selector];
+
+        if (selector[0] === '@') {
+            stylesheet.push({
+                type: 'Atrule',
+                prelude: selector,
+                rules: toStyleSheet(styles)
+            });
+            return "continue";
+        }
+
+        (function (styles) {
+            var selectors = selector.split(',');
+            if (!isArray(styles)) styles = [styles];
+            var statements = [];
+            var block = [selector, statements];
+            stylesheet.push(block);
+            for (var i = 0; i < styles.length; i++) {
+                var st = styles[i];
+                for (var prop in st) {
+                    var declaration = st[prop];
+                    switch (typeof declaration === "undefined" ? "undefined" : _typeof(declaration)) {
+                        case 'string':
+                        case 'number':
+                            prop = atoms_1.default[prop] || prop;
+                            statements.push([prop, declaration]);
+                            break;
+                        case 'object':
+                            var props = prop.split(',');
+                            var selector_list = [];
+                            for (var _i = 0, props_1 = props; _i < props_1.length; _i++) {
+                                var p = props_1[_i];
+                                if (p.indexOf('&') > -1) {
+                                    for (var _a = 0, selectors_1 = selectors; _a < selectors_1.length; _a++) {
+                                        var sel = selectors_1[_a];
+                                        selector_list.push(p.replace('&', sel));
+                                    }
+                                } else {
+                                    for (var _b = 0, selectors_2 = selectors; _b < selectors_2.length; _b++) {
+                                        var sel = selectors_2[_b];
+                                        selector_list.push(sel + ' ' + p);
+                                    }
+                                }
+                            }
+                            var selectors_combined = selector_list.join(',');
+                            var innerpojo = (_c = {}, _c[selectors_combined] = declaration, _c);
+                            stylesheet = stylesheet.concat(toStyleSheet(innerpojo));
+                            break;
+                    }
+                }
+            }
+            var _c;
+        })(styles);
+    };
+    for (var selector in pojso) {
+        _loop_1(selector);
+    }
+    return stylesheet;
+}
+exports.toStyleSheet = toStyleSheet;
+function toCss(stylesheet) {
+    var blockStrings = [];
+    for (var i = 0; i < stylesheet.length; i++) {
+        if (stylesheet.length) {
+            var rule = stylesheet[i];
+            if (exports.isRule(rule)) {
+                var _a = rule,
+                    selector = _a[0],
+                    rules = _a[1];
+                var ruleStrings = [];
+                for (var j = 0; j < rules.length; j++) {
+                    var _b = rules[j],
+                        key = _b[0],
+                        value = _b[1];
+                    ruleStrings.push(key + ':' + value);
+                }
+                if (ruleStrings.length) blockStrings.push(selector + '{' + ruleStrings.join(';') + '}');
+            } else {
+                var _c = rule,
+                    prelude = _c.prelude,
+                    rules = _c.rules;
+                blockStrings.push(prelude + '{' + toCss(rules) + '}');
+            }
+        }
+    }
+    return blockStrings.join('');
+}
+exports.toCss = toCss;
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = {
     d: 'display',
     mar: 'margin',
     mart: 'margin-top',
@@ -5639,128 +5757,116 @@ exports.atoms = {
     ww: 'word-wrap',
     con: 'content'
 };
-function toBlocks(pojo) {
-    var blocks = [];
-    for (var selector in pojo) {
-        if (pojo.hasOwnProperty(selector)) {
-            (function process_block(styles) {
-                if (selector[0] === '@') {
-                    blocks.push([selector, toBlocks(styles)]);
-                    return;
-                }
-                var selectors = selector.split(',');
-                if (!(styles instanceof Array)) styles = [styles];
-                var statements = [];
-                var block = [selector, statements];
-                blocks.push(block);
-                for (var _i = 0, styles_1 = styles; _i < styles_1.length; _i++) {
-                    var st = styles_1[_i];
-                    for (var prop in st) {
-                        if (st.hasOwnProperty(prop)) {
-                            (function process_style(style) {
-                                switch (typeof style === 'undefined' ? 'undefined' : _typeof(style)) {
-                                    case 'string':
-                                    case 'number':
-                                        prop = exports.atoms[prop] || prop;
-                                        statements.push(prop + ':' + style);
-                                        break;
-                                    case 'object':
-                                        var props = prop.split(',');
-                                        var selector_list = [];
-                                        for (var _i = 0, props_1 = props; _i < props_1.length; _i++) {
-                                            var p = props_1[_i];
-                                            if (p.indexOf('&') > -1) {
-                                                for (var _a = 0, selectors_1 = selectors; _a < selectors_1.length; _a++) {
-                                                    var sel = selectors_1[_a];
-                                                    selector_list.push(p.replace('&', sel));
-                                                }
-                                            } else {
-                                                for (var _b = 0, selectors_2 = selectors; _b < selectors_2.length; _b++) {
-                                                    var sel = selectors_2[_b];
-                                                    selector_list.push(sel + ' ' + p);
-                                                }
-                                            }
-                                        }
-                                        var selectors_combined = selector_list.join(',');
-                                        var innerpojo = (_c = {}, _c[selectors_combined] = style, _c);
-                                        blocks = blocks.concat(toBlocks(innerpojo));
-                                        break;
-                                }
-                                var _c;
-                            })(st[prop]);
-                        }
-                    }
-                }
-            })(pojo[selector]);
-        }
-    }
-    return blocks;
-}
-exports.toBlocks = toBlocks;
-function concat(blocks) {
-    var blockstrs = [];
-    for (var i = 0; i < blocks.length; i++) {
-        if (blocks[i][1].length) {
-            if (typeof blocks[i][1][0] === 'string') {
-                blockstrs.push(blocks[i][0] + '{' + blocks[i][1].join(';') + '}');
-            } else {
-                blockstrs.push(blocks[i][0] + '{' + concat(blocks[i][1]) + '}');
-            }
-        }
-    }
-    return blockstrs.join('');
-}
-function css(pojo) {
-    var blocks = toBlocks(pojo);
-    return concat(blocks);
-}
-exports.css = css;
-function inject(cssString) {
-    var el = document.createElement('style');
-    el.innerText = cssString;
-    document.body.appendChild(el);
-    return el;
-}
-exports.inject = inject;
 
 /***/ }),
-/* 35 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var slice = Array.prototype.slice;
-
-function extend(a, b) {
-    for (var key in b) {
-        a[key] = b[key];
-    }return arguments.length < 3 ? a : extend.apply(null, [a].concat(slice.call(arguments, 2)));
-}
-
-module.exports = extend;
+var __assign = undefined && undefined.__assign || Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) {
+            if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = function (styles, className) {
+    var global = (_a = {}, _a['.' + className] = styles, _a);
+    for (var rule in styles) {
+        if (rule[0] === '@') {
+            global[rule] = (_b = {}, _b['.' + className] = styles[rule], _b);
+            delete styles[rule];
+        } else if (rule === '_' || rule === ':global') {
+            global = __assign({}, global, styles[rule]);
+            delete styles[rule];
+        }
+    }
+    return global;
+    var _a, _b;
+};
 
 /***/ }),
-/* 36 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.noop = function () {};
-exports.sym = function (name) {
-    return "@@freestyler/" + name;
+exports.default = function (wrap) {
+    return function styled(Element) {
+        return function (template, dynamicTemplate) {
+            var Comp = wrap(Element, template, function () {
+                return dynamicTemplate;
+            }, 'styled');
+            Comp.css = function (newDynamicTemplate) {
+                dynamicTemplate = newDynamicTemplate;
+            };
+            return Comp;
+        };
+    };
 };
-exports.$$cn = exports.sym('cn');
-exports.$$cnt = exports.sym('cnt');
-exports.hidden = function (obj, key, value) {
-    return Object.defineProperty(obj, key, {
-        enumerable: false,
-        configurable: true,
-        writable: true,
-        value: value
-    });
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = function (wrap) {
+    return function hoc(template, dynamicTemplate) {
+        return function (Element) {
+            var Comp = wrap(Element, template, function () {
+                return dynamicTemplate;
+            }, 'hoc');
+            Comp.css = function (newDynamicTemplate) {
+                dynamicTemplate = newDynamicTemplate;
+            };
+            return Comp;
+        };
+    };
+};
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = function (wrap) {
+    return function facc(Element, template) {
+        if (Element === void 0) {
+            Element = 'div';
+        }
+        if (template === void 0) {
+            template = null;
+        }
+        var dynamicTemplate = null;
+        var Comp = wrap(Element, template, function () {
+            return dynamicTemplate;
+        }, 'facc');
+        return function (childrenCallback) {
+            return function () {
+                var args = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    args[_i] = arguments[_i];
+                }
+                var ast;
+                _a = childrenCallback.apply(void 0, args)(Comp), dynamicTemplate = _a[0], ast = _a[1];
+                return ast;
+                var _a;
+            };
+        };
+    };
 };
 
 /***/ })

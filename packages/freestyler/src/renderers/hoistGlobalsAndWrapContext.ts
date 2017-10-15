@@ -1,9 +1,10 @@
-import {TStyles} from '../ast';
+import * as extend from 'fast-extend';
 
-export default (styles: TStyles, className: string) => {
+export default (styles, className: string) => {
     let global = {
         ['.' + className]: styles,
     };
+
     for (const rule in styles) {
         if (rule[0] === '@') {
             global[rule] = {
@@ -11,9 +12,10 @@ export default (styles: TStyles, className: string) => {
             };
             delete styles[rule];
         } else if (rule === '_' || rule === ':global') {
-            global = {...global, ...styles[rule]};
+            extend(global, ...styles[rule]);
             delete styles[rule];
         }
     }
+
     return global;
 };

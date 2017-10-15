@@ -14,7 +14,7 @@ export class Memoizer {
     offset = 10;
     msb = 35;
     power = 1;
-    data: {[key: string]: number} = {};
+    data: {[key: string]: {[key: string]: number}} = {};
 
     next(): number {
         const vcount = this.length + this.offset;
@@ -26,9 +26,12 @@ export class Memoizer {
         return vcount;
     }
 
-    getId(key: string): number {
-        if (!this.data[key]) this.data[key] = this.next();
-        return this.data[key];
+    getId(key: string, value: string): number {
+        let keyCache = this.data[key];
+        if (!keyCache) this.data[key] = keyCache = {};
+        if (!keyCache[value]) keyCache[value] = this.next();
+
+        return keyCache[value];
     }
 }
 
@@ -88,22 +91,33 @@ export class VSheet {
         value: TValue
     ) {
         const rawRule = prop + ':' + value;
-        return this.getIdRaw(media, pseudo, rawRule);
+        return this.getIdRaw(prop, String(value), media, pseudo, rawRule);
     }
 
     getIdBatch(media: TAtrulePrelude, pseudo: TPseudo, decls: TDeclarations) {
         const rawRule = decls
             .map(([prop, value]) => prop + ':' + value)
             .join(';');
-        return this.getIdRaw(media, pseudo, rawRule);
+        return this.getIdRaw(rawRule, '', media, pseudo, rawRule);
     }
 
-    getIdRaw(media: TAtrulePrelude, pseudo: TPseudo, rawRule: string) {
+    getIdRaw(
+        key: string,
+        value: string,
+        media: TAtrulePrelude,
+        pseudo: TPseudo,
+        rawRule: string
+    ) {
         const {length} = this.memo;
-        const id = this.memo.getId(`${media}|${pseudo}|${rawRule}`);
+        const id = this.memo.getId(key, value);
         const className = id.toString(36);
         if (this.memo.length > length) {
-            this.inject(media, pseudo, '.' + className, rawRule);
+            this.inject(
+                media,
+                pseudo,
+                `.${className},[data-css-${className}]`,
+                rawRule
+            );
         }
         return className;
     }
@@ -116,9 +130,9 @@ export class VSheet {
     ) {
         const {sheet} = this.style;
         let ruleStr = `${selectors}${pseudo ? ':' + pseudo : ''}{${data}}`;
-        if (media) {
-            ruleStr = `${media}{${ruleStr}}`;
-        }
+        // if (media) {
+        //     ruleStr = `${media}{${ruleStr}}`;
+        // }
         sheet.insertRule(ruleStr, sheet.cssRules.length);
     }
 }

@@ -1,3 +1,4 @@
+import {kebabCase} from 'freestyler-util';
 import atoms from './atoms';
 
 export type TStyles = object;
@@ -22,94 +23,90 @@ export type TStyleSheet = (TRule | TAtrule)[];
 const isArray = Array.isArray;
 export const isRule: (rule: TRule | TAtrule) => boolean = rule => isArray(rule);
 
+const interpolateSelectors = (prop, selectors) => {
+    let props = prop.split(',');
+    let selectorList = [];
+
+    for (var p of props) {
+        if (p.indexOf('&') > -1) {
+            for (var sel of selectors) {
+                selectorList.push(p.replace('&', sel));
+            }
+        } else {
+            for (var sel of selectors) {
+                selectorList.push(sel + ' ' + p);
+            }
+        }
+    }
+    return selectorList.join(',');
+};
+
 export function toStyleSheet(pojso: TStyles): TStyleSheet {
     let stylesheet = [];
     for (let selector in pojso) {
-        let styles = pojso[selector];
+        let values = pojso[selector];
 
         // Atrule: @media, @keyframe, ...
         if (selector[0] === '@') {
             stylesheet.push({
                 type: 'Atrule',
                 prelude: selector,
-                rules: toStyleSheet(styles),
+                rules: toStyleSheet(values),
             });
             continue;
         }
 
-        // prettier-ignore
-        ((styles) => {
-            const selectors = selector.split(',');
+        const selectors = selector.split(',');
+        let styles = values;
 
-            if (!isArray(styles)) styles = [styles];
-
-            var statements = [];
-            var block = [selector, statements];
-            stylesheet.push(block);
-            for (let i = 0; i < styles.length; i++) {
-                const st = styles[i];
-                for (let prop in st) {
-                    const declaration = st[prop];
-                    switch (typeof declaration) {
-                        case 'string':
-                        case 'number':
-                            prop = atoms[prop] || prop;
-                            statements.push([prop, declaration]);
-                            break;
-                        case 'object':
-                            var props = prop.split(',');
-                            var selector_list = [];
-
-                            for (var p of props) {
-                                if (p.indexOf('&') > -1) {
-                                    for (var sel of selectors) {
-                                        selector_list.push(p.replace('&', sel));
-                                    }
-                                } else {
-                                    for (var sel of selectors) {
-                                        selector_list.push(sel + ' ' + p);
-                                    }
-                                }
-                            }
-
-                            var selectors_combined = selector_list.join(',');
-                            var innerpojo = {[selectors_combined]: declaration};
-                            stylesheet = stylesheet.concat(
-                                toStyleSheet(innerpojo)
-                            );
-                            break;
-                    }
+        const declarations = [];
+        const rule = [selector, declarations];
+        stylesheet.push(rule);
+        for (let prop in styles) {
+            const value = styles[prop];
+            switch (typeof value) {
+                case 'string':
+                case 'number':
+                    prop = atoms[prop] || kebabCase(prop);
+                    declarations.push([prop, value]);
+                    break;
+                case 'object': {
+                    let selectorsInterpolated =
+                        selectors.length > 1
+                            ? interpolateSelectors(prop, selectors)
+                            : prop.replace('&', selector);
+                    stylesheet = stylesheet.concat(
+                        toStyleSheet({[selectorsInterpolated]: value})
+                    );
+                    break;
                 }
             }
-        })(styles);
+        }
     }
 
     return stylesheet;
 }
 
 export function toCss(stylesheet: TStyleSheet): string {
-    const blockStrings = [];
+    let css = '';
     for (let i = 0; i < stylesheet.length; i++) {
         if (stylesheet.length) {
             const rule = stylesheet[i];
             if (isRule(rule)) {
                 // TRule
                 const [selector, rules] = rule as TRule;
-                const ruleStrings = [];
+                let ruleStrings = '{';
                 for (let j = 0; j < rules.length; j++) {
                     const [key, value] = rules[j];
-                    ruleStrings.push(key + ':' + value);
+                    ruleStrings += key + ':' + value + ';';
                 }
-                if (ruleStrings.length)
-                    blockStrings.push(
-                        selector + '{' + ruleStrings.join(';') + '}'
-                    );
+                if (ruleStrings.length) css += selector + ruleStrings + '}';
             } else {
                 // TAtrule
                 const {prelude, rules} = rule as TAtrule;
-                blockStrings.push(prelude + '{' + toCss(rules) + '}');
+                css += prelude + '{' + toCss(rules) + '}';
             }
         }
     }
-    return blockStrings.join('');
+    return css;
 }

@@ -1,4 +1,4 @@
-import {$$cn, $$cnt, hidden, noop, sym} from '../index';
+import {$$cn, $$cnt, hidden, noop, sym, camelCase, kebabCase} from '..';
 
 describe('util', () => {
     describe('sym()', () => {
@@ -35,5 +35,21 @@ describe('util', () => {
     it('exports noop function', () => {
         expect(typeof noop).toBe('function');
         noop();
+    });
+    describe('camelCase', () => {
+        it('border-radius -> borderRadius', () => {
+            expect(camelCase('border-radius')).toBe('borderRadius');
+        });
+        it('does not modify borderRadius', () => {
+            expect(camelCase('borderRadius')).toBe('borderRadius');
+        });
+    });
+    describe('kebab-case', () => {
+        it('borderRadius -> border-radius', () => {
+            expect(kebabCase('borderRadius')).toBe('border-radius');
+        });
+        it('does not modify border-radius', () => {
+            expect(kebabCase('border-radius')).toBe('border-radius');
+        });
     });
 });

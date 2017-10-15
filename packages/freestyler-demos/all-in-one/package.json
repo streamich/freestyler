@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "scripts": {
         "build": "webpack",
-        "watch": "webpack --watch"
+        "watch": "webpack --watch",
+        "watch-p": "webpack --watch -p"
     },
     "dependencies": {
         "react": "^16.0.0",

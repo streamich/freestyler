@@ -6,7 +6,6 @@
     "scripts": {
         "clean": "rimraf modules lib dist",
         "test": "jest",
-        "prepublish": "npm run build",
         "build":
             "npm run clean && npm run build-lib && npm run build-modules && npm run build-dist",
         "build-dist": "node rollup.js",
@@ -26,7 +25,9 @@
         "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
     },
     "dependencies": {
+        "benchmark": "2.1.4",
         "css-light": "^1.1.0",
-        "freestyler-util": "^1.0.0"
+        "freestyler-util": "^1.0.0",
+        "fast-extend": "0.0.2"
     }
 }

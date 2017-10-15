@@ -1,9 +1,13 @@
+const webpack = require('webpack');
+
 module.exports = {
     devtool: 'inline-source-map',
     entry: {
         index: "./index",
         styled: "./styled",
-        virtual: './virtual'
+        virtual: './virtual',
+        balls: './balls',
+        toStylesheet: './toStylesheet',
     },
     output: {
         path: __dirname + '/dist',
@@ -15,4 +19,9 @@ module.exports = {
     module: {
         loaders: [{test: /\.tsx?$/, loader: 'ts-loader'}],
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            // 'process.env.NODE_ENV': '"production"',
+        }),
+    ]
 };

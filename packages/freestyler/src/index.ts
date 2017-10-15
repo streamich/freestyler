@@ -4,13 +4,14 @@ import {
     TCssDynamicTemplate,
     TCssTemplate,
 } from './types';
-import createDefaultRenderer from './renderers/createDefaultRenderer';
 import {getName, IRenderer} from './renderers/util';
-import {TStyles} from './ast';
+import {toCss, toStyleSheet, TStyles} from './ast';
 import createStyled from './primitives/createStyled';
 import createHoc from './primitives/createHoc';
 import createFacc from './primitives/createFacc';
 import {IStyles} from './types';
+import OpinionatedRenderer from './renderers/OpinionatedRenderer';
+import hoistGlobalsAndWrapContext from './renderers/hoistGlobalsAndWrapContext';
 
 export type TElement =
     | string
@@ -33,7 +34,7 @@ export type TPrimitiveStyled = (
 export type TPrimitiveHoc = TStyled<THoc>;
 
 export interface ICss {
-    (tpl: TCssTemplate, dynamic?: boolean): (a, b, c) => any;
+    (tpl: TCssTemplate, second?: any): any;
     wrap;
     styled: TPrimitiveStyled;
     div: TStyled<TFreestyleComponent>;
@@ -42,12 +43,17 @@ export interface ICss {
     facc;
 }
 
-let renderer = createDefaultRenderer();
+let renderer = new OpinionatedRenderer();
 
-export const css: ICss = function css(tpl: IStyles, dynamic?: boolean) {
+export const css: ICss = function css(tpl: IStyles, second?: any) {
+    if (second !== void 0 && typeof second !== 'boolean') {
+        return styleit(tpl, second);
+    }
+
     return (instance, key, descriptor) => {
         if (!tpl) return descriptor;
 
+        const dynamic = !!second;
         const Comp: TComponentConstructor = instance.constructor;
         const {value} = descriptor;
         const {componentWillUnmount} = instance;
@@ -143,7 +149,8 @@ export function wrap(
             className = className || '';
             if (staticClassName)
                 className += (className ? ' ' : '') + staticClassName;
-            if (this.cNs.length)
+            const {cNs} = this;
+            if (cNs && cNs.length)
                 className += (className ? ' ' : '') + this.cNs.join(' ');
             return h(Element, {...props, className});
         }
@@ -154,6 +161,37 @@ export function wrap(
     }
 
     return Wrap;
+}
+
+let styleitCounter = 0;
+export function styleit(styles: IStyles, element) {
+    const styleitClassName = 'i' + styleitCounter++;
+    styles = hoistGlobalsAndWrapContext(styles, styleitClassName);
+    const stylesheet = toStyleSheet(styles);
+    const css = toCss(stylesheet);
+
+    const {className} = element.props;
+    element.props.className = (className || '') + ' ' + styleitClassName;
+    return [h('style', null, css), element];
+}
+
+export function styleit2(styles: IStyles, element) {
+    const styleitClassName = renderer.genClassName();
+    const stylesheet = renderer.stylesToStylesheet(styles, styleitClassName);
+    const css = toCss(stylesheet);
+
+    if (process.env.NODE_ENV === 'production') {
+        const {className} = element.props;
+        element.props.className = (className || '') + ' ' + styleitClassName;
+        return [h('style', null, css), element];
+    } else {
+        let {className, ...props} = element.props;
+        className = (className || '') + ' ' + styleitClassName;
+        return [
+            h('style', {key: 'style'}, css),
+            cloneElement(element, {...props, key: 'styleit', className}),
+        ];
+    }
 }
 
 export const styled = createStyled(wrap);
@@ -174,7 +212,7 @@ const freestyler = {
 };
 
 export const getRenderer = () => renderer;
-export const setRenderer = (r: IRenderer) => (renderer = r);
+export const setRenderer = r => (renderer = r);
 
 for (const name in freestyler) css[name] = freestyler[name];
 
