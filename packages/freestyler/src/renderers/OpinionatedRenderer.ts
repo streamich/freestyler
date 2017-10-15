@@ -120,6 +120,9 @@ class OpinionatedRenderer implements IRenderer {
     }
 
     injectStatic(Comp: TComponentConstructor, tpl: TCssTemplate, args: any[]) {
+        let styles = tplToStyles(tpl, args);
+        if (!styles) return;
+
         let className = Comp[$$cn];
         if (className) {
             Comp[$$cnt]++;
@@ -129,7 +132,6 @@ class OpinionatedRenderer implements IRenderer {
         const name = getName(Comp);
         className = genClassName(...(name ? [name] : []));
 
-        let styles = tplToStyles(tpl, args);
         const stylesheet = this.stylesToStylesheet(styles, className);
         const cssString = toCss(stylesheet);
 

@@ -16,6 +16,6 @@ export const global = (
     dynamicTemplate?: TCssTemplate
 ) =>
     styled(Global)(
-        globalizeTemplate(staticTemplate),
-        globalizeTemplate(dynamicTemplate)
+        staticTemplate ? globalizeTemplate(staticTemplate) : null,
+        dynamicTemplate ? globalizeTemplate(dynamicTemplate) : null
     );

@@ -61,7 +61,6 @@ export function toStyleSheet(pojso: TStyles): TStyleSheet {
 
         const declarations = [];
         const rule = [selector, declarations];
-        stylesheet.push(rule);
         for (let prop in styles) {
             const value = styles[prop];
             switch (typeof value) {
@@ -82,6 +81,7 @@ export function toStyleSheet(pojso: TStyles): TStyleSheet {
                 }
             }
         }
+        if (declarations.length) stylesheet.push(rule);
     }
 
     return stylesheet;

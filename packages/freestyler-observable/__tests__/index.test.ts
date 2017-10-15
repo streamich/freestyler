@@ -1,4 +1,4 @@
-import {observable} from '../../freestyler/src/observable';
+import {observable} from '..';
 
 describe('observable()', () => {
     it('creates and object', () => {

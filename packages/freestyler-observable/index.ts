@@ -6,7 +6,7 @@ export interface IObservable<T> {
     sub: (listener: TObservableSet<T>) => TObservalbeUnsub;
 }
 
-export const observable: <T>(state: T) => IObservable<T> = state => {
+export const observable: <T>(state?: T) => IObservable<T> = state => {
     let listeners = [];
     let currentState = state;
 

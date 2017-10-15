@@ -20,6 +20,7 @@ const Box = css.div(
         },
     },
     {
+        d: 'block',
         bd: '1px solid blue',
     }
 );
@@ -30,7 +31,17 @@ class App extends Component {
         return h('div', {},
             h(CssReset),
             h(Box, {}, '1'),
-            h(Box, {}, '2'),
+            h(Box, {},
+                '2',
+                css.styleit({
+                    color: 'yellow',
+                    '&:hover': {
+                        col: 'pink',
+                    },
+                },
+                    h('div', {}, 'lol 2')
+                )
+            ),
         );
     }
 }
