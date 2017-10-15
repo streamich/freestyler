@@ -1,6 +1,6 @@
 {
     "name": "freestyler-observable",
-    "version": "1.0.0",
+    "version": "1.2.1",
     "description": "Observable factory",
     "scripts": {
         "test": "jest",
@@ -11,14 +11,19 @@
     },
     "jest": {
         "transform": {
-            "^.+\\.tsx?$":
-                "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
+            "^.+\\.tsx?$": "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
         },
         "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-        "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js",
+            "jsx",
+            "json"
+        ]
     },
     "dependencies": {
-        "freestyler-util": "^1.0.2",
-        "freestyler-observable": "^1.0.0"
+        "freestyler-observable": "^1.2.1",
+        "freestyler-util": "^1.2.1"
     }
 }

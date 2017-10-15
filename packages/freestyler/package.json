@@ -1,13 +1,12 @@
 {
     "name": "freestyler",
-    "version": "1.1.0",
+    "version": "1.2.1",
     "description": "5th generation React styling library",
     "main": "lib/index.js",
     "scripts": {
         "clean": "rimraf modules lib dist",
         "test": "jest",
-        "build":
-            "npm run clean && npm run build-lib && npm run build-modules && npm run build-dist",
+        "build": "npm run clean && npm run build-lib && npm run build-modules && npm run build-dist",
         "build-dist": "node rollup.js",
         "build-modules": "gulp build-modules",
         "build-lib": "npm run build-ts && npm run build-js",
@@ -22,12 +21,18 @@
             "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
         },
         "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-        "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js",
+            "jsx",
+            "json"
+        ]
     },
     "dependencies": {
         "benchmark": "2.1.4",
         "css-light": "^1.1.0",
-        "freestyler-util": "^1.0.0",
-        "fast-extend": "0.0.2"
+        "fast-extend": "0.0.2",
+        "freestyler-util": "^1.2.1"
     }
 }

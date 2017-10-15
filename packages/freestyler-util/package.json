@@ -1,6 +1,6 @@
 {
   "name": "freestyler-util",
-  "version": "1.0.2",
+  "version": "1.2.1",
   "description": "freestyler utility toolbelt",
   "scripts": {
     "test": "jest",
@@ -11,10 +11,15 @@
   },
   "jest": {
     "transform": {
-      "^.+\\.tsx?$":
-      "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
+      "^.+\\.tsx?$": "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
   }
 }
