@@ -1,0 +1,37 @@
+{
+  "name": "freestyler-renderer",
+  "version": "1.2.1",
+  "description": "freestyler CSS renderer",
+  "main": "lib/index.js",
+  "scripts": {
+    "clean": "rimraf modules lib dist",
+    "test": "jest",
+    "build": "npm run clean && npm run build-lib && npm run build-modules && npm run build-dist",
+    "build-dist": "node rollup.js",
+    "build-modules": "gulp build-modules",
+    "build-lib": "npm run build-ts && npm run build-js",
+    "build-ts": "gulp build-ts",
+    "build-js": "babel src --out-dir lib",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "watch": "watch 'npm run build' ./src"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
+    },
+    "transformIgnorePatterns": [],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ]
+  },
+  "dependencies": {
+    "fast-extend": "0.0.2",
+    "freestyler-util": "^1.2.1"
+  }
+}

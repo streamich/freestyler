@@ -1,5 +1,6 @@
 import {kebabCase} from 'freestyler-util';
 import atoms from './atoms';
+import interpolateSelectors from './interpolateSelectors';
 
 export type TStyles = object;
 
@@ -21,28 +22,8 @@ export type TAtrule = {
 export type TStyleSheet = (TRule | TAtrule)[];
 
 const REG_NESTED = /^\$/;
-const isArray = Array.isArray;
-export const isRule: (rule: TRule | TAtrule) => boolean = rule => isArray(rule);
 
-const interpolateSelectors = (prop, selectors) => {
-    let props = prop.split(',');
-    let selectorList = [];
-
-    for (var p of props) {
-        if (p.indexOf('&') > -1) {
-            for (var sel of selectors) {
-                selectorList.push(p.replace('&', sel));
-            }
-        } else {
-            for (var sel of selectors) {
-                selectorList.push(sel + ' ' + p);
-            }
-        }
-    }
-    return selectorList.join(',');
-};
-
-export function toStyleSheet(pojso: TStyles): TStyleSheet {
+const toStyleSheet: (pojso: TStyles) => TStyleSheet = pojso => {
     let stylesheet = [];
     for (let selector in pojso) {
         let values = pojso[selector];
@@ -79,12 +60,8 @@ export function toStyleSheet(pojso: TStyles): TStyleSheet {
                     break;
                 case 'object': {
                     let selectorsInterpolated =
-                        selectors.length > 1
-                            ? interpolateSelectors(prop, selectors)
-                            : prop.replace('&', selector);
-                    stylesheet = stylesheet.concat(
-                        toStyleSheet({[selectorsInterpolated]: value})
-                    );
+                        selectors.length > 1 ? interpolateSelectors(prop, selectors) : prop.replace('&', selector);
+                    stylesheet = stylesheet.concat(toStyleSheet({[selectorsInterpolated]: value}));
                     break;
                 }
             }
@@ -93,28 +70,6 @@ export function toStyleSheet(pojso: TStyles): TStyleSheet {
     }
 
     return stylesheet;
-}
+};
 
-export function toCss(stylesheet: TStyleSheet): string {
-    let css = '';
-    for (let i = 0; i < stylesheet.length; i++) {
-        if (stylesheet.length) {
-            const rule = stylesheet[i];
-            if (isRule(rule)) {
-                // TRule
-                const [selector, rules] = rule as TRule;
-                let ruleStrings = '{';
-                for (let j = 0; j < rules.length; j++) {
-                    const [key, value] = rules[j];
-                    ruleStrings += key + ':' + value + ';';
-                }
-                if (ruleStrings.length) css += selector + ruleStrings + '}';
-            } else {
-                // TAtrule
-                const {prelude, rules} = rule as TAtrule;
-                css += prelude + '{' + toCss(rules) + '}';
-            }
-        }
-    }
-    return css;
-}
+export default toStyleSheet;

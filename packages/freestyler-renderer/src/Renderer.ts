@@ -1,29 +1,11 @@
-import {
-    TComponent,
-    TComponentConstructor,
-    TCssTemplate,
-    IStyles,
-} from '../types';
-import {$$cn, $$cnt, hidden} from '../../../freestyler-util/index';
-import {
-    TAtrule,
-    toCss,
-    toStyleSheet,
-    TRule,
-    TStyles,
-    TStyleSheet,
-} from '../ast';
-import {
-    getInstanceName,
-    getName,
-    IMiddleware,
-    inject,
-    IRenderer,
-    TRendererFactory,
-} from './util';
+import {$$cn, $$cnt, hidden} from 'freestyler-util';
+import {TComponent, TComponentConstructor, TCssTemplate, IStyles} from './types';
+import toStyleSheet, {TAtrule, TRule, TStyles, TStyleSheet} from './ast/toStylesheet';
+import toCss from './ast/toCss';
+import {getInstanceName, getName, IMiddleware, inject, IRenderer, TRendererFactory} from './util';
 import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
-import {TVisitor, visit} from '../visit';
-import {VSheet} from '../virtual';
+import {TVisitor} from './ast/visit';
+import {VSheet} from './virtual';
 
 // Low cardinality virtual style properties that should be batched.
 const LOW_CARDINALITY_PROPERTIES = {
@@ -61,19 +43,12 @@ const visitor: TVisitor = {
 
         for (const declaration of declarations) {
             const [property, value] = declaration;
-            let variableName =
-                (atrule ? atrule.prelude + '-' : '') +
-                selectors +
-                '-' +
-                property;
+            let variableName = (atrule ? atrule.prelude + '-' : '') + selectors + '-' + property;
             variableName = variableName.substr(1);
             variableName = variableName.replace(/[^a-zA-Z0-9_]/g, '-');
             variableName = '--' + variableName;
             // newDeclarations.push([variableName, value]);
-            document.documentElement.style.setProperty(
-                variableName,
-                '' + value
-            );
+            document.documentElement.style.setProperty(variableName, '' + value);
             newDeclarations.push([property, `var(${variableName})`]);
         }
 
@@ -146,12 +121,7 @@ class Renderer implements IRenderer {
 
     removeStatic(Comp: TComponentConstructor) {}
 
-    injectDynamic(
-        instance: TComponent,
-        root: Element,
-        tpl: TCssTemplate,
-        args: any[]
-    ) {
+    injectDynamic(instance: TComponent, root: Element, tpl: TCssTemplate, args: any[]) {
         let styles = tplToStyles(tpl, args);
         if (!styles) return;
 
@@ -190,12 +160,8 @@ class Renderer implements IRenderer {
             ownRules[1] = remainingDecls;
 
             if (lowCardinalityDecls.length) {
-                lowCardinalityDecls = lowCardinalityDecls.sort(
-                    ([prop1], [prop2]) => (prop1 > prop2 ? 1 : -1)
-                );
-                classNames.push(
-                    this.vsheet.getIdBatch('', '', lowCardinalityDecls)
-                );
+                lowCardinalityDecls = lowCardinalityDecls.sort(([prop1], [prop2]) => (prop1 > prop2 ? 1 : -1));
+                classNames.push(this.vsheet.getIdBatch('', '', lowCardinalityDecls));
             }
         }
 
@@ -215,6 +181,12 @@ class Renderer implements IRenderer {
             const el = getById(className) as HTMLStyleElement;
             if (el) if (el) removeDomElement(el);
         }
+    }
+
+    format(styles: IStyles, selector: string) {
+        styles = hoistGlobalsAndWrapContext(styles, selector);
+        const stylesheet = toStyleSheet(styles);
+        return toCss(stylesheet);
     }
 
     use(middleware) {

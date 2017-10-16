@@ -1,5 +1,3 @@
-// copied straight from glamor
-// https://github.com/threepointone/glamor/blob/master/src/styled/index.js
 import styled_ from './react/styled';
 
 const styled = styled_ as any;

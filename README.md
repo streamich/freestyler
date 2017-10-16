@@ -96,8 +96,8 @@ const App = () => <Bordered>Hello world!</Bordered>;
 ### API
 
   - High-level: React bindings
-    - class decorator
-    - `@css` method decorator
+    - `@css` class decorator
+    - `@css` render method decorator
     - `styled` components
     - `styleit` syntax
     - `hoc` generator

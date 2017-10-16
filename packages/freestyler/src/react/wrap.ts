@@ -1,7 +1,7 @@
 import {Component, createElement as h, cloneElement} from 'react';
-import {getName, IRenderer} from '../renderers/util';
-import renderer from '../renderers/defaultRenderer';
-import {TElement, TCssTemplate, TCssDynamicTemplate} from '../types';
+import {getName} from 'freestyler-renderer/src/util';
+import renderer from '../renderer';
+import {TElement, TCssTemplate, TCssDynamicTemplate} from 'freestyler-renderer/src/types';
 
 export function wrap(
     Element: TElement,
@@ -19,22 +19,14 @@ export function wrap(
             const dynamicTemplate = dynamicTemplateGetter();
             if (!dynamicTemplate) return;
 
-            this.cNs = renderer.injectDynamic(this, null, dynamicTemplate, [
-                props,
-                state,
-                context,
-            ]);
+            this.cNs = renderer.injectDynamic(this, null, dynamicTemplate, [props, state, context]);
         }
 
         componentWillMount() {
             const {props, state, context} = this;
 
             if (template) {
-                staticClassName = renderer.injectStatic(Wrap, template, [
-                    props,
-                    state,
-                    context,
-                ]);
+                staticClassName = renderer.injectStatic(Wrap, template, [props, state, context]);
             }
 
             this.onRender(props, state, context);
@@ -52,11 +44,9 @@ export function wrap(
         render() {
             let {className, ...props} = this.props;
             className = className || '';
-            if (staticClassName)
-                className += (className ? ' ' : '') + staticClassName;
+            if (staticClassName) className += (className ? ' ' : '') + staticClassName;
             const {cNs} = this;
-            if (cNs && cNs.length)
-                className += (className ? ' ' : '') + this.cNs.join(' ');
+            if (cNs && cNs.length) className += (className ? ' ' : '') + this.cNs.join(' ');
             return h(Element, {...props, className});
         }
     };

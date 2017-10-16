@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`toStylesheet expands atoms 1`] = `
+Array [
+  Array [
+    ".more",
+    Array [
+      Array [
+        "color",
+        "red",
+      ],
+      Array [
+        "background",
+        "blue",
+      ],
+    ],
+  ],
+]
+`;
+
+exports[`toStylesheet inline stylesheet 1`] = `
+Array [
+  Array [
+    "#id",
+    Array [
+      Array [
+        "color",
+        "tomato",
+      ],
+      Array [
+        "background-color",
+        "red",
+      ],
+      Array [
+        "width",
+        "100%",
+      ],
+    ],
+  ],
+]
+`;
+
+exports[`toStylesheet multiple rules and expands atoms 1`] = `
+Array [
+  Array [
+    "#id",
+    Array [
+      Array [
+        "color",
+        "tomato",
+      ],
+      Array [
+        "background-color",
+        "red",
+      ],
+      Array [
+        "width",
+        "100%",
+      ],
+    ],
+  ],
+  Array [
+    ".more",
+    Array [
+      Array [
+        "color",
+        "tomato",
+      ],
+      Array [
+        "background-color",
+        "red",
+      ],
+    ],
+  ],
+]
+`;
+
+exports[`toStylesheet nested structures 1`] = `
+Array [
+  Array [
+    "#id.nested",
+    Array [
+      Array [
+        "color",
+        "yellow",
+      ],
+    ],
+  ],
+]
+`;
+
+exports[`toStylesheet nested structures 2`] = `
+Array [
+  Array [
+    "#id .nested",
+    Array [
+      Array [
+        "color",
+        "yellow",
+      ],
+    ],
+  ],
+]
+`;

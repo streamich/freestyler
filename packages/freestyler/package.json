@@ -18,8 +18,9 @@
     },
     "jest": {
         "transform": {
-            "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+            "^.+\\.tsx?$": "<rootDir>/../../node_modules/ts-jest/preprocessor.js"
         },
+        "transformIgnorePatterns": [],
         "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
         "moduleFileExtensions": [
             "ts",
@@ -33,6 +34,7 @@
         "benchmark": "2.1.4",
         "css-light": "^1.1.0",
         "fast-extend": "0.0.2",
-        "freestyler-util": "^1.2.1"
+        "freestyler-util": "^1.2.1",
+        "freestyler-renderer": "^1.2.1"
     }
 }

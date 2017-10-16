@@ -1,0 +1,11 @@
+.idea
+node_modules
+/.idea
+.nyc_output
+coverage
+package-lock.json
+yarn.lock
+yarn-error.log
+/modules/
+/dist/
+/lib/

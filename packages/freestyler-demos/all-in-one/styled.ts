@@ -1,10 +1,7 @@
 import {Component, createElement as h} from 'react';
 import {render} from 'react-dom';
 import css from '../../freestyler/src';
-import decoratorClass from '../../freestyler/src/react/decoratorClass';
 import CssReset from '../../freestyler/src/globals/CssResetTripoli';
-import logger from '../../freestyler/src/middleware/logger';
-import {IStyles} from '../../freestyler/src/types';
 
 const Box = css.div(
     {
@@ -43,7 +40,7 @@ class App extends Component<any, any> {
         // prettier-ignore
         return h('div', {},
             h('div', {className: 'nested'},
-                'blue',
+                'blue 2',
                 h('div', {className: 'override'},
                     'pink',
                 ),

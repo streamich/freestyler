@@ -5,24 +5,16 @@ export type TCssTemplateCallback = (...args) => IStyles;
 export type TCssTemplate = IStyles | TCssTemplateCallback;
 export type TCssDynamicTemplate = () => TCssTemplate;
 
-export type TElement =
-    | string
-    | TComponentConstructor
-    | ((props?, state?, context?) => any);
+export type TElement = string | TComponentConstructor | ((props?, state?, context?) => any);
 
 export interface TFreestyleComponent extends TComponentConstructor {
     css(newDynamicTemplate: TCssTemplate);
 }
 
-export type TStyled<TResult> = (
-    template?: TCssTemplate,
-    dynamicTemplate?: TCssTemplate
-) => TResult;
+export type TStyled<TResult> = (template?: TCssTemplate, dynamicTemplate?: TCssTemplate) => TResult;
 
 export type THoc = (Element: TElement) => TElement;
-export type TPrimitiveStyled = (
-    Element: TElement
-) => TStyled<TFreestyleComponent>;
+export type TPrimitiveStyled = (Element: TElement) => TStyled<TFreestyleComponent>;
 export type TPrimitiveHoc = TStyled<THoc>;
 
 export interface ICss {

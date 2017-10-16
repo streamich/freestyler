@@ -1,18 +1,8 @@
 import {cloneElement} from 'react';
-import {
-    TComponentConstructor,
-    TCssTemplate,
-    ICss,
-    TElement,
-    TStyled,
-    IStyles,
-    THoc,
-} from '../types';
-import renderer from '../renderers/defaultRenderer';
+import {ICss, IStyles} from 'freestyler-renderer/src/types';
 import decoratorRender from './decoratorRender';
 import decoratorClass from './decoratorClass';
 import styleit from './styleit';
-import * as extend from 'fast-extend';
 
 const css: ICss = function css(tpl: IStyles, second?: any) {
     if (second !== void 0 && typeof second !== 'boolean') {

@@ -1,12 +1,9 @@
-import {isRule, TAtrule, TDeclaration, TRule, TRules, TStyleSheet} from './ast';
+import {TAtrule, TDeclaration, TRule, TRules, TStyleSheet} from './toStylesheet';
+import {isRule} from './toCss';
 
 export type TAtruleVisit = (atrule?: TAtrule) => TAtrule;
 export type TRuleVisit = (rule: TRule, atrule?: TAtrule) => TRule;
-export type TDeclarationVisit = (
-    declaration: TDeclaration,
-    rule: TRule,
-    atrule?: TAtrule
-) => TDeclaration;
+export type TDeclarationVisit = (declaration: TDeclaration, rule: TRule, atrule?: TAtrule) => TDeclaration;
 export type TVisitor = {
     atrule?: TAtruleVisit;
     rule?: TRuleVisit;
@@ -37,11 +34,7 @@ export const visitAtrule = (atrule: TAtrule, visitor: TVisitor) => {
     return atrule;
 };
 
-const visitRules = (
-    stylesheet: TStyleSheet,
-    atrule: TAtrule,
-    visitor: TVisitor
-) => {
+const visitRules = (stylesheet: TStyleSheet, atrule: TAtrule, visitor: TVisitor) => {
     for (let i = 0; i < stylesheet.length; i++) {
         const rule = stylesheet[i];
         if (isRule(rule)) {
@@ -55,5 +48,4 @@ const visitRules = (
     return stylesheet;
 };
 
-export const visit = (stylesheet: TStyleSheet, visitor: TVisitor) =>
-    visitRules(stylesheet, null, visitor);
+export const visit = (stylesheet: TStyleSheet, visitor?: TVisitor) => visitRules(stylesheet, null, visitor);

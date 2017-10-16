@@ -1,17 +1,7 @@
 import {cloneElement} from 'react';
-import {
-    TComponentConstructor,
-    TCssTemplate,
-    ICss,
-    TElement,
-    TStyled,
-    IStyles,
-    THoc,
-} from '../types';
-import renderer from '../renderers/defaultRenderer';
+import {IStyles} from 'freestyler-renderer/src/types';
 import transformStatic from './transformStatic';
 import transformDynamic from './transformDynamic';
-import * as extend from 'fast-extend';
 
 const decoratorRender = function(tpl: IStyles, dynamic?: boolean) {
     return (instance, key, descriptor) => {
@@ -21,11 +11,7 @@ const decoratorRender = function(tpl: IStyles, dynamic?: boolean) {
         const render_ = descriptor.value;
 
         if (dynamic) {
-            const [render, componentWillUnmount] = transformDynamic(
-                render_,
-                componentWillUnmount_,
-                tpl
-            );
+            const [render, componentWillUnmount] = transformDynamic(render_, componentWillUnmount_, tpl);
             instance.componentWillUnmount = componentWillUnmount;
             descriptor.value = render;
         } else {

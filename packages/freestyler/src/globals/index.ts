@@ -1,17 +1,12 @@
-import {styled} from '../index';
-import {TCssTemplate} from '../types';
+import styled from '../react/styled';
+import {TCssTemplate} from 'freestyler-renderer/src/types';
 
 const Global = () => null;
 
 const globalizeTemplate = (template: TCssTemplate) => (...args) =>
-    !template
-        ? null
-        : typeof template === 'function' ? template(...args) : template;
+    !template ? null : typeof template === 'function' ? template(...args) : template;
 
-export const global = (
-    staticTemplate: TCssTemplate,
-    dynamicTemplate?: TCssTemplate
-) =>
+export const global = (staticTemplate: TCssTemplate, dynamicTemplate?: TCssTemplate) =>
     styled(Global)(
         staticTemplate ? globalizeTemplate(staticTemplate) : null,
         dynamicTemplate ? globalizeTemplate(dynamicTemplate) : null

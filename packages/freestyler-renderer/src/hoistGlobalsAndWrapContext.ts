@@ -1,8 +1,6 @@
-import * as extend from 'fast-extend';
-
 const REG_AT = /^@/;
 
-export default (styles, className: string) => {
+const hoistGlobalsAndWrapContext = (styles, className: string) => {
     let global = {
         ['.' + className]: styles,
     };
@@ -18,3 +16,5 @@ export default (styles, className: string) => {
 
     return global;
 };
+
+export default hoistGlobalsAndWrapContext;

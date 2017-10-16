@@ -1,21 +1,9 @@
 import {cloneElement} from 'react';
-import {
-    TComponentConstructor,
-    TCssTemplate,
-    ICss,
-    TElement,
-    TStyled,
-    IStyles,
-    THoc,
-} from '../types';
-import renderer from '../renderers/defaultRenderer';
+import {IStyles} from 'freestyler-renderer/src/types';
+import renderer from '../renderer';
 import * as extend from 'fast-extend';
 
-const transformDynamic = function transformDynamic(
-    render_,
-    componentWillUnmount_,
-    tpl: IStyles
-) {
+const transformDynamic = function transformDynamic(render_, componentWillUnmount_, tpl: IStyles) {
     const componentWillUnmount = function() {
         if (componentWillUnmount_) componentWillUnmount_.apply(this, arguments);
         renderer.removeDynamic(this, null);
@@ -27,19 +15,13 @@ const transformDynamic = function transformDynamic(
         const {state, context} = this;
         const className =
             (props.className ? props.className + ' ' : '') +
-            renderer
-                .injectDynamic(this, null, tpl, [props, state, context])
-                .join(' ');
+            renderer.injectDynamic(this, null, tpl, [props, state, context]).join(' ');
 
         if (process.env.NODE_ENV === 'production') {
             props.className = className;
             return renderer;
         } else {
-            return cloneElement(
-                rendered,
-                extend({}, props, {className}),
-                rendered.props.children
-            );
+            return cloneElement(rendered, extend({}, props, {className}), rendered.props.children);
         }
     };
 

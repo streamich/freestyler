@@ -1,10 +1,5 @@
-import {
-    TComponent,
-    TComponentConstructor,
-    TCssTemplate,
-    IStyles,
-} from '../types';
-import {TStyles, TStyleSheet} from '../ast';
+import {TComponent, TComponentConstructor, TCssTemplate} from './types';
+import {TStyles, TStyleSheet} from './ast/toStylesheet';
 
 export interface IMiddleware {
     styles: (TStyles) => TStyles;
@@ -12,18 +7,9 @@ export interface IMiddleware {
 }
 
 export interface IRenderer {
-    injectStatic(
-        Comp: TComponentConstructor,
-        tpl: TCssTemplate,
-        args: any[]
-    ): string;
+    injectStatic(Comp: TComponentConstructor, tpl: TCssTemplate, args: any[]): string;
     removeStatic(Comp: TComponentConstructor);
-    injectDynamic(
-        instance: TComponent,
-        root: Element,
-        tpl: TCssTemplate,
-        args: any[]
-    );
+    injectDynamic(instance: TComponent, root: Element, tpl: TCssTemplate, args: any[]);
     removeDynamic(instance: TComponent, root: Element);
     use(middleware: IMiddleware);
 }

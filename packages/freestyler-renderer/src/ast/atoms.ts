@@ -1,4 +1,4 @@
-export default {
+const atoms = {
     d: 'display',
 
     mar: 'margin',
@@ -46,3 +46,5 @@ export default {
     ww: 'word-wrap',
     con: 'content',
 };
+
+export default atoms;
