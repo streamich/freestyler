@@ -27,12 +27,15 @@ export type TPrimitiveHoc = TStyled<THoc>;
 
 export interface ICss {
     (tpl: TCssTemplate, second?: any): any;
+    (tpl: TCssTemplate, jsx): any;
+    css;
     wrap;
     styled: TPrimitiveStyled;
-    div: TStyled<TFreestyleComponent>;
-    span: TStyled<TFreestyleComponent>;
+    styleit;
     hoc: TPrimitiveHoc;
     facc;
+    div: TStyled<TFreestyleComponent>;
+    span: TStyled<TFreestyleComponent>;
 }
 
 export type TCursor = string;

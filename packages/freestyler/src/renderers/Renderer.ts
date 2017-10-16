@@ -99,7 +99,7 @@ function getById(id) {
     return document.getElementById(id);
 }
 
-class OpinionatedRenderer implements IRenderer {
+class Renderer implements IRenderer {
     vsheet = new VSheet();
 
     stylesToStylesheet(styles: TStyles, className: string): TStyleSheet {
@@ -222,4 +222,4 @@ class OpinionatedRenderer implements IRenderer {
     }
 }
 
-export default OpinionatedRenderer;
+export default Renderer;

@@ -1,6 +1,6 @@
 import {Component, createElement as h, cloneElement} from 'react';
 import {getName, IRenderer} from '../renderers/util';
-import renderer from '../renderers/renderer';
+import renderer from '../renderers/defaultRenderer';
 import {TElement, TCssTemplate, TCssDynamicTemplate} from '../types';
 
 export function wrap(

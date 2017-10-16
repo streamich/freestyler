@@ -20,6 +20,7 @@ export type TAtrule = {
 };
 export type TStyleSheet = (TRule | TAtrule)[];
 
+const REG_NESTED = /^\$/;
 const isArray = Array.isArray;
 export const isRule: (rule: TRule | TAtrule) => boolean = rule => isArray(rule);
 
@@ -63,6 +64,13 @@ export function toStyleSheet(pojso: TStyles): TStyleSheet {
         const rule = [selector, declarations];
         for (let prop in styles) {
             const value = styles[prop];
+
+            // `$` sugar syntax for immediatelly nested rules.
+            if (REG_NESTED.test(prop)) {
+                // prop = prop.replace('$', '& > .');
+                prop = prop.replace('$', '& .');
+            }
+
             switch (typeof value) {
                 case 'string':
                 case 'number':

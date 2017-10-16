@@ -12,7 +12,7 @@ const Box = css.div(
         w: '100px',
         h: '100px',
         borderRadius: '10px',
-        '.nested': {
+        '& .nested': {
             col: 'red',
         },
         '@media(screen)': {
@@ -26,9 +26,24 @@ const Box = css.div(
 );
 
 class App extends Component {
+    @css({
+        pad: '40px',
+        $nested: {
+            col: 'blue',
+            $override: {
+                col: 'pink',
+            },
+        },
+    })
     render() {
         // prettier-ignore
         return h('div', {},
+            h('div', {className: 'nested'},
+                'blue',
+                h('div', {className: 'override'},
+                    'pink',
+                ),
+            ),
             h(CssReset),
             h(Box, {}, '1'),
             h(Box, {},

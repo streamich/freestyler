@@ -1,8 +1,8 @@
 // copied straight from glamor
 // https://github.com/threepointone/glamor/blob/master/src/styled/index.js
-import _styled from './react/styled';
+import styled_ from './react/styled';
 
-const styled = _styled as any;
+const styled = styled_ as any;
 
 styled.a = styled('a');
 styled.abbr = styled('abbr');

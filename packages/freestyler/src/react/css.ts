@@ -8,8 +8,9 @@ import {
     IStyles,
     THoc,
 } from '../types';
-import renderer from '../renderers/renderer';
+import renderer from '../renderers/defaultRenderer';
 import styleit from './styleit';
+import * as extend from 'fast-extend';
 
 const css: ICss = function css(tpl: IStyles, second?: any) {
     if (second !== void 0 && typeof second !== 'boolean') {
@@ -34,33 +35,32 @@ const css: ICss = function css(tpl: IStyles, second?: any) {
             }
         };
 
-        return {
-            ...descriptor,
+        return extend(descriptor, {
             value: function render() {
                 const rendered = value.apply(this, arguments);
                 const {props} = rendered;
                 const {state, context} = this;
-                const className = dynamic
+                let className = dynamic
                     ? renderer.injectDynamic(this, null, tpl, [
                           props,
                           state,
                           context,
                       ])
                     : renderer.injectStatic(Comp, tpl, [props, state, context]);
-                const oldClassName = props.className || '';
-                return cloneElement(
-                    rendered,
-                    {
-                        ...props,
-                        className:
-                            oldClassName +
-                            (oldClassName ? ' ' : '') +
-                            className,
-                    },
-                    rendered.props.children
-                );
+                if (props.className) className += ' ' + props.className;
+
+                if (process.env.NODE_ENV === 'production') {
+                    props.className = className;
+                    return renderer;
+                } else {
+                    return cloneElement(
+                        rendered,
+                        extend({}, props, {className}),
+                        rendered.props.children
+                    );
+                }
             },
-        };
+        });
     };
 } as ICss;
 

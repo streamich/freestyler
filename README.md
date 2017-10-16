@@ -92,9 +92,24 @@ const Bordered = css.div({
 
 const App = () => <Bordered>Hello world!</Bordered>;
 ```
+  
+### API
+
+  - High-level: React bindings
+    - class decorator
+    - `@css` method decorator
+    - `styled` components
+    - `styleit` syntax
+    - `hoc` generator
+    - `facc` generator
+    - `div`
+    - `span`
+    - class name scoping
+    - data attribute spread
+  - Low-level
+    - `Renderer`
 
 -----
-
 
 # Terminology
 
