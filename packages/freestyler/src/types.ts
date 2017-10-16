@@ -30,12 +30,15 @@ export interface ICss {
     (tpl: TCssTemplate, jsx): any;
     css;
     wrap;
-    styled: TPrimitiveStyled;
+    // styled: TPrimitiveStyled;
+    styled;
     styleit;
     hoc: TPrimitiveHoc;
     facc;
-    div: TStyled<TFreestyleComponent>;
-    span: TStyled<TFreestyleComponent>;
+    div;
+    span;
+    // div: TStyled<TFreestyleComponent>;
+    // span: TStyled<TFreestyleComponent>;
 }
 
 export type TCursor = string;

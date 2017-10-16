@@ -102,10 +102,9 @@ const App = () => <Bordered>Hello world!</Bordered>;
     - `styleit` syntax
     - `hoc` generator
     - `facc` generator
-    - `div`
-    - `span`
     - class name scoping
     - data attribute spread
+    - jsxstyle components
   - Low-level
     - `Renderer`
 
@@ -302,32 +301,31 @@ const template = {
 
 ### Nesting selectors
 
-`freestyler` template selectors can be nested arbitrarily deep. However, don't overuse this feature, multiple levels
-deep selectors is an anti-patter in React.
+`freestyler` template selectors can be nested arbitrarily deep. However, don't overuse this feature, multiple levels deep selectors is an anti-patter in React.
 
-Nesting example:
+Use `$` syntax for nesting:
 
 ```js
 const template = {
     color: 'red',
-    '> div': {
-        background: '#eee',
-    },
-    '> .item': {
+    $item: {
         'border-left': '1px solid green',
     },
 };
 ```
 
-The `&` operand allows you reference the parent selector:
+Use `&` operand for nesting, it is expanded into the parent selector:
 
 ```js
-const template = props => ({
+const template = {
     color: 'red',
-    '&:hover': {
-        color: props.color,
-    }
-});
+    '& > div': {
+        background: '#eee',
+    },
+    '& .item': {
+        'border-left': '1px solid green',
+    },
+};
 ```
 
 `&` can be placed anywhere in the selector string, so you can even reference global parent class names:
@@ -437,16 +435,14 @@ const atoms = {
 ### Global styles
 
 Global styling is an anti-pattern, use them sparingly. In all CSS templates 
-you can use `:global` or `_` escape hatch to emit global styles:
+you can emit global styles:
 
 ```jsx
 class Button extends Component {
     @css({
-        ':global': {
-            '.btn-rendered': {
-                // ...
-            }
-        },
+        '.btn-rendered': {
+            // ...
+        }
     })
     render() {
         // ...

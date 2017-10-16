@@ -6,10 +6,7 @@ const Global = () => null;
 const globalizeTemplate = (template: TCssTemplate) => (...args) =>
     !template
         ? null
-        : {
-              ':global':
-                  typeof template === 'function' ? template(...args) : template,
-          };
+        : typeof template === 'function' ? template(...args) : template;
 
 export const global = (
     staticTemplate: TCssTemplate,
