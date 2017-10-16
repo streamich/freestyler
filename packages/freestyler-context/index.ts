@@ -29,9 +29,7 @@ export class Provider extends Component<any, any> {
     parentValue: TValue = null;
 
     componentWillMount() {
-        const parentObservable = (this.context[$$context] || {})[
-            this.props.name
-        ];
+        const parentObservable = (this.context[$$context] || {})[this.props.name];
         if (parentObservable) {
             this.parentValue = parentObservable.get();
             this.parentUnsub = parentObservable.sub(value => {
@@ -54,8 +52,7 @@ export class Provider extends Component<any, any> {
     }
 
     componentWillReceiveProps(props) {
-        if (this.props.value !== props.value)
-            this.observable.set(this.mergeValues(props.value));
+        if (this.props.value !== props.value) this.observable.set(this.mergeValues(props.value));
     }
 
     componentWillUnmount() {
@@ -92,9 +89,7 @@ export class Consumer extends Component<any, any> {
 
         if (process.env.NODE_ENV !== 'production') {
             if (!observable) {
-                throw new Error(
-                    `Context observable "${this.props.name}" not found.`
-                );
+                throw new Error(`Context observable "${this.props.name}" not found.`);
             }
         }
 

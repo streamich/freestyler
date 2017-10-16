@@ -1,10 +1,7 @@
 import {Component, createElement as h} from 'react';
 import {Consumer, Provider, TValue} from 'freestyler-context';
 
-export type TElement =
-    | string
-    | (new (...args) => Component)
-    | ((props?, state?, context?) => any);
+export type TElement = string | (new (...args) => Component) | ((props?, state?, context?) => any);
 export type THoc = (Element: TElement) => TElement;
 export type TTheme = TValue;
 

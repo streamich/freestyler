@@ -129,12 +129,7 @@ const ContainerFacc = css.facc('div', {
             vis: isVisible ? 'visible' : 'hidden',
         },
     },
-    h(
-        Comp,
-        {},
-        h('div', {onClick: onToggle}, 'Title 4'),
-        h('div', {className: 'content'}, 'Content')
-    ),
+    h(Comp, {}, h('div', {onClick: onToggle}, 'Title 4'), h('div', {className: 'content'}, 'Content')),
 ]);
 
 const TweenFacc = css.facc('div', {
@@ -207,8 +202,7 @@ const Style = ({children}) => {
     return h(EmitCss);
 };
 
-const BgBorder = ({theme}) =>
-    h('div', {style: {border: '1px solid ' + theme.background}}, 'bg-border');
+const BgBorder = ({theme}) => h('div', {style: {border: '1px solid ' + theme.background}}, 'bg-border');
 const ThemedBgBorder = themed(BgBorder);
 
 const BgBorder2 = css.div(({theme}) => ({
@@ -253,10 +247,7 @@ class App extends Component {
             top: '90px',
         });
 
-        const BoxTweenFacc = css.facc(Box2)(value => Comp => [
-            {left: 10 + value * 200 + 'px'},
-            h(Comp),
-        ]);
+        const BoxTweenFacc = css.facc(Box2)(value => Comp => [{left: 10 + value * 200 + 'px'}, h(Comp)]);
 
         // prettier-ignore
         return h('div', {},

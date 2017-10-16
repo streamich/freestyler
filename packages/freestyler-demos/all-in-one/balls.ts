@@ -79,11 +79,7 @@ class App extends Component {
         const ww = window.innerWidth;
         for (let i = 0; i < this.state.count; i++) {
             const size = 50 + 100 * Math.random();
-            positions.push([
-                (ww - size) * Math.random(),
-                (wh - size) * Math.random(),
-                size,
-            ]);
+            positions.push([(ww - size) * Math.random(), (wh - size) * Math.random(), size]);
         }
         this.setState({
             ts: Date.now(),

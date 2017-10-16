@@ -52,9 +52,7 @@ export default function toStyleSheet2(pojso: TStyles): TStyleSheet {
 
                         var selectors_combined = selector_list.join(',');
                         var innerpojo = {[selectors_combined]: declaration};
-                        stylesheet = stylesheet.concat(
-                            toStyleSheet2(innerpojo)
-                        );
+                        stylesheet = stylesheet.concat(toStyleSheet2(innerpojo));
                         break;
                 }
             }

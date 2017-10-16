@@ -53,12 +53,8 @@ export default function toStyleSheet2(pojso: TStyles): TStyleSheet {
                     break;
                 case 'object': {
                     let selectorsInterpolated =
-                        selectors.length > 1
-                            ? interpolateSelectors(prop, selectors)
-                            : prop.replace('&', selector);
-                    stylesheet = stylesheet.concat(
-                        toStyleSheet2({[selectorsInterpolated]: value})
-                    );
+                        selectors.length > 1 ? interpolateSelectors(prop, selectors) : prop.replace('&', selector);
+                    stylesheet = stylesheet.concat(toStyleSheet2({[selectorsInterpolated]: value}));
                     break;
                 }
             }
