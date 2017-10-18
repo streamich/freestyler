@@ -12,21 +12,21 @@ export function wrap(
     let staticClassName: string;
     const name = getName(Element);
     const Wrap = class Wrap extends Component<any, any> {
-        cNs: string[] = [];
+        cNs: string = '';
 
         onRender(props, state, context) {
             if (!dynamicTemplateGetter) return;
             const dynamicTemplate = dynamicTemplateGetter();
             if (!dynamicTemplate) return;
 
-            this.cNs = renderer.injectDynamic(this, null, dynamicTemplate, [props, state, context]);
+            this.cNs = renderer.renderDynamic(this, null, dynamicTemplate, [props, state, context]);
         }
 
         componentWillMount() {
             const {props, state, context} = this;
 
             if (template) {
-                staticClassName = renderer.injectStatic(Wrap, template, [props, state, context]);
+                staticClassName = renderer.addStatic(Wrap, template, [props, state, context]);
             }
 
             this.onRender(props, state, context);
@@ -46,7 +46,7 @@ export function wrap(
             className = className || '';
             if (staticClassName) className += (className ? ' ' : '') + staticClassName;
             const {cNs} = this;
-            if (cNs && cNs.length) className += (className ? ' ' : '') + this.cNs.join(' ');
+            if (cNs && cNs.length) className += (className ? ' ' : '') + this.cNs;
             return h(Element, {...props, className});
         }
     };

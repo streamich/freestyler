@@ -15,7 +15,7 @@ const transformDynamic = function transformDynamic(render_, componentWillUnmount
         const {state, context} = this;
         const className =
             (props.className ? props.className + ' ' : '') +
-            renderer.injectDynamic(this, null, tpl, [props, state, context]).join(' ');
+            renderer.renderDynamic(this, null, tpl, [props, state, context]);
 
         if (process.env.NODE_ENV === 'production') {
             props.className = className;

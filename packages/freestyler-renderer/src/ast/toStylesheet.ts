@@ -8,7 +8,7 @@ export type TAtrulePrelude = string;
 export type TSelectors = string;
 export type TPseudo = string; // `:hover` part of the selector
 export type TProperty = string;
-export type TValue = string | number;
+export type TValue = string;
 
 export type TDeclaration = [TProperty, TValue];
 export type TDeclarations = TDeclaration[];
@@ -23,8 +23,14 @@ export type TStyleSheet = (TRule | TAtrule)[];
 
 const REG_NESTED = /^\$/;
 
+/**
+ * Converts external POJSO IStyles style description into internal stylesheet AST representation.
+ * @param {TStyles} pojso
+ * @returns {Array}
+ */
 const toStyleSheet: (pojso: TStyles) => TStyleSheet = pojso => {
     let stylesheet = [];
+
     for (let selector in pojso) {
         let values = pojso[selector];
 
@@ -56,7 +62,7 @@ const toStyleSheet: (pojso: TStyles) => TStyleSheet = pojso => {
                 case 'string':
                 case 'number':
                     prop = atoms[prop] || kebabCase(prop);
-                    declarations.push([prop, value]);
+                    declarations.push([prop, '' + value]);
                     break;
                 case 'object': {
                     let selectorsInterpolated =

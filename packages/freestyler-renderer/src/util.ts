@@ -7,10 +7,17 @@ export interface IMiddleware {
 }
 
 export interface IRenderer {
-    injectStatic(Comp: TComponentConstructor, tpl: TCssTemplate, args: any[]): string;
+    addStatic(Comp: TComponentConstructor, tpl: TCssTemplate, args: any[]): string;
     removeStatic(Comp: TComponentConstructor);
-    injectDynamic(instance: TComponent, root: Element, tpl: TCssTemplate, args: any[]);
+    renderDynamic(instance: TComponent, root: Element, tpl: TCssTemplate, args: any[]): string;
     removeDynamic(instance: TComponent, root: Element);
+    renderFluid(
+        Comp: TComponentConstructor,
+        instance: TComponent,
+        root: Element | null,
+        tpl: TCssTemplate,
+        args: any[]
+    ): string;
     use(middleware: IMiddleware);
 }
 

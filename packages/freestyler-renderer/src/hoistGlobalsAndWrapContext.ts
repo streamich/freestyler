@@ -1,14 +1,14 @@
 const REG_AT = /^@/;
 
-const hoistGlobalsAndWrapContext = (styles, className: string) => {
+const hoistGlobalsAndWrapContext = (styles, selector: string) => {
     let global = {
-        ['.' + className]: styles,
+        [selector]: styles,
     };
 
     for (const rule in styles) {
         if (REG_AT.test(rule[0])) {
             global[rule] = {
-                ['.' + className]: styles[rule],
+                [selector]: styles[rule],
             };
             delete styles[rule];
         }

@@ -1,11 +1,14 @@
-import {$$cn, $$cnt, hidden} from 'freestyler-util';
+import {$$cn, $$cnt, hidden, sym} from 'freestyler-util';
 import {TComponent, TComponentConstructor, TCssTemplate, IStyles} from './types';
-import toStyleSheet, {TAtrule, TRule, TStyles, TStyleSheet} from './ast/toStylesheet';
-import toCss from './ast/toCss';
+import toStyleSheet, {TAtrule, TAtrulePrelude, TRule, TStyles, TStyleSheet} from './ast/toStylesheet';
+import toCss, {isRule} from './ast/toCss';
 import {getInstanceName, getName, IMiddleware, inject, IRenderer, TRendererFactory} from './util';
 import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
 import {TVisitor} from './ast/visit';
 import {VSheet} from './virtual';
+
+// Static part of the fluid template.
+const sFluidStatic = sym('fluid');
 
 // Low cardinality virtual style properties that should be batched.
 const LOW_CARDINALITY_PROPERTIES = {
@@ -77,8 +80,8 @@ function getById(id) {
 class Renderer implements IRenderer {
     vsheet = new VSheet();
 
-    stylesToStylesheet(styles: TStyles, className: string): TStyleSheet {
-        styles = hoistGlobalsAndWrapContext(styles, className);
+    toStylesheet(styles: TStyles, selector: string): TStyleSheet {
+        styles = hoistGlobalsAndWrapContext(styles, selector);
         let stylesheet = toStyleSheet(styles);
         return stylesheet;
     }
@@ -89,12 +92,12 @@ class Renderer implements IRenderer {
 
     genDynamic(styles: IStyles) {
         const className = genClassName();
-        const stylesheet = this.stylesToStylesheet(styles, className);
+        const stylesheet = this.toStylesheet(styles, '.' + className);
         const css = toCss(stylesheet);
         return css;
     }
 
-    injectStatic(Comp: TComponentConstructor, tpl: TCssTemplate, args: any[]) {
+    addStatic(Comp: TComponentConstructor, tpl: TCssTemplate, args: any[]): string {
         let styles = tplToStyles(tpl, args);
         if (!styles) return;
 
@@ -107,7 +110,7 @@ class Renderer implements IRenderer {
         const name = getName(Comp);
         className = genClassName(...(name ? [name] : []));
 
-        const stylesheet = this.stylesToStylesheet(styles, className);
+        const stylesheet = this.toStylesheet(styles, '.' + className);
         const cssString = toCss(stylesheet);
 
         const el = inject(cssString);
@@ -121,7 +124,7 @@ class Renderer implements IRenderer {
 
     removeStatic(Comp: TComponentConstructor) {}
 
-    injectDynamic(instance: TComponent, root: Element, tpl: TCssTemplate, args: any[]) {
+    renderDynamic(instance: TComponent, root: Element, tpl: TCssTemplate, args: any[]): string {
         let styles = tplToStyles(tpl, args);
         if (!styles) return;
 
@@ -138,8 +141,8 @@ class Renderer implements IRenderer {
             style = getById(className) as HTMLStyleElement;
         }
 
-        const classNames = [className];
-        const stylesheet = this.stylesToStylesheet(styles, className);
+        let classNames = className + ' ';
+        const stylesheet = this.toStylesheet(styles, '.' + className);
         const ownRules: TRule = stylesheet[0] as TRule;
         if (ownRules) {
             const [__, declarations] = ownRules;
@@ -150,7 +153,7 @@ class Renderer implements IRenderer {
                 const declaration = declarations[i];
                 const [prop, value] = declaration;
                 if (HIGH_CARDINALITY_PROPERTIES[prop]) {
-                    classNames.push(this.vsheet.getId('', '', prop, value));
+                    classNames += this.vsheet.getId('', '', prop, value);
                 } else if (LOW_CARDINALITY_PROPERTIES[prop]) {
                     lowCardinalityDecls.push(declaration);
                 } else {
@@ -161,7 +164,7 @@ class Renderer implements IRenderer {
 
             if (lowCardinalityDecls.length) {
                 lowCardinalityDecls = lowCardinalityDecls.sort(([prop1], [prop2]) => (prop1 > prop2 ? 1 : -1));
-                classNames.push(this.vsheet.getIdBatch('', '', lowCardinalityDecls));
+                classNames += this.vsheet.getIdBatch('', '', lowCardinalityDecls);
             }
         }
 
@@ -182,6 +185,72 @@ class Renderer implements IRenderer {
             if (el) if (el) removeDomElement(el);
         }
     }
+
+    private renderScopedRule(
+        Comp: TComponentConstructor,
+        instance: TComponent,
+        root: Element | null,
+        rule: TRule,
+        atRulePrelude?: TAtrulePrelude
+    ): string {
+        const [selectorTemplate, declarations] = rule;
+        if (!declarations.length) return;
+
+        let classNames = '';
+
+        const remainingDecls = [];
+        let lowCardinalityDecls = [];
+
+        for (let i = 0; i < declarations.length; i++) {
+            const declaration = declarations[i];
+            const [prop, value] = declaration;
+            if (HIGH_CARDINALITY_PROPERTIES[prop]) {
+                classNames += ' ' + this.vsheet.insert(atRulePrelude, selectorTemplate, prop, value);
+            } else if (LOW_CARDINALITY_PROPERTIES[prop]) {
+                lowCardinalityDecls.push(declaration);
+            } else {
+                remainingDecls.push(declaration);
+            }
+        }
+        ownRules[1] = remainingDecls;
+
+        if (lowCardinalityDecls.length) {
+            lowCardinalityDecls = lowCardinalityDecls.sort(([prop1], [prop2]) => (prop1 > prop2 ? 1 : -1));
+            classNames += this.vsheet.getIdBatch('', '', lowCardinalityDecls);
+        }
+    }
+
+    renderFluid(
+        Comp: TComponentConstructor,
+        instance: TComponent,
+        root: Element | null,
+        tpl: TCssTemplate,
+        args: any[]
+    ): string {
+        const styles = tplToStyles(tpl, args);
+        const stylesheet = this.toStylesheet(styles, '~');
+
+        for (let i = 0; i < stylesheet.length; i++) {
+            const rule = stylesheet[i];
+            if (isRule(rule)) {
+                const selector = rule[0];
+                const rootPosition = selector.indexOf('~');
+                const isScopedRule = rootPosition > -1;
+                if (isScopedRule) {
+                    this.renderScopedRule(Comp, instance, root, rule as TRule);
+                } else {
+                    // Global rule.
+                }
+            } else {
+                // TAtrule
+            }
+        }
+
+        console.log(require('util').inspect(stylesheet, {depth: 10, colors: true}));
+        return '';
+    }
+
+    renderGlobal() {}
 
     format(styles: IStyles, selector: string) {
         styles = hoistGlobalsAndWrapContext(styles, selector);

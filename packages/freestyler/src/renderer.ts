@@ -1,3 +1,3 @@
-import renderer from 'freestyler-renderer/src/index';
+import Renderer from 'freestyler-renderer/src/Renderer';
 
-export default renderer;
+export default new Renderer();

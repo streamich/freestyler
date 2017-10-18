@@ -13,7 +13,7 @@ const transformStatic = function transformStatic(Comp, render_, componentWillUnm
         const rendered = render_.apply(this, arguments);
         const {props} = rendered;
         const {state, context} = this;
-        let className = renderer.injectStatic(Comp, tpl, [props, state, context]);
+        let className = renderer.addStatic(Comp, tpl, [props, state, context]);
         if (props.className) className += ' ' + props.className;
 
         if (process.env.NODE_ENV === 'production') {

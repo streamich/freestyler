@@ -3,8 +3,14 @@ import {TAtrule, TRule, TStyleSheet} from './toStylesheet';
 const isArray = Array.isArray;
 export const isRule: (rule: TRule | TAtrule) => boolean = rule => isArray(rule);
 
+/**
+ * Converts internal "stylesheet" AST representation to CSS string.
+ * @param {TStyleSheet} stylesheet
+ * @returns {string}
+ */
 const toCss: (stylesheet: TStyleSheet) => string = stylesheet => {
     let css = '';
+
     for (let i = 0; i < stylesheet.length; i++) {
         if (stylesheet.length) {
             const rule = stylesheet[i];
@@ -24,6 +30,7 @@ const toCss: (stylesheet: TStyleSheet) => string = stylesheet => {
             }
         }
     }
+
     return css;
 };
 

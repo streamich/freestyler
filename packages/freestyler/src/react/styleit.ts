@@ -5,7 +5,7 @@ import renderer from '../renderer';
 let styleitCounter = 0;
 function styleit(styles: IStyles, element) {
     const styleitClassName = 'i' + styleitCounter++;
-    const css = renderer.format(styles, styleitClassName);
+    const css = renderer.format(styles, '.' + styleitClassName);
     const {className} = element.props;
 
     if (process.env.NODE_ENV === 'production') {
