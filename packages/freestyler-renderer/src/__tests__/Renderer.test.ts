@@ -18,7 +18,7 @@ describe('Renderer', () => {
                     '&:active': {
                         color: 'yellow',
                         $txt: {
-                            ff: 'Verdatan',
+                            ff: 'Verdana',
                         },
                     },
                     '& .icon': {

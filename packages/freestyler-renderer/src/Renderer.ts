@@ -5,7 +5,10 @@ import toCss, {isRule} from './ast/toCss';
 import {getInstanceName, getName, IMiddleware, inject, IRenderer, TRendererFactory} from './util';
 import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
 import {TVisitor} from './ast/visit';
-import {VSheet} from './virtual';
+import VSheet from './VSheet';
+import SCOPE_SENTINEL from './sentinel';
+import declarationIntersectStrict from './declarationIntersectStrict';
+import Sheet from './Sheet';
 
 // Static part of the fluid template.
 const sFluidStatic = sym('fluid');
@@ -27,6 +30,7 @@ const HIGH_CARDINALITY_PROPERTIES = {
     right: 1,
     bottom: 1,
     left: 1,
+    'border-radius': 1,
     'margin-top': 1,
     'margin-right': 1,
     'margin-bottom': 1,
@@ -79,6 +83,7 @@ function getById(id) {
 
 class Renderer implements IRenderer {
     vsheet = new VSheet();
+    sheet = new Sheet();
 
     toStylesheet(styles: TStyles, selector: string): TStyleSheet {
         styles = hoistGlobalsAndWrapContext(styles, selector);
@@ -212,15 +217,42 @@ class Renderer implements IRenderer {
                 remainingDecls.push(declaration);
             }
         }
-        ownRules[1] = remainingDecls;
 
         if (lowCardinalityDecls.length) {
             lowCardinalityDecls = lowCardinalityDecls.sort(([prop1], [prop2]) => (prop1 > prop2 ? 1 : -1));
-            classNames += this.vsheet.getIdBatch('', '', lowCardinalityDecls);
+            console.log(lowCardinalityDecls);
+            classNames += ' ' + this.vsheet.insertBatch(atRulePrelude, selectorTemplate, lowCardinalityDecls);
         }
+
+        if (remainingDecls.length) {
+            const lastStaticDecls = (Comp as any)['__lastStaticDecls' + selectorTemplate];
+
+            if (!lastStaticDecls) {
+                (Comp as any)['__lastStaticDecls' + selectorTemplate] = remainingDecls;
+                const name = getName(Comp);
+                const className = genClassName(...(name ? [name] : []));
+                const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
+                const cssString = toCss([[selector, remainingDecls]]);
+
+                this.sheet.inject(cssString);
+                if (process.env.NODE_ENV === 'production') {
+                    // el.id = className;
+                }
+
+                return (classNames += ' ' + className);
+            } else {
+                const declIntersection = declarationIntersectStrict(lastStaticDecls, remainingDecls);
+
+                if (declIntersection.length === lastStaticDecls.length) {
+                } else {
+                }
+            }
+        }
+
+        return classNames;
     }
 
-    renderFluid(
+    render(
         Comp: TComponentConstructor,
         instance: TComponent,
         root: Element | null,
@@ -228,16 +260,17 @@ class Renderer implements IRenderer {
         args: any[]
     ): string {
         const styles = tplToStyles(tpl, args);
-        const stylesheet = this.toStylesheet(styles, '~');
+        const stylesheet = this.toStylesheet(styles, SCOPE_SENTINEL);
+        let classNames = '';
 
         for (let i = 0; i < stylesheet.length; i++) {
             const rule = stylesheet[i];
             if (isRule(rule)) {
                 const selector = rule[0];
-                const rootPosition = selector.indexOf('~');
-                const isScopedRule = rootPosition > -1;
+                const scopePosition = selector.indexOf(SCOPE_SENTINEL);
+                const isScopedRule = scopePosition > -1;
                 if (isScopedRule) {
-                    this.renderScopedRule(Comp, instance, root, rule as TRule);
+                    classNames += this.renderScopedRule(Comp, instance, root, rule as TRule);
                 } else {
                     // Global rule.
                 }
@@ -246,8 +279,7 @@ class Renderer implements IRenderer {
             }
         }
 
-        console.log(require('util').inspect(stylesheet, {depth: 10, colors: true}));
-        return '';
+        return classNames;
     }
 
     renderGlobal() {}

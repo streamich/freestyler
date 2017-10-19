@@ -1,4 +1,6 @@
 import {TAtrulePrelude, TDeclarations, TProperty, TPseudo, TSelectors, TValue} from './ast/toStylesheet';
+import SCOPE_SENTINEL from './sentinel';
+import createStyleElement from './util/createStyleElement';
 
 export interface Imemoizer {
     length: number;
@@ -50,63 +52,57 @@ export const memoizer: () => Imemoizer = () => {
     return self;
 };
 
-export class VSheet {
+class VSheet {
     style;
     memo = memoizer();
 
     constructor() {
-        const style = document.createElement('style');
-        document.head.appendChild(style);
-        this.style = style;
+        this.style = createStyleElement();
     }
 
-    insert(atRulePrelude: TAtrulePrelude, selectorTemplate: string, prop: TProperty, value: TValue) {}
+    insert(atRulePrelude: TAtrulePrelude, selectorTemplate: string, prop: TProperty, value: TValue): string {
+        const rawDeclarations = prop + ':' + value;
+        return this.insertRaw(atRulePrelude, selectorTemplate, prop, value, rawDeclarations);
+    }
+
+    insertBatch(atRulePrelude: TAtrulePrelude, selectorTemplate: string, declarations: TDeclarations): string {
+        let rawDeclarations = '';
+        let propIdentifier = '';
+        let valueIdentifier = '';
+        for (let i = 0; i < declarations.length; i++) {
+            const [prop, value] = declarations[i];
+            rawDeclarations += prop + ':' + value + ';';
+            propIdentifier += prop;
+            valueIdentifier += value;
+        }
+        return this.insertRaw(atRulePrelude, selectorTemplate, propIdentifier, valueIdentifier, rawDeclarations);
+    }
 
     insertRaw(
         atRulePrelude: TAtrulePrelude,
         selectorTemplate: string,
-        prop: TProperty,
-        value: TValue,
+        propIdentifier: string,
+        valueIdentifier: string,
         rawDeclarations: string
     ): string {
         const {length} = this.memo;
-        const idNumber = this.memo.getId(atRulePrelude, selectorTemplate, prop, value);
+        const idNumber = this.memo.getId(atRulePrelude, selectorTemplate, propIdentifier, valueIdentifier);
         const idString = idNumber.toString(36);
 
         if (this.memo.length > length) {
-            let selector = selectorTemplate.replace('~', '.' + idString);
+            let selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + idString);
             this.inject(atRulePrelude, selector, rawDeclarations);
         }
 
         return idString;
     }
 
-    getId(media: TAtrulePrelude, pseudo: TPseudo, prop: TProperty, value: TValue) {
-        const rawRule = prop + ':' + value;
-        return this.getIdRaw(prop, String(value), media, pseudo, rawRule);
-    }
-
-    getIdBatch(media: TAtrulePrelude, pseudo: TPseudo, decls: TDeclarations) {
-        const rawRule = decls.map(([prop, value]) => prop + ':' + value).join(';');
-        return this.getIdRaw(rawRule, '', media, pseudo, rawRule);
-    }
-
-    getIdRaw(key: string, value: string, media: TAtrulePrelude, pseudo: TPseudo, rawRule: string) {
-        const {length} = this.memo;
-        const id = this.memo.getId(key, value);
-        const className = id.toString(36);
-        if (this.memo.length > length) {
-            this.inject(media, pseudo, `.${className},[data-css-${className}]`, rawRule);
-        }
-        return className;
-    }
-
-    inject(media: TAtrulePrelude, pseudo: TPseudo, selectors: TSelectors, data: string) {
+    inject(atRulePrelude: TAtrulePrelude, selectors: string, rawDeclarations: string) {
         const {sheet} = this.style;
-        let ruleStr = `${selectors}${pseudo ? ':' + pseudo : ''}{${data}}`;
-        // if (media) {
-        //     ruleStr = `${media}{${ruleStr}}`;
-        // }
+        let ruleStr = `${selectors}{${rawDeclarations}}`;
+        if (atRulePrelude) ruleStr = `${atRulePrelude}{${ruleStr}}`;
         sheet.insertRule(ruleStr, sheet.cssRules.length);
     }
 }
+
+export default VSheet;

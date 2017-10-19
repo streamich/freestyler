@@ -8,6 +8,7 @@ module.exports = {
         virtual: './virtual',
         balls: './balls',
         toStylesheet: './toStylesheet',
+        button: './button',
     },
     output: {
         path: __dirname + '/dist',

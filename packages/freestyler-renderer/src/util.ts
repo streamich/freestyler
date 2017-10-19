@@ -26,7 +26,7 @@ export type TRendererFactory = () => IRenderer;
 export function inject(cssString: string): HTMLStyleElement {
     const el = document.createElement('style');
     el.innerText = cssString;
-    document.body.appendChild(el);
+    document.head.appendChild(el);
     return el;
 }
 
