@@ -2,6 +2,6 @@
     "name": "freestyler-demos",
     "version": "1.2.1",
     "dependencies": {
-        "freestyler": "1.0.1"
+        "freestyler": "1.2.1"
     }
 }

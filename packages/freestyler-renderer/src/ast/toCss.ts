@@ -1,4 +1,5 @@
 import {TAtrule, TRule, TStyleSheet} from './toStylesheet';
+import toCssRule from './toCssRule';
 
 const isArray = Array.isArray;
 export const isRule: (rule: TRule | TAtrule) => boolean = rule => isArray(rule);
@@ -10,19 +11,14 @@ export const isRule: (rule: TRule | TAtrule) => boolean = rule => isArray(rule);
  */
 const toCss: (stylesheet: TStyleSheet) => string = stylesheet => {
     let css = '';
+    let rule;
 
     for (let i = 0; i < stylesheet.length; i++) {
         if (stylesheet.length) {
-            const rule = stylesheet[i];
+            rule = stylesheet[i];
             if (isRule(rule)) {
                 // TRule
-                const [selector, rules] = rule as TRule;
-                let ruleStrings = '{';
-                for (let j = 0; j < rules.length; j++) {
-                    const [key, value] = rules[j];
-                    ruleStrings += key + ':' + value + ';';
-                }
-                if (ruleStrings.length) css += selector + ruleStrings + '}';
+                css += toCssRule(rule[0], rule[1]);
             } else {
                 // TAtrule
                 const {prelude, rules} = rule as TAtrule;

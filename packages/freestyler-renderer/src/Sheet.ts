@@ -1,15 +1,34 @@
 import createStyleElement from './util/createStyleElement';
+import getById from './util/getById';
+import removeDomElement from './util/removeDomElement';
 
 class Sheet {
-    style;
+    put(id: string, rawRule: string) {
+        let styleElement = getById(id) as HTMLStyleElement;
 
-    constructor() {
-        this.style = createStyleElement();
+        if (!styleElement) {
+            styleElement = createStyleElement();
+            styleElement.id = id;
+        }
+
+        if ((styleElement as any)._iT !== rawRule) {
+            (styleElement as any)._iT = rawRule;
+
+            if (process.env.NODE_ENV !== 'production') {
+                const sheet = styleElement.sheet as any;
+                if (sheet.cssRules.length) {
+                    sheet.deleteRule(0);
+                }
+                sheet.insertRule(rawRule, 0);
+            } else {
+                styleElement.innerText = rawRule;
+            }
+        }
     }
 
-    inject(rawCss: string) {
-        const {sheet} = this.style;
-        sheet.insertRule(rawCss, sheet.cssRules.length);
+    remove(id: string) {
+        const styleElement = getById(id);
+        if (styleElement) removeDomElement(id);
     }
 }
 
