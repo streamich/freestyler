@@ -14,7 +14,7 @@ class Sheet {
         if ((styleElement as any)._iT !== rawRule) {
             (styleElement as any)._iT = rawRule;
 
-            if (process.env.NODE_ENV !== 'production') {
+            if (process.env.NODE_ENV === 'production') {
                 const sheet = styleElement.sheet as any;
                 if (sheet.cssRules.length) {
                     sheet.deleteRule(0);

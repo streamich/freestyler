@@ -47,7 +47,7 @@ const classNames2 = renderer.render(
 class Button extends Component {
     static style = ({state}) => {
         let tpl: any = {
-            bd: '1px solid red',
+            bd: '1px solid blue',
             d: 'block',
             cursor: 'pointer',
             width: '500px',
@@ -58,8 +58,10 @@ class Button extends Component {
                 fs: state.hovered ? 'italic' : 'normal',
             },
             ['@media (max-width: 600px)']: {
-                width: '300px',
                 fw: 'bold',
+            },
+            ['@media (max-width: 500px)']: {
+                width: '300px',
             },
         };
 

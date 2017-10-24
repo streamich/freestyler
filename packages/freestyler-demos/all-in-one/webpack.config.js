@@ -9,6 +9,7 @@ module.exports = {
         balls: './balls',
         toStylesheet: './toStylesheet',
         button: './button',
+        todo: './todo',
     },
     output: {
         path: __dirname + '/dist',

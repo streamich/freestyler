@@ -9,20 +9,23 @@ import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
 import {TVisitor} from './ast/visit';
 import Sheet from './Sheet';
 import VSheet from './VSheet';
-import SCOPE_SENTINEL from './sentinel';
-import declarationIntersectStrict from './declarationIntersectStrict';
-import declarationSubtract from './declarationSubtract';
-import declarationSort from './declarationSort';
-import declarationEqualityStrict from './declarationEqualityStrict';
-import declarationSubtractStrict from './declarationSubtractStrict';
+import SCOPE_SENTINEL from './util/sentinel';
+import declarationIntersectStrict from './declaration/intersectStrict';
+import declarationSubtract from './declaration/subtract';
+import declarationSort from './declaration/sort';
+import declarationEqualityStrict from './declaration/equalityStrict';
+import declarationSubtractStrict from './declaration/subtractStrict';
 import getById from './util/getById';
 import removeDomElement from './util/removeDomElement';
 import supportsCssVariables from './util/supportsCssVariables';
+import renderCacheableSheet from './virtual/renderCacheableSheet';
 
 const USE_CSS_VARIABLES = supportsCssVariables();
 const USE_INLINE_STYLES = true;
 
-export const getName = (Component, instance) => {
+const $$last = sym('last');
+
+const getName = (Component, instance) => {
     let name;
     if (Component) {
         if (typeof Component === 'object' || typeof Component === 'function') {
@@ -38,68 +41,9 @@ export const getName = (Component, instance) => {
     return name;
 };
 
-// Low cardinality virtual style properties that should be batched.
+// class CompRenderer {
 //
-// For example, `display` has only a limited number of available values:
-// `block`, `inline`, `flex`, ...
-const LOW_CARDINALITY_PROPERTIES = {
-    'z-index': 1,
-    display: 1,
-    cursor: 1,
-    // 'font-weight': 1,
-    position: 1,
-    'text-align': 1,
-    'vertical-align': 1,
-    visibility: 1,
-    float: 1,
-};
-
-// High cardinality virtual style properties that should be cached atomicly.
-//
-// For example:
-//     width: 0;
-//     width: 0px - 2000px;
-//     width: 0% - 100%;
-//
-// Only 2101 possible `width` variations.
-//
-// Fractions like `width: 1.1%` should place the `width` property in to the
-// infinite bucket.
-const HIGH_CARDINALITY_PROPERTIES = {
-    width: 1,
-    height: 1,
-    top: 1,
-    right: 1,
-    bottom: 1,
-    left: 1,
-    'border-radius': 1,
-    'margin-top': 1,
-    'margin-right': 1,
-    'margin-bottom': 1,
-    'margin-left': 1,
-    'padding-top': 1,
-    'padding-right': 1,
-    'padding-bottom': 1,
-    'padding-left': 1,
-};
-
-// Properties that can be transformed from infinite cardinality to a set
-// of high cardinality properties.
-//
-// For exmaple:
-//
-//     padding: 10px 15px 20px 25px;
-//
-// Can be transformed to:
-//
-//     padding-top: 10px;
-//     padding-right: 15px;
-//     padding-bottom: 20px;
-//     padding-left: 25px;
-const INFINITE_TO_HIGH_TRANSFORMABLE_PROPERTIES = {
-    padding: 1,
-    margin: 1,
-};
+// }
 
 const visitor: TVisitor = {
     rule: (rule: TRule, atrule?: TAtrule) => {
@@ -154,8 +98,14 @@ class StaticDecls {
     }
 }
 
+const removeInlineStyles = (style, decls: TDeclarations) => {
+    for (let i = 0; i < decls.length; i++) {
+        const [property] = decls[i];
+        style.removeProperty(property);
+    }
+};
+
 class Renderer implements IRenderer {
-    vsheet = new VSheet();
     sheet = new Sheet();
 
     toStylesheet(styles: TStyles, selector: string): TStyleSheet {
@@ -175,34 +125,35 @@ class Renderer implements IRenderer {
         return css;
     }
 
-    addStatic(Comp: TComponentConstructor, tpl: TCssTemplate, args: any[]): string {
-        let styles = tplToStyles(tpl, args);
-        if (!styles) return;
+    renderStatic(Comp, tpl: TCssTemplate, args: any[]): string {
+        let classNames = Comp[$$cn];
 
-        let className = Comp[$$cn];
-        if (className) {
-            Comp[$$cnt]++;
-            return className;
+        if (classNames === void 0) {
+            hidden(Comp, $$cn, '');
         }
 
-        const name = getName(Comp);
-        className = genClassName(...(name ? [name] : []));
+        let styles = tplToStyles(tpl, args);
+        if (!styles) return '';
 
-        const stylesheet = this.toStylesheet(styles, '.' + className);
-        const cssString = toCss(stylesheet);
+        const stylesheet = this.toStylesheet(styles, SCOPE_SENTINEL);
+        let moreClassNames = '';
+        classNames = renderCacheableSheet(
+            stylesheet,
+            '',
+            (atRulePrelude, selectorTemplate, infiniteCardinalityDeclarations) => {
+                const infClassName = genId();
+                const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + infClassName);
+                this.putDecls(infClassName, selector, infiniteCardinalityDeclarations);
+                moreClassNames += ' ' + infClassName;
+            }
+        );
 
-        const el = inject(cssString);
-        el.id = className;
-
-        hidden(Comp, $$cn, className);
-        hidden(Comp, $$cnt, 1);
-
-        return className;
+        classNames += moreClassNames;
+        Comp[$$cn] = classNames;
+        return classNames;
     }
 
-    removeStatic(Comp: TComponentConstructor) {}
-
-    renderDynamic(instance: TComponent, root: HTMLElement, tpl: TCssTemplate, args: any[]): string {
+    renderDynamic(instance, root: HTMLElement, tpl: TCssTemplate, args: any[]): string {
         let styles = tplToStyles(tpl, args);
         if (!styles) return;
 
@@ -270,9 +221,17 @@ class Renderer implements IRenderer {
         selectorTemplate: string,
         decls: TDeclarations
     ): string {
-        if (USE_INLINE_STYLES && selectorTemplate === SCOPE_SENTINEL && root) {
+        if (!decls.length) {
+            if (USE_INLINE_STYLES && selectorTemplate === SCOPE_SENTINEL && root && root[$$last]) {
+                removeInlineStyles(root.style, root[$$last]);
+                root[$$last] = decls;
+            }
+            return '';
+        }
+
+        if (USE_INLINE_STYLES && root && selectorTemplate === SCOPE_SENTINEL) {
             const style = root.style;
-            const previousDecls: TDeclarations = (root as any)._decls;
+            const previousDecls: TDeclarations = root[$$last];
             let newDecls: TDeclarations;
 
             if (previousDecls) {
@@ -280,22 +239,24 @@ class Renderer implements IRenderer {
 
                 // Remove unused styles from previous render cycle.
                 const subtraction = declarationSubtract(previousDecls, decls);
-                for (let i = 0; i < subtraction.length; i++) {
-                    const [property] = subtraction[i];
-                    style.removeProperty(property);
-                }
+                removeInlineStyles(style, subtraction);
+
+                root[$$last] = decls;
             } else {
                 newDecls = decls;
+                hidden(root, $$last, decls);
             }
 
+            // Apply new styles.
             for (let i = 0; i < newDecls.length; i++) {
                 const [property, value] = newDecls[i];
                 style[camelCase(property)] = value;
             }
 
-            (root as any)._decls = decls;
             return '';
         }
+
+        if (!decls.length) return '';
 
         let selectorTemplateMap = instance[$$cn];
         if (!selectorTemplateMap) {
@@ -324,16 +285,16 @@ class Renderer implements IRenderer {
 
                 let variableName = selector + '-' + property;
                 variableName = variableName.replace(/[^a-zA-Z0-9_]/g, '-');
-                variableName = '-' + variableName;
+                variableName = '--' + variableName;
 
                 style.setProperty(variableName, value);
                 declaration[1] = `var(${variableName})`;
             }
         }
 
-        this.sheet.put(className, toCssRule(selector, decls));
+        this.putDecls(className, selector, decls);
 
-        return className;
+        return ' ' + className;
     }
 
     private putDecls(id: string, selector: string, declarations: TDeclarations) {
@@ -344,10 +305,11 @@ class Renderer implements IRenderer {
         declarationSort(infiniteCardinalityDecls);
 
         let classNames = '';
-        let staticDeclsMap = Comp.__staticDeclsMap;
+        let staticDeclsMap = Comp[$$last];
 
         if (!staticDeclsMap) {
-            Comp.__staticDeclsMap = staticDeclsMap = {};
+            staticDeclsMap = {};
+            hidden(Comp, $$last, staticDeclsMap);
         }
 
         let staticDecls = staticDeclsMap[selectorTemplate];
@@ -368,7 +330,7 @@ class Renderer implements IRenderer {
             if (!process.env.FREESTYLER_DEBUG) {
                 className = genId();
             } else {
-                className = genDebugId(getName(Comp, instance), infiniteCardinalityDecls, 'static');
+                className = genDebugId(getName(Comp, instance), infiniteCardinalityDecls, 'inf_static');
             }
 
             const decls = new StaticDecls(className, infiniteCardinalityDecls);
@@ -393,7 +355,7 @@ class Renderer implements IRenderer {
                 if (!process.env.FREESTYLER_DEBUG) {
                     className = genId();
                 } else {
-                    className = genDebugId(getName(Comp, instance), infiniteCardinalityDecls, 'static');
+                    className = genDebugId(getName(Comp, instance), infiniteCardinalityDecls, 'inf_static');
                 }
 
                 const decls = new StaticDecls(className, declIntersection);
@@ -407,94 +369,50 @@ class Renderer implements IRenderer {
 
             // Inject dynamic part.
             const dynamicDecls = declarationSubtract(infiniteCardinalityDecls, declIntersection);
-            if (dynamicDecls.length) {
-                classNames += ' ' + this.renderDynamicDecls(instance, root, selectorTemplate, dynamicDecls);
-            }
+            classNames += this.renderDynamicDecls(instance, root, selectorTemplate, dynamicDecls);
         }
 
-        return classNames;
+        return classNames ? ' ' + classNames : '';
     }
 
-    private renderScopedRule(
-        Comp,
-        instance,
-        root: Element | null,
-        rule: TRule,
-        atRulePrelude?: TAtrulePrelude
-    ): string {
-        const [selectorTemplate, declarations] = rule;
-        if (!declarations.length) return;
-
-        let classNames = '';
-
-        const infiniteCardinalityDecls = [];
-        let lowCardinalityDecls = [];
-
-        for (let i = 0; i < declarations.length; i++) {
-            const declaration = declarations[i];
-            const [prop, value] = declaration;
-            if (HIGH_CARDINALITY_PROPERTIES[prop]) {
-                classNames += ' ' + this.vsheet.insert(atRulePrelude, selectorTemplate, prop, value);
-            } else if (LOW_CARDINALITY_PROPERTIES[prop]) {
-                lowCardinalityDecls.push(declaration);
-            } else {
-                infiniteCardinalityDecls.push(declaration);
-            }
-        }
-
-        if (lowCardinalityDecls.length) {
-            lowCardinalityDecls = lowCardinalityDecls.sort(([prop1], [prop2]) => (prop1 > prop2 ? 1 : -1));
-            classNames += ' ' + this.vsheet.insertBatch(atRulePrelude, selectorTemplate, lowCardinalityDecls);
-        }
-
-        if (infiniteCardinalityDecls.length) {
-            classNames +=
-                ' ' + this.renderInfCardDecls(Comp, instance, root, selectorTemplate, infiniteCardinalityDecls);
-        }
-
-        return classNames;
-    }
-
-    renderRules(
-        Comp: TComponentConstructor,
-        instance: TComponent,
-        root: Element | null,
-        atRulePrelude: TAtrulePrelude,
-        rules: (TRule | TAtrule)[]
-    ) {
-        let classNames = '';
-        for (let i = 0; i < rules.length; i++) {
-            const rule = rules[i];
-            if (isRule(rule)) {
-                // TRule
-                const selector = rule[0];
-                const scopePosition = selector.indexOf(SCOPE_SENTINEL);
-                const isScopedRule = scopePosition > -1;
-                if (isScopedRule) {
-                    classNames += this.renderScopedRule(Comp, instance, root, rule as TRule, atRulePrelude);
-                } else {
-                    // Global rule.
-                }
-            } else {
-                // TAtrule
-                const atrule = rule as TAtrule;
-                classNames += this.renderRules(Comp, instance, root, atrule.prelude, atrule.rules);
-            }
-        }
-        return classNames;
-    }
-
-    render(
-        Comp: TComponentConstructor,
-        instance: TComponent,
-        root: Element | null,
-        tpl: TCssTemplate,
-        args: any[]
-    ): string {
+    render(Comp, instance, root: HTMLElement | null, tpl: TCssTemplate, args: any[]): string {
         const styles = tplToStyles(tpl, args);
         const stylesheet = this.toStylesheet(styles, SCOPE_SENTINEL);
 
-        return this.renderRules(Comp, instance, root, '', stylesheet);
+        let infDeclClassNames = '';
+        let classNames = renderCacheableSheet(
+            stylesheet,
+            '',
+            (atRulePrelude, selectorTemplate, infiniteCardinalityDecls) => {
+                infDeclClassNames += this.renderInfCardDecls(
+                    Comp,
+                    instance,
+                    root,
+                    selectorTemplate,
+                    infiniteCardinalityDecls
+                );
+            }
+        );
+
+        return classNames + infDeclClassNames;
+    }
+
+    unrender(Comp, instance, root: HTMLElement | null) {
+        // 1. Remove inline styles.
+        // 2. Remove CSS variables.
+        // 3. Remove infinite cardinality rules:
+        //   3.1. Static part
+        //   3.2. Dynamic part
+        // 1. Remove inline styles.
+        // No need to remove inline styles, as React will simply unmount the component.
+        /*
+        if (USE_INLINE_STYLES && root && root[$$last]) {
+            const {[$$last]: declarations, style} = root;
+            for (let [property] of declarations) {
+                style.removeProperty(property);
+            }
+        }
+        */
     }
 
     renderGlobal() {}

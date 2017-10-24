@@ -1,4 +1,4 @@
-import {TDeclarations} from './ast/toStylesheet';
+import {TDeclarations} from '../ast/toStylesheet';
 
 /**
  * A and B have to be sorted in ASC order.

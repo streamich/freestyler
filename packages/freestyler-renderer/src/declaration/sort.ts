@@ -1,4 +1,4 @@
-import {TDeclarations} from './ast/toStylesheet';
+import {TDeclarations} from '../ast/toStylesheet';
 
 const comparator = ([propA], [propB]) => (propA > propB ? 1 : -1);
 
