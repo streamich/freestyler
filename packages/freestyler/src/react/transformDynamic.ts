@@ -6,7 +6,7 @@ import * as extend from 'fast-extend';
 const transformDynamic = function transformDynamic(render_, componentWillUnmount_, tpl: IStyles) {
     const componentWillUnmount = function() {
         if (componentWillUnmount_) componentWillUnmount_.apply(this, arguments);
-        renderer.removeDynamic(this, null);
+        renderer.unrender(this.constructor, this, null);
     };
 
     const render = function() {
@@ -15,7 +15,7 @@ const transformDynamic = function transformDynamic(render_, componentWillUnmount
         const {state, context} = this;
         const className =
             (props.className ? props.className + ' ' : '') +
-            renderer.renderDynamic(this, null, tpl, [props, state, context]);
+            renderer.render(this.constructor, this, null, tpl, [props, state, context]);
 
         if (process.env.NODE_ENV === 'production') {
             props.className = className;

@@ -1,5 +1,5 @@
-import declarationSubtract from '../declarationSubtract';
-import {TDeclarations} from '../ast/toStylesheet';
+import declarationSubtract from '../subtract';
+import {TDeclarations} from '../../ast/toStylesheet';
 
 describe('declarationSubtract', () => {
     it('overlapping sets', () => {

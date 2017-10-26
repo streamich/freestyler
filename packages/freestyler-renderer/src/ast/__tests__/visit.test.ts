@@ -1,4 +1,4 @@
-import {TVisitor, visit} from '../visit';
+import {visit} from '../visit';
 import {TStyleSheet} from '../toStylesheet';
 
 const createStylesheet = () => {

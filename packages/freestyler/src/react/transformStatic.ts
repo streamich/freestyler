@@ -4,16 +4,11 @@ import renderer from '../renderer';
 import * as extend from 'fast-extend';
 
 const transformStatic = function transformStatic(Comp, render_, componentWillUnmount_, tpl: IStyles) {
-    const componentWillUnmount = function() {
-        if (componentWillUnmount_) componentWillUnmount_.apply(this, arguments);
-        renderer.removeStatic(Comp);
-    };
-
     const render = function() {
         const rendered = render_.apply(this, arguments);
         const {props} = rendered;
         const {state, context} = this;
-        let className = renderer.addStatic(Comp, tpl, [props, state, context]);
+        let className = renderer.renderStatic(Comp, tpl, [props, state, context]);
         if (props.className) className += ' ' + props.className;
 
         if (process.env.NODE_ENV === 'production') {
@@ -24,7 +19,7 @@ const transformStatic = function transformStatic(Comp, render_, componentWillUnm
         }
     };
 
-    return [render, componentWillUnmount];
+    return [render, componentWillUnmount_];
 };
 
 export default transformStatic;

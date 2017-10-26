@@ -1,5 +1,5 @@
-import declarationSort from '../declarationSort';
-import {TDeclarations} from '../ast/toStylesheet';
+import declarationSort from '../sort';
+import {TDeclarations} from '../../ast/toStylesheet';
 
 describe('declarationSort', () => {
     it('works', () => {

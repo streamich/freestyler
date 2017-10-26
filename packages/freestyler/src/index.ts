@@ -1,4 +1,3 @@
-import {ICss} from './types';
 import wrap from './react/wrap';
 import styled from './react/styled';
 import styleit from './react/styleit';
@@ -9,7 +8,7 @@ import css_ from './react/css';
 const div = styled('div');
 const span = styled('span');
 
-const css = css_ as ICss;
+const css = css_ as any;
 
 export {css, wrap, styled, styleit, hoc, facc, div, span};
 

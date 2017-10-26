@@ -25,7 +25,7 @@ class Input extends Component<any, any> {
 @Classy
 class Close extends Component<any, any> {
     static style = {
-        color: 'red',
+        color: props => props.theme.color,
         d: 'inline-block',
         bd: '1px solid red',
         pad: '0 3px',

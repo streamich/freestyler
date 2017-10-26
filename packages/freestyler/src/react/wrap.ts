@@ -19,14 +19,14 @@ export function wrap(
             const dynamicTemplate = dynamicTemplateGetter();
             if (!dynamicTemplate) return;
 
-            this.cNs = renderer.renderDynamic(this, null, dynamicTemplate, [props, state, context]);
+            this.cNs = renderer.render(Wrap, this, null, dynamicTemplate, [props, state, context]);
         }
 
         componentWillMount() {
             const {props, state, context} = this;
 
             if (template) {
-                staticClassName = renderer.addStatic(Wrap, template, [props, state, context]);
+                staticClassName = renderer.renderStatic(Wrap, template, [props, state, context]);
             }
 
             this.onRender(props, state, context);
@@ -37,8 +37,7 @@ export function wrap(
         }
 
         componentWillUnmount() {
-            renderer.removeDynamic(this, null);
-            renderer.removeStatic(Wrap);
+            renderer.unrender(Wrap, this, null);
         }
 
         render() {

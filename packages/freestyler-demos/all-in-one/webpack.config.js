@@ -5,9 +5,7 @@ module.exports = {
     entry: {
         index: "./index",
         styled: "./styled",
-        virtual: './virtual',
         balls: './balls',
-        toStylesheet: './toStylesheet',
         button: './button',
         todo: './todo',
     },

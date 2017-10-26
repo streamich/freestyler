@@ -1,5 +1,3 @@
-function getById(id) {
-    return document.getElementById(id);
-}
+const getById = id => document.getElementById(id);
 
 export default getById;

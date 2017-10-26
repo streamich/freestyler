@@ -1,5 +1,5 @@
-import declarationIntersectStrict from '../declarationIntersectStrict';
-import {TDeclarations} from '../ast/toStylesheet';
+import declarationIntersectStrict from '../intersectStrict';
+import {TDeclarations} from '../../ast/toStylesheet';
 
 describe('declarationIntersect', () => {
     it('overlapping sets', () => {
