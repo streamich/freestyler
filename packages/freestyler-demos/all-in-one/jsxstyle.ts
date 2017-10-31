@@ -9,7 +9,7 @@ class App extends Component<any, any> {
           h(InlineBlock, {
             component: 'button',
             background: 'red',
-            width: '320px',
+            width: 320,
             padding: '20px',
             borderRadius: '5px',
             border: 'none',
@@ -22,7 +22,7 @@ class App extends Component<any, any> {
               top: '2px',
             },
             '@media (max-width: 480px)': {
-              w: '160px',
+              w: 160,
             }
           },
             'This is button'

@@ -701,6 +701,11 @@ This way the template `(props) => CSS` itself is a variable.
   - `freestyler-observable` - observable factory.
 
 
+# Environment variables
+
+  - `FREESTYLER_NUMBERS_TO_PX` - if set, `freestyler` will convert number values of declartions that
+  are not unitless to pixel units, like `width: 100` will be converted to `width: '100px'`. It will
+  ignore unitless declarations, for example, `zIndex: 10` will stay `zIndex: 10`.
 
 
 # Reference

@@ -1,6 +1,7 @@
 import {kebabCase} from 'freestyler-util';
 import atoms from './atoms';
 import interpolateSelectors from './interpolateSelectors';
+import valueToString from './valueToString';
 
 export type TStyles = object;
 
@@ -50,7 +51,7 @@ const toStyleSheet: (pojso: TStyles) => TStyleSheet = pojso => {
         const declarations = [];
         const rule = [selector, declarations];
         for (let prop in styles) {
-            const value = styles[prop];
+            let value = styles[prop];
 
             // `$` sugar syntax for immediatelly nested rules.
             if (REG_NESTED.test(prop)) {
@@ -62,7 +63,7 @@ const toStyleSheet: (pojso: TStyles) => TStyleSheet = pojso => {
                 case 'string':
                 case 'number':
                     prop = atoms[prop] || kebabCase(prop);
-                    declarations.push([prop, '' + value]);
+                    declarations.push([prop, valueToString(prop, value)]);
                     break;
                 case 'object': {
                     let selectorsInterpolated =
