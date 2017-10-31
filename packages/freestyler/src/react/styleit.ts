@@ -1,22 +1,51 @@
 import {createElement as h, cloneElement, Component} from 'react';
 import {IStyles} from 'freestyler-renderer/src/types';
-import renderer from '../renderer';
+import stylesToClassesAndCss from './transform/stylesToClassesAndCss';
 
-let classNameCounter = 0;
+export type TStyleitFacc = (classNames: string) => any;
 
-export function styleit(styles: IStyles, element) {
-    const styleitClassName = 'i' + classNameCounter++;
-    const css = renderer.format(styles, '.' + styleitClassName);
-    const {className} = element.props;
+const styleJsx = (classNames: string, css: string, jsx) => {
+    const {className} = jsx.props;
 
     if (process.env.NODE_ENV === 'production') {
-        element.props.className = (className || '') + ' ' + styleitClassName;
-        return [h('style', null, css), element];
+        jsx.props.className = (className || '') + ' ' + classNames;
+        return css ? [h('style', null, css), jsx] : jsx;
     } else {
-        let {className, ...props} = element.props;
-        className = (className || '') + ' ' + styleitClassName;
-        return [h('style', {key: 'style'}, css), cloneElement(element, {...props, key: 'styleit', className})];
+        let {className, ...props} = jsx.props;
+        className = (className || '') + ' ' + classNames;
+        return [h('style', {key: 'style'}, css), cloneElement(jsx, {...props, key: 'styleit', className})];
     }
+};
+
+const styleFacc = (classNames: string, css: string, facc: (classNames: string) => any) => {
+    if (process.env.NODE_ENV !== 'production') {
+        if (typeof facc !== 'function') {
+            throw new TypeError('Expected children of Styleit Facc to be a function. (className) => jsx');
+        }
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+        return css ? [h('style', null, css), facc(classNames)] : facc(classNames);
+    } else {
+        const jsx = cloneElement(facc(classNames), {key: 'jsx'});
+        return [h('style', {key: 'style'}, css), jsx];
+    }
+};
+
+export function styleit(styles: IStyles, jsxOrFacc: any | TStyleitFacc) {
+    if (process.env.NODE_ENV !== 'production') {
+        if (typeof styles !== 'object') {
+            throw TypeError(
+                `Expected "css" property of Styleit Facc to be a CSS object, ` +
+                    `${typeof styles} given. ${JSON.stringify(styles)}`
+            );
+        }
+    }
+
+    const [classNames, css] = stylesToClassesAndCss(styles);
+    return typeof jsxOrFacc === 'function'
+        ? styleFacc(classNames, css, jsxOrFacc)
+        : styleJsx(classNames, css, jsxOrFacc);
 }
 
 export interface IStyleitProps {
@@ -24,26 +53,12 @@ export interface IStyleitProps {
     css: IStyles;
 }
 
-export const Styleit: any = ({children, css: styles}: IStyleitProps) => {
-    if (process.env.NODE_ENV !== 'production') {
-        if (typeof styles !== 'object') {
-            throw TypeError(
-                `Expected "css" property of Styleig Facc to be a CSS object, ` +
-                    `${typeof styles} given. ${JSON.stringify(styles)}`
-            );
-        }
+export const Styleit: any = (props: IStyleitProps | any) => {
+    let {children: jsxOrFacc, css: styles} = props;
+
+    if (!styles) {
+        ({children: jsxOrFacc, ...styles} = props);
     }
 
-    const className = 'i' + classNameCounter++;
-    const css = renderer.format(styles, '.' + className);
-
-    if (process.env.NODE_ENV !== 'production') {
-        if (typeof children !== 'function') {
-            throw new TypeError('Expected children of Styleit Facc to be a function. (className) => jsx');
-        }
-    }
-
-    return [h('style', null, css), children(className)];
+    return styleit(styles, jsxOrFacc);
 };
-
-export default Styleit;

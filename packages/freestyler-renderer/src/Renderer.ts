@@ -1,7 +1,7 @@
 import {$$cn, $$cnt, hidden, sym, camelCase} from 'freestyler-util';
 import supportsCssVariables from 'freestyler-util/supportsCssVariables';
 import {TCssTemplate, IStyles} from './types';
-import {TDeclarations} from './ast/toStylesheet';
+import {TDeclarations, TAtrule} from './ast/toStylesheet';
 import toStyleSheet, {TStyles, TStyleSheet} from './ast/toStylesheet';
 import toCss from './ast/toCss';
 import toCssRule from './ast/toCssRule';
