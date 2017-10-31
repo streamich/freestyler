@@ -16,14 +16,14 @@ const renderCacheableSheet: TRenderCacheableSheet = (rules, atRulePrelude, onInf
         if (isRule(rule)) {
             // TRule
             const [moreClassNames, infiniteCardinalityDeclarations] = renderCacheableRule(rule as TRule, atRulePrelude);
-            classNames += ' ' + moreClassNames;
+            classNames += moreClassNames;
             if (infiniteCardinalityDeclarations.length) {
                 onInfiniteDeclarations(atRulePrelude, rule[0], infiniteCardinalityDeclarations);
             }
         } else {
             // TAtrule
             const atrule = rule as TAtrule;
-            renderCacheableSheet(atrule.rules, atrule.prelude, onInfiniteDeclarations);
+            classNames += renderCacheableSheet(atrule.rules, atrule.prelude, onInfiniteDeclarations);
         }
     }
 

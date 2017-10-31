@@ -8,6 +8,9 @@ module.exports = {
         balls: './balls',
         button: './button',
         todo: './todo',
+        rule: './rule',
+        StyleSheet: './StyleSheet',
+        Styleit: './Styleit',
     },
     output: {
         path: __dirname + '/dist',

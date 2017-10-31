@@ -1,10 +1,11 @@
-import {createElement as h, cloneElement} from 'react';
+import {createElement as h, cloneElement, Component} from 'react';
 import {IStyles} from 'freestyler-renderer/src/types';
 import renderer from '../renderer';
 
-let styleitCounter = 0;
-function styleit(styles: IStyles, element) {
-    const styleitClassName = 'i' + styleitCounter++;
+let classNameCounter = 0;
+
+export function styleit(styles: IStyles, element) {
+    const styleitClassName = 'i' + classNameCounter++;
     const css = renderer.format(styles, '.' + styleitClassName);
     const {className} = element.props;
 
@@ -18,4 +19,31 @@ function styleit(styles: IStyles, element) {
     }
 }
 
-export default styleit;
+export interface IStyleitProps {
+    children: (className: string) => any;
+    css: IStyles;
+}
+
+export const Styleit: any = ({children, css: styles}: IStyleitProps) => {
+    if (process.env.NODE_ENV !== 'production') {
+        if (typeof styles !== 'object') {
+            throw TypeError(
+                `Expected "css" property of Styleig Facc to be a CSS object, ` +
+                    `${typeof styles} given. ${JSON.stringify(styles)}`
+            );
+        }
+    }
+
+    const className = 'i' + classNameCounter++;
+    const css = renderer.format(styles, '.' + className);
+
+    if (process.env.NODE_ENV !== 'production') {
+        if (typeof children !== 'function') {
+            throw new TypeError('Expected children of Styleit Facc to be a function. (className) => jsx');
+        }
+    }
+
+    return [h('style', null, css), children(className)];
+};
+
+export default Styleit;

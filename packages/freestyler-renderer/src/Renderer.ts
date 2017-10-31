@@ -1,4 +1,5 @@
 import {$$cn, $$cnt, hidden, sym, camelCase} from 'freestyler-util';
+import supportsCssVariables from 'freestyler-util/supportsCssVariables';
 import {TCssTemplate, IStyles} from './types';
 import {TDeclarations} from './ast/toStylesheet';
 import toStyleSheet, {TStyles, TStyleSheet} from './ast/toStylesheet';
@@ -13,11 +14,10 @@ import declarationSubtract from './declaration/subtract';
 import declarationSort from './declaration/sort';
 import declarationEqualityStrict from './declaration/equalityStrict';
 import declarationSubtractStrict from './declaration/subtractStrict';
-import supportsCssVariables from './util/supportsCssVariables';
 import renderCacheableSheet from './virtual/renderCacheableSheet';
 import createStyleElement from './util/createStyleElement';
 
-const USE_CSS_VARIABLES = supportsCssVariables();
+const USE_CSS_VARIABLES = supportsCssVariables;
 const USE_INLINE_STYLES = true;
 
 const $$last = sym('last');
@@ -26,7 +26,7 @@ let classNameCounter = 1;
 const genId = () => `_${(classNameCounter++).toString(36)}`;
 
 // prettier-ignore
-const tplToStyles: (tpl: TCssTemplate, args: any[]) => IStyles =
+const tplToStyles: (tpl: TCssTemplate, args?: any[]) => IStyles =
     (tpl, args) => (typeof tpl === 'function' ? tpl(...args) : tpl);
 
 /**
@@ -80,6 +80,9 @@ class Renderer implements IRenderer {
             const style = root.style;
             const previousDecls: TDeclarations = root[$$last];
             let newDecls: TDeclarations;
+
+            // TODO: Check if it is faster to use `declarationSubtractStrict` and
+            // TODO: apply them one-by-one, or use `applyInlineStyles` instead.
 
             if (previousDecls) {
                 newDecls = declarationSubtractStrict(decls, previousDecls);
@@ -225,7 +228,7 @@ class Renderer implements IRenderer {
         return classNames + infDeclClassNames;
     }
 
-    renderStatic(Comp, tpl: TCssTemplate, args: any[]): string {
+    renderStatic(Comp, tpl: TCssTemplate, args?: any[]): string {
         let classNames = Comp[$$cn];
 
         if (classNames === void 0) {
@@ -266,12 +269,11 @@ class Renderer implements IRenderer {
         return toCss(this.toStylesheet(styles, selector));
     }
 
-    renderAnon(styles: IStyles, selector: string = ''): HTMLStyleElement {
-        const el = createStyleElement();
-        el.innerText = this.format(styles, selector);
-        return el;
+    renderAnon(styles: IStyles): string {
+        return this.renderStatic(styles, styles);
     }
 
+    // TODO: Profile the speed on middleware.
     use(middleware) {
         // this.middlewares.push(middleware);
     }
