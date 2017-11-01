@@ -96,18 +96,26 @@ const App = () => <Bordered>Hello world!</Bordered>;
 ### Reference
 
   - API
-    - class name scoping
-    - data attribute spread
-    - jsxstyle components
-    - React specific:
+    - React
+      - 5th generation:
+        - `styleit` syntax
+        - `jsxstyle`
+        - `facc` generator
+      - 4th generation:
+        - `styled` components
         - `@css` class decorator
         - `@css` render method decorator
-        - `styled` components
-        - `styleit` syntax
         - `hoc` generator
-        - `facc` generator
+    - [ ] TODO: P4 Components
+    - [ ] TODO: Vue.js
+    - [ ] TODO: Angular 4
+    - Generic, 3rd generation class name scoping:
+      - `rule` pattern
+      - `StyleSheet` with lazy rendering
   - Low-level
     - `Renderer`
+    - [ ] TODO: AST
+    - [ ] TODO: Middleware
 
 -----
 
@@ -149,15 +157,11 @@ First generation React styling libraries don't allow you to write styling in Jav
 
   - *Notable example*: [`css-modules`][lib-css-modules]
 
-[lib-css-modules]: https://github.com/css-modules/css-modules
-
 **Second generation**
 
 Second generation React styling libraries emit inline styles in `style` property of your JSX elements (i.e. use *inline styles*).
 
   - *Notable example*: [`Radium`][lib-radius]
-
-[lib-radium]: https://github.com/FormidableLabs/radium
 
 **Third generation**
 
@@ -167,22 +171,12 @@ they are defined in module scope, thus they don't depend component `props`.
 
 *Examples*: [`aphrodite`][lib-aphrodite], [`cssx`][lib-cssx], [`glamor`][lib-glamor], [`typestype`][lib-typestype], [`styletron`](lib-styletron)
 
-[lib-aphrodite]: https://github.com/Khan/aphrodite
-[lib-cssx]: https://github.com/krasimir/cssx
-[lib-glamor]: https://github.com/threepointone/glamor
-[lib-typestype]: https://github.com/typestyle/typestyle
-[lib-styletron]: https://github.com/rtsao/styletron
-[lib-restyles]: https://github.com/tkh44/restyles
-
 **Fourth generation**
 
 Just like 3rd generation libraries, fourth generation React styling libraries also emit CSS into DOM `<style>` tags,
 but the styles are *dynamic*, i.e. the CSS changes when `props` or `state` of your component changes.
 
 *Examples*: [`styled-components`][lib-styled-components], [`glamorous`][lib-glamorous]
-
-[lib-styled-components]: https://github.com/styled-components/styled-components
-[lib-glamorous]: https://github.com/paypal/glamorous
 
 *Note: please report any other 4th gen solutions.*
 
@@ -196,26 +190,46 @@ dynamic (similar to how FaCCs are more dynamic than HOCs):
 
 *Examples*: [`freestyler`][lib-freestyler], [`style-it`][lib-style-it], [`superstyle`][lib-superstyle]
 
+
+
+[lib-css-modules]: https://github.com/css-modules/css-modules
+[lib-radium]: https://github.com/FormidableLabs/radium
+[lib-aphrodite]: https://github.com/Khan/aphrodite
+[lib-cssx]: https://github.com/krasimir/cssx
+[lib-glamor]: https://github.com/threepointone/glamor
+[lib-typestype]: https://github.com/typestyle/typestyle
+[lib-styletron]: https://github.com/rtsao/styletron
+[lib-styled-components]: https://github.com/styled-components/styled-components
+[lib-glamorous]: https://github.com/paypal/glamorous
+[lib-restyles]: https://github.com/tkh44/restyles
 [lib-freestyler]: https://github.com/streamich/freestyler
 [lib-style-it]: https://github.com/buildbreakdo/style-it
 [lib-superstyle]: https://github.com/jxnblk/superstyle
 
 *Note: Please report any other fifth generation React styling libraries,
-I have found only [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).*
+Not [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).*
 
 |Generation|Libraries|
 |----------|---------|
 |First generation|`css-modules`|
 |Second generation|`Radium`|
-|Third generation|`aphrodite`|
-|Fourth generation|`styled-components`|
-|Fifth generation|`freestyler`|
+|Third generation|`aphrodite`, `glamor`, `jsxstyle`, `styletron`|
+|Fourth generation|`styled-components`, `glamorous`|
+|Fifth generation|`freestyler`, [`style-it`][lib-style-it], [`superstyle`][lib-superstyle]|
 
+[API](#api) patterns:
 
 |Usage|Libraries|
 |-----|---------|
-|Render props|[`restyles`][lib-restyles]
+|*style-it* pattern|[`freestyler`][lib-freestyler], [`style-it`][lib-style-it]|
+|CSS as props|[`freestyler`][lib-freestyler], [`jsxstyle`][]|
+|Render props|[`restyles`][lib-restyles]|
+|rule pattern|[`freestyler`][lib-freestyler], [`jsxstyle`][]|
+
+
 -----
+
+
 
 # Features
 
