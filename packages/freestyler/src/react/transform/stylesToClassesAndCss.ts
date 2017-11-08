@@ -7,7 +7,7 @@ let classNameCounter = 0;
 
 const genClassName = () => '__' + (classNameCounter++).toString(36);
 
-const stylesToClassesAndCss: (styles: IStyles) => [string, string] = styles => {
+const transformStylesToClassesAndCss: (styles: IStyles) => [string, string] = styles => {
     const className = genClassName();
     const stylesheet = renderer.toStylesheet(styles, SCOPE_SENTINEL);
     let [classNames, css] = renderCacheableAndGetInfCss(stylesheet, className);
@@ -19,4 +19,4 @@ const stylesToClassesAndCss: (styles: IStyles) => [string, string] = styles => {
     return [classNames, css];
 };
 
-export default stylesToClassesAndCss;
+export default transformStylesToClassesAndCss;

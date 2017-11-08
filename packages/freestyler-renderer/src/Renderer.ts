@@ -1,6 +1,6 @@
 import {$$cn, $$cnt, hidden, sym, camelCase} from 'freestyler-util';
 import supportsCssVariables from 'freestyler-util/supportsCssVariables';
-import {TCssTemplate, IStyles} from './types';
+import {TCssTemplate, TCssDynamicTemplate, IStyles} from './types';
 import {TDeclarations, TAtrule} from './ast/toStylesheet';
 import toStyleSheet, {TStyles, TStyleSheet} from './ast/toStylesheet';
 import toCss from './ast/toCss';
@@ -206,7 +206,7 @@ class Renderer implements IRenderer {
         return classNames ? ' ' + classNames : '';
     }
 
-    render(Comp, instance, root: HTMLElement | null, tpl: TCssTemplate, args: any[]): string {
+    render(Comp, instance, root: HTMLElement | null, tpl: TCssTemplate | TCssDynamicTemplate, args: any[]): string {
         const styles = tplToStyles(tpl, args);
         const stylesheet = this.toStylesheet(styles, SCOPE_SENTINEL);
 
