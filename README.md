@@ -106,6 +106,10 @@ const App = () => <Bordered>Hello world!</Bordered>;
         - `@css` class decorator
         - `@css` render method decorator
         - `hoc` generator
+        - Radium
+        - Component
+        - hyperstyle
+        - connect (HOC)
     - [ ] TODO: P4 Components
     - [ ] TODO: Vue.js
     - [ ] TODO: Angular 4

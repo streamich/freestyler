@@ -3,8 +3,8 @@ import {IStyles} from 'freestyler-renderer/src/types';
 import renderer from '../renderer';
 import * as extend from 'fast-extend';
 
-const transform = Comp => {
-    const {prototype, style: template} = Comp;
+const transform = (Comp, template) => {
+    const {prototype} = Comp;
     const {render: render_, componentWillUnmount: componentWillUnmount_} = prototype;
 
     const componentWillUnmount = function() {

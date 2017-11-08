@@ -12,6 +12,7 @@ module.exports = {
         StyleSheet: './StyleSheet',
         Styleit: './Styleit',
         jsxstyle: './jsxstyle',
+        Component: './Component',
     },
     output: {
         path: __dirname + '/dist',
