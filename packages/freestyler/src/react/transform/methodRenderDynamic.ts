@@ -4,8 +4,10 @@ import {$$el} from './util';
 import renderer from '../../renderer';
 import * as extend from 'fast-extend';
 
-const transformMethodRenderDynamic = (render_, dynamicTemplate: TCssDynamicTemplate) => {
-    return function() {
+const transformMethodRenderDynamic = (prototype, dynamicTemplate: TCssDynamicTemplate) => {
+    const render_ = prototype.render;
+
+    prototype.render = function() {
         const ast = render_.apply(this, arguments);
         const {props} = ast;
         const className =

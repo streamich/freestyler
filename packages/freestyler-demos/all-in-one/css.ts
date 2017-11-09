@@ -1,11 +1,13 @@
-import {createElement as h} from 'react';
+import {Component, createElement as h} from 'react';
 import {render} from 'react-dom';
-import Component from 'freestyler/src/react/Component';
+import css from 'freestyler/src/react/css';
 
+@css
+@css({
+    width: '320px',
+})
 class Button extends Component<any, any> {
     static css = {
-        width: '320px',
-        padding: '20px',
         borderRadius: '5px',
         border: 'none',
         outline: 'none',
@@ -27,11 +29,17 @@ class Button extends Component<any, any> {
         };
     }
 
+    @css(function() {
+        return {
+            padding: '20px',
+        };
+    })
     render() {
         return h('button', {}, this.props.children);
     }
 }
 
+@css
 class Container extends Component<any, any> {
     static css = {
         textAlign: 'center',

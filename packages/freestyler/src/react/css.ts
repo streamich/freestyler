@@ -1,18 +1,25 @@
-import {cloneElement} from 'react';
+import {Component, cloneElement} from 'react';
 import {ICss, IStyles} from 'freestyler-renderer/src/types';
-import decoratorRender from './decoratorRender';
-import decoratorClass from './decoratorClass';
-import styleit from './styleit';
+import decoratorCssComponent from './decorator/cssComponent';
+import decoratorClass from './decorator/class';
+import decoratorMethod from './decorator/method';
+import {styleit} from './styleit';
 
-const css: ICss = function css(tpl: IStyles, second?: any) {
-    if (second !== void 0 && typeof second !== 'boolean') {
-        return styleit(tpl, second);
+export type TCssDecorator = any;
+
+const isReactComponent = f => !!(f && f.prototype && f.prototype.render);
+
+const css: TCssDecorator = (a?, b?) => {
+    // If component decorator without arguments.
+    if (isReactComponent(a)) {
+        decoratorCssComponent(a);
+        return;
     }
 
     return (instanceOrComp, key, descriptor) =>
         typeof key === 'string'
-            ? decoratorRender(tpl, second)(instanceOrComp, key, descriptor)
-            : decoratorClass(tpl, second)(instanceOrComp);
-} as ICss;
+            ? decoratorMethod(a, b)(instanceOrComp, key, descriptor)
+            : decoratorClass(a, b)(instanceOrComp);
+};
 
 export default css;

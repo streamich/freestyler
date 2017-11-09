@@ -13,6 +13,7 @@ module.exports = {
         Styleit: './Styleit',
         jsxstyle: './jsxstyle',
         Component: './Component',
+        css: './css',
     },
     output: {
         path: __dirname + '/dist',

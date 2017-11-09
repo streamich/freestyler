@@ -15,7 +15,7 @@ const jsxstyle = (Comp, defaultStyles) => {
             ...customStyles,
         } = props;
 
-        if (process.env.FREESTYLER_JSXSTYLES_MEDIA_QUERIES) {
+        if (process.env.FREESTYLER_JSXSTYLE_MEDIA_QUERIES) {
             for (let prefix in mediaQueries) {
                 const prefixLength = prefix.length;
                 const mediaQuery = mediaQueries[prefix];

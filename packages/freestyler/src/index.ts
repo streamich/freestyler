@@ -1,6 +1,6 @@
 import wrap from './react/wrap';
 import styled from './react/styled';
-import styleit from './react/styleit';
+import {styleit} from './react/styleit';
 import hoc from './react/hoc';
 import facc from './react/facc';
 import css_ from './react/css';
