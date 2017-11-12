@@ -2,13 +2,14 @@ import {Component, createElement as h} from 'react';
 import {render} from 'react-dom';
 import wrap from 'freestyler/src/react/wrap';
 
-const Button = wrap('div', null, () => ({
+const Button = wrap('div', null, () => ({color}) => ({
     width: '320px',
-    bg: 'red',
+    bg: color,
     pad: '20px',
     borderRadius: '5px',
     border: 'none',
     outline: 'none',
+    color: 'white',
     '&:hover': {
         color: '#fff',
     },
@@ -18,4 +19,27 @@ const Button = wrap('div', null, () => ({
     },
 }));
 
-render(h(Button, {}, 'Hello'), document.body);
+class CountButton extends Component<any, any> {
+    state = {
+        cnt: 1,
+    };
+
+    onClick = () => {
+        this.setState(state => ({
+            cnt: state.cnt + 1,
+        }));
+    };
+
+    render() {
+        return h(
+            Button,
+            {
+                color: `rgb(${this.state.cnt * 10},${this.state.cnt * 10},${this.state.cnt * 10})`,
+                onClick: this.onClick,
+            },
+            this.state.cnt
+        );
+    }
+}
+
+render(h(CountButton), document.body);

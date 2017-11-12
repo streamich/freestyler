@@ -1,10 +1,10 @@
-import createStyleElement from './util/createStyleElement';
-import getById from './util/getById';
-import removeDomElement from './util/removeDomElement';
-import {TAtrulePrelude, TSelectors, TDeclarations} from './ast/toStylesheet';
-import applyDeclarationsToCssStyleDeclaration from './util/applyDeclarationsToCssStyleDeclaration';
+import createStyleElement from '../util/createStyleElement';
+import getById from '../util/getById';
+import removeDomElement from '../util/removeDomElement';
+import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
+import applyDeclarationsToCssStyleDeclaration from '../util/applyDeclarationsToCssStyleDeclaration';
 
-class Sheet {
+class SSheet {
     set(id: string, atRulePrelude: TAtrulePrelude, selectors: TSelectors, declarations: TDeclarations) {
         let styleElement = getById(id) as HTMLStyleElement;
 
@@ -66,4 +66,4 @@ class Sheet {
     }
 }
 
-export default Sheet;
+export default SSheet;

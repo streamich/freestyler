@@ -7,7 +7,8 @@ import toCss from './ast/toCss';
 import toCssRule from './ast/toCssRule';
 import {IRenderer} from './util';
 import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
-import Sheet from './Sheet';
+import SSheet from './static/SSheet';
+import DSheet from './dynamic/DSheet';
 import SCOPE_SENTINEL from './util/sentinel';
 import declarationIntersectStrict from './declaration/intersectStrict';
 import declarationSubtract from './declaration/subtract';
@@ -69,7 +70,7 @@ class InstanceManager {
 }
 
 class Renderer implements IRenderer {
-    sheet = new Sheet();
+    sheet = new SSheet();
 
     toStylesheet(styles: TStyles, selector: string): TStyleSheet {
         styles = hoistGlobalsAndWrapContext(styles, selector);
@@ -112,20 +113,17 @@ class Renderer implements IRenderer {
             return '';
         }
 
-        let cacheMap = instance[$$dynamics];
+        let dsheet = instance[$$dynamics];
 
-        if (!cacheMap) {
-            cacheMap = {};
-            hidden(instance, $$dynamics, cacheMap);
+        if (!dsheet) {
+            dsheet = new DSheet();
+            hidden(instance, $$dynamics, dsheet);
         }
 
-        const key = atRulePrelude + selectorTemplate;
-        let className = cacheMap[key];
-        if (!className) {
-            className = genId();
-            cacheMap = className;
-        }
+        let drule = dsheet.get(atRulePrelude, selectorTemplate);
+        if (!drule) drule = dsheet.create(genId(), atRulePrelude, selectorTemplate);
 
+        const className = drule.name;
         const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
 
         // Use CSS variables.
@@ -144,7 +142,7 @@ class Renderer implements IRenderer {
             }
         }
 
-        this.putDecls('__' + className, selector, declarations, atRulePrelude);
+        drule.put(declarations);
         return ' ' + className;
     }
 
