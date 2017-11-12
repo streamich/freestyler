@@ -1,4 +1,4 @@
-import {TAtrule, TRule, TDeclarations} from './toStylesheet';
+import {TAtrule, TAtrulePrelude, TRule, TDeclarations} from './toStylesheet';
 import toCssDeclarations from './toCssDeclarations';
 
 /**
@@ -7,8 +7,14 @@ import toCssDeclarations from './toCssDeclarations';
  * @param {Array} declarations
  * @returns {string}
  */
-const toCssRule: (selector: string, declarations: TDeclarations) => string = (selector, declarations) => {
-    return selector + '{' + toCssDeclarations(declarations) + '}';
+const toCssRule: (selector: string, declarations: TDeclarations, atRulePrelude?: TAtrulePrelude) => string = (
+    selector,
+    declarations,
+    atRulePrelude
+) => {
+    let css = selector + '{' + toCssDeclarations(declarations) + '}';
+    if (atRulePrelude) css = `${atRulePrelude}{${css}}`;
+    return css;
 };
 
 export default toCssRule;

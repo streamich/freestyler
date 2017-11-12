@@ -18,14 +18,14 @@ class Button extends Component<any, any> {
             position: 'relative',
             top: '2px',
         },
-        '@media (max-width: 480px)': {
-            width: '160px',
-        },
     };
 
     css() {
         return {
             background: this.props.color || 'blue',
+            '@media (max-width: 480px)': {
+                width: '160px',
+            },
         };
     }
 
@@ -48,7 +48,7 @@ class Container extends Component<any, any> {
     render() {
         // prettier-ignore
         return h('div', {},
-        	h(Button, {color: 'red'},
+        	h(Button, {color: 'green'},
             	'This is button'
         	)
         );
