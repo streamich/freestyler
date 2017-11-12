@@ -60,15 +60,6 @@ class DeclarationCache {
     }
 }
 
-class InstanceManager {
-    instance: any;
-    el: Element;
-
-    constructor() {}
-
-    render(selectorTemplate: string, declarations: TDeclarations, atRulePrelude?: string) {}
-}
-
 class Renderer implements IRenderer {
     sheet = new SSheet();
 
@@ -84,13 +75,14 @@ class Renderer implements IRenderer {
 
     private putInfStatics(Comp, instance, key, atRulePrelude, selectorTemplate, declarations) {
         const className = genId();
-        const id = '__' + className;
+        const id = className;
 
         const cache = new DeclarationCache(id, declarations);
         setInfCardStaticCache(Comp, key, cache);
         setInfCardStaticCache(instance, key, cache);
 
         const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
+        console.log('id, selector, declarations, atRulePrelude', id, selector, declarations, atRulePrelude);
         this.putDecls(id, selector, declarations, atRulePrelude);
 
         return ' ' + className;
@@ -164,7 +156,6 @@ class Renderer implements IRenderer {
             let cache = getInfCardStaticCache(Comp, key);
             if (cache) {
                 cache.cnt++;
-                setInfCardStaticCache(Comp, key, cache);
                 setInfCardStaticCache(instance, key, cache);
             } else {
                 // If both caches are empty.
@@ -174,17 +165,25 @@ class Renderer implements IRenderer {
 
         const declIntersection = declarationIntersectStrict(cache.decls, declarations);
 
-        // If cache HIT.
-        if (declarationEqualityStrict(declIntersection, cache.decls)) {
+        // If perfect cache HIT.
+        if (declIntersection.length === declarations.length) {
             return ' ' + cache.id;
         }
 
-        // If cache MISS.
-        const classNames = this.putInfStatics(Comp, instance, key, atRulePrelude, selectorTemplate, declarations);
+        // If partial cache HIT.
+        if (declIntersection.length === cache.decls.length) {
+            const dynamicDecls = declarationSubtract(declarations, declIntersection);
+            return (
+                ' ' + cache.id + this.renderDynamicDecls(instance, el, atRulePrelude, selectorTemplate, dynamicDecls)
+            );
+        }
+
+        // If cache MISS. (generate new statics)
+        const classNames = this.putInfStatics(Comp, instance, key, atRulePrelude, selectorTemplate, declIntersection);
 
         // Inject dynamic part.
         const dynamicDecls = declarationSubtract(declarations, declIntersection);
-        return classNames + this.renderDynamicDecls(instance, el, atRulePrelude, selectorTemplate, dynamicDecls);
+        return ' ' + classNames + this.renderDynamicDecls(instance, el, atRulePrelude, selectorTemplate, dynamicDecls);
     }
 
     render(Comp, instance, root: HTMLElement | null, tpl: TCssTemplate, args: any[]): string {

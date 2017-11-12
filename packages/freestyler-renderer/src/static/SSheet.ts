@@ -26,8 +26,6 @@ class SSheet {
             sheet.insertRule(emptyRawRule, 0);
         }
 
-        console.log(atRulePrelude, sheet.rules);
-
         // TODO: Benchmark `rules[0]` vs `rules.item(0)`.
         const style = (rules[0] as CSSStyleRule).style;
         applyDeclarationsToCssStyleDeclaration(style, declarations);
