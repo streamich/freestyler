@@ -16,12 +16,13 @@ import declarationEqualityStrict from './declaration/equalityStrict';
 import declarationSubtractStrict from './declaration/subtractStrict';
 import renderCacheableSheet from './virtual/renderCacheableSheet';
 import createStyleElement from './util/createStyleElement';
+import renderInlineStyles from './util/renderInlineStyles';
 
 const USE_CSS_VARIABLES = supportsCssVariables;
 const USE_INLINE_STYLES = true;
 
-const $$last = sym('last');
-const $$statics = sym('stat'); // Static infinite cardinality declarations.
+const $$statics = sym('stat'); // Static infinite cardinality declaration cache.
+const $$dynamics = sym('dyn'); // Dynamic infinite cardinality declaration cache.
 
 let classNameCounter = 1;
 const genId = () => `_${(classNameCounter++).toString(36)}`;
@@ -67,13 +68,6 @@ class InstanceManager {
     render(selectorTemplate: string, declarations: TDeclarations, atRulePrelude?: string) {}
 }
 
-const removeInlineStyles = (style, decls: TDeclarations) => {
-    for (let i = 0; i < decls.length; i++) {
-        const [property] = decls[i];
-        style.removeProperty(property);
-    }
-};
-
 class Renderer implements IRenderer {
     sheet = new Sheet();
 
@@ -109,49 +103,27 @@ class Renderer implements IRenderer {
         declarations: TDeclarations
     ): string {
         if (!declarations.length) {
-            // if (USE_INLINE_STYLES && selectorTemplate === SCOPE_SENTINEL && el && el[$$last]) {
-            // removeInlineStyles(el.style, el[$$last]);
-            // el[$$last] = declarations;
-            // }
+            // TODO: Maybe remove old declarations.
             return '';
         }
 
         if (USE_INLINE_STYLES && el && !atRulePrelude && selectorTemplate === SCOPE_SENTINEL) {
-            const style = el.style;
-            const previousDecls: TDeclarations = el[$$last];
-            let newDecls: TDeclarations;
-
-            // TODO: Check if it is faster to use `declarationSubtractStrict` and
-            // TODO: apply them one-by-one, or use `applyInlineStyles` instead.
-
-            if (previousDecls) {
-                newDecls = declarationSubtractStrict(declarations, previousDecls);
-
-                // Remove unused styles from previous render cycle.
-                // const subtraction = declarationSubtract(previousDecls, declarations);
-                // removeInlineStyles(style, subtraction);
-
-                el[$$last] = declarations;
-            } else {
-                newDecls = declarations;
-                hidden(el, $$last, declarations);
-            }
-
-            // Apply new styles.
-            const len = newDecls.length;
-            for (let i = 0; i < len; i++) {
-                const [property, value] = newDecls[i];
-                style[camelCase(property)] = value;
-            }
-
+            renderInlineStyles(el, declarations);
             return '';
         }
 
-        const $$key = sym('d/' + atRulePrelude + selectorTemplate);
-        let className = instance[$$key];
+        let cacheMap = instance[$$dynamics];
+
+        if (!cacheMap) {
+            cacheMap = {};
+            hidden(instance, $$dynamics, cacheMap);
+        }
+
+        const key = atRulePrelude + selectorTemplate;
+        let className = cacheMap[key];
         if (!className) {
             className = genId();
-            instance[$$key] = className;
+            cacheMap = className;
         }
 
         const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
@@ -172,7 +144,7 @@ class Renderer implements IRenderer {
             }
         }
 
-        this.putDecls(className, selector, declarations, atRulePrelude);
+        this.putDecls('__' + className, selector, declarations, atRulePrelude);
         return ' ' + className;
     }
 
@@ -240,7 +212,7 @@ class Renderer implements IRenderer {
         return classNames + infDeclClassNames;
     }
 
-    unrender(Comp, instance, root: HTMLElement | null) {
+    unrender(Comp, instance, el: HTMLElement | null) {
         // Remove statics
         const cacheMap = instance[$$statics] as {[key: string]: DeclarationCache};
         for (const key in cacheMap) {

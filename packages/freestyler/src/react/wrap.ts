@@ -1,32 +1,37 @@
 import {Component, createElement as h, cloneElement} from 'react';
+import {sym, hidden} from 'freestyler-util';
 import {getName} from 'freestyler-renderer/src/util';
 import renderer from '../renderer';
 import {TElement, TCssTemplate, TCssDynamicTemplate} from 'freestyler-renderer/src/types';
+import * as extend from 'fast-extend';
 
-export function wrap(
+export type TWrap = (
     Element: TElement,
     template?: TCssTemplate,
     dynamicTemplateGetter?: TCssDynamicTemplate,
-    displayName: string = 'wrap'
-) {
-    let staticClassName: string;
-    const name = getName(Element);
-    const Wrap = class Wrap extends Component<any, any> {
-        cNs: string = '';
+    displayName?: string
+) => TElement;
+
+const wrap: TWrap = function(Element, template, dynamicTemplateGetter) {
+    let staticClassNames: string = '';
+
+    class Wrap extends Component<any, any> {
+        el = null;
+        c = '';
 
         onRender(props, state, context) {
             if (!dynamicTemplateGetter) return;
             const dynamicTemplate = dynamicTemplateGetter();
             if (!dynamicTemplate) return;
 
-            this.cNs = renderer.render(Wrap, this, null, dynamicTemplate, [props, state, context]);
+            this.c = renderer.render(Wrap, this, this.el, dynamicTemplate, [props, state, context]);
         }
 
         componentWillMount() {
             const {props, state, context} = this;
 
             if (template) {
-                staticClassName = renderer.renderStatic(Wrap, template, [props, state, context]);
+                staticClassNames = renderer.renderStatic(Wrap, template, [props, state, context]);
             }
 
             this.onRender(props, state, context);
@@ -37,24 +42,44 @@ export function wrap(
         }
 
         componentWillUnmount() {
-            renderer.unrender(Wrap, this, null);
+            renderer.unrender(Wrap, this, this.el);
         }
+
+        ref = element => {
+            this.el = element;
+        };
 
         render() {
-            let {className, ...props} = this.props;
-            className = className || '';
-            if (staticClassName) className += (className ? ' ' : '') + staticClassName;
-            const {cNs} = this;
-            if (cNs && cNs.length) className += (className ? ' ' : '') + this.cNs;
-            return h(Element, {...props, className});
+            let {className: propsClassName, ...props} = this.props;
+            const dynamicClassNames = this.c;
+            const className = (propsClassName || '') + staticClassNames + dynamicClassNames;
+
+            if (process.env.NODE_ENV === 'production') {
+                this.props.className = className;
+
+                const {ref} = this.props;
+                if (ref) {
+                    this.props.ref = element => {
+                        this.ref(element);
+                        ref(element);
+                    };
+                } else {
+                    this.props.ref = this.ref;
+                }
+
+                return h(Element, this.props);
+            } else {
+                return h(Element, extend(props, {className}));
+            }
         }
-    };
+    }
 
     if (process.env.NODE_ENV !== 'production') {
-        (Wrap as any).displayName = displayName + (name ? `__${name}` : '');
+        const name = getName(Element);
+        (Wrap as any).displayName = (arguments[3] || 'wrap') + (name ? `__${name}` : '');
     }
 
     return Wrap;
-}
+};
 
 export default wrap;

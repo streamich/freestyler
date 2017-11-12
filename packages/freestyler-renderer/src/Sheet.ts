@@ -2,6 +2,7 @@ import createStyleElement from './util/createStyleElement';
 import getById from './util/getById';
 import removeDomElement from './util/removeDomElement';
 import {TAtrulePrelude, TSelectors, TDeclarations} from './ast/toStylesheet';
+import applyDeclarationsToCssStyleDeclaration from './util/applyDeclarationsToCssStyleDeclaration';
 
 class Sheet {
     set(id: string, atRulePrelude: TAtrulePrelude, selectors: TSelectors, declarations: TDeclarations) {
@@ -29,13 +30,9 @@ class Sheet {
 
         // TODO: Benchmark `rules[0]` vs `rules.item(0)`.
         const style = (rules[0] as CSSStyleRule).style;
-        const len = declarations.length;
-        for (let i = 0; i < len; i++) {
-            const [prop, value] = declarations[i];
-            style.setProperty(prop, value);
-        }
+        applyDeclarationsToCssStyleDeclaration(style, declarations);
     }
-
+    /*
     put(id: string, rawRule: string) {
         let styleElement = getById(id) as HTMLStyleElement;
 
@@ -62,7 +59,7 @@ class Sheet {
             }
         }
     }
-
+*/
     remove(id: string) {
         const styleElement = getById(id);
         if (styleElement) removeDomElement(styleElement);

@@ -14,6 +14,7 @@ module.exports = {
         jsxstyle: './jsxstyle',
         Component: './Component',
         css: './css',
+        wrap: './wrap',
     },
     output: {
         path: __dirname + '/dist',
