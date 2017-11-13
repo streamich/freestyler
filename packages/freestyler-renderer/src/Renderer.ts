@@ -182,7 +182,7 @@ class Renderer implements IRenderer {
 
         // Inject dynamic part.
         const dynamicDecls = declarationSubtract(declarations, declIntersection);
-        return ' ' + classNames + this.renderDynamicDecls(instance, el, atRulePrelude, selectorTemplate, dynamicDecls);
+        return classNames + this.renderDynamicDecls(instance, el, atRulePrelude, selectorTemplate, dynamicDecls);
     }
 
     render(Comp, instance, root: HTMLElement | null, tpl: TCssTemplate, args: any[]): string {
@@ -223,6 +223,12 @@ class Renderer implements IRenderer {
         }
 
         // Remove dynamics
+        const dynamics = instance[$$dynamics];
+        if (dynamics) {
+            dynamics.destroy();
+            // TODO: Do we really need this line?
+            delete instance[$$dynamics];
+        }
     }
 
     renderStatic(Comp, tpl: TCssTemplate, args?: any[]): string {
