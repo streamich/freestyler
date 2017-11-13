@@ -63,7 +63,7 @@ const toStyleSheet: (pojso: TStyles) => TStyleSheet = pojso => {
                 case 'string':
                 case 'number':
                     prop = atoms[prop] || kebabCase(prop);
-                    declarations.push([prop, valueToString(prop, value)]);
+                    declarations.push([prop, valueToString(value, prop)]);
                     break;
                 case 'object': {
                     let selectorsInterpolated =

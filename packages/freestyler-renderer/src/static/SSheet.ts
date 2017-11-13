@@ -14,9 +14,9 @@ class SSheet {
         }
 
         const sheet = styleElement.sheet as CSSStyleSheet;
-        const {rules} = sheet;
+        const {cssRules} = sheet;
 
-        if (!rules.length) {
+        if (!cssRules.length) {
             let emptyRawRule;
             if (atRulePrelude) {
                 emptyRawRule = `${atRulePrelude}{${selectors}{}}`;
@@ -27,7 +27,7 @@ class SSheet {
         }
 
         // TODO: Benchmark `rules[0]` vs `rules.item(0)`.
-        const style = (rules[0] as CSSStyleRule).style;
+        const style = (cssRules[0] as CSSStyleRule).style;
         applyDeclarationsToCssStyleDeclaration(style, declarations);
     }
     /*

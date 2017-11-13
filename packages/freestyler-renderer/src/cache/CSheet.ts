@@ -3,7 +3,7 @@ import memoizer from './memoizer';
 import SCOPE_SENTINEL from '../util/sentinel';
 import createStyleElement from '../util/createStyleElement';
 
-class VSheet {
+class CSheet {
     sheet: CSSStyleSheet;
     memo = memoizer();
 
@@ -82,4 +82,4 @@ class VSheet {
     }
 }
 
-export default VSheet;
+export default CSheet;

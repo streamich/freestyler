@@ -8,14 +8,14 @@ import toCssRule from './ast/toCssRule';
 import {IRenderer} from './util';
 import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
 import SSheet from './static/SSheet';
-import DSheet from './dynamic/DSheet';
+import DSheet from './sheet/DSheet';
 import SCOPE_SENTINEL from './util/sentinel';
 import declarationIntersectStrict from './declaration/intersectStrict';
 import declarationSubtract from './declaration/subtract';
 import declarationSort from './declaration/sort';
 import declarationEqualityStrict from './declaration/equalityStrict';
 import declarationSubtractStrict from './declaration/subtractStrict';
-import renderCacheableSheet from './virtual/renderCacheableSheet';
+import renderCacheableSheet from './cache/renderCacheableSheet';
 import createStyleElement from './util/createStyleElement';
 import renderInlineStyles from './util/renderInlineStyles';
 
@@ -82,7 +82,6 @@ class Renderer implements IRenderer {
         setInfCardStaticCache(instance, key, cache);
 
         const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
-        console.log('id, selector, declarations, atRulePrelude', id, selector, declarations, atRulePrelude);
         this.putDecls(id, selector, declarations, atRulePrelude);
 
         return ' ' + className;

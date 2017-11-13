@@ -1,8 +1,8 @@
 import {TRule, TDeclarations} from '../ast/toStylesheet';
 import declarationSort from '../declaration/sort';
-import VSheet from './VSheet';
+import CSheet from './CSheet';
 
-const vsheet = new VSheet();
+const vsheet = new CSheet();
 
 // Low cardinality virtual style properties that should be batched.
 //
