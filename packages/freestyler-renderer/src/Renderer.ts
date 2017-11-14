@@ -99,7 +99,7 @@ class Renderer implements IRenderer {
             return '';
         }
 
-        if (USE_INLINE_STYLES && el && !atRulePrelude && selectorTemplate === SCOPE_SENTINEL) {
+        if (!USE_INLINE_STYLES && el && !atRulePrelude && selectorTemplate === SCOPE_SENTINEL) {
             renderInlineStyles(el, declarations);
             return '';
         }
@@ -112,7 +112,7 @@ class Renderer implements IRenderer {
         }
 
         let drule = dsheet.get(atRulePrelude, selectorTemplate);
-        if (!drule) drule = dsheet.create(genId(), atRulePrelude, selectorTemplate);
+        if (!drule) drule = dsheet.add(genId(), atRulePrelude, selectorTemplate);
 
         const className = drule.name;
         const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);

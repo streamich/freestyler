@@ -3,6 +3,7 @@ import getById from '../util/getById';
 import removeDomElement from '../util/removeDomElement';
 import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
 import applyDeclarationsToCssStyleDeclaration from '../util/applyDeclarationsToCssStyleDeclaration';
+import SCOPE_SENTINEL from '../util/sentinel';
 
 type TMapBySelectors = {[selectors: string]: Rule};
 type TMapByAtRulePrelude = {[atRulePrelude: string]: TMapBySelectors};
@@ -37,10 +38,11 @@ export class Sheet<TRule extends Rule> {
         return !atRulePrelude ? map[selectors] as TRule : map[atRulePrelude] && map[atRulePrelude][selectors];
     }
 
-    add(name: string, atRulePrelude: TAtrulePrelude, selectors: TSelectors): TRule {
+    add(name: string, atRulePrelude: TAtrulePrelude, selectorTemplate: string): TRule {
         const sheet = this.el.sheet as CSSStyleSheet;
         const {cssRules} = sheet;
         const {length} = cssRules;
+        const selectors = selectorTemplate.replace(SCOPE_SENTINEL, '.' + name);
 
         if (atRulePrelude) {
             sheet.insertRule(`${atRulePrelude}{${selectors}{}}`, length);
