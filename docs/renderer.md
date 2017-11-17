@@ -2,12 +2,14 @@
 
 Freestyler styled component interface:
 
+```js
 const Button = styled('button')({
   border: 'none',
   color: '#fff',
 }, ({background}) => ({
   background
 }));
+```
 
 Main render methods:
 

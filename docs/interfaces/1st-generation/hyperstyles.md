@@ -14,13 +14,14 @@ JavaScript:
 ```jsx
 /** @jsx h */
 import hyperstyles from 'hyperstyles';
+import styles from './styles.css';
 
 const h = hyperstyles(createElement, styles);
 
 class Button extends Component {
   render () {
     return (
-      <div>
+      <div className='container'>
         <button className='button' />
       </div>
     );

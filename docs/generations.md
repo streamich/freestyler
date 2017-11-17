@@ -26,10 +26,12 @@ Libraries grouped by generation:
     - [`glamor`][lib-glamor]
     - [`jsxstyle`][lib-jsxstyle]
     - [`styletron`][lib-styletron]
+    - [`lib-styled-jsx`][lib-styled-jsx]
     - [`Classy`][lib-classy]
     - [`csjs`][lib-csjs]
     - [`css-constructor`][lib-css-constructor]
     - [`hyperstyles`][lib-hyperstyles]
+    - [`styletron`][lib-styletron]
   - Fourth generation
     - [`styled-components`][lib-styled-components]
     - [`glamorous`][lib-glamorous]
@@ -63,3 +65,5 @@ Libraries grouped by generation:
 [lib-freestyler]: https://github.com/streamich/freestyler
 [lib-style-it]: https://github.com/buildbreakdo/style-it
 [lib-superstyle]: https://github.com/jxnblk/superstyle
+[lib-styletron]: https://github.com/rtsao/styletron
+[lib-styled-jsx]: https://github.com/zeit/styled-jsx
