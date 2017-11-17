@@ -15,6 +15,7 @@ module.exports = {
         Component: './Component',
         css: './css',
         wrap: './wrap',
+        demo1: './demo1'
     },
     output: {
         path: __dirname + '/dist',

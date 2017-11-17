@@ -99,7 +99,7 @@ class Renderer implements IRenderer {
             return '';
         }
 
-        if (!USE_INLINE_STYLES && el && !atRulePrelude && selectorTemplate === SCOPE_SENTINEL) {
+        if (USE_INLINE_STYLES && el && !atRulePrelude && selectorTemplate === SCOPE_SENTINEL) {
             renderInlineStyles(el, declarations);
             return '';
         }
