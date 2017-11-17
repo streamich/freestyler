@@ -13,33 +13,31 @@ CSS teplate access to JS variables:
 
 Libraries grouped by generation:
 
-  1. First generation
-    1. [`css-modules`][lib-css-modules]
-    1. [`babel-plugin-css-in-js`][lib-babel-plugin-css-in-js]
-    1. [`bloody-react-styled`][lib-bloody-react-styled]
-    1. [`css-loader`][lib-css-loader]
-    1. [lib-css-ns][lib-css-ns]
-  2. Second generation
-    1. [`Radium`][lib-radium]
-  3. Third generation
-    1. [`aphrodite`][lib-aphrodite]
-    1. [`glamor`][lib-glamor]
-    1. [`jsxstyle`][lib-jsxstyle]
-    1. [`styletron`][lib-styletron]
-    1. [`Classy`][lib-classy]
-    1. [`csjs`][lib-csjs]
-    1. [`css-constructor`][lib-css-constructor]
-    1. [`hyperstyles`][lib-hyperstyles]
-  4. Fourth generation
-    1. [`styled-components`][lib-styled-components]
-    1. [`glamorous`][lib-glamorous]
-  5. Fifth generation
-    1. [`freestyler`][lib-freestyler]
-    1. [`jsxstyle`][lib-jsxstyle]
-    1. [`style-it`][lib-style-it]
-    1. [`superstyle`][lib-superstyle]
-
-
+  - First generation
+    - [`css-modules`][lib-css-modules]
+    - [`babel-plugin-css-in-js`][lib-babel-plugin-css-in-js]
+    - [`bloody-react-styled`][lib-bloody-react-styled]
+    - [`css-loader`][lib-css-loader]
+    - [lib-css-ns][lib-css-ns]
+  - Second generation
+    - [`Radium`][lib-radium]
+  - Third generation
+    - [`aphrodite`][lib-aphrodite]
+    - [`glamor`][lib-glamor]
+    - [`jsxstyle`][lib-jsxstyle]
+    - [`styletron`][lib-styletron]
+    - [`Classy`][lib-classy]
+    - [`csjs`][lib-csjs]
+    - [`css-constructor`][lib-css-constructor]
+    - [`hyperstyles`][lib-hyperstyles]
+  - Fourth generation
+    - [`styled-components`][lib-styled-components]
+    - [`glamorous`][lib-glamorous]
+  - Fifth generation
+    - [`freestyler`][lib-freestyler]
+    - [`jsxstyle`][lib-jsxstyle]
+    - [`style-it`][lib-style-it]
+    - [`superstyle`][lib-superstyle]
 
 [lib-css-modules]: https://github.com/css-modules/css-modules
 [lib-babel-plugin-css-in-js]: https://github.com/martinandert/babel-plugin-css-in-js
@@ -49,10 +47,8 @@ Libraries grouped by generation:
 [lib-css-constructor]: https://github.com/siddharthkp/css-constructor
 [lib-css-loader]: https://github.com/webpack-contrib/css-loader
 [lib-css-ns]: https://github.com/jareware/css-ns
-
 [lib-jsxstyle]: https://github.com/smyte/jsxstyle
 [lib-hyperstyles]: https://github.com/colingourlay/hyperstyles
-
 [lib-radium]: https://github.com/FormidableLabs/radium
 [lib-aphrodite]: https://github.com/Khan/aphrodite
 [lib-bloody-react-styled]:
