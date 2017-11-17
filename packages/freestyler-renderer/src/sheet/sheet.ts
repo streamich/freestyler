@@ -3,7 +3,7 @@ import getById from '../util/getById';
 import removeDomElement from '../util/removeDomElement';
 import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
 import applyDeclarationsToCssStyleDeclaration from '../util/applyDeclarationsToCssStyleDeclaration';
-import SCOPE_SENTINEL from '../util/sentinel';
+import SCOPE_SENTINEL from './util/sentinel';
 
 type TMapBySelectors = {[selectors: string]: Rule};
 type TMapByAtRulePrelude = {[atRulePrelude: string]: TMapBySelectors};
