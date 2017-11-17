@@ -26,7 +26,7 @@ Libraries grouped by generation:
     - [`glamor`][lib-glamor]
     - [`jsxstyle`][lib-jsxstyle]
     - [`styletron`][lib-styletron]
-    - [`lib-styled-jsx`][lib-styled-jsx]
+    - [`styled-jsx`][lib-styled-jsx]
     - [`Classy`][lib-classy]
     - [`csjs`][lib-csjs]
     - [`css-constructor`][lib-css-constructor]
