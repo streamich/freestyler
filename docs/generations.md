@@ -3,13 +3,13 @@
 
 CSS teplate access to JS variables:
 
-|Type|CSS|Module scope variables|Component scope variables|Render method scope variables|
-|----|---|----------------------|-------------------------|-----------------------------|
-|1st generation|X||||
-|2nd generation||X|X|X|
-|3rd generation|X|X|||
-|4th generation|X|X|X||
-|5th generation|X|X|X|X|
+|Generation|CSS|Module scope variables|Component scope variables|Render method scope variables|
+|----------|---|----------------------|-------------------------|-----------------------------|
+|1st|X||||
+|2nd||X|X|X|
+|3rd|X|X|||
+|4th|X|X|X||
+|5th|X|X|X|X|
 
 Libraries grouped by generation:
 
