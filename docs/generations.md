@@ -51,7 +51,7 @@ Libraries grouped by generation:
 [lib-hyperstyles]: https://github.com/colingourlay/hyperstyles
 [lib-radium]: https://github.com/FormidableLabs/radium
 [lib-aphrodite]: https://github.com/Khan/aphrodite
-[lib-bloody-react-styled]:
+[lib-bloody-react-styled]: https://github.com/bloodyowl/react-styled
 [lib-cssx]: https://github.com/krasimir/cssx
 [lib-glamor]: https://github.com/threepointone/glamor
 [lib-jsxstyle]: https://github.com/smyte/jsxstyle
