@@ -1,11 +1,12 @@
 import renderer from '../../renderer';
 import {IStyles} from 'freestyler-renderer/src/types';
-import renderCacheableAndGetInfCss from 'freestyler-renderer/src/virtual/renderCacheableAndGetInfCss';
+import renderCacheableAndGetInfCss from 'freestyler-renderer/src/cache/renderCacheableAndGetInfCss';
 import SCOPE_SENTINEL from 'freestyler-renderer/src/util/sentinel';
 
 let classNameCounter = 0;
+const PREFIX = process.env.FREESTYLER_PREFIX || '';
 
-const genClassName = () => '__' + (classNameCounter++).toString(36);
+const genClassName = () => PREFIX + '__' + (classNameCounter++).toString(36);
 
 const transformStylesToClassesAndCss: (styles: IStyles) => [string, string] = styles => {
     const className = genClassName();

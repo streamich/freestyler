@@ -3,6 +3,8 @@ import memoizer from './memoizer';
 import SCOPE_SENTINEL from '../util/sentinel';
 import createStyleElement from '../util/createStyleElement';
 
+const PREFIX = process.env.FREESTYLER_PREFIX || '';
+
 class CSheet {
     sheet: CSSStyleSheet;
     memo = memoizer();
@@ -46,7 +48,7 @@ class CSheet {
     ): string {
         const {length} = this.memo;
         const idNumber = this.memo.getId(atRulePrelude, selectorTemplate, propIdentifier, valueIdentifier);
-        const idString = idNumber.toString(36);
+        const idString = PREFIX + idNumber.toString(36);
 
         if (this.memo.length > length) {
             let selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + idString);

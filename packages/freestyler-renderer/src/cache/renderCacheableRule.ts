@@ -34,10 +34,10 @@ const LOW_CARDINALITY_PROPERTIES = {
 const HIGH_CARDINALITY_PROPERTIES = {
     width: 1,
     height: 1,
-    top: 1,
+    // top: 1,
     right: 1,
     bottom: 1,
-    left: 1,
+    // left: 1,
     'border-radius': 1,
     'margin-top': 1,
     'margin-right': 1,

@@ -1,0 +1,18 @@
+{
+    "name": "freestyler-demos-balls",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "webpack",
+        "watch": "webpack --watch",
+        "watch-p": "webpack --watch -p"
+    },
+    "dependencies": {
+        "react": "16.1.1",
+        "react-dom": "16.1.1",
+        "puppeteer": "0.13.0"
+    },
+    "devDependencies": {
+        "webpack": "^3.6.0",
+        "ts-loader": "^2.3.7"
+    }
+}

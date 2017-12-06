@@ -721,6 +721,7 @@ This way the template `(props) => CSS` itself is a variable.
 
 # Environment variables
 
+  - `FREESTYLER_PREFIX` - prefix to use for all CSS class names.
   - `FREESTYLER_NUMBERS_TO_PX` - if set, `freestyler` will convert number values of declartions that
   are not unitless to pixel units, like `width: 100` will be converted to `width: '100px'`. It will
   ignore unitless declarations, for example, `zIndex: 10` will stay `zIndex: 10`.
@@ -735,6 +736,7 @@ This way the template `(props) => CSS` itself is a variable.
   - [ ] TODO: Middleware
   - [ ] TODO: Renderers
   - [ ] TODO: Add env var for adding `!import` to all rules just like `aphrodite`.
+  - [ ] TODO: Remove React props (non-DOM attributes) from DOM elements.
 
 
 

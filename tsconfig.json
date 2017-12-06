@@ -6,7 +6,8 @@
         "noImplicitAny": false,
         "sourceMap": false,
         "experimentalDecorators": true,
-        "jsx": "react"
+        "jsx": "react",
+        "lib": ["es2015"]
     },
     "exclude": ["node_modules", "lib"]
 }

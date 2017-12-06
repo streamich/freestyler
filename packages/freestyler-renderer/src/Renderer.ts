@@ -26,7 +26,8 @@ const $$statics = sym('stat'); // Static infinite cardinality declaration cache.
 const $$dynamics = sym('dyn'); // Dynamic infinite cardinality declaration cache.
 
 let classNameCounter = 1;
-const genId = () => `_${(classNameCounter++).toString(36)}`;
+const PREFIX = process.env.FREESTYLER_PREFIX || '';
+const genId = () => `${PREFIX}_${(classNameCounter++).toString(36)}`;
 
 // prettier-ignore
 const tplToStyles: (tpl: TCssTemplate, args?: any[]) => IStyles =
@@ -120,6 +121,7 @@ class Renderer implements IRenderer {
         // Use CSS variables.
         if (USE_CSS_VARIABLES) {
             const style = el ? el.style : document.documentElement.style;
+            style.cssText = '';
             for (let i = 0; i < declarations.length; i++) {
                 const declaration = declarations[i];
                 const [property, value] = declaration;
@@ -152,7 +154,7 @@ class Renderer implements IRenderer {
         let cache = getInfCardStaticCache(instance, key);
 
         if (!cache) {
-            let cache = getInfCardStaticCache(Comp, key);
+            cache = getInfCardStaticCache(Comp, key);
             if (cache) {
                 cache.cnt++;
                 setInfCardStaticCache(instance, key, cache);
@@ -227,7 +229,8 @@ class Renderer implements IRenderer {
         if (dynamics) {
             dynamics.destroy();
             // TODO: Do we really need this line?
-            delete instance[$$dynamics];
+            instance[$$dynamics] = null;
+            // delete instance[$$dynamics];
         }
     }
 

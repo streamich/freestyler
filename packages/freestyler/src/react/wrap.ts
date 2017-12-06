@@ -59,7 +59,7 @@ const wrap: TWrap = function(Element, template, dynamicTemplateGetter) {
                 this.props.ref = this.ref;
                 return h(Element, this.props);
             } else {
-                return h(Element, extend(props, {className}));
+                return h(Element, extend(props, {className, ref: this.ref}));
             }
         }
     }

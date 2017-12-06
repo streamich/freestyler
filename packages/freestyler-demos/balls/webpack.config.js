@@ -3,24 +3,11 @@ const webpack = require('webpack');
 module.exports = {
     devtool: 'inline-source-map',
     entry: {
-        index: "./index",
-        styled: "./styled",
-        balls: './balls',
-        button: './button',
-        todo: './todo',
-        rule: './rule',
-        StyleSheet: './StyleSheet',
-        Styleit: './Styleit',
-        jsxstyle: './jsxstyle',
-        Component: './Component',
-        css: './css',
-        wrap: './wrap',
-        demo1: './demo1',
-        hyperstyle: './hyperstyle',
+        index: "./index"
     },
     output: {
         path: __dirname + '/dist',
-        filename: "[name].js"
+        filename: '[name].js'
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],

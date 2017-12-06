@@ -1,12 +1,12 @@
 import {Component, createElement} from 'react';
 import {render} from 'react-dom';
-import hyperstyles from 'freestyler/src/hyperstyles';
+import hyperstyle from 'freestyler/src/react/hyperstyle';
 
-const h = hyperstyles(createElement, {
+const h: any = hyperstyle(createElement, {
     container: {
         textAlign: 'center',
     },
-    button: {
+    button: () => ({
         background: 'red',
         width: '320px',
         padding: '20px',
@@ -23,7 +23,7 @@ const h = hyperstyles(createElement, {
         '@media (max-width: 480px)': {
             width: '160px',
         },
-    },
+    }),
 });
 
 class App extends Component<any, any> {
