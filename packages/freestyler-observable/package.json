@@ -1,6 +1,6 @@
 {
     "name": "freestyler-observable",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "Observable factory",
     "scripts": {
         "test": "jest",
@@ -23,7 +23,7 @@
         ]
     },
     "dependencies": {
-        "freestyler-observable": "^1.2.1",
-        "freestyler-util": "^1.2.1"
+        "freestyler-observable": "^1.2.2",
+        "freestyler-util": "^1.2.2"
     }
 }

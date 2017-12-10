@@ -1,6 +1,6 @@
 {
   "name": "freestyler-context",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "React context provider and consumer HOC and FaCC",
   "scripts": {
     "test": "jest",
@@ -10,8 +10,8 @@
     "build": "gulp build"
   },
   "dependencies": {
-    "freestyler-util": "^1.2.1",
-    "freestyler-observable": "^1.2.1"
+    "freestyler-observable": "^1.2.2",
+    "freestyler-util": "^1.2.2"
   },
   "jest": {
     "transform": {

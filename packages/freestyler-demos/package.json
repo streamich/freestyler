@@ -1,7 +1,7 @@
 {
     "name": "freestyler-demos",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "dependencies": {
-        "freestyler": "1.2.1"
+        "freestyler": "^1.2.2"
     }
 }

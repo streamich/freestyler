@@ -1,6 +1,6 @@
 {
     "name": "themestyler",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "Generic styling theme provider and consumers in HOC and FaCC patterns",
     "scripts": {
         "test": "jest",
