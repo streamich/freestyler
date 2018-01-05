@@ -7,11 +7,11 @@
         "watch-p": "webpack --watch -p"
     },
     "dependencies": {
-        "react": "^16.0.0",
-        "react-dom": "^16.0.0"
+        "react": "16.2.0",
+        "react-dom": "16.2.0"
     },
     "devDependencies": {
-        "webpack": "^3.6.0",
-        "ts-loader": "^2.3.7"
+        "webpack": "3.10.0",
+        "ts-loader": "2.3.7"
     }
 }

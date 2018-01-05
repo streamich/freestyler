@@ -12,7 +12,7 @@
         "puppeteer": "0.13.0"
     },
     "devDependencies": {
-        "webpack": "^3.6.0",
-        "ts-loader": "^2.3.7"
+        "webpack": "3.10.0",
+        "ts-loader": "2.3.7"
     }
 }

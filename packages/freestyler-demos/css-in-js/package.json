@@ -7,15 +7,15 @@
     "watch": "webpack -w"
   },
   "dependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "freestyler": "^1.0.2"
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
+    "freestyler": "1.2.2"
   },
   "devDependencies": {
-    "webpack": "^3.6.0",
-    "http-server": "^0.10.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-react": "^6.24.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4"
+    "webpack": "3.10.0",
+    "http-server": "0.10.0",
+    "babel-loader": "7.1.2",
+    "babel-preset-react": "6.24.1",
+    "babel-plugin-transform-decorators-legacy": "1.3.4"
   }
 }
