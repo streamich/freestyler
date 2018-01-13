@@ -4,7 +4,8 @@
     "scripts": {
         "build": "webpack",
         "watch": "webpack --watch",
-        "watch-p": "webpack --watch -p"
+        "watch-p": "webpack --watch -p",
+        "start": "webpack-dev-server"
     },
     "dependencies": {
         "react": "^16.0.0",
@@ -12,6 +13,7 @@
     },
     "devDependencies": {
         "webpack": "^3.6.0",
+        "webpack-dev-server": "2.10.1",
         "ts-loader": "^2.3.7"
     }
 }
