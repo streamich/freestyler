@@ -1,6 +1,6 @@
 {
     "name": "freestyler",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "description": "5th generation React styling library",
     "main": "lib/index.js",
     "scripts": {
