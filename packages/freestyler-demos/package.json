@@ -1,6 +1,9 @@
 {
     "name": "freestyler-demos",
     "version": "1.2.2",
+    "scripts": {
+        "build": "echo 'build not implemented'"
+    },
     "dependencies": {
         "freestyler": "^1.2.2"
     }

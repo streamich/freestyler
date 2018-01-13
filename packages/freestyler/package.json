@@ -31,8 +31,6 @@
         ]
     },
     "dependencies": {
-        "benchmark": "2.1.4",
-        "css-light": "^1.1.0",
         "fast-extend": "0.0.2",
         "freestyler-renderer": "^1.2.2",
         "freestyler-util": "^1.2.2"
