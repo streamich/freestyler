@@ -1,6 +1,6 @@
 {
     "name": "freestyler",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "description": "5th generation React styling library",
     "main": "lib/index.js",
     "scripts": {
@@ -32,8 +32,8 @@
     },
     "dependencies": {
         "fast-extend": "0.0.2",
-        "freestyler-renderer": "^1.3.0",
-        "freestyler-util": "^1.3.0"
+        "freestyler-renderer": "^1.3.2",
+        "freestyler-util": "^1.3.2"
     },
     "devDependencies": {
         "gulp": "3.9.1",
