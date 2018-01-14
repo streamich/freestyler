@@ -1,7 +1,7 @@
 import renderer from '../../renderer';
 import {IStyles} from 'freestyler-renderer/src/types';
-import renderCacheableAndGetInfCss from 'freestyler-renderer/src/cache/renderCacheableAndGetInfCss';
-import SCOPE_SENTINEL from 'freestyler-renderer/src/util/sentinel';
+import renderCacheableAndGetInfCss from 'freestyler-renderer/lib/cache/renderCacheableAndGetInfCss';
+import SCOPE_SENTINEL from 'freestyler-renderer/lib/util/sentinel';
 
 let classNameCounter = 0;
 const PREFIX = process.env.FREESTYLER_PREFIX || '';

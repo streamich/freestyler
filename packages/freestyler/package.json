@@ -34,5 +34,9 @@
         "fast-extend": "0.0.2",
         "freestyler-renderer": "^1.3.0",
         "freestyler-util": "^1.3.0"
+    },
+    "devDependencies": {
+        "gulp": "3.9.1",
+        "gulp-typescript": "3.2.1"
     }
 }
