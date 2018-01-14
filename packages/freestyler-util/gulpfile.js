@@ -3,7 +3,7 @@ const ts = require('gulp-typescript');
 
 gulp.task('build', () => {
     return gulp
-        .src(['index.ts', '!__tests__/**'])
+        .src(['*.ts', '!__tests__/**'])
         .pipe(
             ts({
                 target: 'es5',
