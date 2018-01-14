@@ -8,7 +8,8 @@
         "start": "yarn install",
         "prettier": "prettier --write '**/*.ts'",
         "precommit": "lint-staged",
-        "build": "lerna run build"
+        "build": "lerna run build",
+        "publish": "npx lerna publish"
     },
     "lint-staged": {
         "**/*.ts": [
