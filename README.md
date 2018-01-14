@@ -22,7 +22,7 @@ it is *lightning fast*, super lean and gives every freestyler a [gazillion of fe
 
 ## feat.
 
-  - [Fifth generation](#fifth-generation)
+  - [Fifth generation](./docs/feat/fifth-generation.md)
   - [Lightweight](#lightweight)
   - [Lightning fast](#lightning-fast)
   - [Just-in-time CSS](#just-in-time-css)
@@ -57,20 +57,20 @@ it is *lightning fast*, super lean and gives every freestyler a [gazillion of fe
   - [ ] TODO: Type-safe, typescript support
   - [ ] TODO: Use ["virtual CSS"](https://ryantsao.com/blog/virtual-css-with-styletron) in static templates
 
-# Usage
+## Usage
 
-Install:
+Install
 
     npm install --save freestyler themestyler
     yarn add freestyler themestyler
 
-First import the library:
+First import the library
 
 ```js
 import {css} from 'freestyler';
 ```
 
-Style *stateful* components:
+Style *stateful* components
 
 ```jsx
 class App extends Component {
@@ -83,7 +83,7 @@ class App extends Component {
 }
 ```
 
-Create *"styled"* components:
+Create *"styled"* components
 
 ```jsx
 const Bordered = css.div({
@@ -93,7 +93,7 @@ const Bordered = css.div({
 const App = () => <Bordered>Hello world!</Bordered>;
 ```
 
-### Reference
+## Reference
 
   - API
     - React
@@ -236,14 +236,6 @@ Not [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet
 
 
 # Features
-
-
-
-### Fifth generation
-
-`freestyler` is 5th generation React styling library - it injects CSS into `<style>` tags at runtime, only when
-your React component is being rendered for the first time and styles dynamically depend not only on `props`, `state`, and `context`,
-but also the CSS template itself can be changed dynamically.
 
 
 
