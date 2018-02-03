@@ -9,6 +9,7 @@
         "prettier": "prettier --write '**/*.ts'",
         "precommit": "lint-staged",
         "build": "lerna run build",
+        "clean": "lerna run clean",
         "publish": "npx lerna publish"
     },
     "lint-staged": {
