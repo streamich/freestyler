@@ -1,5 +1,6 @@
 import {TComponent, TComponentConstructor, TCssTemplate} from './types';
 import {TStyles, TStyleSheet} from './ast/toStylesheet';
+import createStyleElement from './util/createStyleElement';
 
 export interface IMiddleware {
     styles: (TStyles) => TStyles;
@@ -18,9 +19,10 @@ export interface IRenderer {
 export type TRendererFactory = () => IRenderer;
 
 export function inject(cssString: string): HTMLStyleElement {
-    const el = document.createElement('style');
+    const el = createStyleElement();
+
     el.innerText = cssString;
-    document.head.appendChild(el);
+
     return el;
 }
 

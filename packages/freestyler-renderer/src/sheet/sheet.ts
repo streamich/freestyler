@@ -1,5 +1,4 @@
 import createStyleElement from '../util/createStyleElement';
-import getById from '../util/getById';
 import removeDomElement from '../util/removeDomElement';
 import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
 import applyDeclarationsToCssStyleDeclaration from '../util/applyDeclarationsToCssStyleDeclaration';

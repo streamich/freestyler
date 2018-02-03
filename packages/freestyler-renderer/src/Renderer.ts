@@ -16,7 +16,6 @@ import declarationSort from './declaration/sort';
 import declarationEqualityStrict from './declaration/equalityStrict';
 import declarationSubtractStrict from './declaration/subtractStrict';
 import renderCacheableSheet from './cache/renderCacheableSheet';
-import createStyleElement from './util/createStyleElement';
 import renderInlineStyles from './util/renderInlineStyles';
 
 const USE_CSS_VARIABLES = supportsCssVariables;

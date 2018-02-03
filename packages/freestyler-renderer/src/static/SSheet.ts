@@ -1,12 +1,13 @@
 import createStyleElement from '../util/createStyleElement';
-import getById from '../util/getById';
 import removeDomElement from '../util/removeDomElement';
 import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
 import applyDeclarationsToCssStyleDeclaration from '../util/applyDeclarationsToCssStyleDeclaration';
 
+const sheets: {[id: string]: HTMLStyleElement} = {};
+
 class SSheet {
     set(id: string, atRulePrelude: TAtrulePrelude, selectors: TSelectors, declarations: TDeclarations) {
-        let styleElement = getById(id) as HTMLStyleElement;
+        let styleElement = sheets[id] as HTMLStyleElement;
 
         if (!styleElement) {
             styleElement = createStyleElement();
@@ -30,37 +31,14 @@ class SSheet {
         const style = (cssRules[0] as CSSStyleRule).style;
         applyDeclarationsToCssStyleDeclaration(style, declarations);
     }
-    /*
-    put(id: string, rawRule: string) {
-        let styleElement = getById(id) as HTMLStyleElement;
 
-        if (!styleElement) {
-            styleElement = createStyleElement();
-            styleElement.id = id;
-        }
-
-        // `_iT` - innerText cache.
-        if ((styleElement as any)._iT !== rawRule) {
-            (styleElement as any)._iT = rawRule;
-
-            if (process.env.NODE_ENV === 'production') {
-                const sheet = styleElement.sheet as any;
-                // if (sheet.cssRules.length) {
-                // sheet.deleteRule(0);
-                // }
-                // sheet.insertRule(rawRule, 0);
-                if (!sheet.cssRules.length) {
-                    sheet.insertRule(rawRule, 0);
-                }
-            } else {
-                styleElement.innerText = rawRule;
-            }
-        }
-    }
-*/
     remove(id: string) {
-        const styleElement = getById(id);
-        if (styleElement) removeDomElement(styleElement);
+        const styleElement = sheets[id];
+
+        if (styleElement) {
+            delete sheets[id];
+            removeDomElement(styleElement);
+        }
     }
 }
 

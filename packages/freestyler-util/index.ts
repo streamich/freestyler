@@ -22,3 +22,5 @@ export function kebabCase(str) {
 export function camelCase(str) {
     return str.replace(REVERSE_REGEX, match => match.slice(1).toUpperCase());
 }
+
+export const isClient = typeof window === 'object';
