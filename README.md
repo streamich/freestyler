@@ -75,22 +75,24 @@ const App = () =>
     <Bordered>Hello world!</Bordered>;
 ```
 
+See more interfaces below.
+
 
 ## Reference
 
 - [Terminology](./docs/en/terminology.md)
-- __Generic,__ [low-level API](./docs/en/low-level-api.md)
-- __Generic,__ [3<sup>rd</sup> generation API](./docs/en/3rd-gen.md)
-    - [`rule` pattern](./docs/en/rule.md)
-    - [`StyleSheet` interface](./docs/en/StyleSheet.md) with lazy rendering
-- __React,__ 4<sup>th</sup> generation API
+- __Generic:__ [low-level API](./docs/en/low-level-api.md)
+- __Generic:__ [3<sup>rd</sup> generation API](./docs/en/3rd-gen.md)
+    - [`rule()` interface](./docs/en/rule.md)
+    - [`StyleSheet.create()` interface](./docs/en/StyleSheet.md) &mdash; with lazy rendering
+- __React:__ [4<sup>th</sup> generation API](./docs/en/4th-gen.md)
     - [`styled` components](./docs/en/styled.md)
-    - `@css` class decorator
+    - [`@css` class decorator](./css-class-decorator.md)
     - `@css` render method decorator
     - `hoc` generator
     - Component
     - hyperstyle
-- __React,__ 5<sup>th</sup> generation API
+- __React:__ 5<sup>th</sup> generation API
     - `styleit` syntax
     - `jsxstyle`
     - `facc` generator

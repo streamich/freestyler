@@ -2,10 +2,9 @@
 
 As a React user you will never have to use these low-level APIs,
 you can safely skip to 3<sup>rd</sup>+ generation interfaces.
-
 At the core of [`freestyler`](https://www.npmjs.com/package/freestyler) library is
-[`freestyler-renderer`](https://www.npmjs.com/package/freestyler-renderer) package, which is library agnostic and just
-generates and injects CSS.
+[`freestyler-renderer`](https://www.npmjs.com/package/freestyler-renderer) package, which is a framework
+agnostic CSS renderer that simply generates and injects CSS.
 
 Here is how you can use the renderer, first import it.
 
@@ -25,12 +24,12 @@ renderer.renderAnon({
 });
 ```
 
-That's it, now the background color of your page will be red. Read reference below for more.
+That's it, now the background color of your page will be red. Read [reference](#reference) below for more.
 
 
 ## Reference
 
-- `.format()` &mdash; parses CSS-like object AST and returns raw CSS string.
+- `.format()` &mdash; parses CSS-like object's AST and returns raw a CSS string.
 - `.renderAnon()` &mdash; injects *anonymous* global CSS into the page.
 - `.renderStatic()` &mdash; injects component's static CSS.
 - `.render()` &mdash; injects instance's dynamic CSS.
@@ -42,9 +41,9 @@ That's it, now the background color of your page will be red. Read reference bel
 Arguments
 
 - `styles` &mdash; object of styles.
-- `selector` &mdash; optional, selector string used ot replace `&` references.
+- `selector` &mdash; optional, selector string used to replace `&` references.
 
-Example 1
+__Example 1__
 
 ```js
 renderer.format({
@@ -60,13 +59,13 @@ renderer.format({
 });
 ```
 
-Returns
+*Returns*
 
 ```css
 a{text-align:center;}div{text-align:center;}span{text-align:center;}
 ```
 
-Example 2
+__Example 2__
 
 ```js
 renderer.format({
@@ -77,7 +76,7 @@ renderer.format({
 }, '.my-class')
 ```
 
-Returns
+*Returns*
 
 ```css
 .my-class > a{text-decoration:underline;}.my-class{display:block;}
@@ -88,7 +87,7 @@ Returns
 
 Simply renders global styles.
 
-Example
+__Example__
 
 ```js
 renderer.renderAnon({
@@ -98,7 +97,7 @@ renderer.renderAnon({
 });
 ```
 
-Will inject into the page
+Will inject into the page:
 
 ```css
 html{color:red}
@@ -113,27 +112,29 @@ will always stay the same for that component.
 Note, that `Comp` component does not have to be a React
 component it can be any object that uniquely identifies some component.
 
-Arguments
+Arguments:
 
 - `Comp` &mdash; UI component.
 - `template` &mdash; style object or a function that returns a style object.
 - `args` &mdash; optional, array of arguments to provide to `template` if it is a function.
 
-Example
+Returns a string containing a list of class names generated for that component.
+
+__Example__
 
 ```js
 const tpl = () => ({
     border: '1px solid tomato'
 });
 
-renderer.renderStatic(MyButton, tpl);
+const classNames = renderer.renderStatic(MyButton, tpl);
 ```
 
 
 ### `.render(Comp, instance, el, tpl, args)`
 
 Renders and re-renders dynamic styles of some component's instance. You can call this method
-every time that component instance re-renders.
+every time that component's instance re-renders.
 
 Arguments
 
@@ -146,7 +147,7 @@ Arguments
 `Comp` can be any object that uniquely identifies some UI component, it does not necessarily
 have to be a React component.
 
-`instance` is any object that uniquely identifies that component's renderer instance, it does
+`instance` is any object that uniquely identifies that component's rendered instance, it does
 not have to be a React component instance.
 
 `el` is an optional (use `null` otherwise) root DOM node reference of the component's instance used
@@ -155,9 +156,9 @@ styles when possible and set [CSS Custom Properties](https://developer.mozilla.o
 directly on this node for performance, instead of setting global CSS variables.
 
 Returns a string, which is a list of class names you should apply to the root element of your
-component instance.
+component's instance.
 
-Example
+__Example__
 
 ```js
 let App, instance, tpl;
@@ -175,14 +176,14 @@ instance = ReactDOM.render(<App />, el);
 ```
 
 The dynamic `.render()` method can be called every time your component re-renders, which
-allows your components CSS to change with props or state of your component. The renderer
+allows your component's CSS to change with props or state of your component. The renderer
 will generate actual CSS, so you can use media queries and all the other CSS features.
 
 
 ### `.unrender(Comp, instance, el)`
 
-Removes dynamics component instance styles created by `.render()` method. Call this
+Removes dynamic styles created by `.render()` method. Call this
 method when your component instance un-mounts, for example, in React you would
-do that in `componentWillUnmount` life-cycle hook.
+do that in [`.componentWillUnmount()` life-cycle hook](https://reactjs.org/docs/react-component.html#componentwillunmount).
 
-Arguments `Comp`, `instance`, and `el` have the same semantics as in `.render()` method.
+Arguments `Comp`, `instance`, and `el` have the same semantics as in the `.render()` method.

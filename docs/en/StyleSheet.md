@@ -1,6 +1,6 @@
-# `StyleSheet` Interface
+# `StyleSheet.create()` Interface
 
-`StyleSheet` interface is similar to to [`rule`](./rule.md) interface, but instead of creating
+`StyleSheet.create()` interface is similar to to [`rule()`](./rule.md) interface, but instead of creating
 a single "rule" you create a collection of rules for any logical unit you need in your component.
 
 __Example__

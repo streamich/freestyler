@@ -1,4 +1,4 @@
-# `rule` Pattern
+# `rule()` Interface
 
 Given a CSS-like object returns a string of class names.
 

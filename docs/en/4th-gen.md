@@ -8,9 +8,9 @@ get access to component's *props*.
 
 `freestyler` provides these 4<sup>th</sup> generation interfaces:
 
-- [`styled` components](./styled.md)
-- [`@css` class decorator](./4th-gen-css-class-decorator.md)
+- [`styled()` components](./styled.md)
+- [`@css` class decorator](./css-class-decorator.md)
 - [`@css` render method decorator](./4th-gen-css-render-method-decorator.md)
-- [`hoc` generator](./hoc-generator.md)
+- [`hoc()` generator](./hoc-generator.md)
 - [`Component`](./Component.md)
 - [`hyperstyle`](./hyperstyle.md)
