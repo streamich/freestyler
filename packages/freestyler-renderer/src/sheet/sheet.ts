@@ -1,7 +1,6 @@
 import createStyleElement from '../util/createStyleElement';
 import removeDomElement from '../util/removeDomElement';
 import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
-import SCOPE_SENTINEL from '../util/sentinel';
 
 type TMapBySelectors = {[selectors: string]: Rule};
 type TMapByAtRulePrelude = {[atRulePrelude: string]: TMapBySelectors};
@@ -25,13 +24,12 @@ export class Rule {
     }
 
     trunc() {
+        this.decl = null;
         this.style.cssText = '';
     }
 }
 
 export class Sheet {
-    Rule = Rule as new (...args) => Rule;
-
     el: HTMLStyleElement = createStyleElement();
     map: TMapBySelectors | TMapByAtRulePrelude = {};
 
@@ -41,7 +39,7 @@ export class Sheet {
         return !atRulePrelude ? map[selectors] as Rule : map[atRulePrelude] && map[atRulePrelude][selectors];
     }
 
-    addBase(atRulePrelude: TAtrulePrelude, selectors: string): Rule {
+    add(atRulePrelude: TAtrulePrelude, selectors: string): Rule {
         const sheet = this.el.sheet as CSSStyleSheet;
         const {cssRules} = sheet;
         const {length} = cssRules;
@@ -53,15 +51,18 @@ export class Sheet {
         }
 
         // TODO: Benchmark `cssRules[length]` vs `cssRules.item(length)`.
-        const rule = new this.Rule(name, (cssRules[length] as CSSStyleRule).style);
+        const rule = new Rule(name, (cssRules[length] as CSSStyleRule).style);
 
-        return (this.map[selectors] = rule);
-    }
+        if (atRulePrelude) {
+            if (!this.map[atRulePrelude]) {
+                this.map[atRulePrelude] = {};
+            }
+            this.map[atRulePrelude][selectors] = rule;
+        } else {
+            this.map[selectors] = rule;
+        }
 
-    add(name: string, atRulePrelude: TAtrulePrelude, selectorTemplate: string): Rule {
-        const selectors = selectorTemplate.replace(SCOPE_SENTINEL, '.' + name);
-
-        return this.addBase(atRulePrelude, selectors);
+        return rule;
     }
 
     destroy() {
@@ -77,7 +78,7 @@ export class SSheet {
 
         if (!sheet) {
             sheet = new Sheet();
-            sheet.addBase(atRulePrelude, selectors).put(declarations);
+            sheet.add(atRulePrelude, selectors).put(declarations);
             this.byId[id] = sheet;
         }
     }

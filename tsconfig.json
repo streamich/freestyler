@@ -7,7 +7,15 @@
         "sourceMap": false,
         "experimentalDecorators": true,
         "jsx": "react",
-        "lib": ["es2015"]
+        "lib": [
+          "dom",
+          "es5",
+          "es6",
+          "es7",
+          "es2015",
+          "scripthost",
+          "dom.iterable"
+        ]
     },
     "exclude": ["node_modules", "lib"]
 }
