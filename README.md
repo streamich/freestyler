@@ -3,13 +3,13 @@
 # freestyler [![][npm-badge]][npm-url] [![][travis-badge]][travis-url]
 
 [**5<sup>th</sup> generation**](#fifth-generation) [React styling library][npm-url] &mdash;
-it is *lightning fast*, *lean*, and with *gazillion* of [__*feat*ures__](#feat).
+it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 
 ```
         Yeah, straight from the top of my dome
-        As I rock, rock, rock, rock, rock the microphone
-        Yeah, straight from the top of my dome
-        As I rock, rock, rock, rock, rock the microphone…
+            As I rock, rock, rock, rock, rock the microphone
+                Yeah, straight from the top of my dome
+                    As I rock, rock, rock, rock, rock the microphone…
 ```
 
 - Bomfunk MC's &mdash; [Freestyler](https://www.youtube.com/watch?v=ymNFyxvIdaM)
@@ -77,18 +77,18 @@ const App = () =>
 ## Reference
 
 - [Terminology](./docs/en/terminology.md)
-- Generic &mdash; [low-level API](./docs/en/low-level-api.md)
-- Generic &mdash; [3<sup>rd</sup> generation API](./docs/en/3rd-gen.md)
+- __Generic__ &mdash; [low-level API](./docs/en/low-level-api.md)
+- __Generic__ &mdash; [3<sup>rd</sup> generation API](./docs/en/3rd-gen.md)
     - [`rule` pattern](./docs/en/rule.md)
     - [`StyleSheet` interface](./docs/en/StyleSheet.md) with lazy rendering
-- React &mdash; 4<sup>th</sup> generation API
+- __React__ &mdash; 4<sup>th</sup> generation API
     - `styled` components
     - `@css` class decorator
     - `@css` render method decorator
     - `hoc` generator
     - Component
     - hyperstyle
-- React &mdash; 5<sup>th</sup> generation API
+- __React__ &mdash; 5<sup>th</sup> generation API
     - `styleit` syntax
     - `jsxstyle`
     - `facc` generator
