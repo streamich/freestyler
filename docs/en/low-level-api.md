@@ -1,5 +1,8 @@
 # Low-level API
 
+As a React user you will never have to use these low-level APIs,
+you can safely skip to 3<sup>rd</sup>+ generation interfaces.
+
 At the core of [`freestyler`](https://www.npmjs.com/package/freestyler) library is
 [`freestyler-renderer`](https://www.npmjs.com/package/freestyler-renderer) package, which is library agnostic and just
 generates and injects CSS.
@@ -27,11 +30,11 @@ That's it, now the background color of your page will be red. Read reference bel
 
 ## Reference
 
-- `.format()`
-- `.renderAnon()`
-- `.renderStatic()`
-- `.render()`
-- `.unreder()`
+- `.format()` &mdash; parses CSS-like object AST and returns raw CSS string.
+- `.renderAnon()` &mdash; injects *anonymous* global CSS into the page.
+- `.renderStatic()` &mdash; injects component's static CSS.
+- `.render()` &mdash; injects instance's dynamic CSS.
+- `.unrender()` &mdash; removes instance's dynamic CSS.
 
 
 ### `.format(styles[, selector])`
