@@ -3,7 +3,6 @@ import memoizer from './memoizer';
 import SCOPE_SENTINEL from '../util/sentinel';
 import createStyleElement from '../util/createStyleElement';
 import {ClientSheet} from './client';
-import {Sheet} from './isomorphic';
 
 const PREFIX = process.env.FREESTYLER_PREFIX || '';
 
@@ -13,7 +12,7 @@ export class CacheSheet {
     memo = memoizer();
 
     constructor(collection) {
-        this.vsheet = new Sheet(collection);
+        this.vsheet = collection.create();
     }
 
     insert(atRulePrelude: TAtrulePrelude, selectorTemplate: string, prop: TProperty, value: TValue): string {

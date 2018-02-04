@@ -5,13 +5,14 @@
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf modules lib dist",
-    "test": "jest",
     "build": "npm run clean && npm run build-lib && npm run build-modules && npm run build-dist",
     "build-dist": "node rollup.js",
     "build-modules": "gulp build-modules",
     "build-lib": "npm run build-ts && npm run build-js",
     "build-ts": "gulp build-ts",
     "build-js": "babel src --out-dir lib",
+    "test": "jest",
+    "test:server": "mocha -r ts-node/register src/**/*.test-server.ts*",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "watch": "watch 'npm run build' ./src"
@@ -35,6 +36,11 @@
     "freestyler-util": "^1.3.4"
   },
   "devDependencies": {
-    "rewire": "^2.5.2"
+    "@types/chai": "4.1.1",
+    "rewire": "^2.5.2",
+    "mocha": "5.0.0",
+    "chai": "4.1.2",
+    "ts-node": "4.1.0",
+    "typescript": "2.6.2"
   }
 }

@@ -1,6 +1,7 @@
 import {TRule, TDeclarations} from '../ast/toStylesheet';
 import declarationSort from '../declaration/sort';
 import {list} from '../sheet';
+import {isClient} from 'freestyler-util';
 
 // Low cardinality virtual style properties that should be batched.
 //
@@ -77,12 +78,17 @@ const renderCacheable: (rule: TRule, atRulePrelude) => [string, TDeclarations] =
     for (let i = 0; i < declarations.length; i++) {
         const declaration = declarations[i];
         const [prop, value] = declaration;
-        if (HIGH_CARDINALITY_PROPERTIES[prop]) {
-            classNames += ' ' + list.csheet.insert(atRulePrelude, selectorTemplate, prop, value);
-        } else if (LOW_CARDINALITY_PROPERTIES[prop]) {
-            lowCardinalityDecls.push(declaration);
+
+        if (isClient) {
+            if (HIGH_CARDINALITY_PROPERTIES[prop]) {
+                classNames += ' ' + list.csheet.insert(atRulePrelude, selectorTemplate, prop, value);
+            } else if (LOW_CARDINALITY_PROPERTIES[prop]) {
+                lowCardinalityDecls.push(declaration);
+            } else {
+                infiniteCardinalityDecls.push(declaration);
+            }
         } else {
-            infiniteCardinalityDecls.push(declaration);
+            lowCardinalityDecls = declarations;
         }
     }
 

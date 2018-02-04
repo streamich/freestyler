@@ -29,7 +29,16 @@ export class SheetList {
         this.sheets = this.sheets.filter(s => sheet !== s);
     }
 
-    toString() {}
+    toString(): string {
+        const {sheets} = this;
+        let rawCss = '';
+
+        for (let i = 0; i < sheets.length; i++) {
+            rawCss += sheets[i].toString();
+        }
+
+        return rawCss;
+    }
 }
 
 export const list = new SheetList();

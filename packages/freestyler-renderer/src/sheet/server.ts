@@ -1,18 +1,18 @@
 import createStyleElement from '../util/createStyleElement';
 import removeDomElement from '../util/removeDomElement';
 import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
+import toCssDeclarations from '../ast/toCssDeclarations';
 
 type TMapBySelectors = {[selectors: string]: ServerRule};
 type TMapByAtRulePrelude = {[atRulePrelude: string]: TMapBySelectors};
 
 export class ServerRule {
-    name: string; // Class name.
     atRule: string;
     selectors: string;
     decl: TDeclarations = null;
+    rawCss: string = '';
 
-    constructor(name: string, atRulePrelude: string, selectors: string) {
-        this.name = name;
+    constructor(atRulePrelude: string, selectors: string) {
         this.atRule = atRulePrelude;
         this.selectors = selectors;
     }
@@ -21,14 +21,31 @@ export class ServerRule {
         this.decl = declarations;
     }
 
+    putRaw(rawCss: string) {
+        this.rawCss = rawCss;
+    }
+
     trunc() {
         this.decl = null;
+    }
+
+    toString() {
+        let rawCss = this.rawCss || toCssDeclarations(this.decl);
+
+        rawCss = `${this.selectors}{${rawCss}}`;
+
+        if (this.atRule) {
+            rawCss = `${this.atRule}{${rawCss}}`;
+        }
+
+        return rawCss;
     }
 }
 
 export class ServerSheet {
     map: TMapBySelectors | TMapByAtRulePrelude = {};
     col;
+    rules: ServerRule[] = [];
 
     constructor(collection) {
         this.col = collection;
@@ -41,7 +58,9 @@ export class ServerSheet {
     }
 
     add(atRulePrelude: TAtrulePrelude, selectors: string): ServerRule {
-        const rule = new ServerRule(name, atRulePrelude, selectors);
+        const rule = new ServerRule(atRulePrelude, selectors);
+
+        this.rules.push(rule);
 
         if (atRulePrelude) {
             if (!this.map[atRulePrelude]) {
@@ -58,5 +77,13 @@ export class ServerSheet {
     destroy() {
         this.map = null;
         this.col.destroy(this);
+    }
+
+    toString() {
+        let rawCss = '';
+
+        for (let i = 0; i < this.rules.length; i++) rawCss += this.rules[i].toString();
+
+        return rawCss;
     }
 }

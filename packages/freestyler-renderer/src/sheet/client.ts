@@ -6,12 +6,10 @@ type TMapBySelectors = {[selectors: string]: ClientRule};
 type TMapByAtRulePrelude = {[atRulePrelude: string]: TMapBySelectors};
 
 export class ClientRule {
-    name: string; // Class name.
     style: CSSStyleDeclaration;
     decl: TDeclarations = null;
 
-    constructor(name: string, style: CSSStyleDeclaration) {
-        this.name = name;
+    constructor(style: CSSStyleDeclaration) {
         this.style = style;
     }
 
@@ -60,7 +58,7 @@ export class ClientSheet {
         }
 
         // TODO: Benchmark `cssRules[length]` vs `cssRules.item(length)`.
-        const rule = new ClientRule(name, (cssRules[length] as CSSStyleRule).style);
+        const rule = new ClientRule((cssRules[length] as CSSStyleRule).style);
 
         if (atRulePrelude) {
             if (!this.map[atRulePrelude]) {
