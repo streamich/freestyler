@@ -2,10 +2,10 @@ import createStyleElement from '../util/createStyleElement';
 import removeDomElement from '../util/removeDomElement';
 import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
 
-type TMapBySelectors = {[selectors: string]: Rule};
+type TMapBySelectors = {[selectors: string]: ClientRule};
 type TMapByAtRulePrelude = {[atRulePrelude: string]: TMapBySelectors};
 
-export class Rule {
+export class ClientRule {
     name: string; // Class name.
     style: CSSStyleDeclaration;
     decl: TDeclarations = null;
@@ -29,17 +29,17 @@ export class Rule {
     }
 }
 
-export class Sheet {
+export class ClientSheet {
     el: HTMLStyleElement = createStyleElement();
     map: TMapBySelectors | TMapByAtRulePrelude = {};
 
-    get(atRulePrelude: TAtrulePrelude, selectors: TSelectors): Rule {
+    get(atRulePrelude: TAtrulePrelude, selectors: TSelectors): ClientRule {
         const {map} = this;
 
-        return !atRulePrelude ? map[selectors] as Rule : map[atRulePrelude] && map[atRulePrelude][selectors];
+        return !atRulePrelude ? map[selectors] as ClientRule : map[atRulePrelude] && map[atRulePrelude][selectors];
     }
 
-    add(atRulePrelude: TAtrulePrelude, selectors: string): Rule {
+    add(atRulePrelude: TAtrulePrelude, selectors: string): ClientRule {
         const sheet = this.el.sheet as CSSStyleSheet;
         const {cssRules} = sheet;
         const {length} = cssRules;
@@ -51,7 +51,7 @@ export class Sheet {
         }
 
         // TODO: Benchmark `cssRules[length]` vs `cssRules.item(length)`.
-        const rule = new Rule(name, (cssRules[length] as CSSStyleRule).style);
+        const rule = new ClientRule(name, (cssRules[length] as CSSStyleRule).style);
 
         if (atRulePrelude) {
             if (!this.map[atRulePrelude]) {
@@ -67,28 +67,5 @@ export class Sheet {
 
     destroy() {
         removeDomElement(this.el);
-    }
-}
-
-export class SSheet {
-    byId: {[id: string]: Sheet} = {};
-
-    set(id: string, atRulePrelude: TAtrulePrelude, selectors: TSelectors, declarations: TDeclarations) {
-        let sheet = this.byId[id];
-
-        if (!sheet) {
-            sheet = new Sheet();
-            sheet.add(atRulePrelude, selectors).put(declarations);
-            this.byId[id] = sheet;
-        }
-    }
-
-    remove(id: string) {
-        const sheet = this.byId[id];
-
-        if (sheet) {
-            sheet.destroy();
-            delete this.byId[id];
-        }
     }
 }

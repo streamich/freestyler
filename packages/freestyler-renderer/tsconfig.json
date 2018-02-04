@@ -2,11 +2,20 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
-    "removeComments": false,
+    "removeComments": true,
     "noImplicitAny": false,
     "sourceMap": false,
     "experimentalDecorators": true,
-    "jsx": "react"
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es5",
+      "es6",
+      "es7",
+      "es2015",
+      "scripthost",
+      "dom.iterable"
+    ]
   },
   "exclude": ["node_modules", "lib"]
 }
