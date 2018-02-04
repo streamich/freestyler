@@ -1,6 +1,6 @@
 {
   "name": "freestyler-renderer",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "freestyler CSS renderer",
   "main": "lib/index.js",
   "scripts": {
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "fast-extend": "0.0.2",
-    "freestyler-util": "^1.3.5"
+    "freestyler-util": "^1.3.6"
   },
   "devDependencies": {
     "@types/chai": "4.1.1",
