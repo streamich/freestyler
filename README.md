@@ -79,8 +79,8 @@ const App = () =>
 - [Terminology](./docs/en/terminology.md)
 - Generic &mdash; [low-level API](./docs/en/low-level-api.md)
 - Generic &mdash; [3<sup>rd</sup> generation API](./docs/en/3rd-gen.md)
-    - `rule` pattern
-    - `StyleSheet` with lazy rendering
+    - [`rule` pattern](./docs/en/rule.md)
+    - [`StyleSheet` interface](./docs/en/StyleSheet.md) with lazy rendering
 - React &mdash; 4<sup>th</sup> generation API
     - `styled` components
     - `@css` class decorator
