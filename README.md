@@ -2,14 +2,14 @@
 
 [![][npm-badge]][npm-url] [![][travis-badge]][travis-url]
 
-[**5<sup>th</sup> generation**](#fifth-generation) [React](https://reactjs.org/) styling library;
-it is *lightning fast*, super lean and gives every freestyler a *gazillion* of [features](#feat).
+[**5<sup>th</sup> generation**](#fifth-generation) [React styling library][npm-url] &mdash;
+it is *lightning fast*, *lean* with *gazillion* of [*feat*ures](#feat).
 
 ```
-    Yeah, straight from the top of my dome
-    As I rock, rock, rock, rock, rock the microphone
-    Yeah, straight from the top of my dome
-    As I rock, rock, rock, rock, rock the microphone…
+            Yeah, straight from the top of my dome
+            As I rock, rock, rock, rock, rock the microphone
+            Yeah, straight from the top of my dome
+            As I rock, rock, rock, rock, rock the microphone…
 ```
 
 - Bomfunk MC's &mdash; [Freestyler](https://www.youtube.com/watch?v=ymNFyxvIdaM)
@@ -44,17 +44,17 @@ npm i <a href="https://www.npmjs.com/package/freestyler">freestyler</a> --save
 
 ## Usage
 
-Import the library
+Import the library.
 
 ```js
 import {css} from 'freestyler';
 ```
 
-Style *stateful* components
+Decorate *stateful* components.
 
 ```jsx
 @css({
-    border: '1px solid red',
+    border: '1px solid tomato',
 })
 class App extends Component {
     render () {
@@ -63,11 +63,11 @@ class App extends Component {
 }
 ```
 
-Or, create stateless *"styled"* components
+Or, create *"styled" stateless* components.
 
 ```jsx
 const Bordered = css.div({
-    border: '1px solid red',
+    border: '1px solid tomato',
 });
 const App = () =>
     <Bordered>Hello world!</Bordered>;
@@ -94,9 +94,6 @@ const App = () =>
     - `facc` generator
 
 
------
-
-
 ## Packages
 
   - [`themestyler`](https://www.npmjs.com/package/themestyler) &mdash; theming primitives designed for `freestyler`, but can be used in any React project.
@@ -107,11 +104,8 @@ const App = () =>
 ## Environment variables
 
   - `FREESTYLER_PREFIX` &mdash; prefix to use for all CSS class names.
-  - `FREESTYLER_NUMBERS_TO_PX` &mdash; if set, `freestyler` will convert number values of declartions that
-  are not unitless to pixel units, like `width: 100` will be converted to `width: '100px'`. It will
-  ignore unitless declarations, for example, `zIndex: 10` will stay `zIndex: 10`.
-  - `FREESTYLER_JSXSTYLE_MEDIA_QUERIES` &mdash; if set, enables `jsxstyle` media query syntax in addition
-  to regular media query syntax.
+  - `FREESTYLER_NUMBERS_TO_PX` &mdash; will automatically add `px` to number values where necessary.
+  - `FREESTYLER_JSXSTYLE_MEDIA_QUERIES` &mdash; enables `jsxstyle` media query syntax.
 
 
 ## License
@@ -121,7 +115,7 @@ const App = () =>
 
 -------
 
-<center><i>Are you a freestyler?</i></center>
+<div style="text-align:center"><center><i>Are you a freestyler?</i></center></div>
 
 
 [npm-url]: https://www.npmjs.com/package/freestyler
