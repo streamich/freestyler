@@ -1,8 +1,6 @@
 ![libreact logo](./docs/assets/freestyler.png)
 
-# freestyler
-
-[![][npm-badge]][npm-url] [![][travis-badge]][travis-url]
+# freestyler [![][npm-badge]][npm-url] [![][travis-badge]][travis-url]
 
 [**5<sup>th</sup> generation**](#fifth-generation) [React styling library][npm-url] &mdash;
 it is *lightning fast*, *lean*, and with *gazillion* of [__*feat*ures__](#feat).
@@ -94,6 +92,7 @@ const App = () =>
     - `styleit` syntax
     - `jsxstyle`
     - `facc` generator
+- [Environment variables](./docs/en/env-vars.md)
 
 
 ## Packages
@@ -101,13 +100,6 @@ const App = () =>
   - [`themestyler`](https://www.npmjs.com/package/themestyler) &mdash; theming primitives designed for `freestyler`, but can be used in any React project.
   - [`freestyler-context`](https://www.npmjs.com/package/freestyler-context) &mdash; generic React context pub/sub that shallowly merges contexts with the same name.
   - [`freestyler-observable`](https://www.npmjs.com/package/freestyler-observable) &mdash; observable factory.
-
-
-## Environment variables
-
-  - `FREESTYLER_PREFIX` &mdash; prefix to use for all CSS class names.
-  - `FREESTYLER_NUMBERS_TO_PX` &mdash; will automatically add `px` to number values where necessary.
-  - `FREESTYLER_JSXSTYLE_MEDIA_QUERIES` &mdash; enables `jsxstyle` media query syntax.
 
 
 ## License
