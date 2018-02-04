@@ -79,7 +79,7 @@ const App = () =>
 ## Reference
 
 - [Terminology](./docs/en/terminology.md)
-- Generic &mdash; low-level API
+- Generic &mdash; [low-level API](./docs/en/low-level-api.md)
 - Generic &mdash; 3<sup>rd</sup> generation API
     - `rule` pattern
     - `StyleSheet` with lazy rendering
