@@ -7,8 +7,7 @@ import toCss from './ast/toCss';
 import toCssRule from './ast/toCssRule';
 import {IRenderer} from './util';
 import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
-import {Sheet} from './sheet/isomorphic';
-import SSheet from './sheet/SSheet';
+import {list} from './sheet';
 import SCOPE_SENTINEL from './util/sentinel';
 import declarationIntersectStrict from './declaration/intersectStrict';
 import declarationSubtract from './declaration/subtract';
@@ -61,16 +60,14 @@ class DeclarationCache {
 }
 
 class Renderer implements IRenderer {
-    sheet = new SSheet();
-
     toStylesheet(styles: TStyles, selector: string): TStyleSheet {
         styles = hoistGlobalsAndWrapContext(styles, selector);
         return toStyleSheet(styles);
     }
 
     private putDecls(id: string, selector: string, declarations: TDeclarations, atRulePrelude?: TAtrulePrelude) {
-        this.sheet.set(id, atRulePrelude, selector, declarations);
-        // this.sheet.put(id, toCssRule(selector, declarations, atRulePrelude));
+        list.ssheet.set(id, atRulePrelude, selector, declarations);
+        // list.ssheet.set(id, toCssRule(selector, declarations, atRulePrelude));
     }
 
     private putInfStatics(Comp, instance, key, atRulePrelude, selectorTemplate, declarations) {
@@ -107,7 +104,7 @@ class Renderer implements IRenderer {
         let dsheet = instance[$$dynamics];
 
         if (!dsheet) {
-            dsheet = new Sheet();
+            dsheet = list.create();
             hidden(instance, $$dynamics, dsheet);
         }
 
@@ -220,7 +217,7 @@ class Renderer implements IRenderer {
             const cache = cacheMap[key];
             cache.cnt--;
             if (!cache.cnt) {
-                this.sheet.remove(cache.id);
+                list.ssheet.remove(cache.id);
                 if (Comp[$$statics] === cache) {
                     delete Comp[$$statics];
                 }

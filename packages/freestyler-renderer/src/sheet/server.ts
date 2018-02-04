@@ -28,9 +28,10 @@ export class ServerRule {
 
 export class ServerSheet {
     map: TMapBySelectors | TMapByAtRulePrelude = {};
+    col;
 
-    constructor() {
-        sheets.add(this);
+    constructor(collection) {
+        this.col = collection;
     }
 
     get(atRulePrelude: TAtrulePrelude, selectors: TSelectors): ServerRule {
@@ -56,24 +57,6 @@ export class ServerSheet {
 
     destroy() {
         this.map = null;
-        sheets.sheets = sheets.sheets.filter(sheet => sheet !== this);
+        this.col.destroy(this);
     }
 }
-
-export class ServerSheetCollection {
-    sheets: ServerSheet[] = [];
-
-    add(sheet: ServerSheet) {
-        this.sheets.push(sheet);
-    }
-
-    toString() {}
-}
-
-export let sheets: ServerSheetCollection = null;
-
-export const createNewCollection = () => {
-    sheets = new ServerSheetCollection();
-
-    return sheets;
-};

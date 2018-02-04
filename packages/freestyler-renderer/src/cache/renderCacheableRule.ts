@@ -1,8 +1,6 @@
 import {TRule, TDeclarations} from '../ast/toStylesheet';
 import declarationSort from '../declaration/sort';
-import CSheet from './CSheet';
-
-const vsheet = new CSheet();
+import {list} from '../sheet';
 
 // Low cardinality virtual style properties that should be batched.
 //
@@ -80,7 +78,7 @@ const renderCacheable: (rule: TRule, atRulePrelude) => [string, TDeclarations] =
         const declaration = declarations[i];
         const [prop, value] = declaration;
         if (HIGH_CARDINALITY_PROPERTIES[prop]) {
-            classNames += ' ' + vsheet.insert(atRulePrelude, selectorTemplate, prop, value);
+            classNames += ' ' + list.csheet.insert(atRulePrelude, selectorTemplate, prop, value);
         } else if (LOW_CARDINALITY_PROPERTIES[prop]) {
             lowCardinalityDecls.push(declaration);
         } else {
@@ -90,7 +88,7 @@ const renderCacheable: (rule: TRule, atRulePrelude) => [string, TDeclarations] =
 
     if (lowCardinalityDecls.length) {
         declarationSort(lowCardinalityDecls);
-        classNames += ' ' + vsheet.insertBatch(atRulePrelude, selectorTemplate, lowCardinalityDecls);
+        classNames += ' ' + list.csheet.insertBatch(atRulePrelude, selectorTemplate, lowCardinalityDecls);
     }
 
     return [classNames, infiniteCardinalityDecls];

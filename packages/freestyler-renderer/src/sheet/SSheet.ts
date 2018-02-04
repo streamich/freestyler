@@ -1,15 +1,19 @@
-import {Sheet} from './isomorphic';
 import {ClientSheet} from './client';
 import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
 
 export class SSheet {
+    list;
     byId: {[id: string]: ClientSheet} = {};
+
+    constructor(list) {
+        this.list = list;
+    }
 
     set(id: string, atRulePrelude: TAtrulePrelude, selectors: TSelectors, declarations: TDeclarations) {
         let sheet = this.byId[id];
 
         if (!sheet) {
-            sheet = new Sheet();
+            sheet = this.list.create();
             sheet.add(atRulePrelude, selectors).put(declarations);
             this.byId[id] = sheet;
         }

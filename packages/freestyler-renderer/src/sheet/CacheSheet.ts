@@ -2,23 +2,18 @@ import {TAtrulePrelude, TDeclarations, TProperty, TPseudo, TSelectors, TValue} f
 import memoizer from './memoizer';
 import SCOPE_SENTINEL from '../util/sentinel';
 import createStyleElement from '../util/createStyleElement';
+import {ClientSheet} from './client';
+import {Sheet} from './isomorphic';
 
 const PREFIX = process.env.FREESTYLER_PREFIX || '';
 
-class CSheet {
-    sheet: CSSStyleSheet;
+// CacheSheet - rules rendered in cache sheet never move again.
+export class CacheSheet {
+    vsheet: ClientSheet;
     memo = memoizer();
 
-    // Used only in development mode;
-    private node;
-
-    constructor() {
-        const node = createStyleElement();
-        this.sheet = node.sheet as CSSStyleSheet;
-
-        if (process.env.NODE_ENV !== 'production') {
-            this.node = node;
-        }
+    constructor(collection) {
+        this.vsheet = new Sheet(collection);
     }
 
     insert(atRulePrelude: TAtrulePrelude, selectorTemplate: string, prop: TProperty, value: TValue): string {
@@ -59,29 +54,8 @@ class CSheet {
     }
 
     inject(atRulePrelude: TAtrulePrelude, selectors: string, rawDeclarations: string) {
-        const {sheet} = this;
-        let ruleStr = `${selectors}{${rawDeclarations}}`;
-        if (atRulePrelude) {
-            ruleStr = `${atRulePrelude}{${ruleStr}}`;
-        }
+        const rule = this.vsheet.add(atRulePrelude, selectors);
 
-        if (process.env.NODE_ENV === 'production') {
-            sheet.insertRule(ruleStr, sheet.cssRules.length);
-        } else {
-            try {
-                const {innerText} = this.node;
-
-                // We use `insertRule` here just to see if it throws. If it
-                // throws, we will show the error in development mode.
-                sheet.insertRule(ruleStr, sheet.cssRules.length);
-
-                this.node.innerText = innerText + ' ' + ruleStr;
-            } catch (error) {
-                console.warn('Error inserting CSS rule: ' + ruleStr);
-                console.error(error);
-            }
-        }
+        rule.putRaw(rawDeclarations);
     }
 }
-
-export default CSheet;

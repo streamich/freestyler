@@ -23,6 +23,10 @@ export class ClientRule {
         for (let i = 0; i < len; i++) style.setProperty.apply(style, declarations[i]);
     }
 
+    putRaw(rawCss: string) {
+        this.style.cssText = rawCss;
+    }
+
     trunc() {
         this.decl = null;
         this.style.cssText = '';
@@ -32,6 +36,11 @@ export class ClientRule {
 export class ClientSheet {
     el: HTMLStyleElement = createStyleElement();
     map: TMapBySelectors | TMapByAtRulePrelude = {};
+    col;
+
+    constructor(collection) {
+        this.col = collection;
+    }
 
     get(atRulePrelude: TAtrulePrelude, selectors: TSelectors): ClientRule {
         const {map} = this;
@@ -67,5 +76,6 @@ export class ClientSheet {
 
     destroy() {
         removeDomElement(this.el);
+        this.col.destroy(this);
     }
 }
