@@ -2,6 +2,8 @@
 
 Given a CSS-like object returns a string of class names.
 
+__Example__
+
 ```js
 import rule from 'freestyler/lib/rule';
 

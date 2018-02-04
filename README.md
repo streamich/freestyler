@@ -1,6 +1,8 @@
 ![libreact logo](./docs/assets/freestyler.png)
 
-# freestyler [![][npm-badge]][npm-url] [![][travis-badge]][travis-url]
+# freestyler
+
+[![][npm-badge]][npm-url] [![][travis-badge]][travis-url]
 
 [**5<sup>th</sup> generation**](#fifth-generation) [React styling library][npm-url] &mdash;
 it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
@@ -9,7 +11,7 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
         Yeah, straight from the top of my dome
             As I rock, rock, rock, rock, rock the microphone
                 Yeah, straight from the top of my dome
-                    As I rock, rock, rock, rock, rock the microphone…
+                    As I rock, rock, rock, rock, rock the microphone...
 ```
 
 - Bomfunk MC's &mdash; [Freestyler](https://www.youtube.com/watch?v=ymNFyxvIdaM)
@@ -17,22 +19,22 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 
 ## feat.
 
-- [Fifth generation](./docs/feat/fifth-generation.md)
-- [Lightweight](./docs/feat/lightweight.md)
-- [Lightning fast](./docs/feat/fast.md)
-- [Just-in-time CSS](./docs/feat/jit-css.md)
-- [Code splitting](./docs/feat/code-splitting.md)
-- [Dead code elimination](./docs/feat/dead-code-elimination.md)
-- [Variables](./docs/feat/variables.md)
-- [Scoped styles without selectors](./docs/feat/scoped.md)
-- [Nested selectors](./docs/feat/nesting.md)
-- [Mixins](./docs/feat/mixins.md)
-- [Media queries, keyframes, ...](./docs/feat/media.md)
-- [Atoms](./docs/feat/atoms.md)
-- [Global styles](./docs/feat/global.md)
-- [CSS Resets](./docs/feat/resets.md)
-- [*"Styled"* component generator](./docs/feat/styled-components.md)
-- [Theming](./docs/feat/theming.md)
+- [Fifth generation](./docs/en/feat/fifth-generation.md)
+- [Lightweight](./docs/en/feat/lightweight.md)
+- [Lightning fast](./docs/en/feat/fast.md)
+- [Just-in-time CSS](./docs/en/feat/jit-css.md)
+- [Code splitting](./docs/en/feat/code-splitting.md)
+- [Dead code elimination](./docs/en/feat/dead-code-elimination.md)
+- [Variables](./docs/en/feat/variables.md)
+- [Scoped styles without selectors](./docs/en/feat/scoped.md)
+- [Nested selectors](./docs/en/feat/nesting.md)
+- [Mixins](./docs/en/feat/mixins.md)
+- [Media queries, keyframes, ...](./docs/en/feat/media.md)
+- [Atoms](./docs/en/feat/atoms.md)
+- [Global styles](./docs/en/feat/global.md)
+- [CSS Resets](./docs/en/feat/resets.md)
+- [*"Styled"* component generator](./docs/en/feat/styled-components.md)
+- [Theming](./docs/en/feat/theming.md)
 
 
 ## Installation
@@ -77,18 +79,18 @@ const App = () =>
 ## Reference
 
 - [Terminology](./docs/en/terminology.md)
-- __Generic__ &mdash; [low-level API](./docs/en/low-level-api.md)
-- __Generic__ &mdash; [3<sup>rd</sup> generation API](./docs/en/3rd-gen.md)
+- __Generic,__ [low-level API](./docs/en/low-level-api.md)
+- __Generic,__ [3<sup>rd</sup> generation API](./docs/en/3rd-gen.md)
     - [`rule` pattern](./docs/en/rule.md)
     - [`StyleSheet` interface](./docs/en/StyleSheet.md) with lazy rendering
-- __React__ &mdash; 4<sup>th</sup> generation API
-    - `styled` components
+- __React,__ 4<sup>th</sup> generation API
+    - [`styled` components](./docs/en/styled.md)
     - `@css` class decorator
     - `@css` render method decorator
     - `hoc` generator
     - Component
     - hyperstyle
-- __React__ &mdash; 5<sup>th</sup> generation API
+- __React,__ 5<sup>th</sup> generation API
     - `styleit` syntax
     - `jsxstyle`
     - `facc` generator
@@ -97,6 +99,7 @@ const App = () =>
 
 ## Packages
 
+  - [`libreact`](https://github.com/MailOnline/libreact) &mdash; must-have utilities for every React project.
   - [`themestyler`](https://www.npmjs.com/package/themestyler) &mdash; theming primitives designed for `freestyler`, but can be used in any React project.
   - [`freestyler-context`](https://www.npmjs.com/package/freestyler-context) &mdash; generic React context pub/sub that shallowly merges contexts with the same name.
   - [`freestyler-observable`](https://www.npmjs.com/package/freestyler-observable) &mdash; observable factory.
