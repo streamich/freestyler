@@ -7,8 +7,7 @@ import toCss from './ast/toCss';
 import toCssRule from './ast/toCssRule';
 import {IRenderer} from './util';
 import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
-import SSheet from './static/SSheet';
-import DSheet from './sheet/DSheet';
+import {Sheet, SSheet} from './sheet/sheet';
 import SCOPE_SENTINEL from './util/sentinel';
 import declarationIntersectStrict from './declaration/intersectStrict';
 import declarationSubtract from './declaration/subtract';
@@ -107,7 +106,7 @@ class Renderer implements IRenderer {
         let dsheet = instance[$$dynamics];
 
         if (!dsheet) {
-            dsheet = new DSheet();
+            dsheet = new Sheet();
             hidden(instance, $$dynamics, dsheet);
         }
 
