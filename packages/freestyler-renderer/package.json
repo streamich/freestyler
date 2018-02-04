@@ -1,6 +1,6 @@
 {
   "name": "freestyler-renderer",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "freestyler CSS renderer",
   "main": "lib/index.js",
   "scripts": {
@@ -33,13 +33,14 @@
   },
   "dependencies": {
     "fast-extend": "0.0.2",
-    "freestyler-util": "^1.3.4"
+    "freestyler-util": "^1.3.5"
   },
   "devDependencies": {
     "@types/chai": "4.1.1",
-    "rewire": "^2.5.2",
-    "mocha": "5.0.0",
     "chai": "4.1.2",
+    "mocha": "5.0.0",
+    "rewire": "^2.5.2",
+    "rimraf": "^2.6.2",
     "ts-node": "4.1.0",
     "typescript": "2.6.2"
   }
