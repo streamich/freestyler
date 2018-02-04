@@ -1,15 +1,17 @@
+![libreact logo](./docs/assets/freestyler.png)
+
 # freestyler
 
 [![][npm-badge]][npm-url] [![][travis-badge]][travis-url]
 
 [**5<sup>th</sup> generation**](#fifth-generation) [React styling library][npm-url] &mdash;
-it is *lightning fast*, *lean* with *gazillion* of [*feat*ures](#feat).
+it is *lightning fast*, *lean*, and with *gazillion* of [__*feat*ures__](#feat).
 
 ```
-            Yeah, straight from the top of my dome
-            As I rock, rock, rock, rock, rock the microphone
-            Yeah, straight from the top of my dome
-            As I rock, rock, rock, rock, rock the microphone…
+        Yeah, straight from the top of my dome
+        As I rock, rock, rock, rock, rock the microphone
+        Yeah, straight from the top of my dome
+        As I rock, rock, rock, rock, rock the microphone…
 ```
 
 - Bomfunk MC's &mdash; [Freestyler](https://www.youtube.com/watch?v=ymNFyxvIdaM)

@@ -1,0 +1,131 @@
+0 silly input [ 'build' ]
+1 silly flags { _: [ 'run' ],
+1 silly flags   'reject-cycles': false,
+1 silly flags   rejectCycles: false,
+1 silly flags   script: 'build',
+1 silly flags   args: [] }
+2 verbose rootPath /Users/vadimdaleckis/dev/freestyler
+3 info version 2.8.0
+4 silly existsSync /Users/vadimdaleckis/dev/freestyler/VERSION
+5 silly initialize attempt
+6 warn ECYCLE Encountered a cycle in the dependency graph.This may cause instability! Packages in cycle are: "freestyler-context", "freestyler-observable"
+7 silly packages [ 'freestyler-observable' ]
+8 silly initialize success
+9 silly execute attempt
+10 silly runScriptInDir build [] freestyler-util
+11 silly getExecOpts { cwd: '/Users/vadimdaleckis/dev/freestyler/packages/freestyler-util' }
+12 silly runScriptInDir build [] themestyler
+13 silly getExecOpts { cwd: '/Users/vadimdaleckis/dev/freestyler/packages/themestyler' }
+14 silly runScriptInDir build [] freestyler-renderer
+15 silly getExecOpts { cwd: '/Users/vadimdaleckis/dev/freestyler/packages/freestyler-renderer' }
+16 silly runScriptInDir build [] freestyler
+17 silly getExecOpts { cwd: '/Users/vadimdaleckis/dev/freestyler/packages/freestyler' }
+18 silly runScriptInDir build [] freestyler-demos
+19 silly getExecOpts { cwd: '/Users/vadimdaleckis/dev/freestyler/packages/freestyler-demos' }
+20 error build Errored while running script in 'freestyler-demos-all-in-one'
+21 error execute callback with error
+22 error Error: Command failed: npm run build
+22 error npm ERR! code ELIFECYCLE
+22 error npm ERR! errno 2
+22 error npm ERR! freestyler-demos-all-in-one@1.0.0 build: `webpack`
+22 error npm ERR! Exit status 2
+22 error npm ERR!
+22 error npm ERR! Failed at the freestyler-demos-all-in-one@1.0.0 build script.
+22 error npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
+22 error
+22 error npm ERR! A complete log of this run can be found in:
+22 error npm ERR!     /Users/vadimdaleckis/.npm/_logs/2018-02-04T19_32_12_263Z-debug.log
+22 error
+22 error > freestyler-demos-all-in-one@1.0.0 build /Users/vadimdaleckis/dev/freestyler/packages/freestyler-demos
+22 error > webpack
+22 error
+22 error ts-loader: Using typescript@2.5.3 and /Users/vadimdaleckis/dev/freestyler/packages/freestyler-demos/tsconfig.json
+22 error Hash: 9db7d8376e995a3b749b
+22 error Version: webpack 3.8.1
+22 error Time: 9107ms
+22 error         Asset     Size  Chunks                    Chunk Names
+22 error      demo1.js  2.11 MB       7  [emitted]  [big]  demo1
+22 error        css.js  2.13 MB       0  [emitted]  [big]  css
+22 error       todo.js  2.13 MB       2  [emitted]  [big]  todo
+22 error     button.js  2.12 MB       3  [emitted]  [big]  button
+22 error   jsxstyle.js  2.12 MB       4  [emitted]  [big]  jsxstyle
+22 error hyperstyle.js  2.12 MB       5  [emitted]  [big]  hyperstyle
+22 error       wrap.js  2.11 MB       6  [emitted]  [big]  wrap
+22 error  Component.js  2.12 MB       1  [emitted]  [big]  Component
+22 error    Styleit.js  2.12 MB       8  [emitted]  [big]  Styleit
+22 error      index.js  2.05 MB       9  [emitted]  [big]  index
+22 error StyleSheet.js  1.73 MB      10  [emitted]  [big]  StyleSheet
+22 error       rule.js  1.73 MB      11  [emitted]  [big]  rule
+22 error     styled.js   1.6 MB      12  [emitted]  [big]  styled
+22 error      balls.js  1.61 MB      13  [emitted]  [big]  balls
+22 error  [104] ../freestyler/src/react/wrap.ts 3.56 kB {6} {7} [built]
+22 error  [106] ./index.ts 12.9 kB {9} [built] [1 error]
+22 error  [111] ./styled.ts 2.76 kB {12} [built] [2 errors]
+22 error  [112] ./balls.ts 4.61 kB {13} [built] [1 error]
+22 error  [113] ./button.ts 4.08 kB {3} [built]
+22 error  [114] ./todo.ts 5.77 kB {2} [built]
+22 error  [115] ./rule.ts 1.59 kB {11} [built]
+22 error  [116] ./StyleSheet.ts 1.71 kB {10} [built]
+22 error  [118] ./Styleit.ts 2.42 kB {8} [built]
+22 error  [119] ./jsxstyle.ts 1.67 kB {4} [built]
+22 error  [121] ./Component.ts 2.12 kB {1} [built]
+22 error  [123] ./css.ts 3.02 kB {0} [built]
+22 error  [128] ./wrap.ts 1.98 kB {6} [built]
+22 error  [129] ./demo1.ts 2 kB {7} [built]
+22 error  [130] ./hyperstyle.ts 1.68 kB {5} [built]
+22 error     + 117 hidden modules
+22 error
+22 error ERROR in ./styled.ts
+22 error (3,17): error TS2307: Cannot find module '../../freestyler/src'.
+22 error
+22 error ERROR in ./styled.ts
+22 error (4,22): error TS2307: Cannot find module '../../freestyler/src/globals/CssResetTripoli'.
+22 error
+22 error ERROR in ./index.ts
+22 error (4,19): error TS2307: Cannot find module '../../freestyler/src'.
+22 error
+22 error ERROR in ./balls.ts
+22 error (3,19): error TS2307: Cannot find module '../../freestyler/src/index'.
+22 error
+22 error ERROR in ../freestyler-renderer/node_modules/freestyler-util/index.ts
+22 error Module build failed: Error: Typescript emitted no output for /Users/vadimdaleckis/dev/freestyler/packages/freestyler-renderer/node_modules/freestyler-util/index.ts.
+22 error You should not need to recompile .ts files in node_modules.
+22 error Please contact the package author to advise them to use --declaration --outDir.
+22 error More https://github.com/Microsoft/TypeScript/issues/12358
+22 error     at successLoader (/Users/vadimdaleckis/dev/freestyler/packages/freestyler-demos/node_modules/ts-loader/dist/index.js:47:15)
+22 error     at Object.loader (/Users/vadimdaleckis/dev/freestyler/packages/freestyler-demos/node_modules/ts-loader/dist/index.js:29:12)
+22 error  @ ../freestyler-renderer/lib/Renderer.js 3:24-50
+22 error  @ ../freestyler/src/renderer.ts
+22 error  @ ../freestyler/src/rule.ts
+22 error  @ ./rule.ts
+22 error
+22 error ERROR in ../freestyler-renderer/node_modules/freestyler-util/supportsCssVariables.ts
+22 error Module build failed: Error: Typescript emitted no output for /Users/vadimdaleckis/dev/freestyler/packages/freestyler-renderer/node_modules/freestyler-util/supportsCssVariables.ts.
+22 error You should not need to recompile .ts files in node_modules.
+22 error Please contact the package author to advise them to use --declaration --outDir.
+22 error More https://github.com/Microsoft/TypeScript/issues/12358
+22 error     at successLoader (/Users/vadimdaleckis/dev/freestyler/packages/freestyler-demos/node_modules/ts-loader/dist/index.js:47:15)
+22 error     at Object.loader (/Users/vadimdaleckis/dev/freestyler/packages/freestyler-demos/node_modules/ts-loader/dist/index.js:29:12)
+22 error  @ ../freestyler-renderer/lib/Renderer.js 4:29-76
+22 error  @ ../freestyler/src/renderer.ts
+22 error  @ ../freestyler/src/rule.ts
+22 error  @ ./rule.ts
+22 error
+22 error ERROR in ./index.ts
+22 error Module not found: Error: Can't resolve '../../freestyler/src' in '/Users/vadimdaleckis/dev/freestyler/packages/freestyler-demos'
+22 error  @ ./index.ts 22:12-43
+22 error
+22 error ERROR in ./styled.ts
+22 error Module not found: Error: Can't resolve '../../freestyler/src' in '/Users/vadimdaleckis/dev/freestyler/packages/freestyler-demos'
+22 error  @ ./styled.ts 21:12-43
+22 error
+22 error ERROR in ./styled.ts
+22 error Module not found: Error: Can't resolve '../../freestyler/src/globals/CssResetTripoli' in '/Users/vadimdaleckis/dev/freestyler/packages/freestyler-demos'
+22 error  @ ./styled.ts 22:24-79
+22 error
+22 error ERROR in ./balls.ts
+22 error Module not found: Error: Can't resolve '../../freestyler/src/index' in '/Users/vadimdaleckis/dev/freestyler/packages/freestyler-demos'
+22 error  @ ./balls.ts 15:14-51
+22 error
+22 error     at Promise.all.then.arr (/Users/vadimdaleckis/dev/freestyler/node_modules/lerna/node_modules/execa/index.js:236:11)
+22 error     at <anonymous>
