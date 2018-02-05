@@ -90,7 +90,7 @@ See more interfaces below.
     - [`@css()` `.render()` Decorator Interface](./docs/en/css-render-decorator.md)
     - [`hoc()` Generator Interface](./docs/en/hoc-generator.md)
     - [`Component` Class Interface](./docs/en/component-class.md)
-    - hyperstyle
+    - [`hyperstyle()` `styleName` Interface](./docs/en/hyperstyle.md)
 - __React:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
     - `styleit` Interface
     - `jsxstyle` Interface
