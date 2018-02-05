@@ -1,4 +1,4 @@
-# `styled` Component
+# `styled()()` Component Interface
 
 `styled` component syntax allows you to "attach" styles to some HTML element. It is a [HOC](https://mailonline.github.io/libreact/en/Introduction.html#hoc)
 that receives a CSS-like object and returns a component that that will be styled accordingly.
