@@ -1,4 +1,4 @@
-import {TCssTemplate, TCssDynamicTemplate} from 'freestyler-renderer/src/types';
+import {TCssTemplate, TCssDynamicTemplate} from '../../renderer/types';
 import transformComponentStatic from './componentStatic';
 import transformComponentDynamic from './componentDynamic';
 import {sym, hidden} from 'freestyler-util';

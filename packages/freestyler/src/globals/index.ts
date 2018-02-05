@@ -1,5 +1,5 @@
 import styled from '../react/styled';
-import {TCssTemplate} from 'freestyler-renderer/src/types';
+import {TCssTemplate} from '../renderer/types';
 
 const Global = () => null;
 

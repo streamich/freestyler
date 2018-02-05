@@ -1,5 +1,5 @@
 import {styleit} from './styleit';
-import {IStyles, TCssTemplate} from 'freestyler-renderer/src/types';
+import {IStyles, TCssTemplate} from '../renderer/types';
 
 export type TCssTemplateMap = {[name: string]: TCssTemplate};
 

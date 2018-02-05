@@ -1,4 +1,4 @@
-import {TCssTemplate, TElement} from 'freestyler-renderer/src/types';
+import {TCssTemplate, TElement} from '../renderer/types';
 import wrap from './wrap';
 
 function facc(Element: TElement = 'div', template: TCssTemplate = null) {

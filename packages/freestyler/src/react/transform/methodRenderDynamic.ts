@@ -1,5 +1,5 @@
 import {cloneElement} from 'react';
-import {TCssDynamicTemplate} from 'freestyler-renderer/src/types';
+import {TCssDynamicTemplate} from '../../renderer/types';
 import {$$el} from './util';
 import renderer from '../../renderer';
 import * as extend from 'fast-extend';

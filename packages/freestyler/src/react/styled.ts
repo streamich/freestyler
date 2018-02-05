@@ -1,4 +1,4 @@
-import {TComponentConstructor, TCssTemplate, TElement, TStyled} from 'freestyler-renderer/src/types';
+import {TComponentConstructor, TCssTemplate, TElement, TStyled} from '../renderer/types';
 import wrap from './wrap';
 
 function styled(Element: TElement): TStyled<TComponentConstructor> {

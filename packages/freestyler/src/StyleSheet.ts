@@ -1,4 +1,4 @@
-import {IStyles} from 'freestyler-renderer/src/types';
+import {IStyles} from './renderer/types';
 import rule from './rule';
 
 const StyleSheet = {

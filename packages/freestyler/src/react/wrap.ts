@@ -1,8 +1,8 @@
 import {Component, createElement as h, cloneElement} from 'react';
 import {sym, hidden} from 'freestyler-util';
-import {getName} from 'freestyler-renderer/lib/util';
+import {getName} from '../renderer/util';
 import renderer from '../renderer';
-import {TElement, TCssTemplate, TCssDynamicTemplate} from 'freestyler-renderer/src/types';
+import {TElement, TCssTemplate, TCssDynamicTemplate} from '../renderer/types';
 import * as extend from 'fast-extend';
 
 export type TWrap = (
