@@ -88,7 +88,7 @@ See more interfaces below.
     - [`@css` Static Class Decorator Interface](./docs/en/css-static-class-decorator.md)
     - [`@css()` Class Decorator Interface](./docs/en/css-class-decorator.md)
     - [`@css()` `.render()` Decorator Interface](./docs/en/css-render-decorator.md)
-    - `hoc` generator
+    - [`hoc()` Generator Interface](./docs/en/hoc-generator.md)
     - Component
     - hyperstyle
 - __React:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
