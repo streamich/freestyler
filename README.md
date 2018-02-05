@@ -80,10 +80,10 @@ See more interfaces below.
 
 - [Terminology](./docs/en/terminology.md)
 - __Generic:__ [Low-level API](./docs/en/low-level-api.md)
-- __Generic:__ [3<sup>rd</sup> Generation Interfaces](./docs/en/3rd-gen.md)
+- __Generic:__ [__3<sup>rd</sup> Generation Interfaces__](./docs/en/3rd-gen.md)
     - [`rule()` Interface](./docs/en/rule.md)
     - [`StyleSheet.create()` Interface](./docs/en/StyleSheet.md) with lazy rendering
-- __React:__ [4<sup>th</sup> Generation Interfaces](./docs/en/4th-gen.md)
+- __React:__ [__4<sup>th</sup> Generation Interfaces__](./docs/en/4th-gen.md)
     - [`styled()()` Component Interface](./docs/en/styled.md)
     - [`@css` Static Class Decorator Interface](./docs/en/css-static-class-decorator.md)
     - [`@css()` Class Decorator Interface](./docs/en/css-class-decorator.md)
@@ -91,10 +91,10 @@ See more interfaces below.
     - `hoc` generator
     - Component
     - hyperstyle
-- __React:__ 5<sup>th</sup> Generation Interfaces
-    - `styleit` syntax
-    - `jsxstyle`
-    - `facc` generator
+- __React:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
+    - `styleit` Interface
+    - `jsxstyle` Interface
+    - `facc` Generator Interface
 - [Environment variables](./docs/en/env-vars.md)
 
 

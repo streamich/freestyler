@@ -1,10 +1,10 @@
 # `@css` Static Class Decorator Interface
 
 Allows you to style your stateful React components using a `@css` class decorator. You specify
-your components styling using `static css` class method and `css` instance property.
+component's styling using `static css` class property and `css` instance property.
 
 Class static property template will be generated and injected into the page only once, but
-CSS template specified on instance `css` property will be update on every component re-render.
+CSS template specified on instance `css` property will be update on every component's re-render.
 
 ## Usage
 
@@ -52,6 +52,26 @@ CSS will get updated on every re-render.
 ```jsx
 @css
 class App extends Component {
+    css = ({props}) => ({
+        border: '1px solid ' + (props.color || 'tomato')
+    });
+
+    render () {
+        return <div>Hello world!</div>;
+    }
+}
+```
+
+Use combination of static and dynamic styles for best performance &mdash; use dynamic template only
+for styles that will change.
+
+```jsx
+@css
+class App extends Component {
+    static css = {
+        bg: 'yellow'
+    };
+
     css = ({props}) => ({
         border: '1px solid ' + (props.color || 'tomato')
     });
