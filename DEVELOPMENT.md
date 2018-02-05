@@ -15,5 +15,5 @@ npm run build
 Publish packages
 
 ```shell
-npx lerna publish
+npm run publish
 ```

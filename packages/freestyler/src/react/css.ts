@@ -1,5 +1,5 @@
 import {Component, cloneElement} from 'react';
-import {ICss, IStyles} from 'freestyler-renderer/src/types';
+import {ICss, IStyles} from '../renderer/types';
 import decoratorCssComponent from './decorator/cssComponent';
 import decoratorClass from './decorator/class';
 import decoratorMethod from './decorator/method';

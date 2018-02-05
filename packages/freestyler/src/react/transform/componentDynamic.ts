@@ -1,4 +1,4 @@
-import {TCssDynamicTemplate} from 'freestyler-renderer/src/types';
+import {TCssDynamicTemplate} from '../../renderer/types';
 import transformMethodRenderDynamic from './methodRenderDynamic';
 import transformMethodComponentWillUnmountDynamic from './methodComponentWillUnmountDynamic';
 

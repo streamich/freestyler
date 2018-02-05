@@ -22,3 +22,4 @@ function camelCase(str) {
     return str.replace(REVERSE_REGEX, function (match) { return match.slice(1).toUpperCase(); });
 }
 exports.camelCase = camelCase;
+exports.isClient = typeof window === 'object';

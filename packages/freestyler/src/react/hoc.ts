@@ -1,4 +1,4 @@
-import {TCssTemplate, TElement, THoc} from 'freestyler-renderer/src/types';
+import {TCssTemplate, TElement, THoc} from '../renderer/types';
 import wrap from './wrap';
 
 function hoc(template?: TCssTemplate, dynamicTemplate?: TCssTemplate): THoc {

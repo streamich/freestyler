@@ -1,5 +1,5 @@
 import {cloneElement} from 'react';
-import {TCssTemplate} from 'freestyler-renderer/src/types';
+import {TCssTemplate} from '../../renderer/types';
 import renderer from '../../renderer';
 
 const transformComponentStatic = (Comp, staticTemplate: TCssTemplate) => {

@@ -1,5 +1,5 @@
 import {createElement as h, cloneElement, Component} from 'react';
-import {IStyles} from 'freestyler-renderer/src/types';
+import {IStyles} from '../renderer/types';
 import stylesToClassesAndCss from './transform/stylesToClassesAndCss';
 
 export type TStyleitFacc = (classNames: string) => any;
