@@ -91,7 +91,7 @@ See more interfaces below.
     - [`Component` Class Interface](./docs/en/component-class.md)
     - [`hyperstyle()` `styleName` Interface](./docs/en/hyperstyle.md)
 - __React.js:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
-    - `styleit()` and `<Styleit>` Interfaces
+    - [`styleit()` and `<Styleit>` Interfaces](./docs/en/styleit.md)
     - `jsxstyle` Interface
     - `facc` Generator Interface
 - [Environment variables](./docs/en/env-vars.md)
