@@ -1,7 +1,7 @@
 import {Component, createElement as h} from 'react';
 import {render} from 'react-dom';
 import {Theme, Themed, themed} from 'themestyler';
-import {css} from '../../freestyler/src';
+import {css} from '../freestyler/src';
 
 class Button extends Component {
     state = {

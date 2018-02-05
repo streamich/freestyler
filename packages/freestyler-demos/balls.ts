@@ -1,6 +1,6 @@
 import {Component, createElement as h} from 'react';
 import {render} from 'react-dom';
-import {css} from '../../freestyler/src/index';
+import {css} from '../freestyler/src/index';
 
 const Ball1 = css.div(
     {

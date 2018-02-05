@@ -12,7 +12,7 @@ const transformMethodRenderDynamic = (prototype, dynamicTemplate: TCssDynamicTem
         const {props} = ast;
         const className =
             (props.className ? props.className : '') +
-            renderer.render(this.constructor, this, this[$$el], dynamicTemplate(), [this]);
+            renderer.render(this.constructor, this, this[$$el], dynamicTemplate(this), [this]);
 
         // Obtain ref to the root DOM element for boost in performance.
         const originalRef = ast.ref;

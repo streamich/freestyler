@@ -3,7 +3,7 @@ export type TComponentConstructor = new (...args) => TComponent;
 
 export type TCssTemplateCallback = (...args) => IStyles;
 export type TCssTemplate = IStyles | TCssTemplateCallback;
-export type TCssDynamicTemplate = () => TCssTemplate;
+export type TCssDynamicTemplate = (...args) => TCssTemplate;
 
 export type TElement = string | TComponentConstructor | ((props?, state?, context?) => any);
 

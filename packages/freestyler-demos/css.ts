@@ -1,7 +1,6 @@
 import {Component, createElement as h} from 'react';
 import {render} from 'react-dom';
 import css from 'freestyler/src/react/css';
-
 @css
 @css({
     width: '320px',

@@ -1,7 +1,7 @@
 import {Component, createElement as h} from 'react';
 import {render} from 'react-dom';
-import css from '../../freestyler/src';
-import CssReset from '../../freestyler/src/globals/CssResetTripoli';
+import {css} from '../freestyler/src';
+import CssReset from '../freestyler/src/globals/CssResetTripoli';
 
 const Box = css.div(
     {
