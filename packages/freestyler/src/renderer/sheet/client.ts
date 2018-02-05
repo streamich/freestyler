@@ -50,15 +50,16 @@ export class ClientSheet {
         const sheet = this.el.sheet as CSSStyleSheet;
         const {cssRules} = sheet;
         const {length} = cssRules;
+        let rule: ClientRule;
 
         if (atRulePrelude) {
             sheet.insertRule(`${atRulePrelude}{${selectors}{}}`, length);
+            rule = new ClientRule(((cssRules[length] as CSSGroupingRule).cssRules[0] as CSSStyleRule).style);
         } else {
             sheet.insertRule(`${selectors}{}`, length);
+            // TODO: Benchmark `cssRules[length]` vs `cssRules.item(length)`.
+            rule = new ClientRule((cssRules[length] as CSSStyleRule).style);
         }
-
-        // TODO: Benchmark `cssRules[length]` vs `cssRules.item(length)`.
-        const rule = new ClientRule((cssRules[length] as CSSStyleRule).style);
 
         if (atRulePrelude) {
             if (!this.map[atRulePrelude]) {

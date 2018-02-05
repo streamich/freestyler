@@ -69,8 +69,7 @@ Or, create *"styled" stateless* components.
 const Bordered = styled.div({
     border: '1px solid tomato',
 });
-const App = () =>
-    <Bordered>Hello world!</Bordered>;
+const App = () => <Bordered>Hello world!</Bordered>;
 ```
 
 See more interfaces below.
@@ -83,7 +82,7 @@ See more interfaces below.
 - __Generic:__ [__3<sup>rd</sup> Generation Interfaces__](./docs/en/3rd-gen.md)
     - [`rule()` Interface](./docs/en/rule.md)
     - [`StyleSheet.create()` Interface](./docs/en/StyleSheet.md) with lazy rendering
-- __React:__ [__4<sup>th</sup> Generation Interfaces__](./docs/en/4th-gen.md)
+- __React.js:__ [__4<sup>th</sup> Generation Interfaces__](./docs/en/4th-gen.md)
     - [`styled()()` Component Interface](./docs/en/styled.md)
     - [`@css` Static Class Decorator Interface](./docs/en/css-static-class-decorator.md)
     - [`@css()` Class Decorator Interface](./docs/en/css-class-decorator.md)
@@ -91,8 +90,8 @@ See more interfaces below.
     - [`hoc()` Generator Interface](./docs/en/hoc-generator.md)
     - [`Component` Class Interface](./docs/en/component-class.md)
     - [`hyperstyle()` `styleName` Interface](./docs/en/hyperstyle.md)
-- __React:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
-    - `styleit` Interface
+- __React.js:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
+    - `styleit()` and `<Styleit>` Interfaces
     - `jsxstyle` Interface
     - `facc` Generator Interface
 - [Environment variables](./docs/en/env-vars.md)

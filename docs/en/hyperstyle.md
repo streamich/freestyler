@@ -4,8 +4,12 @@ Allows you to add styles to React elements by overwriting HyperScript function `
 
 ## Usage
 
-First add `/** @jsx */` pragma as the very first line in your file, to tell JSX transpiler to
+First add `/** @jsx h */` pragma as the very first line in your file, to tell JSX transpiler to
 use hyperscript function `h` instead for `React.createElement` for JSX element generation.
+
+```js
+/** @jsx h */
+```
 
 Import `hyperstyle()` function.
 

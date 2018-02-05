@@ -1,6 +1,6 @@
 import {Component, createElement as h} from 'react';
 import {render} from 'react-dom';
-import Renderer from 'freestyler-renderer/src/Renderer';
+import Renderer from 'freestyler/src/renderer/Renderer';
 import Classy from 'freestyler/src/react/Classy';
 
 /*
