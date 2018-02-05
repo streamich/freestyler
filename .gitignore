@@ -8,3 +8,4 @@ yarn.lock
 yarn-error.log
 dist/
 .DS_Store
+lerna-debug.log

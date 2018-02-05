@@ -1,6 +1,6 @@
-# `@css` Class Decorator Interface
+# `@css()` Class Decorator Interface
 
-Allows you to style your stateful React components using a `@css` class decorator.
+Allows you to style your stateful React components using a `@css()` class decorator.
 `@css` accepts a CSS-like object or a function that returns a CSS-like object as a single argument.
 
 If function is provided as a parameters, it will receive a single argument: instance object of the component.

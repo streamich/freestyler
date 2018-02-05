@@ -85,8 +85,9 @@ See more interfaces below.
     - [`StyleSheet.create()` Interface](./docs/en/StyleSheet.md) with lazy rendering
 - __React:__ [4<sup>th</sup> Generation Interfaces](./docs/en/4th-gen.md)
     - [`styled()()` Component Interface](./docs/en/styled.md)
-    - [`@css` Class Decorator Interface](./docs/en/css-class-decorator.md)
-    - [`@css` `.render()` Decorator Interface](./docs/en/css-render-decorator.md)
+    - [`@css` Static Class Decorator Interface](./docs/en/css-static-class-decorator.md)
+    - [`@css()` Class Decorator Interface](./docs/en/css-class-decorator.md)
+    - [`@css()` `.render()` Decorator Interface](./docs/en/css-render-decorator.md)
     - `hoc` generator
     - Component
     - hyperstyle
