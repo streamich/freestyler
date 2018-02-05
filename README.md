@@ -47,7 +47,25 @@ npm i <a href="https://www.npmjs.com/package/freestyler">freestyler</a> --save
 ## Usage
 
 ```js
-import {css, styled} from 'freestyler';
+import {
+    css,
+    styled,
+    rule,
+    StyleSheet,
+    Component,
+    hyperstyle,
+    hoc,
+    facc,
+    styleit,
+    Styleit,
+    jsxstyle,
+    Box,
+    Block,
+    Inline,
+    InlineBlock,
+    Row,
+    Column
+} from 'freestyler';
 ```
 
 Decorate *stateful* components.
