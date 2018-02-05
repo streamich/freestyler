@@ -4,7 +4,7 @@ describe('Renderer', () => {
     describe('renderFluid', () => {
         xit('works', () => {
             const renderer = new Renderer();
-            renderer.renderFluid(
+            renderer.render(
                 {} as any,
                 {},
                 null,

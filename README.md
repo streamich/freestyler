@@ -46,8 +46,6 @@ npm i <a href="https://www.npmjs.com/package/freestyler">freestyler</a> --save
 
 ## Usage
 
-Import the library.
-
 ```js
 import {css, styled} from 'freestyler';
 ```
@@ -68,7 +66,7 @@ class App extends Component {
 Or, create *"styled" stateless* components.
 
 ```jsx
-const Bordered = css.div({
+const Bordered = styled.div({
     border: '1px solid tomato',
 });
 const App = () =>

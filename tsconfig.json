@@ -6,7 +6,10 @@
         "noImplicitAny": false,
         "sourceMap": false,
         "experimentalDecorators": true,
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
         "jsx": "react",
+        "jsxFactory": "h",
         "lib": [
           "dom",
           "es5",
