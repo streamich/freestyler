@@ -1,6 +1,6 @@
 # `@css()` `.render()` Decorator Interface
 
-Render method decorator is very much similar to [`@css` class decorator](./css-class-decorator.md), with one
+Render method decorator is very much similar to [`@css()` class decorator](./css-class-decorator.md), with one
 very big difference that the style template specified in the `.render()` method decorator will get re-rendered
 on every component re-render.
 

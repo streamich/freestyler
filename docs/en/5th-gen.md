@@ -1,7 +1,7 @@
 # 5<sup>th</sup> Generation Interfaces
 
 5<sup>th</sup> generation interfaces are more dynamic than [4<sup>th</sup> generation interfaces](./4th-gen.md),
-not only have they access to variables in component's scope, but they have also access to variables in component's
+not only have they access to variables in component's scope, but they also have access to variables in component's
 `.render()` function scope.
 
 > 5<sup>th</sup> gen CSS interface can use `.render()` function's scope variables, such as arguments received from
