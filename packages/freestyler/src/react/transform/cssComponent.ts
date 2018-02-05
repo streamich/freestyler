@@ -16,6 +16,20 @@ const transformCssComponent = instance => {
 
         let dynamicTemplate: TCssDynamicTemplate = instance.css;
         if (dynamicTemplate) {
+            if (process.env.NODE_ENV !== 'production') {
+                if (typeof dynamicTemplate !== 'function') {
+                    let what;
+
+                    try {
+                        what = JSON.stringify(dynamicTemplate);
+                    } catch {
+                        what = String(dynamicTemplate);
+                    }
+
+                    throw new TypeError('Dynamic CSS template must always be a function, ' + 'received: ' + what);
+                }
+            }
+
             dynamicTemplate = dynamicTemplate.bind(instance);
             transformComponentDynamic(Comp, dynamicTemplate);
         }
