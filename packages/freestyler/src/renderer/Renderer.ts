@@ -147,7 +147,6 @@ class Renderer implements IRenderer {
         selectorTemplate,
         declarations
     ) {
-        console.log('declarations', declarations);
         if (!declarations.length) return '';
         declarationSort(declarations);
 
@@ -219,9 +218,7 @@ class Renderer implements IRenderer {
             cache.cnt--;
             if (!cache.cnt) {
                 list.ssheet.remove(cache.id);
-                if (Comp[$$statics] === cache) {
-                    delete Comp[$$statics];
-                }
+                delete Comp[$$statics];
             }
         }
 

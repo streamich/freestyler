@@ -14,9 +14,9 @@ export class Story3rdGenStatic1 extends Component<any, any> {
 
 @css
 export class Story3rdGenStatic2 extends Component<any, any> {
-    css = {
-        border: '1px solid tomato'
-    };
+    css = ({props}) => ({
+        border: '1px solid ' + (props.color || 'tomato')
+    });
 
     render () {
         return <div>Hello world!</div>;
