@@ -112,6 +112,17 @@ can use JavaScript variables from component's `.render()` function scope.
 *Examples*: [`freestyler`][lib-freestyler], [`style-it`][lib-style-it], [`superstyle`][lib-superstyle]
 
 
+*Summary*
+
+|Generation|Supports CSS|Module scope variables|Component scope variables|Render method scope variables|
+|----------|------------|----------------------|-------------------------|-----------------------------|
+|1<sup>st</sup> Genration|✅|❌|❌|❌|
+|2<sup>nd</sup> Genration|❌|✅|✅|✅|
+|3<sup>rd</sup> Genration|✅|✅|❌|❌|
+|4<sup>th</sup> Genration|✅|✅|✅|❌|
+|5<sup>th</sup> Genration|✅|✅|✅|✅|
+
+
 
 [lib-css-modules]: https://github.com/css-modules/css-modules
 [lib-radium]: https://github.com/FormidableLabs/radium
