@@ -49,21 +49,20 @@ npm i <a href="https://www.npmjs.com/package/freestyler">freestyler</a> --save
 ```js
 import {
     css,
-    styled,
-    rule,
-    StyleSheet,
-    Component,
-    hyperstyle,
-    hoc,
-    facc,
-    styleit,
-    Styleit,
-    jsxstyle,
-    Box,
-    Block,
-    Inline,
-    InlineBlock,
-    Row,
+        styled,
+            rule,
+                StyleSheet,
+                    Component,
+                        hyperstyle,
+                            hoc,
+                                styleit,
+                                Styleit,
+                            jsxstyle,
+                        Box,
+                    Block,
+                Inline,
+            InlineBlock,
+        Row,
     Column
 } from 'freestyler';
 ```
@@ -112,7 +111,6 @@ See more interfaces below.
 - __React.js:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
     - [`styleit()` and `<Styleit>` Interfaces](./docs/en/styleit.md)
     - [`jsxstyle()`, `<Block>`, `<Inline>`, `<InlineBlock>`, `<Row>`, and `<Column>` Interfaces](./docs/en/jsxstyle.md)
-    - `facc` Generator Interface
 - [Environment variables](./docs/en/env-vars.md)
 
 

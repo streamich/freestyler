@@ -1,8 +1,9 @@
 # Terminology
 
-**CSS template**
 
-A *CSS template* is a *plain* JavaScript object of the form:
+## CSS-like Object
+
+A *CSS-like* object is a *plain* JavaScript object of the following form in kebab-case.
 
 ```js
 const template = {
@@ -11,10 +12,31 @@ const template = {
 };
 ```
 
-Or, it can be a function that returns a CSS template in object form, with the following signature:
+Or in camel-case.
 
 ```js
-const template = (props, state, context) => {
+const template = {
+    color: 'red',
+    borderRadius: '3px',
+};
+```
+
+Or using [atoms](./feat/atoms.md).
+
+```js
+const template = {
+    col: 'red',
+    bdrad: '3px',
+};
+```
+
+
+## CSS Template
+
+A *CSS template* is a function that returns a CSS-like object.
+
+```js
+(props, state, context) => {
     return {
         color: 'red',
         'border-radius': '3px',
@@ -22,50 +44,70 @@ const template = (props, state, context) => {
 };
 ```
 
-**Static vs Dynamic templates**
+Or sometimes:
+
+```js
+({props, state, context}) => {
+    return {
+        color: 'red',
+        'border-radius': '3px',
+    };
+};
+```
+
+
+## Static Template
 
 *Static template* is injected into the DOM only *once* and only when the component is actually rendered
 *for the first time*. It stays in the DOM until there is at least one mounted component that uses that template.
 
-*Dynamic template* is updated on *every* re-render of a component it is specific to that components instance
+
+## Dynamic Template
+
+*Dynamic template* is updated on *every* re-render of a component it is specific to that component's instance
 and is removed from the DOM once the component in unmounted.
 
-**First generation**
 
-First generation React styling libraries don't allow you to write styling in JavaScript, instead, you have to use *CSS pre-processors*.
+## 1<sup>st</sup> Generation
+
+First generation React styling libraries don't allow you to write styling in JavaScript, instead,
+you have to use *CSS pre-processors*. The CSS source file is stored in a separate `.*css` file.
 
   - *Notable example*: [`css-modules`][lib-css-modules]
 
-**Second generation**
 
-Second generation React styling libraries emit inline styles in `style` property of your JSX elements (i.e. use *inline styles*).
+## 2<sup>nd</sup> Generation
+
+Second generation React styling libraries emit __inline styles__ in `style` property of your JSX
+elements.
 
   - *Notable example*: [`Radium`][lib-radius]
 
-**Third generation**
 
-Third generation React styling libraries allow you to write CSS in JavaScript and emit CSS into
+
+## 3<sup>rd</sup> Generation
+
+Third generation React styling libraries allow you to write CSS in JavaScript and inject __CSS__ into
 DOM in `<style>` tags and generate unique scoped `className` properties. However, the style templates are *static*,
-they are defined in module scope, thus they don't depend component `props`.
+they are defined in module scope, thus they don't depend component `props`. The reason why they are "static" is
+because they have access only to module scope JavaScript variables, that can be determined using static code analysis
+tools, third generation templates evaluate once when module is used for the first time.
 
 *Examples*: [`aphrodite`][lib-aphrodite], [`cssx`][lib-cssx], [`glamor`][lib-glamor], [`typestype`][lib-typestype], [`styletron`](lib-styletron)
 
-**Fourth generation**
+
+## 4<sup>th</sup> Generation
 
 Just like 3rd generation libraries, fourth generation React styling libraries also emit CSS into DOM `<style>` tags,
 but the styles are *dynamic*, i.e. the CSS changes when `props` or `state` of your component changes.
 
 *Examples*: [`styled-components`][lib-styled-components], [`glamorous`][lib-glamorous]
 
-*Note: please report any other 4th gen solutions.*
 
-**Fifth generation**
+## 5<sup>th</sup> Generation
 
-Fifth generation React styling libraries have all the features of fourth generation but the templates are even more
-dynamic (similar to how FaCCs are more dynamic than HOCs):
-
-  - Styled components can be created dynamically inside `render` functions
-  - The css template can change dynamically at any point, even inside the `render` functions or in FaCC functions
+Fifth generation React styling libraries are even more dynamic than fourth generation, fifth generation libraries
+can use JavaScript variables from component's `.render()` function scope.
 
 *Examples*: [`freestyler`][lib-freestyler], [`style-it`][lib-style-it], [`superstyle`][lib-superstyle]
 
@@ -84,24 +126,3 @@ dynamic (similar to how FaCCs are more dynamic than HOCs):
 [lib-freestyler]: https://github.com/streamich/freestyler
 [lib-style-it]: https://github.com/buildbreakdo/style-it
 [lib-superstyle]: https://github.com/jxnblk/superstyle
-
-*Note: Please report any other fifth generation React styling libraries,
-Not [fifth generation planes](https://en.wikipedia.org/wiki/Fifth-generation_jet_fighter).*
-
-|Generation|Libraries|
-|----------|---------|
-|First generation|`css-modules`|
-|Second generation|`Radium`|
-|Third generation|`aphrodite`, `glamor`, `jsxstyle`, `styletron`|
-|Fourth generation|`styled-components`, `glamorous`|
-|Fifth generation|`freestyler`, [`style-it`][lib-style-it], [`superstyle`][lib-superstyle]|
-
-[API](#api) patterns:
-
-|Usage|Libraries|
-|-----|---------|
-|*style-it* pattern|[`freestyler`][lib-freestyler], [`style-it`][lib-style-it]|
-|CSS as props|[`freestyler`][lib-freestyler], [`jsxstyle`][]|
-|Render props|[`restyles`][lib-restyles]|
-|rule pattern|[`freestyler`][lib-freestyler], [`jsxstyle`][]|
-

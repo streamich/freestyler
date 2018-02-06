@@ -1,4 +1,4 @@
-# `jsxstyle`, `<Block>`, `<Inline>`, `<InlineBlock>`, `<Row>`, and `<Column>` Interfaces
+# `jsxstyle` and Co Interfaces
 
 `jsxstyle` interface allows you to define CSS right inside your JSX nodes.
 
@@ -40,9 +40,7 @@ const Button = jsxstyle('button', {
 You can add extra styles to your building blocks.
 
 ```jsx
-<div>
-    <Button>Foo</Button>
-    <Button borderRadius='3px'>Bar</Button>
-    <Button bdrad='10px' bg='red'>Baz</Button>
-</div>;
+<Button>Foo</Button>
+<Button borderRadius='3px'>Bar</Button>
+<Button bdrad='10px' bg='red'>Baz</Button>
 ```
