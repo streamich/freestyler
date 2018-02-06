@@ -81,7 +81,7 @@ you have to use *CSS pre-processors*. The CSS source file is stored in a separat
 Second generation React styling libraries emit __inline styles__ in `style` property of your JSX
 elements.
 
-  - *Notable example*: [`Radium`][lib-radius]
+  - *Notable example*: [`Radium`][lib-radium]
 
 
 

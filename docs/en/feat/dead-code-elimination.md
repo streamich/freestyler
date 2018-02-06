@@ -1,4 +1,4 @@
-# Dead code elimination
+# Dead Code Elimination
 
-Your component's CSS lives right next to the `render()` function, if you delete the component, CSS goes with it.
+When component's CSS lives right next to the `.render()` function, if you delete the component, CSS goes with it.
 

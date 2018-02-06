@@ -1,4 +1,4 @@
 # Lightweight
 
-Smallest footprint *"css-in-js"* library, `freestyler` is only few hundred lines of code it is
-based on [`css-light`](https://www.npmjs.com/package/css-light), which itself is only one hundred lines of code.
+One of the smallest footprint *"css-in-js"* library, and it does not ship with `stylis` pre-processor, like
+most of the other libraries.

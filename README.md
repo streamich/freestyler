@@ -4,7 +4,7 @@
 
 [![][npm-badge]][npm-url] [![][travis-badge]][travis-url]
 
-[**5<sup>th</sup> generation**](#fifth-generation) [React styling library][npm-url] &mdash;
+[**5<sup>th</sup> generation**](https://github.com/streamich/freestyler/blob/feat/universal-2/docs/en/terminology.md#5th-generation) [React styling library][npm-url] &mdash;
 it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 
 ```
@@ -22,7 +22,7 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 - [Fifth generation](./docs/en/feat/fifth-generation.md)
 - [Lightweight](./docs/en/feat/lightweight.md)
 - [Lightning fast](./docs/en/feat/fast.md)
-- [Just-in-time CSS](./docs/en/feat/jit-css.md)
+- [JIT CSS](./docs/en/feat/jit-css.md)
 - [Code splitting](./docs/en/feat/code-splitting.md)
 - [Dead code elimination](./docs/en/feat/dead-code-elimination.md)
 - [Variables](./docs/en/feat/variables.md)
@@ -49,20 +49,20 @@ npm i <a href="https://www.npmjs.com/package/freestyler">freestyler</a> --save
 ```js
 import {
     css,
-        styled,
-            rule,
-                StyleSheet,
-                    Component,
-                        hyperstyle,
-                            hoc,
-                                styleit,
-                                Styleit,
-                            jsxstyle,
-                        Box,
-                    Block,
-                Inline,
-            InlineBlock,
-        Row,
+    styled,
+    rule,
+    StyleSheet,
+    Component,
+    hyperstyle,
+    hoc,
+    styleit,
+    Styleit,
+    jsxstyle,
+    Box,
+    Block,
+    Inline,
+    InlineBlock,
+    Row,
     Column
 } from 'freestyler';
 ```
