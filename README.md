@@ -4,7 +4,7 @@
 
 [![][npm-badge]][npm-url] [![][travis-badge]][travis-url]
 
-[**5<sup>th</sup> generation**](https://github.com/streamich/freestyler/blob/feat/universal-2/docs/en/terminology.md#5th-generation) [React styling library][npm-url] &mdash;
+[**5<sup>th</sup> generation**](./docs/en/terminology.md#5th-generation) [React styling library][npm-url] &mdash;
 it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 
 ```
