@@ -3,13 +3,13 @@
 
 CSS teplate access to JS variables:
 
-|Generation|CSS|Module scope variables|Component scope variables|Render method scope variables|
-|----------|---|----------------------|-------------------------|-----------------------------|
-|1st|X||||
-|2nd||X|X|X|
-|3rd|X|X|||
-|4th|X|X|X||
-|5th|X|X|X|X|
+|Generation|Supports CSS|Module scope variables|Component scope variables|Render method scope variables|
+|----------|------------|----------------------|-------------------------|-----------------------------|
+|1<sup>st</sup> Genration|✅|❌|❌|❌|
+|2<sup>nd</sup> Genration|❌|✅|✅|✅|
+|3<sup>rd</sup> Genration|✅|✅|❌|❌|
+|4<sup>th</sup> Genration|✅|✅|✅|❌|
+|5<sup>th</sup> Genration|✅|✅|✅|✅|
 
 Libraries grouped by generation:
 
@@ -66,3 +66,21 @@ Libraries grouped by generation:
 [lib-superstyle]: https://github.com/jxnblk/superstyle
 [lib-styletron]: https://github.com/rtsao/styletron
 [lib-styled-jsx]: https://github.com/zeit/styled-jsx
+
+
+|Generation|Libraries|
+|----------|---------|
+|First generation|`css-modules`|
+|Second generation|`Radium`|
+|Third generation|`aphrodite`, `glamor`, `jsxstyle`, `styletron`|
+|Fourth generation|`styled-components`, `glamorous`|
+|Fifth generation|`freestyler`, [`style-it`][lib-style-it], [`superstyle`][lib-superstyle]|
+
+[API](#api) patterns:
+
+|Usage|Libraries|
+|-----|---------|
+|*style-it* pattern|[`freestyler`][lib-freestyler], [`style-it`][lib-style-it]|
+|CSS as props|[`freestyler`][lib-freestyler], [`jsxstyle`][]|
+|Render props|[`restyles`][lib-restyles]|
+|rule pattern|[`freestyler`][lib-freestyler], [`jsxstyle`][]|

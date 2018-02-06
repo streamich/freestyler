@@ -2,7 +2,7 @@ import {Component, createElement as h} from 'react';
 import {styleit} from './styleit';
 import * as extend from 'fast-extend';
 
-const jsxstyle = (Comp, defaultStyles) => {
+export const jsxstyle = (Comp, defaultStyles) => {
     return props => {
         let {
             component,
@@ -54,8 +54,6 @@ const jsxstyle = (Comp, defaultStyles) => {
         );
     };
 };
-
-export default jsxstyle;
 
 const DIV = 'div';
 const SPAN = 'span';

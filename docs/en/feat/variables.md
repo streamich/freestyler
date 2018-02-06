@@ -1,6 +1,6 @@
 # Variables
 
-Use JavaScript variables in your CSS templates:
+Use JavaScript variables in your CSS templates.
 
 ```js
 const color = 'red';

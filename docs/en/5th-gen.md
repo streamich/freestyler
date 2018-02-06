@@ -9,6 +9,6 @@ not only have they access to variables in component's scope, but they also have 
 
 `freestyler` provides these 5<sup>th</sup> generation interfaces:
 
-- `styleit` Interface
-- `jsxstyle` Interface
+- [`styleit()` and `<Styleit>` Interfaces](./styleit.md)
+- [`jsxstyle()`, `<Block>`, `<Inline>`, `<InlineBlock>`, `<Row>`, and `<Column>` Interfaces](./docs/en/jsxstyle.md)
 - `facc` Generator Interface
