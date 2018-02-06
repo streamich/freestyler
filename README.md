@@ -87,7 +87,8 @@ Or, create *"styled" stateless* components.
 const Bordered = styled.div({
     border: '1px solid tomato',
 });
-const App = () => <Bordered>Hello world!</Bordered>;
+const App = () =>
+    <Bordered>Hello world!</Bordered>;
 ```
 
 See more interfaces below.
@@ -110,7 +111,7 @@ See more interfaces below.
     - [`hyperstyle()` `styleName` Interface](./docs/en/hyperstyle.md)
 - __React.js:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
     - [`styleit()` and `<Styleit>` Interfaces](./docs/en/styleit.md)
-    - `jsxstyle` Interface
+    - [`jsxstyle()`, `<Block>`, `<Inline>`, `<InlineBlock>`, `<Row>`, and `<Column>` Interfaces](./docs/en/jsxstyle.md)
     - `facc` Generator Interface
 - [Environment variables](./docs/en/env-vars.md)
 
