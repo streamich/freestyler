@@ -1,4 +1,4 @@
-    ![libreact logo](./docs/assets/freestyler.png)
+![libreact logo](./docs/assets/freestyler.png)
 
 # freestyler
 
