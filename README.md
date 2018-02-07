@@ -42,19 +42,19 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 - [Terminology](./docs/en/terminology.md)
 - [Generations](./docs/en/generations.md)
 - [Interfaces](./docs/en/interfaces.md)
-- __Generic:__ [Low-level API](./docs/en/low-level-api.md)
-- __Generic:__ [__3<sup>rd</sup> Generation Interfaces__](./docs/en/3rd-gen.md)
+- __Generic__ [Low-level API](./docs/en/low-level-api.md)
+- __Generic__ [__3<sup>rd</sup> Generation Interfaces__](./docs/en/3rd-gen.md)
     - [`rule()` Interface](./docs/en/rule.md)
     - [`StyleSheet.create()` Interface](./docs/en/StyleSheet.md) with lazy rendering
     - [`hyperstyle()` `styleName` Interface](./docs/en/hyperstyle.md)
-- __React.js:__ [__4<sup>th</sup> Generation Interfaces__](./docs/en/4th-gen.md)
+- __React.js__ [__4<sup>th</sup> Generation Interfaces__](./docs/en/4th-gen.md)
     - [`styled()()` Component Interface](./docs/en/styled.md)
     - [`@css` Static Class Decorator Interface](./docs/en/css-static-class-decorator.md)
     - [`@css()` Class Decorator Interface](./docs/en/css-class-decorator.md)
     - [`@css()` `.render()` Decorator Interface](./docs/en/css-render-decorator.md)
     - [`hoc()` Generator Interface](./docs/en/hoc-generator.md)
     - [`Component` Class Interface](./docs/en/component-class.md)
-- __React.js:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
+- __React.js__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
     - [`styleit()` and `<Styleit>` Interfaces](./docs/en/styleit.md)
     - [`jsxstyle()`, `<Block>`, `<Inline>`, `<InlineBlock>`, `<Row>`, and `<Column>` Interfaces](./docs/en/jsxstyle.md)
 - [Environment variables](./docs/en/env-vars.md)
@@ -69,26 +69,26 @@ npm i <a href="https://www.npmjs.com/package/freestyler">freestyler</a> --save
 
 ## Usage
 
-```js
-import {
-    css,
-    styled,
-    rule,
-    StyleSheet,
-    Component,
-    hyperstyle,
-    hoc,
-    styleit,
-    Styleit,
-    jsxstyle,
+<pre>
+<span style="color:#d73a49">import</span> {
+    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/css-static-class-decorator.md">css</a>,
+    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/styled.md">styled</a>,
+    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/rule.md">rule</a>,
+    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/StyleSheet.md">StyleSheet</a>,
+    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/Component.md">Component</a>,
+    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/hyperstyle.md">hyperstyle</a>,
+    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/hoc.md">hoc</a>,
+    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/styleit.md">styleit</a>,
+    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/styleit.md">Styleit</a>,
+    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/jsxstyle.md">jsxstyle</a>,
     Box,
     Block,
     Inline,
     InlineBlock,
     Row,
     Column
-} from 'freestyler';
-```
+} <span style="color:#d73a49">from</span> <span style="color:#032f62">'freestyler'</span>;
+<pre>
 
 Decorate *stateful* components.
 
