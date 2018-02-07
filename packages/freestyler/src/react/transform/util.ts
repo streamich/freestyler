@@ -1,3 +1,3 @@
-import {sym} from 'freestyler-util';
+import {sym} from '../../util';
 
 export const $$el = sym('el');

@@ -1,5 +1,5 @@
-import {$$cn, $$cnt, hidden, sym, camelCase} from 'freestyler-util';
-import supportsCssVariables from 'freestyler-util/supportsCssVariables';
+import {$$cn, $$cnt, hidden, sym, camelCase} from '../util';
+import supportsCssVariables from '../supportsCssVariables';
 import {TCssTemplate, TCssDynamicTemplate, IStyles} from './types';
 import {TDeclarations, TAtrule, TAtrulePrelude} from './ast/toStylesheet';
 import toStyleSheet, {TStyles, TStyleSheet} from './ast/toStylesheet';

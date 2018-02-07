@@ -1,4 +1,4 @@
-import {isClient} from 'freestyler-util';
+import {isClient} from '../../util';
 
 let createStyleElement;
 

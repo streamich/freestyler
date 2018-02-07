@@ -1,7 +1,7 @@
 import {TCssTemplate, TCssDynamicTemplate} from '../../renderer/types';
 import transformComponentStatic from './componentStatic';
 import transformComponentDynamic from './componentDynamic';
-import {sym, hidden} from 'freestyler-util';
+import {sym, hidden} from '../../util';
 
 const sCssComponent = sym('CssComponent');
 

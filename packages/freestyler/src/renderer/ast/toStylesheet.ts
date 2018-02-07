@@ -1,4 +1,4 @@
-import {kebabCase} from 'freestyler-util';
+import {kebabCase} from '../../util';
 import atoms from './atoms';
 import interpolateSelectors from './interpolateSelectors';
 import valueToString from './valueToString';

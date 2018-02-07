@@ -1,5 +1,5 @@
 import {Component, createElement as h, cloneElement} from 'react';
-import {sym, hidden} from 'freestyler-util';
+import {sym, hidden} from '../util';
 import {getName} from '../renderer/util';
 import renderer from '../renderer';
 import {TElement, TCssTemplate, TCssDynamicTemplate} from '../renderer/types';

@@ -1,7 +1,7 @@
 import {TRule, TDeclarations} from '../ast/toStylesheet';
 import declarationSort from '../declaration/sort';
 import {list} from '../sheet';
-import {isClient} from 'freestyler-util';
+import {isClient} from '../../util';
 
 // Low cardinality virtual style properties that should be batched.
 //

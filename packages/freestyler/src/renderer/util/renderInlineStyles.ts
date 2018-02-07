@@ -1,4 +1,4 @@
-import {hidden, sym} from 'freestyler-util';
+import {hidden, sym} from '../../util';
 import {TDeclarations} from '../ast/toStylesheet';
 import declarationSubtractStrict from '../declaration/subtractStrict';
 import setInlineStyles from './setInlineStyles';
