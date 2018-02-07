@@ -1,10 +1,14 @@
-# Styled component interface
+# Styled Component Interface
 
-In *styled component interface* there is usually a `styled` HOC function that transforms
-simple DOM element types into *"styled"* ones.
+In *Styled Component Interface* there is usually a `styled` [HOC function](https://github.com/MailOnline/libreact/blob/master/docs/en/Introduction.md#hoc) that transforms
+simple DOM element types into *"styled"* React components.
+
+> See [`freestyler` *`styled()()` Component Interface* API](../../styled.md).
+
+__Example__
 
 ```jsx
-import styled from 'freestyler/react/styled';
+import {styled} from 'freestyler';
 
 const Container = styled('div')({
   bd: '1px solid tomato',
@@ -22,15 +26,16 @@ const Button = () =>
   </Container>
 ```
 
-### Other libraries that provide *styled component interface*:
+## Other libraries that provide *Styled Component Interface*
 
   - [`styled-components`][lib-styled-components]
   - [`glamorous`][lib-glamorous]
 
 [lib-styled-components]: https://github.com/styled-components/styled-components
-[lib-glamorous]: https://github.com/MicheleBertoli/css-in-js/tree/master/glamorous
+[lib-glamorous]: https://github.com/paypal/glamorous
 
-##### `styled-components` example
+
+### `styled-components` Example
 
 ```jsx
 import styled from 'styled-components';
@@ -51,7 +56,8 @@ const Button = () =>
   </Container>
 ```
 
-##### `glamorous` example
+
+### `glamorous` Example
 
 ```jsx
 import glamorous from 'glamorous';

@@ -1,35 +1,13 @@
-# Stylesheet interface
+# StyleSheet Interface
 
-In *StyleSheet pattern* multiple style rules can be converted to multiple class names.
+In *StyleSheet Interface* multiple style rules are combined into as single "stylesheet".
 
-```jsx
-import StyleSheet from 'freestyler/StyleSheet';
+> See [`freestyler` *StyleSheet Interface* API](../../StyleSheet.md).
 
-const styles = StyleSheet.create({
-  container: {
-    border: '1px solid tomato',
-  }
-  button: {
-    background: 'red',
-    borderRadius: '5px',
-    color: '#fff',
-  }
-});
+Using StyleSheet interface styles can be inject into the DOM lazily, i.e. only when they are used for the first time.
 
-class Button extends Component {
-  render () {
-    return (
-      <div className={styles.container}>
-        <button className={styles.button}/>
-      </div>
-    );
-  }
-}
-```
 
-In StyleSheet pattern often styles are inject in the DOM lazy, i.e. only when they are used for the first time `styles.container`.
-
-### Other libraries that provide *StyleSheet interface*:
+## Other libraries that provide *StyleSheet Interface*
 
   - [`aphrodite`][lib-aphrodite]
   - [`csjs`][lib-csjs]
@@ -37,7 +15,8 @@ In StyleSheet pattern often styles are inject in the DOM lazy, i.e. only when th
 [lib-aphrodite]: https://github.com/Khan/aphrodite
 [lib-csjs]: https://github.com/rtsao/csjs
 
-##### `aphrodite` example
+
+### `aphrodite` Example
 
 ```jsx
 import {StyleSheet, css} from 'aphrodite';

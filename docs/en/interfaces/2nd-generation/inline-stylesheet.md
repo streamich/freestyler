@@ -1,11 +1,13 @@
-# Inline StyleSheet interface
+# Inline StyleSheet Interface
 
-*Inline Style interface* is when styles are defined at module level
+*Inline Style Interface* is when styles are defined at module level
 in a *"CSS stylesheet-like"* object and then applied as inline styles.
 
-```jsx
-import rule from 'freestyler/rule';
+> This interface can be used in any React project.
 
+__Example__
+
+```jsx
 const styles = {
   container: {
     border: '1px solid tomato',
@@ -27,5 +29,3 @@ class Button extends Component {
   }
 }
 ```
-
-This interface can be used in any React project.

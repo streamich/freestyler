@@ -9,18 +9,25 @@ __Example__
 import StyleSheet from 'freestyler/lib/StyleSheet';
 
 const styles = StyleSheet.create({
-    button: {
-      background: 'tomato',
-    },
-    link: {
-      border: '1px solid tomato'
-    }
+  container: {
+    border: '1px solid tomato',
+  }
+  button: {
+    background: 'red',
+    borderRadius: '5px',
+    color: '#fff',
+  }
 });
 
-<div>
-    <button className={styles.button}>Hello</button>
-    <a className={styles.link}>world!</a>
-</div>
+class Button extends Component {
+  render () {
+    return (
+      <div className={styles.container}>
+        <button className={styles.button}/>
+      </div>
+    );
+  }
+}
 ```
 
 This approach has a couple of advantages over the [`rule`](./rule.md) interface. Firstly, it returns

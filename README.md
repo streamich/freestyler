@@ -1,10 +1,10 @@
-![libreact logo](./docs/assets/freestyler.png)
+    ![libreact logo](./docs/assets/freestyler.png)
 
 # freestyler
 
 [![][npm-badge]][npm-url] [![][travis-badge]][travis-url]
 
-[**5<sup>th</sup> generation**](./docs/en/terminology.md#5th-generation) [React styling library][npm-url] &mdash;
+[**5<sup>th</sup> generation**](./docs/en/generations.md) [React styling library][npm-url] &mdash;
 it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 
 ```
@@ -35,6 +35,29 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 - [CSS Resets](./docs/en/feat/resets.md)
 - [*"Styled"* component generator](./docs/en/feat/styled-components.md)
 - [Theming](./docs/en/feat/theming.md)
+
+
+## Reference
+
+- [Terminology](./docs/en/terminology.md)
+- [Generations](./docs/en/generations.md)
+- [Interfaces](./docs/en/interfaces.md)
+- __Generic:__ [Low-level API](./docs/en/low-level-api.md)
+- __Generic:__ [__3<sup>rd</sup> Generation Interfaces__](./docs/en/3rd-gen.md)
+    - [`rule()` Interface](./docs/en/rule.md)
+    - [`StyleSheet.create()` Interface](./docs/en/StyleSheet.md) with lazy rendering
+    - [`hyperstyle()` `styleName` Interface](./docs/en/hyperstyle.md)
+- __React.js:__ [__4<sup>th</sup> Generation Interfaces__](./docs/en/4th-gen.md)
+    - [`styled()()` Component Interface](./docs/en/styled.md)
+    - [`@css` Static Class Decorator Interface](./docs/en/css-static-class-decorator.md)
+    - [`@css()` Class Decorator Interface](./docs/en/css-class-decorator.md)
+    - [`@css()` `.render()` Decorator Interface](./docs/en/css-render-decorator.md)
+    - [`hoc()` Generator Interface](./docs/en/hoc-generator.md)
+    - [`Component` Class Interface](./docs/en/component-class.md)
+- __React.js:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
+    - [`styleit()` and `<Styleit>` Interfaces](./docs/en/styleit.md)
+    - [`jsxstyle()`, `<Block>`, `<Inline>`, `<InlineBlock>`, `<Row>`, and `<Column>` Interfaces](./docs/en/jsxstyle.md)
+- [Environment variables](./docs/en/env-vars.md)
 
 
 ## Installation
@@ -89,29 +112,6 @@ const Bordered = styled.div({
 const App = () =>
     <Bordered>Hello world!</Bordered>;
 ```
-
-See more interfaces below.
-
-
-## Reference
-
-- [Terminology](./docs/en/terminology.md)
-- __Generic:__ [Low-level API](./docs/en/low-level-api.md)
-- __Generic:__ [__3<sup>rd</sup> Generation Interfaces__](./docs/en/3rd-gen.md)
-    - [`rule()` Interface](./docs/en/rule.md)
-    - [`StyleSheet.create()` Interface](./docs/en/StyleSheet.md) with lazy rendering
-- __React.js:__ [__4<sup>th</sup> Generation Interfaces__](./docs/en/4th-gen.md)
-    - [`styled()()` Component Interface](./docs/en/styled.md)
-    - [`@css` Static Class Decorator Interface](./docs/en/css-static-class-decorator.md)
-    - [`@css()` Class Decorator Interface](./docs/en/css-class-decorator.md)
-    - [`@css()` `.render()` Decorator Interface](./docs/en/css-render-decorator.md)
-    - [`hoc()` Generator Interface](./docs/en/hoc-generator.md)
-    - [`Component` Class Interface](./docs/en/component-class.md)
-    - [`hyperstyle()` `styleName` Interface](./docs/en/hyperstyle.md)
-- __React.js:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
-    - [`styleit()` and `<Styleit>` Interfaces](./docs/en/styleit.md)
-    - [`jsxstyle()`, `<Block>`, `<Inline>`, `<InlineBlock>`, `<Row>`, and `<Column>` Interfaces](./docs/en/jsxstyle.md)
-- [Environment variables](./docs/en/env-vars.md)
 
 
 ## Packages

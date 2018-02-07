@@ -1,15 +1,18 @@
-# Hyperstyles interface
+# Hyperstyle Interface
 
-In *hyperstyles interface* the Virtual HyperScript function `h` of React (`createElement`) is
-replaced by one that will also contain style information.
+In *Hyperstyle Interface* the hyperscript function `h` (or React's `createElement`) is
+replaced by one that will automatically style React elements.
 
-### Other libraries that provide *Component interface*
+> See [`freestyler` *Hyperstyle Interface* API](../../hyperstyle.md).
+
+
+## Other libraries that provide *Hyperstyle Interface*
 
   - [hyperstyles][lib-hyperstyles]
 
 [lib-hyperstyles]: https://github.com/colingourlay/hyperstyles
 
-JavaScript:
+*JavaScript*
 
 ```jsx
 /** @jsx h */
@@ -29,7 +32,7 @@ class Button extends Component {
 }
 ```
 
-CSS:
+*CSS*
 
 ```css
 .container {
