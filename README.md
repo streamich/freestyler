@@ -88,7 +88,7 @@ npm i <a href="https://www.npmjs.com/package/freestyler">freestyler</a> --save
     Row,
     Column
 } <span style="color:#d73a49">from</span> <span style="color:#032f62">'freestyler'</span>;
-<pre>
+</pre>
 
 Decorate *stateful* components.
 
