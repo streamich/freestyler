@@ -1,8 +1,12 @@
 {
     "name": "freestyler",
-    "version": "1.5.0",
+    "version": "1.5.2",
     "description": "5th generation React styling library",
     "main": "lib/index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/streamich/freestyler.git"
+    },
     "scripts": {
         "clean": "rimraf modules lib dist",
         "test": "jest",
