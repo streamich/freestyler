@@ -7,7 +7,7 @@ bundle or serverd as an external style sheet.
 > `freestyler` does not provide such interface.
 
 
-## Libraries that provide *Webpack Loader Interface*:
+## Libraries that provide *Webpack Loader Interface*
 
   - [`bloody-react-styled`][lib-bloody-react-styled]
   - [`css-loader`][lib-css-loader]
@@ -16,7 +16,7 @@ bundle or serverd as an external style sheet.
 [lib-css-loader]: https://github.com/webpack-contrib/css-loader
 
 
-### `bloody-react-styled` example
+### `bloody-react-styled` Example
 
 JavaScript:
 

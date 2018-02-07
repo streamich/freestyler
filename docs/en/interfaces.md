@@ -19,7 +19,7 @@ restrictions on scope of JavaScript variables.
     - [Static property](./interfaces/4th-generation/static-class-property.md)
     - [Class decorator](./interfaces/4th-generation/class-decorator.md)
     - [Render decorator](./interfaces/4th-generation/render-decorator.md)
-    - [Component](./interfaces/4th-generation/component.md)
+    - [Component](./interfaces/3rd-generation/component.md)
   - 5<sup>th</sup> generation
     - [Style-it](./interfaces/5th-generation/style-it.md)
     - [jsxstyle](./interfaces/5th-generation/jsxstyle.md)

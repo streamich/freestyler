@@ -5,7 +5,7 @@ In *Render Decorator Interface* CSS template is set in a decorator over the `.re
 > See [`freestyler` *`@css()` `.render()` Decorator Interface* API](../../css-render-decorator.md).
 
 
-## Other libraries that provide *render method's decorator with static template interface*:
+## Other libraries that provide *Render Decorator Interface*
 
   - [`css-constructor`][lib-css-constructor]
 

@@ -1,13 +1,13 @@
 # StyleSheet Interface
 
-In *StyleSheet Interface* multiple style rules combined into as single "stylesheet".
+In *StyleSheet Interface* multiple style rules are combined into as single "stylesheet".
 
 > See [`freestyler` *StyleSheet Interface* API](../../StyleSheet.md).
 
 Using StyleSheet interface styles can be inject into the DOM lazily, i.e. only when they are used for the first time.
 
 
-## Other libraries that provide *StyleSheet Interface*:
+## Other libraries that provide *StyleSheet Interface*
 
   - [`aphrodite`][lib-aphrodite]
   - [`csjs`][lib-csjs]

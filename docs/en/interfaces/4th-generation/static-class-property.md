@@ -5,7 +5,7 @@ In *Static Property Interface* CSS template is set as a static property of a Rea
 > See [`freestyler` *Static Class Decorator* API](../../css-static-class-decorator.md).
 
 
-## Other libraries that provide *Static Property Interface*:
+## Other libraries that provide *Static Property Interface*
 
   - [`Classy`][lib-classy]
 

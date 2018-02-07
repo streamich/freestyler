@@ -12,7 +12,7 @@ replaced by one that will automatically style React elements.
 
 [lib-hyperstyles]: https://github.com/colingourlay/hyperstyles
 
-JavaScript:
+*JavaScript*
 
 ```jsx
 /** @jsx h */
@@ -32,7 +32,7 @@ class Button extends Component {
 }
 ```
 
-CSS:
+*CSS*
 
 ```css
 .container {

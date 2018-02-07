@@ -3,6 +3,8 @@
 *Inline Style Interface* is when styles are defined at module level
 in a *"CSS stylesheet-like"* object and then applied as inline styles.
 
+> This interface can be used in any React project.
+
 __Example__
 
 ```jsx
@@ -27,5 +29,3 @@ class Button extends Component {
   }
 }
 ```
-
-> This interface can be used in any React project.

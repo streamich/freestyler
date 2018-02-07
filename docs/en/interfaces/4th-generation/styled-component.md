@@ -26,13 +26,13 @@ const Button = () =>
   </Container>
 ```
 
-## Other libraries that provide *Styled Component Interface*:
+## Other libraries that provide *Styled Component Interface*
 
   - [`styled-components`][lib-styled-components]
   - [`glamorous`][lib-glamorous]
 
 [lib-styled-components]: https://github.com/styled-components/styled-components
-[lib-glamorous]: https://github.com/MicheleBertoli/css-in-js/tree/master/glamorous
+[lib-glamorous]: https://github.com/paypal/glamorous
 
 
 ### `styled-components` Example
