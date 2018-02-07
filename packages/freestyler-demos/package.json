@@ -1,6 +1,6 @@
 {
     "name": "freestyler-demos-all-in-one",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "scripts": {
         "build": "echo 'build is not implemented'",
         "clean": "echo 'clean is not implemented'",
@@ -9,7 +9,7 @@
         "start": "webpack-dev-server"
     },
     "dependencies": {
-        "freestyler": "^1.5.0",
+        "freestyler": "^1.5.1",
         "react": "^16.0.0",
         "react-dom": "^16.0.0"
     },
