@@ -1,9 +1,12 @@
 # Namespacer interface
 
 In *namespacer interfaces* library simply namespaces class names so that they are unique.
-The way how CSS styles are written is usually left to the user.
+The way how CSS styles are written is usually left up to the user.
 
-### Libraries that provide *namespacer interface*:
+> `freestyler` does not provide such interface.
+
+
+## Libraries that provide *namespacer interface*:
 
   - [`css-ns`][lib-css-ns]
 

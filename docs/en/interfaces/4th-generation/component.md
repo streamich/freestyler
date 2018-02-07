@@ -1,10 +1,14 @@
-# Component interface
+# Component Interface
 
-In *Component interface* users extends the `Component` class provided by the
-library rather directly the one provided by React.
+In *Component Interface* user extends the `Component` class provided by the
+library rather directly the one from React.
+
+> See [`freestyler` *`Component` Class Interface* API](../../component-class.md).
+
+__Example__
 
 ```jsx
-import Component from 'freestyler/react/Component';
+import {Component} from 'freestyler';
 
 class Button extends Component {
   css () {
@@ -28,5 +32,4 @@ class Button extends Component {
 }
 ```
 
-### Other libraries that provide *Component interface*
-
+## Other libraries that provide *Component interface*

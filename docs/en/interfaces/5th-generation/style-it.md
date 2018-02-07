@@ -1,10 +1,14 @@
-# Style-it interface
+# Style-it Interface
 
-In *style-it interface* style information and JSX is combined by `styleit` function
-inside the render tree.
+In *Style-it Interface* style information and React elements are combined by a "styleit" function
+directly inside the render tree.
+
+> See [`freestyler` *`styleit()` and `<Styleit>` Interfaces* API](../../css-static-class-decorator.md).
+
+__Example__
 
 ```jsx
-import {styleit} from 'freestyler/react/styleit';
+import {styleit} from 'freestyler';
 
 class Button extends Component {
   render () {
@@ -25,13 +29,14 @@ class Button extends Component {
 }
 ```
 
-### Other libraries that provide *style-it interface*
+### Other libraries that provide *Style-it Interface*
 
   - [`style-it`][lib-style-it]
 
 [lib-style-it]: https://github.com/buildbreakdo/style-it
 
-##### `style-it` example
+
+### `style-it` Example
 
 ```jsx
 import Style from 'style-it';

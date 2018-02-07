@@ -1,28 +1,32 @@
-# jsxstyle interface
+# jsxstyle Interface
 
-In *jsxstyle interface* style information is applied as props to the JSX nodes directly.
+In *jsxstyle Interface* style information is applied as props to the "jsxtyle building-block" components.
+
+> See [`freestyler` *`jsxstyle` and Co Interfaces* API](../../jsxstyle.md).
+
+__Example__
 
 ```jsx
-import jsxstyle, {Box} from 'freestyler/react/jsxstyle';
+import jsxstyle, {Block} from 'freestyler';
 
 const BaseButton = jsxstyle('button');
 
 class Button extends Component {
   render () {
     return (
-      <Box border='1px solid tomato'>
+      <Block border='1px solid tomato'>
         <BaseButton
           background="red"
           borderRadius="5px"
           color="#fff"
         />
-      </Box>
+      </Block>
     );
   }
 }
 ```
 
-### Other libraries that provide *jsxstyle interface*
+## Other libraries that provide *jsxstyle Interface*
 
   - [`glamorous`][lib-glamorous]
   - [`jsxstyle`][lib-jsxstyle]
@@ -30,7 +34,8 @@ class Button extends Component {
 [lib-jsxstyle]: https://github.com/smyte/jsxstyle
 [lib-glamorous]: https://github.com/paypal/glamorous
 
-##### `glamorous` example
+
+### `glamorous` Example
 
 ```jsx
 import glamorous from "glamorous";

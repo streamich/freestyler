@@ -21,11 +21,20 @@ Add styling to your component using a function that returns a CSS-like object.
 
 ```jsx
 class App extends Component {
-    @css(({props, state, context}) => ({
-        border: '1px solid tomato'
-    }))
-    render () {
-        return <div>Hello world!</div>;
+  @css(({props, state}) => ({
+    bd: '1px solid ' + (props.color || 'tomato'),
+    '& > button': {
+      bg: 'red',
+      bdrad: '5px',
+      col: '#fff',
     }
+  }))
+  render () {
+    return (
+      <div>
+        <button className='button' />
+      </div>
+    );
+  }
 }
 ```

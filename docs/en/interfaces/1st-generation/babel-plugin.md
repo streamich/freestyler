@@ -1,17 +1,19 @@
-# Babel plugin interface
+# Babel Plugin Interface
 
-In *Babel plugin interface* styles are defined in JavaScript, but they are statically
+In *Babel Plugin Interface* styles are defined in JavaScript, but they are statically
 extracted and saved as external style `.css` sheet by a Babel plugin.
 
-`freestyler` does not inplement such interface.
+> `freestyler` does not provide such interface.
 
-### Libraries that provide *rule interface*:
+
+## Libraries that provide *Babel Plugin Interface*:
 
   - [`babel-plugin-css-in-js`][lib-babel-plugin-css-in-js]
 
 [lib-babel-plugin-css-in-js]: https://github.com/martinandert/babel-plugin-css-in-js
 
-##### `babel-plugin-css-in-js` example
+
+### `babel-plugin-css-in-js` example
 
 ```jsx
 const styles = cssInJS({

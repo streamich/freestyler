@@ -1,29 +1,9 @@
-# Class decorator interface
+# Class Decorator Interface
 
-In *class decorator interface* a style template is specified in a class decorator. The
-template depends on the `props` of the coponent.
+In *Class Decorator Interface* a CSS template is specified in a class decorator. The
+template can depend on `props` and `state` of the component.
 
-```jsx
-import styled from 'freestyler/react/css';
+> See [`freestyler` *`@css()` Class Decorator Interface* API](../../css-class-decorator.md).
 
-@css(({props}) => ({
-  bd: '1px solid tomato',
-  '& > button': {
-    bg: 'red',
-    bdrad: '5px',
-    col: '#fff',
-  }
-}), true)
-class Button extends Component {
-  render () {
-    return (
-      <div>
-        <button className='button' />
-      </div>
-    );
-  }
-}
-```
 
-### Other libraries that provide *class decorator interface*
-
+### Other libraries that provide *Class Decorator Interface*

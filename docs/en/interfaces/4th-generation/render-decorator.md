@@ -1,30 +1,12 @@
-# Render method decorator interface
+# Render Decorator Interface
 
-In *render method decorator interface* a style template is specified in a decorator over the `render` method.
-The template depends on the `props` of the coponent.
+In *Render Decorator Interface* CSS template is set in a decorator over the `.render()` method.
 
-```jsx
-import styled from 'freestyler/react/css';
+> See [`freestyler` *`@css()` `.render()` Decorator Interface* API](../../css-render-decorator.md).
 
-class Button extends Component {
-  @css(({props}) => ({
-    bd: '1px solid tomato',
-    '& > button': {
-      bg: 'red',
-      bdrad: '5px',
-      col: '#fff',
-    }
-  }), true)
 
-  render () {
-    return (
-      <div>
-        <button className='button' />
-      </div>
-    );
-  }
-}
-```
+## Other libraries that provide *render method's decorator with static template interface*:
 
-### Other libraries that provide *render method decorator interface*
+  - [`css-constructor`][lib-css-constructor]
 
+[lib-css-constructor]: https://github.com/siddharthkp/css-constructor

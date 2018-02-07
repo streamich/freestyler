@@ -1,12 +1,13 @@
 # Terminology
 
+Below we define commonly used terms in `freestyler`.
 
 ## CSS-like Object
 
 A *CSS-like* object is a *plain* JavaScript object of the following form in kebab-case.
 
 ```js
-const template = {
+const css = {
     color: 'red',
     'border-radius': '3px',
 };
@@ -15,7 +16,7 @@ const template = {
 Or in camel-case.
 
 ```js
-const template = {
+const css = {
     color: 'red',
     borderRadius: '3px',
 };
@@ -24,7 +25,7 @@ const template = {
 Or using [atoms](./feat/atoms.md).
 
 ```js
-const template = {
+const css = {
     col: 'red',
     bdrad: '3px',
 };
@@ -33,10 +34,10 @@ const template = {
 
 ## CSS Template
 
-A *CSS template* is a function that returns a CSS-like object.
+A *CSS template* is a function that returns a CSS-like object. Template usually receives component scope arguments.
 
 ```js
-(props, state, context) => {
+const template = (props, state, context) => {
     return {
         color: 'red',
         'border-radius': '3px',
@@ -44,10 +45,10 @@ A *CSS template* is a function that returns a CSS-like object.
 };
 ```
 
-Or sometimes:
+Or sometimes as a map.
 
 ```js
-({props, state, context}) => {
+const template = ({props, state, context}) => {
     return {
         color: 'red',
         'border-radius': '3px',

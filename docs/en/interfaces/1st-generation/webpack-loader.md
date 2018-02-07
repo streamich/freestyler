@@ -1,20 +1,22 @@
-# Webpack loader interface
+# Webpack Loader Interface
 
-In *Webpack loader interface* styles are stored in an external file, usually `.css` or using
+In *Webpack Loader Interface* CSS templates are stored in an external file, usually `.css` or using
 some pre-processor file extension, like `.scss`. The styles can be inlined into the JavaScript
 bundle or serverd as an external style sheet.
 
-`freestyler` does not inplement such interface.
+> `freestyler` does not provide such interface.
 
-### Libraries that provide *rule interface*:
 
-  - [`bloody-react-styled`][lib-bloody-react-styleds]
+## Libraries that provide *Webpack Loader Interface*:
+
+  - [`bloody-react-styled`][lib-bloody-react-styled]
   - [`css-loader`][lib-css-loader]
 
 [lib-bloody-react-styled]: https://github.com/martinandert/babel-plugin-css-in-js
 [lib-css-loader]: https://github.com/webpack-contrib/css-loader
 
-##### `bloody-react-styled` example
+
+### `bloody-react-styled` example
 
 JavaScript:
 

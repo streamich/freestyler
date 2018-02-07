@@ -1,6 +1,8 @@
-# Rule interface
+# Rule Interface
 
-*Rule interface* is when a style "rule" is converted to a class name:
+*Rule Interface* is when a style "rule" is converted to a class name.
+
+__Example__
 
 ```jsx
 import rule from 'freestyler/rule';
@@ -26,5 +28,8 @@ class Button extends Component {
 }
 ```
 
-### Other libraries that provide *rule interface*:
+> See [`freestyler` *Rule Interface* API](../../rule.md).
+
+
+### Other libraries that provide *Rule Interface*:
 
