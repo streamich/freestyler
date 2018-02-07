@@ -69,26 +69,26 @@ npm i <a href="https://www.npmjs.com/package/freestyler">freestyler</a> --save
 
 ## Usage
 
-<pre>
-<span style="color:#d73a49">import</span> {
-    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/css-static-class-decorator.md">css</a>,
-    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/styled.md">styled</a>,
-    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/rule.md">rule</a>,
-    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/StyleSheet.md">StyleSheet</a>,
-    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/Component.md">Component</a>,
-    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/hyperstyle.md">hyperstyle</a>,
-    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/hoc.md">hoc</a>,
-    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/styleit.md">styleit</a>,
-    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/styleit.md">Styleit</a>,
-    <a href="https://github.com/streamich/freestyler/blob/master/docs/en/jsxstyle.md">jsxstyle</a>,
+```js
+import {
+    css,
+    styled,
+    rule,
+    StyleSheet,
+    Component,
+    hyperstyle,
+    hoc,
+    styleit,
+    Styleit,
+    jsxstyle,
     Box,
     Block,
     Inline,
     InlineBlock,
     Row,
     Column
-} <span style="color:#d73a49">from</span> <span style="color:#032f62">'freestyler'</span>;
-</pre>
+} from 'freestyler';
+```
 
 Decorate *stateful* components.
 
