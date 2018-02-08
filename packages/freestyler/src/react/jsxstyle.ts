@@ -2,7 +2,7 @@ import {Component, createElement as h} from 'react';
 import {styleit} from './styleit';
 import * as extend from 'fast-extend';
 
-export const jsxstyle = (Comp, defaultStyles) => {
+export const jsxstyle = (Comp, defaultStyles = {}) => {
     return props => {
         let {
             component,

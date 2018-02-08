@@ -1,13 +1,16 @@
 import {createElement as h, Component} from 'react';
 import {jsxstyle, Block, InlineBlock} from '../../packages/freestyler/src/react/jsxstyle';
 
+const Button = jsxstyle('button', {
+    background: 'red',
+    width: '320px',
+    padding: '20px',
+    borderRadius: '5px'
+});
+
 const Example1 = () =>
     <Block ta='center'>
-        <InlineBlock
-            background='red'
-            width='320px'
-            padding='20px'
-            borderRadius='5px'
+        <Button
             border='none'
             outline='none'
             {...{
@@ -23,8 +26,8 @@ const Example1 = () =>
                 }
             }}
         >
-            <button>Hello world 3</button>
-        </InlineBlock>
+            Hello world 3
+        </Button>
     </Block>;
 
 export default Example1;

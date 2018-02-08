@@ -189,8 +189,19 @@ class Renderer implements IRenderer {
 
     render(Comp, instance, root: HTMLElement | null, tpl: TCssTemplate, args: any[]): string {
         const styles = tplToStyles(tpl, args);
-        const stylesheet = this.toStylesheet(styles, SCOPE_SENTINEL);
 
+        if (process.env.NODE_ENV !== 'production') {
+            require('../debug').emit({
+                type: 'RENDER',
+                Comp,
+                instance,
+                el: root,
+                styles,
+                args,
+            });
+        }
+
+        const stylesheet = this.toStylesheet(styles, SCOPE_SENTINEL);
         let infDeclClassNames = '';
         let classNames = renderCacheableSheet(
             stylesheet,
@@ -211,6 +222,13 @@ class Renderer implements IRenderer {
     }
 
     unrender(Comp, instance, el: HTMLElement | null) {
+        require('../debug').emit({
+            type: 'UNRENDER',
+            Comp,
+            instance,
+            el,
+        });
+
         // Remove statics
         const cacheMap = instance[$$statics] as {[key: string]: DeclarationCache};
         for (const key in cacheMap) {
@@ -241,6 +259,15 @@ class Renderer implements IRenderer {
 
         let styles = tplToStyles(tpl, args);
         if (!styles) return '';
+
+        if (process.env.NODE_ENV !== 'production') {
+            require('../debug').emit({
+                type: 'RENDER_STATIC',
+                Comp,
+                styles,
+                args,
+            });
+        }
 
         const stylesheet = this.toStylesheet(styles, SCOPE_SENTINEL);
         let moreClassNames = '';

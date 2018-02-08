@@ -22,9 +22,9 @@ const h: any = hyperstyle(createElement, {
             position: 'relative',
             top: '2px',
         },
-        // '@media (max-width: 480px)': {
-            // width: '160px',
-        // },
+        '@media (max-width: 480px)': {
+            width: '160px',
+        },
     }),
 });
 
@@ -40,4 +40,4 @@ class Example1 extends Component<any, any> {
 }
 
 storiesOf('hyperstyle', module)
-  .add('Basic', () => <Example1 />)
+  .add('Button', () => <Example1 />)
