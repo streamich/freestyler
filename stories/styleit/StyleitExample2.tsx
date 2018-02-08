@@ -1,5 +1,5 @@
 import {createElement as h, Component} from 'react';
-import {Styleit} from '../../packages/freestyler/src/react/styleit';
+import {Styleit} from '../../src/react/styleit';
 
 export default class StyleitExample2 extends Component<any, any> {
     render() {

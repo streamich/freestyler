@@ -2,7 +2,7 @@ import {createElement, Component} from 'react';
 import {storiesOf} from '@storybook/react';
 const {action} = require('@storybook/addon-actions');
 const {linkTo} = require('@storybook/addon-links');
-import hyperstyle from '../packages/freestyler/src/react/hyperstyle';
+import hyperstyle from '../src/react/hyperstyle';
 
 const h: any = hyperstyle(createElement, {
     container: {

@@ -1,5 +1,5 @@
 import {createElement as h, Component} from 'react';
-import css from '../../packages/freestyler/src/react/css';
+import css from '../../src/react/css';
 
 export class Story4thGenRender1 extends Component<any, any> {
     @css((a) => {

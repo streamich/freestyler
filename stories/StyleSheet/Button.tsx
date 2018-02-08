@@ -1,5 +1,5 @@
 import {Component, createElement as h} from 'react';
-import StyleSheet from '../../packages/freestyler/src/StyleSheet';
+import StyleSheet from '../../src/StyleSheet';
 
 const styles = StyleSheet.create({
     container: {

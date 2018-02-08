@@ -55,8 +55,9 @@ const wrap: TWrap = function(Element, template, dynamicTemplateGetter) {
             const className = (propsClassName || '') + staticClassNames + dynamicClassNames;
 
             if (process.env.NODE_ENV === 'production') {
-                this.props.className = className;
-                this.props.ref = this.ref;
+                const p: any = this.props as any;
+                p.className = className;
+                p.ref = this.ref;
                 return h(Element, this.props);
             } else {
                 return h(Element, extend(props, {className, ref: this.ref}));

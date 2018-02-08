@@ -1,5 +1,5 @@
 import {createElement as h} from 'react';
-import Component from '../../packages/freestyler/src/react/Component';
+import Component from '../../src/react/Component';
 
 class Button extends Component<any, any> {
     static css = {

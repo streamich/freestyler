@@ -2,7 +2,7 @@ import {createElement as h} from 'react';
 import {storiesOf} from '@storybook/react';
 const {action} = require('@storybook/addon-actions');
 const {linkTo} = require('@storybook/addon-links');
-import Component from '../packages/freestyler/src/react/Component';
+import Component from '../src/react/Component';
 import {Container as ExampleButton} from './Component/Button';
 
 class Example1 extends Component<any, any> {

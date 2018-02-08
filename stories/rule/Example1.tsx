@@ -1,5 +1,5 @@
 import {Component, createElement as h} from 'react';
-import {rule} from '../../packages/freestyler/src';
+import {rule} from '../../src';
 
 const containerClassName = rule({
     ta: 'center',

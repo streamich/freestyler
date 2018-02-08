@@ -1,5 +1,5 @@
 import {createElement as h, Component} from 'react';
-import css from '../../packages/freestyler/src/react/css';
+import css from '../../src/react/css';
 
 @css
 export class StoryStatic1 extends Component<any, any> {

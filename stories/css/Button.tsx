@@ -1,5 +1,5 @@
 import {Component, createElement as h} from 'react';
-import css from '../../packages/freestyler/src/react/css';
+import css from '../../src/react/css';
 
 @css
 @css({

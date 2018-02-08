@@ -1,11 +1,10 @@
-/typings
-example.js
-tsd.json
-simple.js
-node_modules
+node_modules/
 /test
 .idea
 .idea/
+__tests__/
+__mocks__/
+__stories__/
 .nyc_output
 coverage
 package-lock.json

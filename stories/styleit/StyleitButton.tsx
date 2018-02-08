@@ -1,5 +1,5 @@
 import {Component, createElement as h} from 'react';
-import {Styleit, styleit} from '../../packages/freestyler/src/react/styleit';
+import {Styleit, styleit} from '../../src/react/styleit';
 
 class StyleitButton extends Component<any, any> {
     render() {
