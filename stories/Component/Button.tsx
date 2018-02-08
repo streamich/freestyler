@@ -1,6 +1,5 @@
 import {createElement as h} from 'react';
-import {render} from 'react-dom';
-import Component from 'freestyler/src/react/Component';
+import Component from '../../packages/freestyler/src/react/Component';
 
 class Button extends Component<any, any> {
     static css = {
@@ -32,7 +31,7 @@ class Button extends Component<any, any> {
     }
 }
 
-class Container extends Component<any, any> {
+export class Container extends Component<any, any> {
     static css = {
         textAlign: 'center',
     };
@@ -46,5 +45,3 @@ class Container extends Component<any, any> {
         );
     }
 }
-
-render(h(Container), document.body);

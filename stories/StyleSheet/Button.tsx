@@ -1,6 +1,5 @@
 import {Component, createElement as h} from 'react';
-import {render} from 'react-dom';
-import StyleSheet from 'freestyler/src/StyleSheet';
+import StyleSheet from '../../packages/freestyler/src/StyleSheet';
 
 const styles = StyleSheet.create({
     container: {
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
     },
 });
 
-class App extends Component<any, any> {
+class Button extends Component<any, any> {
     render() {
         // prettier-ignore
         return h('div', {className: styles.container},
@@ -37,4 +36,4 @@ class App extends Component<any, any> {
     }
 }
 
-render(h(App), document.body);
+export default Button;

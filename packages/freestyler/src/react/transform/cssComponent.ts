@@ -15,7 +15,7 @@ const transformCssComponent = instance => {
         if (staticTemplate) transformComponentStatic(Comp, staticTemplate);
 
         let dynamicTemplate: TCssDynamicTemplate = instance.css;
-        console.log('instance.css', instance.css);
+
         if (dynamicTemplate) {
             if (process.env.NODE_ENV !== 'production') {
                 if (typeof dynamicTemplate !== 'function') {
@@ -32,7 +32,6 @@ const transformCssComponent = instance => {
             }
 
             dynamicTemplate = dynamicTemplate.bind(instance);
-            console.log('aa', Comp, dynamicTemplate);
             transformComponentDynamic(Comp, dynamicTemplate);
         }
     }

@@ -1,8 +1,7 @@
 import {Component, createElement as h} from 'react';
-import {render} from 'react-dom';
-import {Styleit, styleit} from 'freestyler/src/react/styleit';
+import {Styleit, styleit} from '../../packages/freestyler/src/react/styleit';
 
-class App extends Component<any, any> {
+class StyleitButton extends Component<any, any> {
     render() {
         // prettier-ignore
         return styleit({
@@ -58,4 +57,4 @@ class App extends Component<any, any> {
     }
 }
 
-render(h(App), document.body);
+export default StyleitButton;

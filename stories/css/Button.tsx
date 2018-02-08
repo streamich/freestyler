@@ -1,6 +1,6 @@
 import {Component, createElement as h} from 'react';
-import {render} from 'react-dom';
-import css from 'freestyler/src/react/css';
+import css from '../../packages/freestyler/src/react/css';
+
 @css
 @css({
     width: '320px',
@@ -19,18 +19,10 @@ class Button extends Component<any, any> {
         },
     };
 
-    css() {
-        return {
-            background: this.props.color || 'blue',
-            '@media (max-width: 480px)': {
-                width: '160px',
-            },
-        };
-    }
-
-    @css(function() {
+    @css(function({props}) {
         return {
             padding: '20px',
+            background: props.color || 'blue',
         };
     })
     render() {
@@ -39,7 +31,7 @@ class Button extends Component<any, any> {
 }
 
 @css
-class Container extends Component<any, any> {
+export class Container extends Component<any, any> {
     static css = {
         textAlign: 'center',
     };
@@ -53,5 +45,3 @@ class Container extends Component<any, any> {
         );
     }
 }
-
-render(h(Container), document.body);
