@@ -1,4 +1,4 @@
-import {TDeclarations} from '../ast/toStylesheet';
+import {TDeclarations} from '../../ast/toStylesheet';
 
 const removeInlineStyles = (el: HTMLElement, declarations: TDeclarations) => {
     const {style} = el;

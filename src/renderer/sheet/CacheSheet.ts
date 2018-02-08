@@ -1,4 +1,4 @@
-import {TAtrulePrelude, TDeclarations, TProperty, TPseudo, TSelectors, TValue} from '../ast/toStylesheet';
+import {TAtrulePrelude, TDeclarations, TProperty, TPseudo, TSelectors, TValue} from '../../ast/toStylesheet';
 import memoizer from './memoizer';
 import SCOPE_SENTINEL from '../util/sentinel';
 import createStyleElement from '../util/createStyleElement';

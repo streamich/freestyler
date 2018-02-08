@@ -1,5 +1,5 @@
-import {TRule, TAtrule, TAtrulePrelude, TDeclarations} from '../ast/toStylesheet';
-import {isRule} from '../ast/toCss';
+import {TRule, TAtrule, TAtrulePrelude, TDeclarations} from '../../ast/toStylesheet';
+import {isRule} from '../../ast/toCss';
 import renderCacheableRule from './renderCacheableRule';
 import SCOPE_SENTINEL from '../util/sentinel';
 

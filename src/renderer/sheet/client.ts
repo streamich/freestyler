@@ -1,6 +1,6 @@
 import createStyleElement from '../util/createStyleElement';
 import removeDomElement from '../util/removeDomElement';
-import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
+import {TAtrulePrelude, TSelectors, TDeclarations} from '../../ast/toStylesheet';
 
 type TMapBySelectors = {[selectors: string]: ClientRule};
 type TMapByAtRulePrelude = {[atRulePrelude: string]: TMapBySelectors};

@@ -1,6 +1,6 @@
 import {hidden, sym} from '../../util';
-import {TDeclarations} from '../ast/toStylesheet';
-import declarationSubtractStrict from '../declaration/subtractStrict';
+import {TDeclarations} from '../../ast/toStylesheet';
+import declarationSubtractStrict from '../../declaration/subtractStrict';
 import setInlineStyles from './setInlineStyles';
 import removeInlineStyles from './removeInlineStyles';
 

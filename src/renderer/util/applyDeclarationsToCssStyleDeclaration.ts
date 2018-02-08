@@ -1,4 +1,4 @@
-import {TDeclarations} from '../ast/toStylesheet';
+import {TDeclarations} from '../../ast/toStylesheet';
 
 const applyDeclarationsToCssStyleDeclaration = (style: CSSStyleDeclaration, declarations: TDeclarations) => {
     const len = declarations.length;

@@ -1,8 +1,8 @@
-import toStyleSheet, {TStyles, TStyleSheet, TAtrule} from '../ast/toStylesheet';
+import toStyleSheet, {TStyles, TStyleSheet, TAtrule} from '../../ast/toStylesheet';
 import {IStyles} from '../types';
 import SCOPE_SENTINEL from '../util/sentinel';
 import renderCacheableSheet from './renderCacheableSheet';
-import toCss from '../ast/toCss';
+import toCss from '../../ast/toCss';
 
 const combineIntoStylesheet = (stylesheet: TStyleSheet, className: string) => {
     const dottedClassName = '.' + className;

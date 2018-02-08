@@ -1,4 +1,4 @@
-import {TDeclarations} from '../ast/toStylesheet';
+import {TDeclarations} from '../../ast/toStylesheet';
 import applyDeclarationsToCssStyleDeclaration from './applyDeclarationsToCssStyleDeclaration';
 
 const setInlineStyles = (element: HTMLElement, declarations: TDeclarations) => {

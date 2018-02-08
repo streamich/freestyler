@@ -1,19 +1,18 @@
 import {$$cn, $$cnt, hidden, sym, camelCase} from '../util';
 import supportsCssVariables from '../supportsCssVariables';
 import {TCssTemplate, TCssDynamicTemplate, IStyles} from './types';
-import {TDeclarations, TAtrule, TAtrulePrelude} from './ast/toStylesheet';
-import toStyleSheet, {TStyles, TStyleSheet} from './ast/toStylesheet';
-import toCss from './ast/toCss';
-import toCssRule from './ast/toCssRule';
+import toStyleSheet, {TDeclarations, TAtrule, TAtrulePrelude, TStyles, TStyleSheet} from '../ast/toStylesheet';
+import toCss from '../ast/toCss';
+import toCssRule from '../ast/toCssRule';
 import {IRenderer} from './util';
 import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
 import {list} from './sheet';
 import SCOPE_SENTINEL from './util/sentinel';
-import declarationIntersectStrict from './declaration/intersectStrict';
-import declarationSubtract from './declaration/subtract';
-import declarationSort from './declaration/sort';
-import declarationEqualityStrict from './declaration/equalityStrict';
-import declarationSubtractStrict from './declaration/subtractStrict';
+import declarationIntersectStrict from '../declaration/intersectStrict';
+import declarationSubtract from '../declaration/subtract';
+import declarationSort from '../declaration/sort';
+import declarationEqualityStrict from '../declaration/equalityStrict';
+import declarationSubtractStrict from '../declaration/subtractStrict';
 import renderCacheableSheet from './cache/renderCacheableSheet';
 import renderInlineStyles from './util/renderInlineStyles';
 

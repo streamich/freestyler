@@ -1,5 +1,5 @@
 import {TComponent, TComponentConstructor, TCssTemplate} from './types';
-import {TStyles, TStyleSheet} from './ast/toStylesheet';
+import {TStyles, TStyleSheet} from '../ast/toStylesheet';
 import createStyleElement from './util/createStyleElement';
 
 export interface IMiddleware {

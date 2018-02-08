@@ -1,5 +1,5 @@
 import {ClientSheet} from './client';
-import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
+import {TAtrulePrelude, TSelectors, TDeclarations} from '../../ast/toStylesheet';
 
 export class SSheet {
     list;
