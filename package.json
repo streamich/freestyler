@@ -39,7 +39,7 @@
     ]
   },
   "dependencies": {
-    "fast-extend": "0.0.2",
+    "fast-extend": "1.0.0",
     "freestyler-renderer": "^1.3.6",
     "freestyler-util": "^1.3.6"
   },
