@@ -10,6 +10,7 @@
         "allowSyntheticDefaultImports": true,
         "jsx": "react",
         "jsxFactory": "h",
+        "importHelpers": true,
         "lib": [
           "dom",
           "es5",

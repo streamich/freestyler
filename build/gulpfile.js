@@ -1,16 +1,15 @@
 const gulp = require('gulp');
 const ts = require('gulp-typescript');
+const config = require('../tsconfig.json');
 
 gulp.task('build-ts', () => {
     return gulp
         .src(['../src/**/*.ts', '!../src/**/__tests__/**'])
         .pipe(
             ts({
+                ...config.compilerOptions,
                 target: 'es5',
                 module: 'commonjs',
-                removeComments: false,
-                noImplicitAny: false,
-                sourceMap: false,
             })
         )
         .pipe(gulp.dest('../lib'));
@@ -21,11 +20,9 @@ gulp.task('build-modules', () => {
         .src(['../src/**/*.ts', '!../src/**/__tests__/**'])
         .pipe(
             ts({
+                ...config.compilerOptions,
                 target: 'ESNext',
                 module: 'ESNext',
-                removeComments: false,
-                noImplicitAny: false,
-                sourceMap: false,
             })
         )
         .pipe(gulp.dest('../modules'));
