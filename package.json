@@ -10,12 +10,11 @@
   "scripts": {
     "start": "npm run storybook",
     "clean": "rimraf modules lib dist",
-    "build": "npm run clean && npm run build:lib && npm run build:modules && npm run build:dist",
-    "build:dist": "node build/rollup.js",
-    "build:modules": "gulp build:modules",
-    "build:lib": "npm run build-ts && npm run build:js",
-    "build:ts": "gulp build:ts --gulpfile build/gulpfile.js",
-    "build:js": "babel src --out-dir lib",
+    "build": "npm run clean && npm run build:lib && npm run build:modules && npm run build:cjs && npm run build:umd",
+    "build:modules": "gulp build-modules --gulpfile build/gulpfile.js",
+    "build:lib": "gulp build-ts --gulpfile build/gulpfile.js",
+    "build:cjs": "webpack -p --config build/webpack.config.cjs.js",
+    "build:umd": "webpack -p --config build/webpack.config.umd.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
@@ -44,8 +43,6 @@
     "@types/node": "^8.0.31",
     "@types/prop-types": "^15.5.2",
     "@types/react": "^16.0.10",
-    "babel-cli": "6.24.1",
-    "babel-preset-es2015": "6.24.1",
     "enzyme": "2",
     "enzyme-to-json": "2",
     "gulp": "3.9.1",
@@ -61,10 +58,6 @@
     "react-dom": "15",
     "react-test-renderer": "15",
     "rimraf": "^2.6.2",
-    "rollup": "^0.50.0",
-    "rollup-plugin-commonjs": "^8.2.1",
-    "rollup-plugin-filesize": "^1.4.2",
-    "rollup-plugin-node-resolve": "^3.0.0",
     "source-map-support": "0.4.15",
     "ts-jest": "^21.1.0",
     "ts-node": "3.3.0",
@@ -78,7 +71,8 @@
     "@storybook/react": "^3.3.12",
     "@storybook/addon-actions": "^3.3.12",
     "@storybook/addon-links": "^3.3.12",
-    "mol-conventional-changelog": "1.2.0"
+    "mol-conventional-changelog": "1.2.0",
+    "webpack": "3.10.0"
   },
   "config": {
     "commitizen": {

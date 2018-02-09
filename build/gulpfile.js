@@ -3,7 +3,7 @@ const ts = require('gulp-typescript');
 
 gulp.task('build-ts', () => {
     return gulp
-        .src(['src/**/*.ts', '!src/**/__tests__/**'])
+        .src(['../src/**/*.ts', '!../src/**/__tests__/**'])
         .pipe(
             ts({
                 target: 'es5',
@@ -13,20 +13,20 @@ gulp.task('build-ts', () => {
                 sourceMap: false,
             })
         )
-        .pipe(gulp.dest('lib'));
+        .pipe(gulp.dest('../lib'));
 });
 
 gulp.task('build-modules', () => {
     return gulp
-        .src(['src/**/*.ts', '!src/**/__tests__/**'])
+        .src(['../src/**/*.ts', '!../src/**/__tests__/**'])
         .pipe(
             ts({
-                target: 'es6',
-                module: 'es2015',
+                target: 'ESNext',
+                module: 'ESNext',
                 removeComments: false,
                 noImplicitAny: false,
                 sourceMap: false,
             })
         )
-        .pipe(gulp.dest('modules'));
+        .pipe(gulp.dest('../modules'));
 });
