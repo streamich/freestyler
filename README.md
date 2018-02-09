@@ -19,22 +19,19 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 
 ## feat.
 
-- [Fifth generation](./docs/en/feat/fifth-generation.md)
-- [Lightweight](./docs/en/feat/lightweight.md)
-- [Lightning fast](./docs/en/feat/fast.md)
-- [JIT CSS](./docs/en/feat/jit-css.md)
-- [Code splitting](./docs/en/feat/code-splitting.md)
-- [Dead code elimination](./docs/en/feat/dead-code-elimination.md)
-- [Variables](./docs/en/feat/variables.md)
-- [Scoped styles without selectors](./docs/en/feat/scoped.md)
-- [Nested selectors](./docs/en/feat/nesting.md)
-- [Mixins](./docs/en/feat/mixins.md)
-- [Media queries, keyframes, ...](./docs/en/feat/media.md)
-- [Atoms](./docs/en/feat/atoms.md)
-- [Global styles](./docs/en/feat/global.md)
-- [CSS Resets](./docs/en/feat/resets.md)
-- [*"Styled"* component generator](./docs/en/feat/styled-components.md)
-- [Theming](./docs/en/feat/theming.md)
+- *[fifth generation](./docs/en/feat/fifth-generation.md)*, *[lightweight](./docs/en/feat/lightweight.md)*, *[lightning fast](./docs/en/feat/fast.md)*, *[JIT CSS](./docs/en/feat/jit-css.md)*, *[code splitting](./docs/en/feat/code-splitting.md)*, *[dead code elimination](./docs/en/feat/dead-code-elimination.md)*, *[JavaScript variables](./docs/en/feat/variables.md)*
+
+
+## CSS Templates
+
+- [__Scoped__ styles without selectors](./docs/en/feat/scoped.md)
+- [__Nested__ selectors](./docs/en/feat/nesting.md)
+- __[Mixins](./docs/en/feat/mixins.md)__
+- [__Media queries__, keyframes, ...](./docs/en/feat/media.md)
+- __[Atoms](./docs/en/feat/atoms.md)__
+- [__Global__ styles](./docs/en/feat/global.md)
+- [CSS __resets__](./docs/en/feat/resets.md)
+- __[Theming](./docs/en/feat/theming.md)__
 
 
 ## Reference
@@ -42,19 +39,19 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 - [Terminology](./docs/en/terminology.md)
 - [Generations](./docs/en/generations.md)
 - [Interfaces](./docs/en/interfaces.md)
-- __Generic:__ [Low-level API](./docs/en/low-level-api.md)
-- __Generic:__ [__3<sup>rd</sup> Generation Interfaces__](./docs/en/3rd-gen.md)
+- __Generic__ [Low-level API](./docs/en/low-level-api.md)
+- __Generic__ [__3<sup>rd</sup> Generation Interfaces__](./docs/en/3rd-gen.md)
     - [`rule()` Interface](./docs/en/rule.md)
     - [`StyleSheet.create()` Interface](./docs/en/StyleSheet.md) with lazy rendering
     - [`hyperstyle()` `styleName` Interface](./docs/en/hyperstyle.md)
-- __React.js:__ [__4<sup>th</sup> Generation Interfaces__](./docs/en/4th-gen.md)
+- __React.js__ [__4<sup>th</sup> Generation Interfaces__](./docs/en/4th-gen.md)
     - [`styled()()` Component Interface](./docs/en/styled.md)
     - [`@css` Static Class Decorator Interface](./docs/en/css-static-class-decorator.md)
     - [`@css()` Class Decorator Interface](./docs/en/css-class-decorator.md)
     - [`@css()` `.render()` Decorator Interface](./docs/en/css-render-decorator.md)
     - [`hoc()` Generator Interface](./docs/en/hoc-generator.md)
     - [`Component` Class Interface](./docs/en/component-class.md)
-- __React.js:__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
+- __React.js__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
     - [`styleit()` and `<Styleit>` Interfaces](./docs/en/styleit.md)
     - [`jsxstyle()`, `<Block>`, `<Inline>`, `<InlineBlock>`, `<Row>`, and `<Column>` Interfaces](./docs/en/jsxstyle.md)
 - [Environment variables](./docs/en/env-vars.md)
@@ -114,17 +111,9 @@ const App = () =>
 ```
 
 
-## Packages
-
-  - [`libreact`](https://github.com/MailOnline/libreact) &mdash; must-have utilities for every React project.
-  - [`themestyler`](https://www.npmjs.com/package/themestyler) &mdash; theming primitives designed for `freestyler`, but can be used in any React project.
-  - [`freestyler-context`](https://www.npmjs.com/package/freestyler-context) &mdash; generic React context pub/sub that shallowly merges contexts with the same name.
-  - [`freestyler-observable`](https://www.npmjs.com/package/freestyler-observable) &mdash; observable factory.
-
-
 ## License
 
-[Unlicense](./LICENSE) &mdash; public domain.
+[Unlicense](./docs/en/LICENSE.md) &mdash; public domain.
 
 
 -------

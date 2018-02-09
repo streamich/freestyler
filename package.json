@@ -1,18 +1,36 @@
 {
-  "name": "freeestyler-workspace-root",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "name": "freestyler",
+  "version": "1.6.0",
+  "description": "5th generation React styling library",
+  "main": "lib/index.js",
+  "module": "modules/index.js",
+  "unpkg": "dist/freestyler.umd.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/streamich/freestyler.git"
+  },
   "scripts": {
-    "start": "yarn install",
+    "start": "npm run storybook",
+    "clean": "rimraf modules lib dist && npm run docs:clean && npm run test:visual:clean",
+    "build": "npm run clean && npm run build:lib && npm run build:modules && npm run build:cjs && npm run build:umd",
+    "build:modules": "gulp build-modules --gulpfile build/gulpfile.js",
+    "build:lib": "gulp build-ts --gulpfile build/gulpfile.js",
+    "build:cjs": "webpack -p --config build/webpack.config.cjs.js",
+    "build:umd": "webpack -p --config build/webpack.config.umd.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:visual": "npm run storybook",
+    "test:visual:build": "build-storybook",
+    "test:visual:clean": "rimraf storybook-static",
+    "docs:clean": "rimraf docs/_book",
+    "docs:serve": "npm run docs:clean && gitbook install ./docs && gitbook serve ./docs",
+    "docs:build": "npm run docs:clean && gitbook install ./docs && gitbook build ./docs",
+    "docs:publish": "npm run test:visual:build && npm run docs:build && ./build/publish-docs.sh",
     "prettier": "prettier --write '**/*.ts'",
     "precommit": "lint-staged",
-    "build": "lerna run build",
-    "clean": "lerna run clean",
-    "publish": "npx lerna publish",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "semantic-release": "semantic-release"
   },
   "lint-staged": {
     "**/*.ts": [
@@ -20,16 +38,18 @@
       "git add"
     ]
   },
+  "dependencies": {
+    "fast-extend": "0.0.2",
+    "freestyler-renderer": "^1.3.6",
+    "freestyler-util": "^1.3.6"
+  },
   "devDependencies": {
-    "@types/react": "16.0.36",
+    "@types/react": "^16.0.10",
     "@types/enzyme": "^2.8.11",
     "@types/enzyme-to-json": "^1.5.0",
     "@types/jest": "22.0.1",
     "@types/node": "^8.0.31",
     "@types/prop-types": "^15.5.2",
-    "@types/react": "^16.0.10",
-    "babel-cli": "6.24.1",
-    "babel-preset-es2015": "6.24.1",
     "enzyme": "2",
     "enzyme-to-json": "2",
     "gulp": "3.9.1",
@@ -41,28 +61,25 @@
     "lint-staged": "^4.2.3",
     "prettier": "1.7.4",
     "prop-types": "^15.6.0",
-    "react": "15",
-    "react-dom": "15",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
     "react-test-renderer": "15",
     "rimraf": "^2.6.2",
-    "rollup": "^0.50.0",
-    "rollup-plugin-commonjs": "^8.2.1",
-    "rollup-plugin-filesize": "^1.4.2",
-    "rollup-plugin-node-resolve": "^3.0.0",
     "source-map-support": "0.4.15",
     "ts-jest": "^21.1.0",
     "ts-node": "3.3.0",
     "typescript": "^2.5.3",
+    "tslib": "^1.9.0",
     "ts-loader": "3.4.0",
     "webpack": "3.10.0",
     "yarn": "^1.1.0",
-    "react": "16.2.0",
-    "react-dom": "16.2.0",
     "chai": "4.1.2",
     "@storybook/react": "^3.3.12",
     "@storybook/addon-actions": "^3.3.12",
     "@storybook/addon-links": "^3.3.12",
-    "mol-conventional-changelog": "1.2.0"
+    "mol-conventional-changelog": "1.2.0",
+    "semantic-release": "^12.4.1",
+    "gitbook-cli": "2.3.2"
   },
   "config": {
     "commitizen": {
@@ -74,7 +91,7 @@
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "transformIgnorePatterns": [],
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testRegex": ".*/__tests__/.*\\.(test|spec)\\.(jsx?|tsx?)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
@@ -85,5 +102,15 @@
     "reporters": [
       "jest-tap-reporter"
     ]
+  },
+  "prettier": {
+    "printWidth": 120,
+    "tabWidth": 4,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": false,
+    "jsxBracketSameLine": false
   }
 }

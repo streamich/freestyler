@@ -9,3 +9,8 @@ yarn-error.log
 dist/
 .DS_Store
 lerna-debug.log
+/modules/
+/dist/
+/lib/
+.vscode/
+_book/

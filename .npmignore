@@ -1,0 +1,15 @@
+node_modules/
+/test
+.idea
+.idea/
+__tests__/
+__mocks__/
+__stories__/
+.nyc_output
+coverage
+package-lock.json
+yarn.lock
+yarn-error.log
+tsconfig.json
+.vscode/
+/docs/

@@ -1,0 +1,20 @@
+{
+  "title": "freestyler",
+  "gitbook": ">3.0.0",
+  "plugins": ["edit-link", "theme-libreact", "-fontsettings", "github"],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/streamich/freestyler/edit/master/docs",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/streamich/freestyler/"
+    }
+  },
+  "links": {
+    "sharing": {
+      "facebook": false,
+      "twitter": false
+    }
+  }
+}

@@ -72,17 +72,17 @@ can use JavaScript variables from component's __`.render()` function scope__.
 
 Libraries grouped by generation.
 
-  - 1<sup>st</sup> generation
+  - __1<sup>st</sup> Generation__
     - [`css-modules`][lib-css-modules], [`babel-plugin-css-in-js`][lib-babel-plugin-css-in-js], [`bloody-react-styled`][lib-bloody-react-styled],
     [`css-loader`][lib-css-loader], and [`lib-css-ns`][lib-css-ns]
-  - 2<sup>nd</sup> generation
+  - __2<sup>nd</sup> Generation__
     - [`Radium`][lib-radium]
-  - 3<sup>rd</sup> generation
+  - __3<sup>rd</sup> Generation__
     - [`aphrodite`][lib-aphrodite], [`glamor`][lib-glamor], [`jsxstyle`][lib-jsxstyle], [`styletron`][lib-styletron], [`Classy`][lib-classy],
     [`csjs`][lib-csjs], [`css-constructor`][lib-css-constructor], [`hyperstyles`][lib-hyperstyles], [`styletron`][lib-styletron]
-  - 4<sup>th</sup> generation
+  - __4<sup>th</sup> Generation__
     - [`styled-components`][lib-styled-components], [`glamorous`][lib-glamorous]
-  - 5<sup>th</sup> generation
+  - __5<sup>th</sup> Generation__
     - [`freestyler`][lib-freestyler], [`jsxstyle`][lib-jsxstyle], [`style-it`][lib-style-it], [`superstyle`][lib-superstyle]
 
 [lib-css-modules]: https://github.com/css-modules/css-modules
