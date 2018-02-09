@@ -1,6 +1,6 @@
-import {global} from './index';
+import createCssResetComponent from './createCssResetComponent';
 
-export default global({
+const css = {
     ':link,:visited': {
         td: 'none',
     },
@@ -20,4 +20,8 @@ export default global({
     address: {
         fs: 'normal',
     },
-});
+};
+
+const CssResetTantek = createCssResetComponent(css);
+
+export default CssResetTantek;

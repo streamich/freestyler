@@ -1,6 +1,6 @@
-import {global} from './index';
+import createCssResetComponent from './createCssResetComponent';
 
-export default global({
+const css = {
     'body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td': {
         pad: 0,
         mar: 0,
@@ -32,4 +32,8 @@ export default global({
     'abbr,acronym': {
         bd: 0,
     },
-});
+};
+
+const CssResetYahoo = createCssResetComponent(css);
+
+export default CssResetYahoo;

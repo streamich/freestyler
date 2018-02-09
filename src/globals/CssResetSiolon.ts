@@ -1,6 +1,6 @@
-import {global} from './index';
+import createCssResetComponent from './createCssResetComponent';
 
-export default global({
+const css = {
     '*': {
         'vertical-align': 'baseline',
         ff: 'inherit',
@@ -23,4 +23,8 @@ export default global({
         'border-collapse': 'collapse',
         'border-spacing': 0,
     },
-});
+};
+
+const CssResetSiolon = createCssResetComponent(css);
+
+export default CssResetSiolon;

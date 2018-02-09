@@ -1,6 +1,6 @@
-import {global} from './index';
+import createCssResetComponent from './createCssResetComponent';
 
-export default global({
+const css = {
     'body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,table,th,td,embed,object': {
         pad: 0,
         mar: 0,
@@ -31,4 +31,8 @@ export default global({
     'a,ins': {
         td: 'none',
     },
-});
+};
+
+const CssResetShaunInman = createCssResetComponent(css);
+
+export default CssResetShaunInman;
