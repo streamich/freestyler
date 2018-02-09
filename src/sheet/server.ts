@@ -52,7 +52,7 @@ export class ServerSheet {
     get(atRulePrelude: TAtrulePrelude, selectors: TSelectors): ServerRule {
         const {map} = this;
 
-        return !atRulePrelude ? map[selectors] as ServerRule : map[atRulePrelude] && map[atRulePrelude][selectors];
+        return !atRulePrelude ? (map[selectors] as ServerRule) : map[atRulePrelude] && map[atRulePrelude][selectors];
     }
 
     add(atRulePrelude: TAtrulePrelude, selectors: string): ServerRule {

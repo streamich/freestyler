@@ -41,7 +41,7 @@ export class ClientSheet {
     get(atRulePrelude: TAtrulePrelude, selectors: TSelectors): ClientRule {
         const {map} = this;
 
-        return !atRulePrelude ? map[selectors] as ClientRule : map[atRulePrelude] && map[atRulePrelude][selectors];
+        return !atRulePrelude ? (map[selectors] as ClientRule) : map[atRulePrelude] && map[atRulePrelude][selectors];
     }
 
     add(atRulePrelude: TAtrulePrelude, selectors: string): ClientRule {

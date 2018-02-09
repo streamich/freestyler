@@ -354,7 +354,7 @@ class Renderer implements IRenderer {
         return classNames + this.renderDynamicDecls(instance, el, atRulePrelude, selectorTemplate, dynamicDecls);
     }
 
-    render(Comp, instance, root: HTMLElement | null, tpl: TCssTemplate, args: any[]): string {
+    render(Comp, instance, root: HTMLElement | null, tpl: TCssTemplate, args?: any[]): string {
         const styles = tplToStyles(tpl, args);
 
         if (process.env.NODE_ENV !== 'production') {
