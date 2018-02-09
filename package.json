@@ -48,7 +48,7 @@
     "@types/enzyme": "2.8.12",
     "@types/enzyme-to-json": "1.5.0",
     "@types/jest": "22.1.2",
-    "@types/node": "8.9.1",
+    "@types/node": "8.9.2",
     "@types/prop-types": "15.5.2",
     "enzyme": "2.9.1",
     "enzyme-to-json": "2.0.1",
