@@ -1,6 +1,7 @@
 import CacheSheet from './CacheSheet';
 import StaticSheet from './StaticSheet';
 import {ClientSheet} from './client';
+import {Sheet} from './isomorphic';
 
 export class SheetManager {
     sheets: ClientSheet[] = [];
@@ -8,7 +9,7 @@ export class SheetManager {
     stat = new StaticSheet(this);
 
     create() {
-        const sheet = new ClientSheet();
+        const sheet = new Sheet();
 
         this.sheets.push(sheet);
 

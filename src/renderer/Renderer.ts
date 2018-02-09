@@ -466,6 +466,16 @@ class Renderer implements IRenderer {
     use(middleware) {
         // this.middlewares.push(middleware);
     }
+
+    // Use this method on server side to get raw CSS after every page render
+    // and free memory before next request.
+    flush(): string {
+        const rawCss = this.sheets.toString();
+
+        this.sheets = new SheetManager();
+
+        return rawCss;
+    }
 }
 
 export default Renderer;
