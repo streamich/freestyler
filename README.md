@@ -113,7 +113,7 @@ const App = () =>
 
 ## License
 
-[Unlicense](./docs/en/LICENSE) &mdash; public domain.
+[Unlicense](./docs/en/LICENSE.md) &mdash; public domain.
 
 
 -------
