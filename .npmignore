@@ -11,3 +11,4 @@ package-lock.json
 yarn.lock
 yarn-error.log
 tsconfig.json
+.vscode/

@@ -19,13 +19,11 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 
 ## feat.
 
-- [Fifth generation](./docs/en/feat/fifth-generation.md)
-- [Lightweight](./docs/en/feat/lightweight.md)
-- [Lightning fast](./docs/en/feat/fast.md)
-- [JIT CSS](./docs/en/feat/jit-css.md)
-- [Code splitting](./docs/en/feat/code-splitting.md)
-- [Dead code elimination](./docs/en/feat/dead-code-elimination.md)
-- [Variables](./docs/en/feat/variables.md)
+- [Fifth generation](./docs/en/feat/fifth-generation.md), [Lightweight](./docs/en/feat/lightweight.md), [Lightning fast](./docs/en/feat/fast.md), [JIT CSS](./docs/en/feat/jit-css.md), [Code splitting](./docs/en/feat/code-splitting.md), [Dead code elimination](./docs/en/feat/dead-code-elimination.md), [Variables](./docs/en/feat/variables.md)
+
+
+## CSS Templates
+
 - [Scoped styles without selectors](./docs/en/feat/scoped.md)
 - [Nested selectors](./docs/en/feat/nesting.md)
 - [Mixins](./docs/en/feat/mixins.md)
@@ -114,17 +112,9 @@ const App = () =>
 ```
 
 
-## Packages
-
-  - [`libreact`](https://github.com/MailOnline/libreact) &mdash; must-have utilities for every React project.
-  - [`themestyler`](https://www.npmjs.com/package/themestyler) &mdash; theming primitives designed for `freestyler`, but can be used in any React project.
-  - [`freestyler-context`](https://www.npmjs.com/package/freestyler-context) &mdash; generic React context pub/sub that shallowly merges contexts with the same name.
-  - [`freestyler-observable`](https://www.npmjs.com/package/freestyler-observable) &mdash; observable factory.
-
-
 ## License
 
-[Unlicense](./LICENSE) &mdash; public domain.
+[Unlicense](./docs/en/LICENSE) &mdash; public domain.
 
 
 -------

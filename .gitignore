@@ -12,3 +12,4 @@ lerna-debug.log
 /modules/
 /dist/
 /lib/
+.vscode/
