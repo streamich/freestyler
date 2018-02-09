@@ -19,19 +19,18 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 
 ## feat.
 
-- **[fifth generation](./docs/en/feat/fifth-generation.md)**, **[lightweight](./docs/en/feat/lightweight.md)**, **[lightning fast](./docs/en/feat/fast.md)**, **[JIT CSS](./docs/en/feat/jit-css.md)**, **[code splitting](./docs/en/feat/code-splitting.md)**, **[dead code elimination](./docs/en/feat/dead-code-elimination.md)**, **[JavaScript variables](./docs/en/feat/variables.md)**
+- *[fifth generation](./docs/en/feat/fifth-generation.md)*, *[lightweight](./docs/en/feat/lightweight.md)*, *[lightning fast](./docs/en/feat/fast.md)*, *[JIT CSS](./docs/en/feat/jit-css.md)*, *[code splitting](./docs/en/feat/code-splitting.md)*, *[dead code elimination](./docs/en/feat/dead-code-elimination.md)*, *[JavaScript variables](./docs/en/feat/variables.md)*
 
 
 ## CSS Templates
 
-- __[Scoped styles without selectors](./docs/en/feat/scoped.md)__
-- __[Nested selectors](./docs/en/feat/nesting.md)__
+- [__Scoped__ styles without selectors](./docs/en/feat/scoped.md)
+- [__Nested__ selectors](./docs/en/feat/nesting.md)
 - __[Mixins](./docs/en/feat/mixins.md)__
-- __[Media queries, keyframes, ...](./docs/en/feat/media.md)__
+- [__Media queries__, keyframes, ...](./docs/en/feat/media.md)
 - __[Atoms](./docs/en/feat/atoms.md)__
-- __[Global styles](./docs/en/feat/global.md)__
-- __[CSS Resets](./docs/en/feat/resets.md)__
-- __[*"Styled"* component generator](./docs/en/feat/styled-components.md)__
+- [__Global__ styles](./docs/en/feat/global.md)
+- [CSS __resets__](./docs/en/feat/resets.md)
 - __[Theming](./docs/en/feat/theming.md)__
 
 
