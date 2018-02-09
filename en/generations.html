@@ -1,0 +1,401 @@
+
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Generations · freestyler</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-theme-libreact/theme.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="LICENSE.html" />
+    
+    
+    <link rel="prev" href="Terminology.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Getting Started</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Contents
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="Terminology.html">
+            
+                <a href="Terminology.html">
+            
+                    
+                    Terminology
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Reference</li>
+        
+        
+    
+        <li class="chapter active" data-level="2.1" data-path="generations.html">
+            
+                <a href="generations.html">
+            
+                    
+                    Generations
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="LICENSE.html">
+            
+                <a href="LICENSE.html">
+            
+                    
+                    License
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Generations</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="generations">Generations</h1>
+<p>The most important factor that differentiates CSS-in-JS libraries is how dynamic they are. By that we
+mean whether a CSS-in-JS library can use JavaScript variables in its templates, and &#x2014; if so &#x2014;
+to what scope of variables those templates have access to? Module scope? Component scope? Or maybe
+<code>.render()</code> method scope?</p>
+<p>Below we define five generations of CSS-in-JS libraries based on their template dynamicity and whether they
+use inline styles or inject actual CSS; starting from generation one &#x2014; for the most static libraries &#x2014;
+and going all the way up to generation five. Although not strictly true, this also corresponds to how React
+styling libraries evolved over time.</p>
+<h2 id="1st-generation">1<sup>st</sup> Generation</h2>
+<p>First generation React styling libraries don&apos;t allow you to write styling in JavaScript and use any of
+JavaScript variables, instead, you have to use <em>CSS pre-processors</em>. The CSS source files are usually
+located in separate <code>.*css</code> files.</p>
+<ul>
+<li><em>Notable example</em>: <a href="https://github.com/css-modules/css-modules" target="_blank"><code>css-modules</code></a></li>
+</ul>
+<h2 id="2nd-generation">2<sup>nd</sup> Generation</h2>
+<p>Second generation React styling libraries emit <strong>inline styles</strong> in <code>style</code> property of your React
+elements, but are very dynamic, because they can use even <code>.render()</code> method scope variables. However,
+they use inline styles, thus, you don&apos;t get all the benefits of CSS.</p>
+<ul>
+<li><em>Notable example</em>: <a href="https://github.com/FormidableLabs/radium" target="_blank"><code>Radium</code></a></li>
+</ul>
+<h2 id="3rd-generation">3<sup>rd</sup> Generation</h2>
+<p>Third generation React styling libraries allow you to write CSS templates in JavaScript and inject actual <em>CSS</em> into
+DOM <code>&lt;style&gt;</code> tags. However, the templates are <em>static</em>,
+in a sense that they are defined in <strong>module scope</strong>, and thus they can&apos;t use component <code>props</code>. The reason why they are &quot;static&quot; is
+because they have access only to module scope JavaScript variables, which evaluate only once when the module is imported for the first time.</p>
+<p><em>Examples</em>: <a href="https://github.com/Khan/aphrodite" target="_blank"><code>aphrodite</code></a>, <a href="https://github.com/krasimir/cssx" target="_blank"><code>cssx</code></a>, <a href="https://github.com/threepointone/glamor" target="_blank"><code>glamor</code></a>, <a href="https://github.com/typestyle/typestyle" target="_blank"><code>typestype</code></a>, <a href="lib-styletron"><code>styletron</code></a></p>
+<h2 id="4th-generation">4<sup>th</sup> Generation</h2>
+<p>Just like 3<sup>rd</sup> generation libraries, fourth generation React styling libraries also emit CSS into DOM <code>&lt;style&gt;</code> tags,
+but their templates are more <em>dynamic</em> because they have access to <strong>component scope</strong> variables, such as <code>props</code> and <code>state</code>. Fourth generation
+templates normally also re-render on every component prop or state change.</p>
+<p><em>Examples</em>: <a href="https://github.com/styled-components/styled-components" target="_blank"><code>styled-components</code></a>, <a href="https://github.com/paypal/glamorous" target="_blank"><code>glamorous</code></a></p>
+<h2 id="5th-generation">5<sup>th</sup> Generation</h2>
+<p>Fifth generation React styling libraries are even more dynamic than fourth generation, fifth generation libraries
+can use JavaScript variables from component&apos;s <strong><code>.render()</code> function scope</strong>.</p>
+<p><em>Examples</em>: <a href="https://github.com/streamich/freestyler" target="_blank"><code>freestyler</code></a>, <a href="https://github.com/buildbreakdo/style-it" target="_blank"><code>style-it</code></a>, <a href="https://github.com/jxnblk/superstyle" target="_blank"><code>superstyle</code></a></p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Generation</th>
+<th>Emits CSS</th>
+<th>Module scope variables</th>
+<th>Component scope variables</th>
+<th>Render method scope variables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1<sup>st</sup> Genration</td>
+<td>&#x2705;</td>
+<td>&#x274C;</td>
+<td>&#x274C;</td>
+<td>&#x274C;</td>
+</tr>
+<tr>
+<td>2<sup>nd</sup> Genration</td>
+<td>&#x274C;</td>
+<td>&#x2705;</td>
+<td>&#x2705;</td>
+<td>&#x2705;</td>
+</tr>
+<tr>
+<td>3<sup>rd</sup> Genration</td>
+<td>&#x2705;</td>
+<td>&#x2705;</td>
+<td>&#x274C;</td>
+<td>&#x274C;</td>
+</tr>
+<tr>
+<td>4<sup>th</sup> Genration</td>
+<td>&#x2705;</td>
+<td>&#x2705;</td>
+<td>&#x2705;</td>
+<td>&#x274C;</td>
+</tr>
+<tr>
+<td>5<sup>th</sup> Genration</td>
+<td>&#x2705;</td>
+<td>&#x2705;</td>
+<td>&#x2705;</td>
+<td>&#x2705;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="survey">Survey</h2>
+<p>Libraries grouped by generation.</p>
+<ul>
+<li><strong>1<sup>st</sup> Generation</strong><ul>
+<li><a href="https://github.com/css-modules/css-modules" target="_blank"><code>css-modules</code></a>, <a href="https://github.com/martinandert/babel-plugin-css-in-js" target="_blank"><code>babel-plugin-css-in-js</code></a>, <a href="https://github.com/bloodyowl/react-styled" target="_blank"><code>bloody-react-styled</code></a>,
+<a href="https://github.com/webpack-contrib/css-loader" target="_blank"><code>css-loader</code></a>, and <a href="https://github.com/jareware/css-ns" target="_blank"><code>lib-css-ns</code></a></li>
+</ul>
+</li>
+<li><strong>2<sup>nd</sup> Generation</strong><ul>
+<li><a href="https://github.com/FormidableLabs/radium" target="_blank"><code>Radium</code></a></li>
+</ul>
+</li>
+<li><strong>3<sup>rd</sup> Generation</strong><ul>
+<li><a href="https://github.com/Khan/aphrodite" target="_blank"><code>aphrodite</code></a>, <a href="https://github.com/threepointone/glamor" target="_blank"><code>glamor</code></a>, <a href="https://github.com/smyte/jsxstyle" target="_blank"><code>jsxstyle</code></a>, <a href="https://github.com/rtsao/styletron" target="_blank"><code>styletron</code></a>, <a href="https://github.com/inturn/classy" target="_blank"><code>Classy</code></a>,
+<a href="https://github.com/rtsao/csjs" target="_blank"><code>csjs</code></a>, <a href="https://github.com/siddharthkp/css-constructor" target="_blank"><code>css-constructor</code></a>, <a href="https://github.com/colingourlay/hyperstyles" target="_blank"><code>hyperstyles</code></a>, <a href="https://github.com/rtsao/styletron" target="_blank"><code>styletron</code></a></li>
+</ul>
+</li>
+<li><strong>4<sup>th</sup> Generation</strong><ul>
+<li><a href="https://github.com/styled-components/styled-components" target="_blank"><code>styled-components</code></a>, <a href="https://github.com/paypal/glamorous" target="_blank"><code>glamorous</code></a></li>
+</ul>
+</li>
+<li><strong>5<sup>th</sup> Generation</strong><ul>
+<li><a href="https://github.com/streamich/freestyler" target="_blank"><code>freestyler</code></a>, <a href="https://github.com/smyte/jsxstyle" target="_blank"><code>jsxstyle</code></a>, <a href="https://github.com/buildbreakdo/style-it" target="_blank"><code>style-it</code></a>, <a href="https://github.com/jxnblk/superstyle" target="_blank"><code>superstyle</code></a></li>
+</ul>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Terminology.html" class="navigation navigation-prev " aria-label="Previous page: Terminology">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="LICENSE.html" class="navigation navigation-next " aria-label="Next page: License">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Generations","level":"2.1","depth":1,"next":{"title":"License","level":"3.1","depth":1,"path":"LICENSE.md","ref":"LICENSE.md","articles":[]},"previous":{"title":"Terminology","level":"1.2","depth":1,"path":"Terminology.md","ref":"Terminology.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-libreact","-fontsettings","github"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/streamich/freestyler/edit/master/docs"},"github":{"url":"https://github.com/streamich/freestyler/"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":false,"twitter":false,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-libreact":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"freestyler","language":"en","links":{"sharing":{"facebook":false,"twitter":false}},"gitbook":"*"},"file":{"path":"generations.md","mtime":"2018-02-07T19:12:08.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-02-09T01:16:33.862Z"},"basePath":".","book":{"language":"en"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+
+    </body>
+</html>
+
