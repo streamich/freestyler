@@ -1,26 +1,89 @@
 import {$$cn, $$cnt, hidden, sym, camelCase} from '../util';
 import supportsCssVariables from '../supportsCssVariables';
 import {TCssTemplate, TCssDynamicTemplate, IStyles} from './types';
-import toStyleSheet, {TDeclarations, TAtrule, TAtrulePrelude, TStyles, TStyleSheet} from '../ast/toStylesheet';
-import toCss from '../ast/toCss';
+import toStyleSheet, {TDeclarations, TRule, TAtrule, TAtrulePrelude, TStyles, TStyleSheet} from '../ast/toStylesheet';
+import toCss, {isRule} from '../ast/toCss';
 import toCssRule from '../ast/toCssRule';
 import {IRenderer} from './util';
 import hoistGlobalsAndWrapContext from './hoistGlobalsAndWrapContext';
-import {list} from './sheet';
+import SheetManager from '../sheet/SheetManager';
 import SCOPE_SENTINEL from './util/sentinel';
 import declarationIntersectStrict from '../declaration/intersectStrict';
 import declarationSubtract from '../declaration/subtract';
 import declarationSort from '../declaration/sort';
 import declarationEqualityStrict from '../declaration/equalityStrict';
 import declarationSubtractStrict from '../declaration/subtractStrict';
-import renderCacheableSheet from './cache/renderCacheableSheet';
 import renderInlineStyles from './util/renderInlineStyles';
+import {isClient} from '../util';
 
 const USE_CSS_VARIABLES = supportsCssVariables;
 const USE_INLINE_STYLES = true;
 
 const $$statics = sym('stat'); // Static infinite cardinality declaration cache.
 const $$dynamics = sym('dyn'); // Dynamic infinite cardinality declaration cache.
+
+// Low cardinality virtual style properties that should be batched.
+//
+// For example, `display` has only a limited number of available values:
+// `block`, `inline`, `flex`, ...
+const LOW_CARDINALITY_PROPERTIES = {
+    'z-index': 1,
+    display: 1,
+    cursor: 1,
+    'font-weight': 1,
+    position: 1,
+    'text-align': 1,
+    'vertical-align': 1,
+    visibility: 1,
+    float: 1,
+};
+
+// High cardinality virtual style properties that should be cached atomicly.
+//
+// For example:
+//     width: 0;
+//     width: 0px - 2000px;
+//     width: 0% - 100%;
+//
+// Only 2101 possible `width` variations.
+//
+// Fractions like `width: 1.1%` should place the `width` property in to the
+// infinite bucket.
+const HIGH_CARDINALITY_PROPERTIES = {
+    width: 1,
+    height: 1,
+    // top: 1,
+    right: 1,
+    bottom: 1,
+    // left: 1,
+    'border-radius': 1,
+    'margin-top': 1,
+    'margin-right': 1,
+    'margin-bottom': 1,
+    'margin-left': 1,
+    'padding-top': 1,
+    'padding-right': 1,
+    'padding-bottom': 1,
+    'padding-left': 1,
+};
+
+// Properties that can be transformed from infinite cardinality to a set
+// of high cardinality properties.
+//
+// For exmaple:
+//
+//     padding: 10px 15px 20px 25px;
+//
+// Can be transformed to:
+//
+//     padding-top: 10px;
+//     padding-right: 15px;
+//     padding-bottom: 20px;
+//     padding-left: 25px;
+const INFINITE_TO_HIGH_TRANSFORMABLE_PROPERTIES = {
+    padding: 1,
+    margin: 1,
+};
 
 let classNameCounter = 1;
 const PREFIX = process.env.FREESTYLER_PREFIX || '';
@@ -45,6 +108,21 @@ const setInfCardStaticCache = (obj: object, key: string, cache: DeclarationCache
     map[key] = cache;
 };
 
+const combineIntoStylesheet = (stylesheet: TStyleSheet, className: string) => {
+    const dottedClassName = '.' + className;
+    return (prelude, selectorTemplate, declarations) => {
+        const selector = selectorTemplate.replace(SCOPE_SENTINEL, dottedClassName);
+        if (prelude) {
+            stylesheet.push({
+                prelude,
+                rules: [[selector, declarations]],
+            } as TAtrule);
+        } else {
+            stylesheet.push([selector, declarations]);
+        }
+    };
+};
+
 // Declaration cache, keeps track how many objects use specified declarations
 // and saves the `id` of those declarations;
 class DeclarationCache {
@@ -59,14 +137,104 @@ class DeclarationCache {
 }
 
 class Renderer implements IRenderer {
+    sheets: SheetManager = new SheetManager();
+
     toStylesheet(styles: TStyles, selector: string): TStyleSheet {
         styles = hoistGlobalsAndWrapContext(styles, selector);
         return toStyleSheet(styles);
     }
 
     private putDecls(id: string, selector: string, declarations: TDeclarations, atRulePrelude?: TAtrulePrelude) {
-        list.ssheet.set(id, atRulePrelude, selector, declarations);
+        this.sheets.stat.set(id, atRulePrelude, selector, declarations);
         // list.ssheet.set(id, toCssRule(selector, declarations, atRulePrelude));
+    }
+
+    /**
+     * Renders cacheable declarations (low and high cardinality); returns
+     * class names for those declarations, also returns raw CSS string
+     * for the infinite cardinality declarations.
+     * @param styles
+     */
+    renderCacheAndGetInfCss(stylesheet: TStyleSheet, className: string): [string, string] {
+        const remainingStylesheet: TStyleSheet = [];
+        const onInfCardDeclaration = combineIntoStylesheet(remainingStylesheet, className);
+        const classNames = this.renderCacheableSheet(stylesheet, '', onInfCardDeclaration);
+        const css = toCss(remainingStylesheet);
+
+        return [classNames, css];
+    }
+
+    private renderCacheable(rule: TRule, atRulePrelude): [string, TDeclarations] {
+        const [selectorTemplate, declarations] = rule;
+        if (!declarations.length) return;
+
+        let classNames = '';
+
+        const infiniteCardinalityDecls = [];
+        let lowCardinalityDecls = [];
+
+        for (let i = 0; i < declarations.length; i++) {
+            const declaration = declarations[i];
+            const [prop, value] = declaration;
+
+            if (isClient) {
+                if (HIGH_CARDINALITY_PROPERTIES[prop]) {
+                    classNames += ' ' + this.sheets.cache.insert(atRulePrelude, selectorTemplate, prop, value);
+                } else if (LOW_CARDINALITY_PROPERTIES[prop]) {
+                    lowCardinalityDecls.push(declaration);
+                } else {
+                    infiniteCardinalityDecls.push(declaration);
+                }
+            } else {
+                lowCardinalityDecls = declarations;
+            }
+        }
+
+        if (lowCardinalityDecls.length) {
+            declarationSort(lowCardinalityDecls);
+            classNames += ' ' + this.sheets.cache.insertBatch(atRulePrelude, selectorTemplate, lowCardinalityDecls);
+        }
+
+        return [classNames, infiniteCardinalityDecls];
+    }
+
+    private renderCacheableSheet(
+        rules: (TRule | TAtrule)[],
+        atRulePrelude: TAtrulePrelude,
+        onNonCacheableDeclarations: (
+            atRulePrelude: TAtrulePrelude,
+            selectors: string,
+            declarations: TDeclarations
+        ) => void
+    ): string {
+        let classNames = '';
+
+        for (let i = 0; i < rules.length; i++) {
+            const rule = rules[i];
+            if (isRule(rule)) {
+                // TRule
+                const selectors = rule[0];
+                const isCacheable = selectors.indexOf(SCOPE_SENTINEL) > -1;
+                if (isCacheable) {
+                    const [moreClassNames, nonCacheableDeclarations] = this.renderCacheable(
+                        rule as TRule,
+                        atRulePrelude
+                    );
+                    classNames += moreClassNames;
+                    if (nonCacheableDeclarations.length) {
+                        onNonCacheableDeclarations(atRulePrelude, selectors, nonCacheableDeclarations);
+                    }
+                } else {
+                    onNonCacheableDeclarations(atRulePrelude, selectors, rule[1]);
+                }
+            } else {
+                // TAtrule
+                const atrule = rule as TAtrule;
+                classNames += this.renderCacheableSheet(atrule.rules, atrule.prelude, onNonCacheableDeclarations);
+            }
+        }
+
+        return classNames;
     }
 
     private putInfStatics(Comp, instance, key, atRulePrelude, selectorTemplate, declarations) {
@@ -103,7 +271,7 @@ class Renderer implements IRenderer {
         let dsheet = instance[$$dynamics];
 
         if (!dsheet) {
-            dsheet = list.create();
+            dsheet = this.sheets.create();
             hidden(instance, $$dynamics, dsheet);
         }
 
@@ -202,7 +370,7 @@ class Renderer implements IRenderer {
 
         const stylesheet = this.toStylesheet(styles, SCOPE_SENTINEL);
         let infDeclClassNames = '';
-        let classNames = renderCacheableSheet(
+        let classNames = this.renderCacheableSheet(
             stylesheet,
             '',
             (atRulePrelude, selectorTemplate, infiniteCardinalityDecls) => {
@@ -234,7 +402,7 @@ class Renderer implements IRenderer {
             const cache = cacheMap[key];
             cache.cnt--;
             if (!cache.cnt) {
-                list.ssheet.remove(cache.id);
+                this.sheets.stat.remove(cache.id);
                 delete Comp[$$statics];
             }
         }
@@ -270,7 +438,7 @@ class Renderer implements IRenderer {
 
         const stylesheet = this.toStylesheet(styles, SCOPE_SENTINEL);
         let moreClassNames = '';
-        classNames = renderCacheableSheet(
+        classNames = this.renderCacheableSheet(
             stylesheet,
             '',
             (atRulePrelude, selectorTemplate, infiniteCardinalityDeclarations) => {
