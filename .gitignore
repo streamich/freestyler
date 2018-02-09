@@ -13,3 +13,4 @@ lerna-debug.log
 /dist/
 /lib/
 .vscode/
+_book/
