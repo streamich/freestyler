@@ -2,12 +2,13 @@ import createBroadcaster from './createBroadcaster';
 import {sym} from '../util';
 
 const broadcaster = createBroadcaster();
-const $$channelName = sym('debug' + (process.env.FREESTYLER_PREFIX ? '/' + process.env.FREESTYLER_PREFIX : ''));
+const $$debug = sym('debug');
+const channel = process.env.FREESTYLER_PREFIX || 'default';
 
-window[$$channelName] = broadcaster;
+if (!window[$$debug]) {
+    window[$$debug] = {};
+}
+
+window[$$debug][channel] = broadcaster;
 
 export const emit = action => broadcaster.emit(action);
-
-const FreestylerEmitter = require('../../../kuker-emitters/lib/FreestylerEmitter');
-
-FreestylerEmitter();
