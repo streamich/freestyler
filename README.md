@@ -27,8 +27,8 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 - [__Scoped__ styles without selectors](./docs/en/feat/scoped.md)
 - [__Nested__ selectors](./docs/en/feat/nesting.md)
 - __[Mixins](./docs/en/feat/mixins.md)__
-- [__Media queries__, keyframes, ...](./docs/en/feat/media.md)
 - __[Atoms](./docs/en/feat/atoms.md)__
+- [__Media queries__, keyframes, ...](./docs/en/feat/media.md)
 - [__Global__ styles](./docs/en/feat/global.md)
 - [CSS __resets__](./docs/en/feat/resets.md)
 - __[Theming](./docs/en/feat/theming.md)__
