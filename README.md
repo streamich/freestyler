@@ -21,6 +21,7 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 
 - *[fifth generation](./docs/en/feat/fifth-generation.md)*, *[lightweight](./docs/en/feat/lightweight.md)*, *[lightning fast](./docs/en/feat/fast.md)*, *[JIT CSS](./docs/en/feat/jit-css.md)*, *[code splitting](./docs/en/feat/code-splitting.md)*, *[dead code elimination](./docs/en/feat/dead-code-elimination.md)*, *[JavaScript variables](./docs/en/feat/variables.md)*
 
+![Typing and autocompletion](./docs/assets/typing.gif)
 
 ## CSS Templates
 
