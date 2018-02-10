@@ -1,5 +1,5 @@
 import {TComponentTag, THoc} from '../types/base';
-import {TCssTemplate} from '../types';
+import {TCssTemplate} from '../types/index';
 import wrap from './wrap';
 
 function hoc(template?: TCssTemplate, dynamicTemplate?: TCssTemplate): THoc<any, any> {

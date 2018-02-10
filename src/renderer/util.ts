@@ -1,4 +1,3 @@
-import {TComponent, TComponentConstructor, TCssTemplate} from './types';
 import {TStyles, TStyleSheet} from '../ast/toStylesheet';
 import createStyleElement from '../client/createStyleElement';
 

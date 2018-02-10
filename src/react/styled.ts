@@ -1,9 +1,11 @@
-import {TComponentConstructor, TCssTemplate, TElement, TStyled} from '../renderer/types';
+import {TCssTemplate, TComponentTag, TComponentType} from '../types/index';
 import wrap from './wrap';
 
-function styled(Element: TElement): TStyled<TComponentConstructor> {
+export type TStyled<P> = (styles?: TCssTemplate, styles2?: TCssTemplate) => TComponentType<P>;
+
+function styled<P>(tag: TComponentTag<P>): TStyled<P> {
     return (template?: TCssTemplate, dynamicTemplate?: TCssTemplate) => {
-        const Comp = wrap(Element, template, () => dynamicTemplate, 'styled') as any;
+        const Comp = wrap(tag, template, () => dynamicTemplate, 'styled') as any;
 
         Comp.css = newDynamicTemplate => {
             dynamicTemplate = newDynamicTemplate;

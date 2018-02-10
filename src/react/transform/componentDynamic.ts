@@ -1,4 +1,4 @@
-import {TCssDynamicTemplate} from '../../renderer/types';
+import {TCssDynamicTemplate} from '../../types/index';
 import transformMethodRenderDynamic from './methodRenderDynamic';
 import transformMethodComponentWillUnmountDynamic from './methodComponentWillUnmountDynamic';
 

@@ -1,4 +1,4 @@
-import {TCssTemplate} from '../types';
+import {TCssTemplate} from '../types/index';
 import {TComponentTag} from '../types/base';
 import wrap from './wrap';
 

@@ -1,5 +1,5 @@
 import {Component, cloneElement} from 'react';
-import {TCssTemplate} from '../types';
+import {TCssTemplate} from '../types/index';
 import decoratorCssComponent from './decorator/cssComponent';
 import decoratorClass from './decorator/class';
 import decoratorMethod from './decorator/method';

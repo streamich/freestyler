@@ -1,5 +1,5 @@
 import {cloneElement} from 'react';
-import {TCssDynamicTemplate} from '../../renderer/types';
+import {TCssDynamicTemplate} from '../../types/index';
 import {$$el} from './util';
 import renderer from '../../renderer';
 

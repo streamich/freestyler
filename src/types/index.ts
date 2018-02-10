@@ -1,6 +1,6 @@
-import {TComponentType} from './base';
 import {IFreestylerStyles} from './styles';
 
+export * from './base';
 export {IFreestylerStyles};
 
 export type TCssTemplateCallback = (...args) => IFreestylerStyles;

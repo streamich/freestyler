@@ -1,4 +1,4 @@
-import {TCssTemplate, TCssDynamicTemplate} from '../../types';
+import {TCssTemplate, TCssDynamicTemplate} from '../../types/index';
 import transformComponentStatic from '../transform/componentStatic';
 import transformComponentDynamic from '../transform/componentDynamic';
 

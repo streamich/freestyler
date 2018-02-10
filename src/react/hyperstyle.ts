@@ -1,5 +1,5 @@
 import {styleit} from './styleit';
-import {TCssTemplate, IFreestylerStyles} from '../types';
+import {TCssTemplate, IFreestylerStyles} from '../types/index';
 
 export type TCssTemplateMap = {[name: string]: TCssTemplate};
 

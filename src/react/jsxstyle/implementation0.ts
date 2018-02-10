@@ -1,7 +1,7 @@
 import {Component, createElement as h} from 'react';
-import {extend} from 'fast-extend';
 import {IFreestylerStyles} from '../../types/styles';
 import {styleit} from '../styleit';
+const {extend} = require('fast-extend');
 
 export interface IJsxStyleProps extends IFreestylerStyles {
     [key: string]: any;
