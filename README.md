@@ -53,9 +53,11 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
     - [`hoc()` Generator Interface](./docs/en/hoc-generator.md)
     - [`Component` Class Interface](./docs/en/component-class.md)
 - __React.js__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
-    - [`styleit()` and `<Styleit>` Interfaces](./docs/en/styleit.md)
     - [`jsxstyle()`, `<Block>`, `<Inline>`, `<InlineBlock>`, `<Row>`, and `<Column>` Interfaces](./docs/en/jsxstyle.md)
-- [Environment variables](./docs/en/env-vars.md)
+    - [`styleit()` and `<Styleit>` Interfaces](./docs/en/styleit.md)
+- [Environment Variables](./docs/en/env-vars.md)
+- [Server-side Rendering](./docs/en/ssr.md)
+- [How it Works?](./docs/en/how-it-works.md)
 
 
 ## Installation
