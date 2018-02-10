@@ -1,5 +1,5 @@
 import {createElement as h, cloneElement, Component} from 'react';
-import {IStyles} from '../renderer/types';
+import {IFreestylerStyles} from '../types/styles';
 import stylesToClassesAndCss from './transform/stylesToClassesAndCss';
 
 export type TStyleitFacc = (classNames: string) => any;
@@ -32,7 +32,7 @@ const styleFacc = (classNames: string, css: string, facc: (classNames: string) =
     }
 };
 
-export function styleit(styles: IStyles, jsxOrFacc: any | TStyleitFacc) {
+export function styleit(styles: IFreestylerStyles, jsxOrFacc: any | TStyleitFacc) {
     if (process.env.NODE_ENV !== 'production') {
         if (typeof styles !== 'object') {
             throw TypeError(
@@ -50,7 +50,7 @@ export function styleit(styles: IStyles, jsxOrFacc: any | TStyleitFacc) {
 
 export interface IStyleitProps {
     children: (className: string) => any;
-    css: IStyles;
+    css: IFreestylerStyles;
 }
 
 export const Styleit: any = (props: IStyleitProps | any) => {

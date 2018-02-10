@@ -2,7 +2,7 @@ import {Component, createElement as h} from 'react';
 import {rule} from '../../src';
 
 const containerClassName = rule({
-    ta: 'center',
+    textAlign: 'right'
 });
 
 const buttonClassName = rule({

@@ -1,4 +1,4 @@
-import {IStyles} from './renderer/types';
+import {IFreestylerStyles} from './types/styles';
 import renderer from './renderer';
 
 /**
@@ -8,7 +8,7 @@ import renderer from './renderer';
  * function is called "rule".
  * @param styles Collection of rules.
  */
-const rule = (styles: IStyles) => {
+const rule = (styles: IFreestylerStyles) => {
     return renderer.renderAnon(styles);
 };
 

@@ -3,7 +3,7 @@ import StyleSheet from '../../src/StyleSheet';
 
 const styles = StyleSheet.create({
     container: {
-        textAlign: 'center',
+        ta: 'center',
     },
     button: {
         background: 'red',
