@@ -7,20 +7,16 @@
 
 If `freestyler` knows some styles are *static*, i.e. those component
 styles never change, `freestyler` will inject them into the page only
-once and only JIT when needed for the first time; and cache them.
-So that when another component of the same time renders it will simply
-receive a class name string from the cache.
-
-When all components of a specific type are un-mounted the static styles
-of those components are removed from the DOM as well.
+once and only JIT when used for the first time; and cache them.
+So that when another component of the same type renders it will simply
+fetch a class name string from the cache.
 
 
 ## Dynamic Styles
 
 Dynamic styles of a component are ones that change over time, either because
-of `props` change or any other reason.
-
-Dynamic styles are split into three groups according to their *"cacheability"*:
+of `props` change or any other reason. Dynamic styles are split into three groups
+according to their *"cacheability"*:
 
 - Low Cardinality
 - High Cardinality
@@ -31,10 +27,10 @@ Each cardinality group styles are injected into the DOM using the best strategy.
 
 ### Low Cardinality
 
-Low Cardinality styles are one that don't have much variation. For example, the
-`display` CSS property can just a handful of different possible values:
+Low Cardinality styles are ones that don't have much variation. For example, the
+`display` CSS property can just have a handful of different possible values:
 
-```css
+```
 display: block;
 display: inline;
 display: none;
@@ -47,7 +43,7 @@ together and injects with a single class name.
 
 ### High Cardinality
 
-High Cardinality are styles are those that have higher than variation then Low
+High Cardinality are styles are those that have higher variation than Low
 Cardinality styles but still not infinitely high.
 
 For example, if you consider `width` property, in theory it can be assigned infinitely
@@ -59,9 +55,7 @@ property cardinality according to these rules is no greater than a couple of tho
 
 So, all values that have cardinality around few thousand are considered *High Cardinality*
 and are cached forever using &mdash; what some call &mdash; [Virtual CSS](https://ryantsao.com/blog/virtual-css-with-styletron)
-strategy.
-
-Each style property-value tuple in High Cardinality group is assigned a unique class name.
+strategy. Each style property-value tuple in High Cardinality group is assigned a unique class name.
 
 
 ### Infinite Cardinality
@@ -69,7 +63,7 @@ Each style property-value tuple in High Cardinality group is assigned a unique c
 Infinite Cardinality styles are ones whose values can take more that few thousand different
 values. For example, the `color` property can take billions of different values.
 
-```css
+```
 color: #123456;
 ```
 
@@ -83,9 +77,11 @@ Infinite Cardinality styles are split into two groups and treated accordingly.
 
 First, all Infinite Cardinality styles are grouped into a single *static* group. And injected
 into the DOM as a single rule. This allows to share that single rule across all components
-of one type. If those styles never change all components of that style will simply reuse
-on shared CSS selector. Static Infinite Cardinality styles are shared across all components of
-a single type.
+of one type. If those styles never change all components of that type will simply reuse
+one shared CSS selector.
+
+> Static Infinite Cardinality styles are shared across all components of
+> a single type.
 
 When some style of Static Infinite Cardinality group changes, it is removed from the group and
 instead placed into Dynamic Infinite Cardinality group.
@@ -95,7 +91,8 @@ instead placed into Dynamic Infinite Cardinality group.
 
 Dynamic Infinite Cardinality styles are basically style from Static Infinite Cardinality group
 but which changed over time. This group does not belong to a component type but rather to an
-individual component instance, because every component can have different values for these styles.
+individual component instance, because every component instance can have different values for
+these styles.
 
 Dynamic Infinite Cardinality styles are treated differently depending on whether the component's
 DOM element is known, whether the styles can be applied as inline styles, and whether CSS Custom
