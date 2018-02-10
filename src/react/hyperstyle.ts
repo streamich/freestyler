@@ -1,5 +1,5 @@
 import {styleit} from './styleit';
-import {IStyles, TCssTemplate} from '../renderer/types';
+import {TCssTemplate, IFreestylerStyles} from '../types';
 
 export type TCssTemplateMap = {[name: string]: TCssTemplate};
 
@@ -14,12 +14,12 @@ const hyperstyle = (h_, templateMap: TCssTemplateMap) => {
                 if (template) {
                     const jsx = h_(el, props, ...children);
 
-                    let styles: IStyles;
+                    let styles: IFreestylerStyles;
 
                     if (typeof template === 'function') {
                         styles = template(props);
                     } else {
-                        styles = template as IStyles;
+                        styles = template as IFreestylerStyles;
                     }
 
                     return styleit(styles, jsx);

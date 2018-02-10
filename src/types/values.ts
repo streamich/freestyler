@@ -1,4 +1,14 @@
-export type TDisplay = 'block' | 'inline-block' | 'inline' | 'none' | 'table' | 'table-cell';
+export type TDisplay =
+    | 'block'
+    | 'inline-block'
+    | 'inline'
+    | 'none'
+    | 'table'
+    | 'table-cell'
+    | 'table-row'
+    | 'flex'
+    | 'inline-flex'
+    | 'grid';
 
 export type TCursor =
     | 'auto'

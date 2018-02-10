@@ -1,5 +1,5 @@
 import {Component, cloneElement} from 'react';
-import {ICss, IStyles} from '../renderer/types';
+import {TCssTemplate} from '../types';
 import decoratorCssComponent from './decorator/cssComponent';
 import decoratorClass from './decorator/class';
 import decoratorMethod from './decorator/method';
@@ -9,7 +9,7 @@ export type TCssDecorator = any;
 
 const isReactComponent = f => !!(f && f.prototype && f.prototype.render);
 
-const css: TCssDecorator = (a?, b?) => {
+const css: TCssDecorator = (a?: TCssTemplate | any, b?) => {
     // If component decorator without arguments.
     if (isReactComponent(a)) {
         decoratorCssComponent(a);
