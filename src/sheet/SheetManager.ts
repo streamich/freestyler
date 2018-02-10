@@ -1,24 +1,15 @@
+import CacheSheet from './CacheSheet';
+import StaticSheet from './StaticSheet';
+import {ClientSheet} from './client';
 import {Sheet} from './isomorphic';
-import {CacheSheet} from './CacheSheet';
-import SSheet from './SSheet';
 
-export class SheetList {
-    sheets;
-    csheet;
-    ssheet;
-
-    constructor() {
-        this.reset();
-    }
-
-    reset() {
-        this.sheets = [];
-        this.csheet = new CacheSheet(this);
-        this.ssheet = new SSheet(this);
-    }
+export class SheetManager {
+    sheets: ClientSheet[] = [];
+    cache = new CacheSheet(this.create());
+    stat = new StaticSheet(this);
 
     create() {
-        const sheet = new Sheet(this);
+        const sheet = new Sheet();
 
         this.sheets.push(sheet);
 
@@ -27,6 +18,7 @@ export class SheetList {
 
     destroy(sheet) {
         this.sheets = this.sheets.filter(s => sheet !== s);
+        sheet.destroy();
     }
 
     toString(): string {
@@ -41,4 +33,4 @@ export class SheetList {
     }
 }
 
-export const list = new SheetList();
+export default SheetManager;

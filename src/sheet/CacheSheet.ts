@@ -1,18 +1,17 @@
-import {TAtrulePrelude, TDeclarations, TProperty, TPseudo, TSelectors, TValue} from '../../ast/toStylesheet';
+import {TAtrulePrelude, TDeclarations, TProperty, TPseudo, TSelectors, TValue} from '../ast/toStylesheet';
 import memoizer from './memoizer';
-import SCOPE_SENTINEL from '../util/sentinel';
-import createStyleElement from '../util/createStyleElement';
+import SCOPE_SENTINEL from '../renderer/util/sentinel';
 import {ClientSheet} from './client';
 
 const PREFIX = process.env.FREESTYLER_PREFIX || '';
 
 // CacheSheet - rules rendered in cache sheet never move again.
-export class CacheSheet {
-    vsheet: ClientSheet;
+class CacheSheet {
+    sheet: ClientSheet;
     memo = memoizer();
 
-    constructor(collection) {
-        this.vsheet = collection.create();
+    constructor(sheet: ClientSheet) {
+        this.sheet = sheet;
     }
 
     insert(atRulePrelude: TAtrulePrelude, selectorTemplate: string, prop: TProperty, value: TValue): string {
@@ -53,8 +52,10 @@ export class CacheSheet {
     }
 
     inject(atRulePrelude: TAtrulePrelude, selectors: string, rawDeclarations: string) {
-        const rule = this.vsheet.add(atRulePrelude, selectors);
+        const rule = this.sheet.add(atRulePrelude, selectors);
 
         rule.putRaw(rawDeclarations);
     }
 }
+
+export default CacheSheet;

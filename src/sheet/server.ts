@@ -1,7 +1,5 @@
-import createStyleElement from '../util/createStyleElement';
-import removeDomElement from '../util/removeDomElement';
-import {TAtrulePrelude, TSelectors, TDeclarations} from '../../ast/toStylesheet';
-import toCssDeclarations from '../../ast/toCssDeclarations';
+import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
+import toCssDeclarations from '../ast/toCssDeclarations';
 
 type TMapBySelectors = {[selectors: string]: ServerRule};
 type TMapByAtRulePrelude = {[atRulePrelude: string]: TMapBySelectors};
@@ -54,7 +52,7 @@ export class ServerSheet {
     get(atRulePrelude: TAtrulePrelude, selectors: TSelectors): ServerRule {
         const {map} = this;
 
-        return !atRulePrelude ? map[selectors] as ServerRule : map[atRulePrelude] && map[atRulePrelude][selectors];
+        return !atRulePrelude ? (map[selectors] as ServerRule) : map[atRulePrelude] && map[atRulePrelude][selectors];
     }
 
     add(atRulePrelude: TAtrulePrelude, selectors: string): ServerRule {

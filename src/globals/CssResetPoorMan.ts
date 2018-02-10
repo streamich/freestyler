@@ -1,6 +1,6 @@
-import {global} from './index';
+import createCssResetComponent from './createCssResetComponent';
 
-export default global({
+const css = {
     'html, body': {
         pad: 0,
         mar: 0,
@@ -14,4 +14,8 @@ export default global({
     'a img, :link img, :visited img': {
         bd: 0,
     },
-});
+};
+
+const CssResetPoorMan = createCssResetComponent(css);
+
+export default CssResetPoorMan;

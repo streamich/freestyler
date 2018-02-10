@@ -3,7 +3,7 @@ import {sym, hidden} from '../util';
 import {getName} from '../renderer/util';
 import renderer from '../renderer';
 import {TElement, TCssTemplate, TCssDynamicTemplate} from '../renderer/types';
-import * as extend from 'fast-extend';
+import {extend} from 'fast-extend';
 
 export type TWrap = (
     Element: TElement,

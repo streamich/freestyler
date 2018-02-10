@@ -1,8 +1,12 @@
-import {global} from './index';
+import createCssResetComponent from './createCssResetComponent';
 
-export default global({
+const css = {
     '*': {
         pad: 0,
         mar: 0,
     },
-});
+};
+
+const CssResetMinimalistic = createCssResetComponent(css);
+
+export default CssResetMinimalistic;

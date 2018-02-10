@@ -1,19 +1,20 @@
+import SheetManager from './SheetManager';
 import {ClientSheet} from './client';
-import {TAtrulePrelude, TSelectors, TDeclarations} from '../../ast/toStylesheet';
+import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
 
-export class SSheet {
-    list;
+export class StaticSheet {
+    man: SheetManager;
     byId: {[id: string]: ClientSheet} = {};
 
-    constructor(list) {
-        this.list = list;
+    constructor(manager: SheetManager) {
+        this.man = manager;
     }
 
     set(id: string, atRulePrelude: TAtrulePrelude, selectors: TSelectors, declarations: TDeclarations) {
         let sheet = this.byId[id];
 
         if (!sheet) {
-            sheet = this.list.create();
+            sheet = this.man.create();
             sheet.add(atRulePrelude, selectors).put(declarations);
             this.byId[id] = sheet;
         }
@@ -29,4 +30,4 @@ export class SSheet {
     }
 }
 
-export default SSheet;
+export default StaticSheet;

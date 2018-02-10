@@ -26,5 +26,5 @@ In the example above, you can see the CSS-like object uses `color` module scope 
 
 `freestyler` provides these 3<sup>rd</sup> generation interfaces:
 
-- [`rule()`](./rule.md)
-- [`StyleSheet.create()`](./StyleSheet.md)
+- [`rule()` Interface](./rule.md)
+- [`StyleSheet.create()` Interface](./StyleSheet.md)

@@ -1,5 +1,4 @@
 import Renderer from '../Renderer';
-import {list} from '../sheet/index';
 import {expect} from 'chai';
 
 describe('Renderer SSR', () => {
@@ -15,8 +14,6 @@ describe('Renderer SSR', () => {
 
     describe('.renderAnon()', () => {
         it('returns a class name', () => {
-            list.reset();
-
             const renderer = new Renderer();
             const className = renderer.renderAnon({
                 bg: 'tomato',
@@ -27,13 +24,11 @@ describe('Renderer SSR', () => {
         });
 
         it('can get server-side CSS string', () => {
-            list.reset();
-
             const renderer = new Renderer();
             const className = renderer.renderAnon({
                 bg: 'tomato',
             });
-            const rawCss = list.toString();
+            const rawCss = renderer.sheets.toString();
 
             expect(rawCss).to.equal('.a{background:tomato;}');
         });
@@ -41,8 +36,6 @@ describe('Renderer SSR', () => {
 
     describe('.renderStatic()', () => {
         it('returns class names', () => {
-            list.reset();
-
             const renderer = new Renderer();
             const classNames = renderer.renderStatic(
                 {},
@@ -59,8 +52,6 @@ describe('Renderer SSR', () => {
         });
 
         it('can get server-side CSS string', () => {
-            list.reset();
-
             const renderer = new Renderer();
             const classNames = renderer.renderStatic(
                 {},
@@ -72,7 +63,7 @@ describe('Renderer SSR', () => {
                 }
             );
 
-            const rawCss = list.toString();
+            const rawCss = renderer.sheets.toString();
 
             expect(rawCss).to.equal('.a{background:tomato;cursor:pointer;display:block;width:100%;}');
         });
@@ -80,8 +71,6 @@ describe('Renderer SSR', () => {
 
     describe('.render()', () => {
         it('returns class names', () => {
-            list.reset();
-
             const renderer = new Renderer();
             const classNames = renderer.render(
                 {},
@@ -101,8 +90,6 @@ describe('Renderer SSR', () => {
         });
 
         it('can get server-side CSS string', () => {
-            list.reset();
-
             const renderer = new Renderer();
             const classNames = renderer.render(
                 {},
@@ -117,7 +104,7 @@ describe('Renderer SSR', () => {
                 []
             );
 
-            const rawCss = list.toString();
+            const rawCss = renderer.sheets.toString();
 
             expect(rawCss).to.equal('.a{background:red;cursor:pointer;display:block;width:100%;}');
         });

@@ -1,6 +1,8 @@
-import createStyleElement from '../util/createStyleElement';
-import removeDomElement from '../util/removeDomElement';
-import {TAtrulePrelude, TSelectors, TDeclarations} from '../../ast/toStylesheet';
+import createStyleElement from '../client/createStyleElement';
+import removeElement from '../client/removeElement';
+import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
+
+let SHEET_ID = 0;
 
 type TMapBySelectors = {[selectors: string]: ClientRule};
 type TMapByAtRulePrelude = {[atRulePrelude: string]: TMapBySelectors};
@@ -34,16 +36,12 @@ export class ClientRule {
 export class ClientSheet {
     el: HTMLStyleElement = createStyleElement();
     map: TMapBySelectors | TMapByAtRulePrelude = {};
-    col;
-
-    constructor(collection) {
-        this.col = collection;
-    }
+    id: string = (SHEET_ID++).toString(36);
 
     get(atRulePrelude: TAtrulePrelude, selectors: TSelectors): ClientRule {
         const {map} = this;
 
-        return !atRulePrelude ? map[selectors] as ClientRule : map[atRulePrelude] && map[atRulePrelude][selectors];
+        return !atRulePrelude ? (map[selectors] as ClientRule) : map[atRulePrelude] && map[atRulePrelude][selectors];
     }
 
     add(atRulePrelude: TAtrulePrelude, selectors: string): ClientRule {
@@ -74,7 +72,6 @@ export class ClientSheet {
     }
 
     destroy() {
-        removeDomElement(this.el);
-        this.col.destroy(this);
+        removeElement(this.el);
     }
 }

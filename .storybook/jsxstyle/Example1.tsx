@@ -5,13 +5,14 @@ const Button = jsxstyle('button', {
     background: 'red',
     width: '320px',
     padding: '20px',
-    borderRadius: '5px'
+    borderRadius: '5px',
+    ta: 'center',
 });
 
 const Example1 = () =>
     <Block ta='center'>
         <Button
-            border='none'
+            border='1px solid black'
             outline='none'
             {...{
                 '&:hover': {

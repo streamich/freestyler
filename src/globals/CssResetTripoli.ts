@@ -1,6 +1,6 @@
-import {global} from './index';
+import createCssResetComponent from './createCssResetComponent';
 
-export default global({
+const css = {
     '*': {
         td: 'none',
         fz: '1em',
@@ -64,4 +64,8 @@ export default global({
     nobr: {
         'white-space': 'normal',
     },
-});
+};
+
+const CssResetTripoli = createCssResetComponent(css);
+
+export default CssResetTripoli;
