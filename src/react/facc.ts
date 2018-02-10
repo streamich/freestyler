@@ -1,7 +1,8 @@
-import {TCssTemplate, TElement} from '../renderer/types';
+import {TCssTemplate} from '../types/index';
+import {TComponentTag} from '../types/base';
 import wrap from './wrap';
 
-function facc(Element: TElement = 'div', template: TCssTemplate = null) {
+function facc(Element: TComponentTag<any> = 'div', template: TCssTemplate = null) {
     let dynamicTemplate = null;
     const Comp = wrap(Element, template, () => dynamicTemplate, 'facc');
 

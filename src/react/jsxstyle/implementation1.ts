@@ -1,12 +1,23 @@
 import {Component, createElement as h} from 'react';
+import {IFreestylerStyles} from '../../types/styles';
 import {styleit} from '../styleit';
-import {extend} from 'fast-extend';
 import renderer from '../../renderer';
+const {extend} = require('fast-extend');
 
-const jsxstyle = (Comp, defaultStyles = {}) => {
+export interface IJsxStyleProps extends IFreestylerStyles {
+    [key: string]: any;
+    component?: string;
+    props?: object;
+    children?: any;
+    mediaQueries?: any;
+    className?: string;
+    style?: object;
+}
+
+const jsxstyle = (Comp, defaultStyles: IFreestylerStyles = {}) => {
     let staticClassNames: string = '';
 
-    const JsxStyle = props => {
+    const JsxStyle = (props: IJsxStyleProps) => {
         let {
             component,
             props: customProps = null,

@@ -1,5 +1,5 @@
 import styled from '../react/styled';
-import {TCssTemplate} from '../renderer/types';
+import {TCssTemplate} from '../types/index';
 
 const Global = () => null;
 

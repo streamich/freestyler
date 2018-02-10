@@ -7,6 +7,7 @@ const Button = jsxstyle('button', {
     padding: '20px',
     borderRadius: '5px',
     ta: 'center',
+    cur: 'pointer'
 });
 
 const Example1 = () =>

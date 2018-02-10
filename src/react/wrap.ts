@@ -2,17 +2,17 @@ import {Component, createElement as h, cloneElement} from 'react';
 import {sym, hidden} from '../util';
 import {getName} from '../renderer/util';
 import renderer from '../renderer';
-import {TElement, TCssTemplate, TCssDynamicTemplate} from '../renderer/types';
-import {extend} from 'fast-extend';
+import {TComponentType, TComponentTag, TCssTemplate, TCssDynamicTemplate} from '../types/index';
+const {extend} = require('fast-extend');
 
-export type TWrap = (
-    Element: TElement,
+export type TWrap<P> = (
+    Element: TComponentTag<P>,
     template?: TCssTemplate,
     dynamicTemplateGetter?: TCssDynamicTemplate,
     displayName?: string
-) => TElement;
+) => TComponentType<P>;
 
-const wrap: TWrap = function(Element, template, dynamicTemplateGetter) {
+const wrap: TWrap<any> = function(tag, template, dynamicTemplateGetter) {
     let staticClassNames: string = '';
 
     class Wrap extends Component<any, any> {
@@ -58,15 +58,15 @@ const wrap: TWrap = function(Element, template, dynamicTemplateGetter) {
                 const p: any = this.props as any;
                 p.className = className;
                 p.ref = this.ref;
-                return h(Element, this.props);
+                return h(tag, this.props);
             } else {
-                return h(Element, extend(props, {className, ref: this.ref}));
+                return h(tag, extend(props, {className, ref: this.ref}));
             }
         }
     }
 
     if (process.env.NODE_ENV !== 'production') {
-        const name = getName(Element);
+        const name = getName(tag);
         (Wrap as any).displayName = (arguments[3] || 'wrap') + (name ? `__${name}` : '');
     }
 

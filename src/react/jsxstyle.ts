@@ -1,4 +1,4 @@
-import jsxstyle from './jsxstyle/implementation1';
+import jsxstyle from './jsxstyle/implementation2';
 
 export {jsxstyle};
 

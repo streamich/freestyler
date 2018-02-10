@@ -1,8 +1,8 @@
 import {cloneElement} from 'react';
-import {TCssDynamicTemplate} from '../../renderer/types';
+import {TCssDynamicTemplate} from '../../types/index';
 import {$$el} from './util';
 import renderer from '../../renderer';
-import * as extend from 'fast-extend';
+const {extend} = require('fast-extend');
 
 const transformMethodRenderDynamic = (prototype, dynamicTemplate: TCssDynamicTemplate) => {
     const render_ = prototype.render;

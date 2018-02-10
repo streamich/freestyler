@@ -1,5 +1,5 @@
 import {cloneElement} from 'react';
-import {TCssTemplate} from '../../renderer/types';
+import {TCssTemplate} from '../../types/index';
 import renderer from '../../renderer';
 
 const transformComponentStatic = (Comp, staticTemplate: TCssTemplate) => {

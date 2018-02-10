@@ -1,6 +1,6 @@
 import {$$cn, $$cnt, hidden, sym, camelCase} from '../util';
 import supportsCssVariables from '../supportsCssVariables';
-import {TCssTemplate, TCssDynamicTemplate, IStyles} from './types';
+import {TCssTemplate, TCssDynamicTemplate, IFreestylerStyles} from '../types/index';
 import toStyleSheet, {TDeclarations, TRule, TAtrule, TAtrulePrelude, TStyles, TStyleSheet} from '../ast/toStylesheet';
 import toCss, {isRule} from '../ast/toCss';
 import toCssRule from '../ast/toCssRule';
@@ -90,7 +90,7 @@ const PREFIX = process.env.FREESTYLER_PREFIX || '';
 const genId = () => `${PREFIX}_${(classNameCounter++).toString(36)}`;
 
 // prettier-ignore
-const tplToStyles: (tpl: TCssTemplate, args?: any[]) => IStyles =
+const tplToStyles: (tpl: TCssTemplate, args?: any[]) => IFreestylerStyles =
     (tpl, args) => (typeof tpl === 'function' ? tpl(...args) : tpl);
 
 const getInfCardStaticCache: (obj: object, key: string) => DeclarationCache = (obj, key) => {
@@ -454,11 +454,11 @@ class Renderer implements IRenderer {
         return classNames;
     }
 
-    format(styles: IStyles, selector: string): string {
+    format(styles: IFreestylerStyles, selector: string): string {
         return toCss(this.toStylesheet(styles, selector));
     }
 
-    renderAnon(styles: IStyles): string {
+    renderAnon(styles: IFreestylerStyles): string {
         return this.renderStatic(styles, styles);
     }
 

@@ -4,7 +4,7 @@ import {Styleit, styleit} from '../../src/react/styleit';
 export default class Example1 extends Component<any, any> {
     render() {
         return styleit({
-            ta: 'center',
+            ta: 'center'
         },
             <div>
                 {styleit({

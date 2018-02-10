@@ -1,3 +1,5 @@
 import Renderer from './renderer/Renderer';
 
-export default new Renderer();
+export const renderer = new Renderer();
+
+export default renderer;
