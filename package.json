@@ -79,9 +79,9 @@
     "webpack": "3.11.0",
     "yarn": "1.4.0",
     "chai": "4.1.2",
-    "@storybook/react": "3.3.12",
-    "@storybook/addon-actions": "3.3.12",
-    "@storybook/addon-links": "3.3.12",
+    "@storybook/react": "3.3.13",
+    "@storybook/addon-actions": "3.3.13",
+    "@storybook/addon-links": "3.3.13",
     "mol-conventional-changelog": "1.2.0",
     "semantic-release": "12.4.1",
     "gitbook-cli": "2.3.2"
