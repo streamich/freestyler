@@ -389,12 +389,14 @@ class Renderer implements IRenderer {
     }
 
     unrender(Comp, instance, el: HTMLElement | null) {
-        require('../debug').emit({
-            type: 'UNRENDER',
-            Comp,
-            instance,
-            el,
-        });
+        if (process.env.NODE_ENV !== 'production') {
+            require('../debug').emit({
+                type: 'UNRENDER',
+                Comp,
+                instance,
+                el,
+            });
+        }
 
         // Remove statics
         const cacheMap = instance[$$statics] as {[key: string]: DeclarationCache};
@@ -412,8 +414,8 @@ class Renderer implements IRenderer {
         if (dynamics) {
             dynamics.destroy();
             // TODO: Do we really need this line?
-            instance[$$dynamics] = null;
-            // delete instance[$$dynamics];
+            // instance[$$dynamics] = null;
+            delete instance[$$dynamics];
         }
     }
 
@@ -422,6 +424,8 @@ class Renderer implements IRenderer {
 
         if (classNames === void 0) {
             hidden(Comp, $$cn, '');
+        } else {
+            return classNames;
         }
 
         let styles = tplToStyles(tpl, args);
