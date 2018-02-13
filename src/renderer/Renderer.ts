@@ -277,12 +277,14 @@ class Renderer implements IRenderer {
 
         let drule = dsheet.get(atRulePrelude, selectorTemplate);
         if (!drule) {
-            const selectors = selectorTemplate.replace(SCOPE_SENTINEL, '.' + genId());
+            const className = genId();
+            const selectors = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
 
             drule = dsheet.add(atRulePrelude, selectors);
+            drule.className = className;
         }
 
-        const className = drule.name;
+        const className = drule.className;
         const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
 
         // Use CSS variables.

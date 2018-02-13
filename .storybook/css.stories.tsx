@@ -6,6 +6,7 @@ const {linkTo} = require('@storybook/addon-links');
 import {StoryStatic1, StoryStatic2, StoryStatic3, StoryStatic4, Button} from './css/StoryStatic';
 import {Story4thGenRender1, Story4thGenRender2} from './css/Story4thGenRender';
 import {Container as ExampleButton} from './css/Button';
+import {Checkbox} from './css/Checkbox';
 
 storiesOf('@css/Static Decorator', module)
   .add('static .css', () => <StoryStatic1 />)
@@ -18,6 +19,7 @@ storiesOf('@css/Static Decorator', module)
       <Button color='tomato' />
     </div>
   ))
+  .add('Checkbox', () => <Checkbox on />)
 
 storiesOf('@css/.render() Decorator', module)
   .add('Basic', () => <Story4thGenRender1 />)

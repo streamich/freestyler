@@ -10,6 +10,7 @@ type TMapByAtRulePrelude = {[atRulePrelude: string]: TMapBySelectors};
 export class ClientRule {
     style: CSSStyleDeclaration;
     decl: TDeclarations = null;
+    className: string = '';
 
     constructor(style: CSSStyleDeclaration) {
         this.style = style;

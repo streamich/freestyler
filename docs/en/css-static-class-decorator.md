@@ -72,9 +72,11 @@ class App extends Component {
         bg: 'yellow'
     };
 
-    css = ({props}) => ({
-        border: '1px solid ' + (props.color || 'tomato')
-    });
+    css ({props}) {
+        return {
+            border: '1px solid ' + (props.color || 'tomato')
+        };
+    }
 
     render () {
         return <div>Hello world!</div>;
