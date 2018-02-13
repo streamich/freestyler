@@ -82,3 +82,12 @@ export class Button extends Component<any, any> {
         return <button>Hello world!</button>;
     }
 }
+
+/*@css
+export class Button extends Compnent<any, any> {
+    static css
+    render () {
+
+    }
+}
+*/
