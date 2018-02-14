@@ -10,5 +10,5 @@ const withOrangeBorder = hoc({
 
 const DivWithRedBorder = withOrangeBorder('div');
 
-storiesOf('hoc', module)
+storiesOf('HOC', module)
   .add('Basic', () => <DivWithRedBorder>Hello world</DivWithRedBorder>)
