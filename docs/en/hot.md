@@ -1,4 +1,4 @@
-# `hot` Higher Order Type Interface
+# `hot()()` Higher Order Type Interface
 
 Higher Order Type (or HOT) is similar to Higher Order Component (HOC), but is more dynamic. HOCs have
 to be used in module scope, HOTs can be used anywhere inside the `.render()` functions event inside the JSX.

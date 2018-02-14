@@ -1,6 +1,6 @@
-# `hoc()` Higher Order Container Interface
+# `hoc()()` Higher Order Component Interface
 
-The `hoc()` function creates [HOC](https://mailonline.github.io/libreact/en/Introduction.html#hoc)s that can style HTML elements.
+The `hoc()()` function creates [HOC](https://mailonline.github.io/libreact/en/Introduction.html#hoc)s that can style HTML elements.
 
 
 ## Usage
