@@ -3,13 +3,12 @@
 As a React user you will never have to use these low-level APIs,
 you can safely skip to 3<sup>rd</sup>+ generation interfaces.
 At the core of [`freestyler`](https://www.npmjs.com/package/freestyler) library is
-[`freestyler-renderer`](https://www.npmjs.com/package/freestyler-renderer) package, which is a framework
-agnostic CSS renderer that simply generates and injects CSS.
+`Renderer` class, which is a framework agnostic CSS renderer that simply generates and injects CSS.
 
 Here is how you can use the renderer, first import it.
 
 ```js
-import {Renderer} from 'freestyler-renderer';
+import Renderer from 'freestyler/lib/renderer/Renderer';
 ```
 
 Now, create your `renderer` instance and inject some CSS onto the page.
@@ -29,7 +28,7 @@ That's it, now the background color of your page will be red. Read [reference](#
 
 ## Reference
 
-- `.format()` &mdash; parses CSS-like object's AST and returns raw a CSS string.
+- `.format()` &mdash; parses CSS-like object's AST and returns a raw CSS string.
 - `.renderAnon()` &mdash; injects *anonymous* global CSS into the page.
 - `.renderStatic()` &mdash; injects component's static CSS.
 - `.render()` &mdash; injects instance's dynamic CSS.

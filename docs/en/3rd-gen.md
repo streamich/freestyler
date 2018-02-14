@@ -6,7 +6,7 @@ your JavaScript files and, thus, have access to variables at the module scope.
 > 3<sup>rd</sup> gen CSS interface can use module scope variables.
 
 This makes *third* gen interface less dynamic than *fourth* or *fifth* but the upside is
-that they are library agnostic, you can use *third* gen interfaces with any rendering
+that they are library agnostic, you can use *third* gen interfaces with any view
 library, not just React.
 
 __Example__
@@ -28,3 +28,4 @@ In the example above, you can see the CSS-like object uses `color` module scope 
 
 - [`rule()` Interface](./rule.md)
 - [`StyleSheet.create()` Interface](./StyleSheet.md)
+- [`hyperstyle()` `styleName` Interface](./hyperstyle.md)

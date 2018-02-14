@@ -14,4 +14,3 @@ get access to variables in component's context, such as *props* and *state*.
 - [`@css()` render method decorator](./css-render-decorator.md)
 - [`hoc()` Generator Interface](./hoc-generator.md)
 - [`Component` Class Interface](./component-class.md)
-- [`hyperstyle()` `styleName` Interface](./hyperstyle.md)
