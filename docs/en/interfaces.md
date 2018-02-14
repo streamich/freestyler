@@ -20,6 +20,8 @@ restrictions on scope of JavaScript variables.
     - [Class decorator](./interfaces/4th-generation/class-decorator.md)
     - [Render decorator](./interfaces/4th-generation/render-decorator.md)
     - [Component](./interfaces/3rd-generation/component.md)
+    - [HOC](./interfaces/4th-generation/hoc.md)
   - __5<sup>th</sup> Generation__
     - [Style-it](./interfaces/5th-generation/style-it.md)
     - [jsxstyle](./interfaces/5th-generation/jsxstyle.md)
+    - [HOT](./interfaces/5th-generation/hot.md)

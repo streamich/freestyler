@@ -1,4 +1,4 @@
-# `hoc()` Generator Interface
+# `hoc()` Higher Order Container Interface
 
 The `hoc()` function creates [HOC](https://mailonline.github.io/libreact/en/Introduction.html#hoc)s that can style HTML elements.
 
