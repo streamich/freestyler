@@ -357,6 +357,10 @@ class Renderer implements IRenderer {
     }
 
     render(Comp, instance, root: HTMLElement | null, tpl: TCssTemplate, args?: any[]): string {
+        if (!tpl) {
+            return '';
+        }
+
         const styles = tplToStyles(tpl, args);
 
         if (process.env.NODE_ENV !== 'production') {
