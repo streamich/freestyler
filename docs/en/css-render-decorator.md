@@ -14,7 +14,7 @@ for best performance.
 Import `@css` decorator.
 
 ```js
-import {css} from 'freestyler/lib/react/css';
+import css from 'freestyler/lib/react/css';
 ```
 
 Add styling to your component using a function that returns a CSS-like object.
