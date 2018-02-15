@@ -79,6 +79,7 @@ import {
     Component,
     hyperstyle,
     hoc,
+    hot,
     styleit,
     Styleit,
     jsxstyle,
