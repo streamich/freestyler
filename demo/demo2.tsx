@@ -2,9 +2,15 @@ import {createElement as h} from 'react';
 import styled from '../src/react/styled';
 import {render} from 'react-dom';
 import {Component} from 'react';
-import {theme} from '../../p4-ui/src/theme';
 import css from '../src/react/css';
 import {Toggle} from 'libreact/lib/Toggle';
+
+export const theme = {
+  // Main site colors.
+  smoke: ['#E0E6ED', '#D3DCE6', '#C0CCDA'],
+  snow: ['#F9FAFC', '#EFF2F7', '#E5E9F2'],
+  positive: '#13CE66',
+};
 
 interface ICheckboxProps {
   on: boolean,
