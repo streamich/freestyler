@@ -4,7 +4,7 @@ Higher Order Type (or HOT) is similar to Higher Order Component (HOC), but is mo
 to be used in module scope, HOTs can be used anywhere inside the `.render()` functions even inside the JSX.
 
 ```jsx
-const Button = () => <StyledButton({}) />;
+const Button = () => <HotButton({}) />;
 ```
 
 ## Usage
