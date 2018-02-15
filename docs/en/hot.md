@@ -12,7 +12,7 @@ const Button = () => <HotButton({}) />;
 ```jsx
 import hot from 'freestyler/lib/react/hot';
 
-const Button = hot('button', {
+const HotButton = hot('button', {
     bg: 'red',
     w: '320px',
     pad: '20px',
@@ -23,12 +23,12 @@ const Button = hot('button', {
 
 class MyComponent extends Component {
     render () {
-        const ColoredButton = Button({
+        const Button = HotButton({
             bg: 'pink',
         });
 
         return (
-            <ColoredButton>Click me!</ColoredButton>
+            <Button>Click me!</Button>
         );
     }
 }
