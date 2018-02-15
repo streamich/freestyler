@@ -13,3 +13,8 @@ yarn-error.log
 tsconfig.json
 .vscode/
 /docs/
+.storybook/
+/build/
+/dist/
+/src/
+/demo/

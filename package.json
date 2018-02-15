@@ -1,6 +1,6 @@
 {
   "name": "freestyler",
-  "version": "1.6.4",
+  "version": "1.9.1",
   "description": "5th generation React styling library",
   "main": "lib/index.js",
   "module": "modules/index.js",
@@ -27,6 +27,7 @@
     "docs:serve": "npm run docs:clean && gitbook install ./docs && gitbook serve ./docs",
     "docs:build": "npm run docs:clean && gitbook install ./docs && gitbook build ./docs",
     "docs:publish": "npm run test:visual:build && npm run docs:build && ./build/publish-docs.sh",
+    "demo": "webpack-dev-server --config demo/webpack.config.js",
     "prettier": "prettier --write '**/*.ts'",
     "precommit": "lint-staged",
     "storybook": "start-storybook -p 6006",
@@ -76,6 +77,7 @@
     "typescript": "2.7.1",
     "tslib": "1.9.0",
     "ts-loader": "3.5.0",
+    "webpack-dev-server": "2.11.1",
     "webpack": "3.11.0",
     "yarn": "1.4.0",
     "chai": "4.1.2",
@@ -84,7 +86,8 @@
     "@storybook/addon-links": "3.3.13",
     "mol-conventional-changelog": "1.2.0",
     "semantic-release": "12.4.1",
-    "gitbook-cli": "2.3.2"
+    "gitbook-cli": "2.3.2",
+    "libreact": "0.6.3"
   },
   "config": {
     "commitizen": {

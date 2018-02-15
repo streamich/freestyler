@@ -11,7 +11,7 @@ CSS template specified on instance `css` property will be update on every compon
 Import `@css` decorator.
 
 ```js
-import {css} from 'freestyler/lib/react/css';
+import css from 'freestyler/lib/react/css';
 ```
 
 Add styling to your component using static CSS-like object.

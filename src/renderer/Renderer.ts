@@ -16,7 +16,7 @@ import declarationSubtractStrict from '../declaration/subtractStrict';
 import renderInlineStyles from './util/renderInlineStyles';
 import {isClient} from '../util';
 
-const USE_CSS_VARIABLES = supportsCssVariables;
+const USE_CSS_VARIABLES = false; // supportsCssVariables;
 const USE_INLINE_STYLES = true;
 
 const $$statics = sym('stat'); // Static infinite cardinality declaration cache.

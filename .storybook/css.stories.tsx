@@ -7,6 +7,7 @@ import {StoryStatic1, StoryStatic2, StoryStatic3, StoryStatic4, Button} from './
 import {Story4thGenRender1, Story4thGenRender2} from './css/Story4thGenRender';
 import {Container as ExampleButton} from './css/Button';
 import {Checkbox} from './css/Checkbox';
+import checkbox from './css/checkbox-method-decorator';
 
 storiesOf('@css/Static Decorator', module)
   .add('static .css', () => <StoryStatic1 />)
@@ -22,6 +23,7 @@ storiesOf('@css/Static Decorator', module)
   .add('Checkbox', () => <Checkbox on />)
 
 storiesOf('@css/.render() Decorator', module)
+  .add('Checkbox', () => checkbox)
   .add('Basic', () => <Story4thGenRender1 />)
   .add('From props', () => <Story4thGenRender2 color='blue' />)
   .add('Button', () => <ExampleButton />)
