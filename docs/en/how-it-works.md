@@ -60,7 +60,7 @@ strategy. Each style property-value tuple in High Cardinality group is assigned 
 
 ### Infinite Cardinality
 
-Infinite Cardinality styles are ones whose values can take more that few thousand different
+Infinite Cardinality styles are ones whose values can take more than a few thousand different
 values. For example, the `color` property can take billions of different values.
 
 ```
