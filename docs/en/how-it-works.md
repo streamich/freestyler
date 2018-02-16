@@ -37,8 +37,8 @@ display: none;
 /* etc... */
 ```
 
-Because there is not much variation on Low Cardinality styles they are all grouped
-together and injects with a single class name.
+Because there is not much variation in Low Cardinality styles they are all grouped
+together and injected with a single class name.
 
 
 ### High Cardinality
