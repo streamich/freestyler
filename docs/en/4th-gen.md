@@ -8,9 +8,9 @@ get access to variables in component's context, such as *props* and *state*.
 
 `freestyler` provides these 4<sup>th</sup> generation interfaces:
 
-- [`styled()()` components](./styled.md)
+- [`styled()()` Components Interface](./styled.md)
 - [`@css` Static Class Decorator Interface](./css-static-class-decorator.md)
-- [`@css()` class decorator](./css-class-decorator.md)
-- [`@css()` render method decorator](./css-render-decorator.md)
-- [`hoc()` Generator Interface](./hoc-generator.md)
+- [`@css()` Class Decorator Interface](./css-class-decorator.md)
+- [`@css()` Render Method decorator Interface](./css-render-decorator.md)
+- [`hoc()()` Generator Interface](./hoc-generator.md)
 - [`Component` Class Interface](./component-class.md)

@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
 class Button extends Component {
   render () {
     return (
-      <div className={css()}>
-        <button className={styles.button}/>
+      <div className={css(styles.container)}>
+        <button className={css(styles.button)}/>
       </div>
     );
   }

@@ -37,8 +37,8 @@ display: none;
 /* etc... */
 ```
 
-Because there is not much variation on Low Cardinality styles they are all grouped
-together and injects with a single class name.
+Because there is not much variation in Low Cardinality styles they are all grouped
+together and injected with a single class name.
 
 
 ### High Cardinality
@@ -60,7 +60,7 @@ strategy. Each style property-value tuple in High Cardinality group is assigned 
 
 ### Infinite Cardinality
 
-Infinite Cardinality styles are ones whose values can take more that few thousand different
+Infinite Cardinality styles are ones whose values can take more than a few thousand different
 values. For example, the `color` property can take billions of different values.
 
 ```
