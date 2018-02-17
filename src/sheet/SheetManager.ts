@@ -5,6 +5,7 @@ import {Sheet} from './isomorphic';
 
 export class SheetManager {
     sheets: ClientSheet[] = [];
+    global = this.create();
     cache = new CacheSheet(this.create());
     stat = new StaticSheet(this);
 

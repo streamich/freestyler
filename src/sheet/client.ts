@@ -1,6 +1,7 @@
 import createStyleElement from '../client/createStyleElement';
 import removeElement from '../client/removeElement';
 import {TAtrulePrelude, TSelectors, TDeclarations} from '../ast/toStylesheet';
+import toCss from '../ast/toCss';
 
 let SHEET_ID = 0;
 
@@ -45,7 +46,7 @@ export class ClientSheet {
         return !atRulePrelude ? (map[selectors] as ClientRule) : map[atRulePrelude] && map[atRulePrelude][selectors];
     }
 
-    add(atRulePrelude: TAtrulePrelude, selectors: string): ClientRule {
+    add(atRulePrelude: TAtrulePrelude, selectors: string, declarations): ClientRule {
         const sheet = this.el.sheet as CSSStyleSheet;
         const {cssRules} = sheet;
         const {length} = cssRules;
@@ -54,10 +55,12 @@ export class ClientSheet {
         if (atRulePrelude) {
             sheet.insertRule(`${atRulePrelude}{${selectors}{}}`, length);
             rule = new ClientRule(((cssRules[length] as CSSGroupingRule).cssRules[0] as CSSStyleRule).style);
+            rule.put(declarations);
         } else {
             sheet.insertRule(`${selectors}{}`, length);
             // TODO: Benchmark `cssRules[length]` vs `cssRules.item(length)`.
             rule = new ClientRule((cssRules[length] as CSSStyleRule).style);
+            rule.put(declarations);
         }
 
         if (atRulePrelude) {
@@ -70,6 +73,16 @@ export class ClientSheet {
         }
 
         return rule;
+    }
+
+    addRaw(rawCss: string): ClientRule {
+        const sheet = this.el.sheet as CSSStyleSheet;
+        const {cssRules} = sheet;
+
+        sheet.insertRule(rawCss);
+
+        return null;
+        // return new ClientRule((cssRules[length] as CSSStyleRule).style);
     }
 
     destroy() {

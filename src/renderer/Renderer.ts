@@ -205,7 +205,8 @@ class Renderer implements IRenderer {
             atRulePrelude: TAtrulePrelude,
             selectors: string,
             declarations: TDeclarations
-        ) => void
+        ) => void,
+        onKeyframeRule = atrule => {}
     ): string {
         let classNames = '';
 
@@ -230,7 +231,13 @@ class Renderer implements IRenderer {
             } else {
                 // TAtrule
                 const atrule = rule as TAtrule;
-                classNames += this.renderCacheableSheet(atrule.rules, atrule.prelude, onNonCacheableDeclarations);
+                const isKeyframes = atrule.prelude[1] === 'k';
+
+                if (isKeyframes) {
+                    onKeyframeRule(atrule);
+                } else {
+                    classNames += this.renderCacheableSheet(atrule.rules, atrule.prelude, onNonCacheableDeclarations);
+                }
             }
         }
 
@@ -280,7 +287,7 @@ class Renderer implements IRenderer {
             const className = genId();
             const selectors = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
 
-            drule = dsheet.add(atRulePrelude, selectors);
+            drule = dsheet.add(atRulePrelude, selectors, declarations);
             drule.className = className;
         }
 
@@ -288,6 +295,7 @@ class Renderer implements IRenderer {
         const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
 
         // Use CSS variables.
+        /*
         if (USE_CSS_VARIABLES) {
             const style = el ? el.style : document.documentElement.style;
             style.cssText = '';
@@ -303,8 +311,8 @@ class Renderer implements IRenderer {
                 declaration[1] = `var(${variableName})`;
             }
         }
+        */
 
-        drule.put(declarations);
         return ' ' + className;
     }
 
@@ -448,14 +456,21 @@ class Renderer implements IRenderer {
 
         const stylesheet = this.toStylesheet(styles, SCOPE_SENTINEL);
         let moreClassNames = '';
+
         classNames = this.renderCacheableSheet(
             stylesheet,
             '',
             (atRulePrelude, selectorTemplate, infiniteCardinalityDeclarations) => {
                 const infClassName = genId();
                 const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + infClassName);
-                this.putDecls(infClassName, selector, infiniteCardinalityDeclarations);
+
+                this.putDecls(infClassName, selector, infiniteCardinalityDeclarations, atRulePrelude);
                 moreClassNames += ' ' + infClassName;
+            },
+            (atrule: TAtrule) => {
+                const rawCss = toCss([atrule]);
+
+                this.sheets.global.addRaw(rawCss);
             }
         );
 

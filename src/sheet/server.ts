@@ -9,6 +9,7 @@ export class ServerRule {
     selectors: string;
     decl: TDeclarations = null;
     rawCss: string = '';
+    rawRule: string = '';
 
     constructor(atRulePrelude: string, selectors: string) {
         this.atRule = atRulePrelude;
@@ -23,11 +24,19 @@ export class ServerRule {
         this.rawCss = rawCss;
     }
 
+    putRawRule(rawCssWithSelectors: string) {
+        this.rawRule = rawCssWithSelectors;
+    }
+
     trunc() {
         this.decl = null;
     }
 
     toString() {
+        if (this.rawRule) {
+            return this.rawRule;
+        }
+
         let rawCss = this.rawCss || toCssDeclarations(this.decl);
 
         rawCss = `${this.selectors}{${rawCss}}`;
@@ -68,6 +77,15 @@ export class ServerSheet {
         } else {
             this.map[selectors] = rule;
         }
+
+        return rule;
+    }
+
+    addRaw(rawCss: string): ServerRule {
+        const rule = new ServerRule('', '');
+
+        rule.putRawRule(rawCss);
+        this.rules.push(rule);
 
         return rule;
     }

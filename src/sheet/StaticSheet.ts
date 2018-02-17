@@ -15,7 +15,7 @@ export class StaticSheet {
 
         if (!sheet) {
             sheet = this.man.create();
-            sheet.add(atRulePrelude, selectors).put(declarations);
+            sheet.add(atRulePrelude, selectors, declarations);
             this.byId[id] = sheet;
         }
     }
