@@ -44,7 +44,8 @@
     "react-dom": "*"
   },
   "dependencies": {
-    "fast-extend": "1.0.2"
+    "fast-extend": "1.0.2",
+    "tslib": "^1.9.0"
   },
   "devDependencies": {
     "@types/react": "16.0.38",
@@ -73,7 +74,6 @@
     "ts-jest": "21.2.4",
     "ts-node": "3.3.0",
     "typescript": "2.7.1",
-    "tslib": "1.9.0",
     "ts-loader": "3.5.0",
     "webpack-dev-server": "2.11.1",
     "webpack": "3.11.0",

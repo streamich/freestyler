@@ -15,8 +15,7 @@ class CacheSheet {
     }
 
     insert(atRulePrelude: TAtrulePrelude, selectorTemplate: string, prop: TProperty, value: TValue): string {
-        const rawDeclarations = prop + ':' + value;
-        return this.insertRaw(atRulePrelude, selectorTemplate, prop, value, rawDeclarations);
+        return this.insertRaw(atRulePrelude, selectorTemplate, prop, value, [[prop, value]]);
     }
 
     insertBatch(atRulePrelude: TAtrulePrelude, selectorTemplate: string, declarations: TDeclarations): string {
@@ -25,11 +24,10 @@ class CacheSheet {
         let valueIdentifier = '';
         for (let i = 0; i < declarations.length; i++) {
             const [prop, value] = declarations[i];
-            rawDeclarations += prop + ':' + value + ';';
             propIdentifier += prop;
             valueIdentifier += value;
         }
-        return this.insertRaw(atRulePrelude, selectorTemplate, propIdentifier, valueIdentifier, rawDeclarations);
+        return this.insertRaw(atRulePrelude, selectorTemplate, propIdentifier, valueIdentifier, declarations);
     }
 
     insertRaw(
@@ -37,7 +35,7 @@ class CacheSheet {
         selectorTemplate: string,
         propIdentifier: string,
         valueIdentifier: string,
-        rawDeclarations: string
+        declarations: TDeclarations
     ): string {
         const {length} = this.memo;
         const idNumber = this.memo.getId(atRulePrelude, selectorTemplate, propIdentifier, valueIdentifier);
@@ -45,16 +43,10 @@ class CacheSheet {
 
         if (this.memo.length > length) {
             let selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + idString);
-            this.inject(atRulePrelude, selector, rawDeclarations);
+            this.sheet.add(atRulePrelude, selector, declarations);
         }
 
         return idString;
-    }
-
-    inject(atRulePrelude: TAtrulePrelude, selectors: string, rawDeclarations: string) {
-        const rule = this.sheet.add(atRulePrelude, selectors);
-
-        rule.putRaw(rawDeclarations);
     }
 }
 
