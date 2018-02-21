@@ -383,23 +383,26 @@ class Renderer implements IRenderer {
         }
 
         const stylesheet = this.toStylesheet(styles, SCOPE_SENTINEL);
-        let infDeclClassNames = '';
-        let classNames = this.renderCacheableSheet(
-            stylesheet,
-            '',
-            (atRulePrelude, selectorTemplate, infiniteCardinalityDecls) => {
-                infDeclClassNames += this.renderInfCardDecls(
-                    Comp,
-                    instance,
-                    root,
-                    atRulePrelude,
-                    selectorTemplate,
-                    infiniteCardinalityDecls
-                );
-            }
-        );
+        let classNames = '';
 
-        return classNames + infDeclClassNames;
+        for (let i = 0; i < stylesheet.length; i++) {
+            const rule = stylesheet[i];
+
+            if (isRule(rule)) {
+                classNames += this.renderInfCardDecls(Comp, instance, root, null, rule[0], rule[1]);
+            } else {
+                const r = rule as TAtrule;
+                const atRulePrelude = r.prelude;
+
+                for (let j = 0; j < r.rules.length; j++) {
+                    const rule = r.rules[j];
+
+                    classNames += this.renderInfCardDecls(Comp, instance, root, atRulePrelude, rule[0], rule[1]);
+                }
+            }
+        }
+
+        return classNames;
     }
 
     unrender(Comp, instance, el: HTMLElement | null) {
