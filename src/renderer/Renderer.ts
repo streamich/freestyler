@@ -144,8 +144,14 @@ class Renderer implements IRenderer {
         return toStyleSheet(styles);
     }
 
-    private putDecls(id: string, selector: string, declarations: TDeclarations, atRulePrelude?: TAtrulePrelude) {
-        this.sheets.stat.set(id, atRulePrelude, selector, declarations);
+    private putDecls(
+        id: string,
+        selector: string,
+        declarations: TDeclarations,
+        atRulePrelude?: TAtrulePrelude,
+        important?: boolean
+    ) {
+        this.sheets.stat.set(id, atRulePrelude, selector, declarations, important);
         // list.ssheet.set(id, toCssRule(selector, declarations, atRulePrelude));
     }
 
@@ -253,7 +259,7 @@ class Renderer implements IRenderer {
         setInfCardStaticCache(instance, key, cache);
 
         const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
-        this.putDecls(id, selector, declarations, atRulePrelude);
+        this.putDecls(id, selector, declarations, atRulePrelude, true);
 
         return ' ' + className;
     }
@@ -287,7 +293,7 @@ class Renderer implements IRenderer {
             const className = genId();
             const selectors = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
 
-            drule = dsheet.add(atRulePrelude, selectors, declarations);
+            drule = dsheet.add(atRulePrelude, selectors, declarations, true);
             drule.className = className;
         }
 

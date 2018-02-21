@@ -10,12 +10,18 @@ export class StaticSheet {
         this.man = manager;
     }
 
-    set(id: string, atRulePrelude: TAtrulePrelude, selectors: TSelectors, declarations: TDeclarations) {
+    set(
+        id: string,
+        atRulePrelude: TAtrulePrelude,
+        selectors: TSelectors,
+        declarations: TDeclarations,
+        important?: boolean
+    ) {
         let sheet = this.byId[id];
 
         if (!sheet) {
             sheet = this.man.create();
-            sheet.add(atRulePrelude, selectors, declarations);
+            sheet.add(atRulePrelude, selectors, declarations, important);
             this.byId[id] = sheet;
         }
     }

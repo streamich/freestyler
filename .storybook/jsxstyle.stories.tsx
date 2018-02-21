@@ -10,3 +10,10 @@ storiesOf('jsxstyle', module)
   .add('Button', () => <Example1 />)
   .add('Custom blocks', () => <Example2 />)
   .add('Spinner', () => <Example3 w='20px' h='20px' />)
+  .add('Multiple spinners', () =>
+    <div>
+        <Example3 w='20px' h='20px' bg='red' />
+        <Example3 w='40px' h='40px' bg='blue' />
+        <Example3 w='60px' h='60px' bg='pink' />
+    </div>
+  )
