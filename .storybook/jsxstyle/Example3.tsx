@@ -1,4 +1,4 @@
-import {jsxstyle} from '../../src/react/jsxstyle';
+import jsxstyle from '../../src/react/jsxstyle';
 
 const keyframes = {
   '0%': {

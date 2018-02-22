@@ -1,5 +1,5 @@
 import {createElement as h} from 'react';
-import {jsxstyle} from '../jsxstyle';
+import jsxstyle from '../jsxstyle';
 
 const wrap = (type, staticTemplate, dynamicTemplate, name?) => {
     const Block = jsxstyle(type, staticTemplate);

@@ -1,5 +1,5 @@
 import {createElement as h, Component} from 'react';
-import {jsxstyle, Block, InlineBlock} from '../../src/react/jsxstyle';
+import jsxstyle from '../../src/react/jsxstyle';
 
 const Button = jsxstyle('button', {
     bg: '#07f',
