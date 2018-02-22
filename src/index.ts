@@ -5,7 +5,6 @@ import css from './react/css';
 import hoc from './react/hoc';
 import Component from './react/Component';
 import hyperstyle from './react/hyperstyle';
-import hot from './react/hot';
 import jsxstyle from './react/jsxstyle';
 
-export {rule, StyleSheet, styled, css, hoc, hot, Component, jsxstyle};
+export {rule, StyleSheet, styled, css, hoc, Component, jsxstyle};
