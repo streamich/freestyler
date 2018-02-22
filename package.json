@@ -1,6 +1,6 @@
 {
   "name": "freestyler",
-  "version": "1.10.2-beta",
+  "version": "2.0.0-beta",
   "description": "5th generation React styling library",
   "main": "lib/index.js",
   "module": "modules/index.js",
@@ -122,5 +122,24 @@
     "trailingComma": "es5",
     "bracketSpacing": false,
     "jsxBracketSameLine": false
-  }
+  },
+  "keywords": [
+    "freestyler",
+    "css",
+    "style",
+    "styles",
+    "react",
+    "js",
+    "in-js",
+    "css-in-js",
+    "styled",
+    "decorator",
+    "component",
+    "styled-components",
+    "jsxstyle",
+    "jsx",
+    "hoc",
+    "rule",
+    "stylesheet"
+  ]
 }
