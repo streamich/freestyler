@@ -4,16 +4,10 @@ import jsxstyleBase from '../jsxstyleBase';
 const wrap = (type, staticTemplate, dynamicTemplate, name?) => {
     const Block = jsxstyleBase(type, staticTemplate);
 
-    return props => {
-        const css = dynamicTemplate ? dynamicTemplate(props) : {};
+    return attr => {
+        const css = dynamicTemplate ? dynamicTemplate(attr) : {};
 
-        if (process.env.NODE_ENV !== 'production') {
-            return h(Block, {...props, css});
-        }
-
-        props.css = css;
-
-        return h(Block, props);
+        return h(Block, {attr, css}, attr.children);
     };
 };
 
