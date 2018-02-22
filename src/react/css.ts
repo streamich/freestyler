@@ -19,7 +19,7 @@ const css: TCssDecorator = (a?: TCssTemplate | any, b?) => {
     return (instanceOrComp, key, descriptor) =>
         typeof key === 'string'
             ? decoratorMethod(a, b)(instanceOrComp, key, descriptor)
-            : decoratorClass(a, b)(instanceOrComp);
+            : decoratorClass(a)(instanceOrComp);
 };
 
 export default css;
