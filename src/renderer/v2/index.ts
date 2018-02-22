@@ -114,23 +114,6 @@ class Renderer implements IRenderer {
         return [classNames, css];
     }
 
-    private renderCacheable(rule: TRule, atRulePrelude): string {
-        const [selectorTemplate, declarations] = rule;
-
-        if (!declarations.length) return '';
-
-        let classNames = '';
-
-        for (let i = 0; i < declarations.length; i++) {
-            const declaration = declarations[i];
-            const [prop, value] = declaration;
-
-            classNames += ' ' + this.sheets.cache.insert(atRulePrelude, selectorTemplate, prop, value);
-        }
-
-        return classNames;
-    }
-
     private renderVirtual(rules: (TRule | TAtrule)[], atRulePrelude: TAtrulePrelude): string {
         let classNames = '';
 
@@ -155,7 +138,12 @@ class Renderer implements IRenderer {
             const [selectors, declarations] = rule as TRule;
             const isCacheable = selectors.indexOf(SCOPE_SENTINEL) > -1;
             if (isCacheable) {
-                classNames += this.renderCacheable(rule as TRule, atRulePrelude);
+                for (let i = 0; i < declarations.length; i++) {
+                    const declaration = declarations[i];
+                    const [prop, value] = declaration;
+
+                    classNames += ' ' + this.sheets.cache.insert(atRulePrelude, selectors, prop, value);
+                }
             } else {
                 const nonCacheableClassNames = genId();
 
