@@ -6,7 +6,7 @@ const {extend} = require('fast-extend');
 
 export interface IJsxStyleProps extends IFreestylerStyles {
     [key: string]: any;
-    component?: string;
+    $type?: string;
     props?: object;
     children?: any;
     mediaQueries?: any;
@@ -16,7 +16,7 @@ export interface IJsxStyleProps extends IFreestylerStyles {
 
 export interface IJsxStyleState {}
 
-const jsxstyle = (Comp, defaultStyles: IFreestylerStyles = {}) => {
+const jsxstyle = (type, defaultStyles: IFreestylerStyles = {}) => {
     let JsxStyle: React.ComponentClass<IJsxStyleProps>;
     let staticClassNames: string;
 
@@ -39,7 +39,7 @@ const jsxstyle = (Comp, defaultStyles: IFreestylerStyles = {}) => {
 
         render() {
             let {
-                component,
+                $type = type,
                 props: customProps = null,
                 children,
                 mediaQueries,
@@ -73,7 +73,7 @@ const jsxstyle = (Comp, defaultStyles: IFreestylerStyles = {}) => {
             const dynamicClassNames = renderer.render(JsxStyle, this, this.el, customStyles);
 
             return h(
-                component || Comp,
+                $type,
                 {
                     ...customProps,
                     className: staticClassNames + dynamicClassNames + (className || ''),
