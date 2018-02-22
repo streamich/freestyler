@@ -5,6 +5,7 @@ const {linkTo} = require('@storybook/addon-links');
 import Example1 from './jsxstyle/Example1';
 import Example2 from './jsxstyle/Example2';
 import Example3 from './jsxstyle/Example3';
+import Example4 from './jsxstyle/Example4';
 
 storiesOf('jsxstyle', module)
   .add('Button', () => <Example1 />)
@@ -24,3 +25,4 @@ storiesOf('jsxstyle', module)
       <Example3 bd='1px solid green' attr={{style: {border: '1px solid blue'}}} />
     </div>
   )
+  .add('Component type', () => <Example4 />)

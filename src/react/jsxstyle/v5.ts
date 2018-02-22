@@ -17,21 +17,21 @@ export interface IJsxstyleProps extends Partial<IJsxstyleDefinition>, IFreestyle
 
 export interface IJsxStyleState {}
 
-const jsxstyle = (defOrType: string | IJsxstyleDefinition, defaultStyles: IFreestylerStyles = {}) => {
+const jsxstyle = (defOrType: string | any | IJsxstyleDefinition, defaultStyles: IFreestylerStyles = {}) => {
     let JsxStyle: React.ComponentClass<IJsxstyleProps>;
     let staticClassNames: string;
     let defaultType;
     let defaultAttr;
     let defaultClassName;
 
-    if (typeof defOrType === 'string') {
-        defaultType = defOrType;
-        defaultAttr = {};
-        defaultClassName = '';
-    } else {
+    if (typeof defOrType === 'object') {
         defaultType = defOrType.type;
         defaultAttr = defOrType.attr || {};
         defaultClassName = defOrType.className || '';
+    } else {
+        defaultType = defOrType;
+        defaultAttr = {};
+        defaultClassName = '';
     }
 
     JsxStyle = class extends Component<IJsxstyleProps, IJsxStyleState> {
