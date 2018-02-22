@@ -12,7 +12,7 @@ const keyframes = {
   }
 };
 
-const SpinnerSquare = jsxstyle('div', {
+const SpinnerSquare = jsxstyle({type: 'div', attr: {title: 'Hello'}}, {
   w: '40px',
   h: '40px',
   bg: 'tomato',

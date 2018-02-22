@@ -4,22 +4,37 @@ import {styleit} from '../styleit';
 import renderer from '../../renderer';
 const {extend} = require('fast-extend');
 
-export interface IJsxStyleProps extends IFreestylerStyles {
-    [key: string]: any;
-    type?: string;
+export interface IJsxstyleDefinition {
+    type: string;
     attr?: object;
-    children?: any;
-    mediaQueries?: any;
     className?: string;
+}
+
+export interface IJsxstyleProps extends Partial<IJsxstyleDefinition>, IFreestylerStyles {
+    [key: string]: any;
+    children?: any;
 }
 
 export interface IJsxStyleState {}
 
-const jsxstyle = (defaultType, defaultStyles: IFreestylerStyles = {}) => {
-    let JsxStyle: React.ComponentClass<IJsxStyleProps>;
+const jsxstyle = (defOrType: string | IJsxstyleDefinition, defaultStyles: IFreestylerStyles = {}) => {
+    let JsxStyle: React.ComponentClass<IJsxstyleProps>;
     let staticClassNames: string;
+    let defaultType;
+    let defaultAttr;
+    let defaultClassName;
 
-    JsxStyle = class extends Component<IJsxStyleProps, IJsxStyleState> {
+    if (typeof defOrType === 'string') {
+        defaultType = defOrType;
+        defaultAttr = {};
+        defaultClassName = '';
+    } else {
+        defaultType = defOrType.type;
+        defaultAttr = defOrType.attr || {};
+        defaultClassName = defOrType.className || '';
+    }
+
+    JsxStyle = class extends Component<IJsxstyleProps, IJsxStyleState> {
         el: HTMLElement = null;
 
         ref = el => (this.el = el);
@@ -46,34 +61,20 @@ const jsxstyle = (defaultType, defaultStyles: IFreestylerStyles = {}) => {
                 ...dynamicStyles
             } = this.props;
 
-            if (process.env.FREESTYLER_JSXSTYLE_MEDIA_QUERIES) {
-                for (let prefix in mediaQueries) {
-                    const prefixLength = prefix.length;
-                    const mediaQuery = mediaQueries[prefix];
-                    const mediaQueryStyles = {};
-                    let mediaQueryHasStyles = false;
-                    for (let styleName in dynamicStyles) {
-                        if (styleName.indexOf(prefix) === 0) {
-                            mediaQueryHasStyles = true;
-                            const styleNameSansPrefix =
-                                styleName[prefixLength].toLowerCase() + styleName.substr(prefixLength + 1);
-                            mediaQueryStyles[styleNameSansPrefix] = dynamicStyles[styleName];
-                            delete (dynamicStyles as any)[styleName];
-                        }
-                    }
-                    if (mediaQueryHasStyles) {
-                        const mediaQueryPrelude = mediaQueries[prefix];
-                        (dynamicStyles as any)[mediaQueryPrelude] = mediaQueryStyles;
-                    }
-                }
-            }
-
             const dynamicClassNames = renderer.render(JsxStyle, this, this.el, dynamicStyles);
+            const allClassNames =
+                (defaultClassName ? defaultClassName + ' ' : '') +
+                (attr.className ? attr.className + ' ' : '') +
+                ' ' +
+                className +
+                staticClassNames +
+                dynamicClassNames;
 
             if (process.env.NODE_ENV !== 'production') {
                 attr = {
+                    ...defaultAttr,
                     ...attr,
-                    className: className + staticClassNames + dynamicClassNames,
+                    className: allClassNames,
                 };
 
                 if (typeof type === 'string') {
@@ -88,7 +89,8 @@ const jsxstyle = (defaultType, defaultStyles: IFreestylerStyles = {}) => {
                 }
             }
 
-            attr.className = className + staticClassNames + dynamicClassNames;
+            attr.className = allClassNames;
+            attr = extend({}, defaultAttr, attr);
 
             if (typeof type === 'string') {
                 return h(type, attr, children);

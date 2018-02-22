@@ -17,3 +17,10 @@ storiesOf('jsxstyle', module)
         <Example3 w='60px' h='60px' bg='pink' />
     </div>
   )
+  .add('Set custom attributes', () => <Example3 className='lol' attr={{className: 'bounce', 'aria-hidden': "true", title: 'LOL'}} />)
+  .add('Custom styles', () =>
+    <div>
+      <Example3 attr={{style: {border: '1px solid blue'}}} />
+      <Example3 bd='1px solid green' attr={{style: {border: '1px solid blue'}}} />
+    </div>
+  )
