@@ -2,20 +2,21 @@ import {Component, createElement as h, cloneElement} from 'react';
 import {sym, hidden, noop} from '../../util';
 import {getName} from '../../renderer/util';
 import renderer from '../../renderer';
-import {TComponentType, TComponentTag, TCssTemplate, TCssDynamicTemplate} from '../../types/index';
+import {TComponentType, TComponentTag, TCssTemplate, TCssTemplateCallback} from '../../types/index';
 const {extend} = require('fast-extend');
 
 export type TWrap<P> = (
     Element: TComponentTag<P>,
     template?: TCssTemplate,
-    dynamicTemplateGetter?: TCssDynamicTemplate,
-    displayName?: string
+    dynamicTemplateGetter?: TCssTemplateCallback,
+    name?: string
 ) => TComponentType<P>;
 
-const wrap: TWrap<any> = function(type, staticTemplate, dynamicTemplate) {
+const wrap: TWrap<any> = (type, staticTemplate, dynamicTemplate, name?) => {
+    let Wrap;
     let staticClassNames: string = null;
 
-    const Wrap = class extends Component<any, any> {
+    Wrap = class extends Component<any, any> {
         el = null;
 
         ref = el => {
@@ -47,22 +48,22 @@ const wrap: TWrap<any> = function(type, staticTemplate, dynamicTemplate) {
                 className += renderer.render(Wrap, this, this.el, dynamicTemplate(props, this.state, this.context));
             }
 
-            if (process.env.NODE_ENV === 'production') {
-                const p: any = this.props as any;
-
-                p.className = className;
-                p.ref = this.ref;
-
-                return h($type, this.props);
-            } else {
+            if (process.env.NODE_ENV !== 'production') {
                 return h($type, extend(props, {className, ref: this.ref}));
             }
+
+            const p: any = this.props as any;
+
+            p.className = className;
+            p.ref = this.ref;
+
+            return h($type, this.props);
         }
     };
 
     if (process.env.NODE_ENV !== 'production') {
         const name = getName(type);
-        (Wrap as any).displayName = (arguments[3] || 'wrap') + (name ? `__${name}` : '');
+        (Wrap as any).displayName = (name || 'wrap') + (name ? `__${name}` : '');
     }
 
     return Wrap;
