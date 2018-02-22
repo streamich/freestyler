@@ -1,3 +1,3 @@
-import jsxstyle from './jsxstyle/v4';
+import jsxstyle from './jsxstyle/v5';
 
 export default jsxstyle;
