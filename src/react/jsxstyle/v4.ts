@@ -7,11 +7,10 @@ const {extend} = require('fast-extend');
 export interface IJsxStyleProps extends IFreestylerStyles {
     [key: string]: any;
     $type?: string;
-    props?: object;
+    $attr?: object;
     children?: any;
     mediaQueries?: any;
     className?: string;
-    style?: object;
 }
 
 export interface IJsxStyleState {}
@@ -40,12 +39,11 @@ const jsxstyle = (type, defaultStyles: IFreestylerStyles = {}) => {
         render() {
             let {
                 $type = type,
-                props: customProps = null,
+                $attr = {} as any,
                 children,
                 mediaQueries,
-                className,
-                style,
-                ...customStyles
+                className = '',
+                ...dynamicStyles
             } = this.props;
 
             if (process.env.FREESTYLER_JSXSTYLE_MEDIA_QUERIES) {
@@ -54,33 +52,38 @@ const jsxstyle = (type, defaultStyles: IFreestylerStyles = {}) => {
                     const mediaQuery = mediaQueries[prefix];
                     const mediaQueryStyles = {};
                     let mediaQueryHasStyles = false;
-                    for (let styleName in customStyles) {
+                    for (let styleName in dynamicStyles) {
                         if (styleName.indexOf(prefix) === 0) {
                             mediaQueryHasStyles = true;
                             const styleNameSansPrefix =
                                 styleName[prefixLength].toLowerCase() + styleName.substr(prefixLength + 1);
-                            mediaQueryStyles[styleNameSansPrefix] = customStyles[styleName];
-                            delete (customStyles as any)[styleName];
+                            mediaQueryStyles[styleNameSansPrefix] = dynamicStyles[styleName];
+                            delete (dynamicStyles as any)[styleName];
                         }
                     }
                     if (mediaQueryHasStyles) {
                         const mediaQueryPrelude = mediaQueries[prefix];
-                        (customStyles as any)[mediaQueryPrelude] = mediaQueryStyles;
+                        (dynamicStyles as any)[mediaQueryPrelude] = mediaQueryStyles;
                     }
                 }
             }
 
-            const dynamicClassNames = renderer.render(JsxStyle, this, this.el, customStyles);
+            const dynamicClassNames = renderer.render(JsxStyle, this, this.el, dynamicStyles);
 
-            return h(
-                $type,
-                {
-                    ...customProps,
-                    className: staticClassNames + dynamicClassNames + (className || ''),
-                    style,
-                },
-                children
-            );
+            if (process.env.NODE_ENV !== 'production') {
+                return h(
+                    $type,
+                    {
+                        ...$attr,
+                        className: className + staticClassNames + dynamicClassNames,
+                    },
+                    children
+                );
+            }
+
+            $attr.className = className + staticClassNames + dynamicClassNames;
+
+            return h($type, $attr, children);
         }
     };
 

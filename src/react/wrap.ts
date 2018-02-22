@@ -1,3 +1,3 @@
-import wrap from './wrap/v2';
+import wrap from './wrap/v3';
 
 export default wrap;
