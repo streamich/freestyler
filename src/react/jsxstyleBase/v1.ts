@@ -10,15 +10,16 @@ export interface IJsxstyleDefinition {
     className?: string;
 }
 
-export interface IJsxstyleProps extends Partial<IJsxstyleDefinition>, IFreestylerStyles {
+export interface IJsxstyleProps extends Partial<IJsxstyleDefinition> {
     [key: string]: any;
     children?: any;
+    css?: IFreestylerStyles;
 }
 
 export interface IJsxStyleState {}
 
-const jsxstyle = (defOrType: string | any | IJsxstyleDefinition, defaultStyles: IFreestylerStyles = {}) => {
-    let JsxStyle: React.ComponentClass<IJsxstyleProps>;
+const jsxstyleBase = (defOrType: string | any | IJsxstyleDefinition, defaultStyles: IFreestylerStyles = {}) => {
+    let JsxStyleBase: React.ComponentClass<IJsxstyleProps>;
     let staticClassNames: string;
     let defaultType;
     let defaultAttr;
@@ -34,7 +35,7 @@ const jsxstyle = (defOrType: string | any | IJsxstyleDefinition, defaultStyles: 
         defaultClassName = '';
     }
 
-    JsxStyle = class extends Component<IJsxstyleProps, IJsxStyleState> {
+    JsxStyleBase = class extends Component<IJsxstyleProps, IJsxStyleState> {
         el: HTMLElement = null;
 
         ref = el => (this.el = el);
@@ -43,25 +44,18 @@ const jsxstyle = (defOrType: string | any | IJsxstyleDefinition, defaultStyles: 
             super(props, context);
 
             if (staticClassNames === void 0) {
-                staticClassNames = renderer.renderStatic(JsxStyle, defaultStyles);
+                staticClassNames = renderer.renderStatic(JsxStyleBase, defaultStyles);
             }
         }
 
         componentWillUnmount() {
-            renderer.unrender(JsxStyle, this, this.el);
+            renderer.unrender(JsxStyleBase, this, this.el);
         }
 
         render() {
-            let {
-                type = defaultType,
-                attr = {} as any,
-                children,
-                mediaQueries,
-                className = '',
-                ...dynamicStyles
-            } = this.props;
+            let {type = defaultType, attr = {} as any, children, className = '', css} = this.props;
 
-            const dynamicClassNames = renderer.render(JsxStyle, this, this.el, dynamicStyles);
+            const dynamicClassNames = renderer.render(JsxStyleBase, this, this.el, css);
             const allClassNames =
                 (defaultClassName ? defaultClassName + ' ' : '') +
                 (attr.className ? attr.className + ' ' : '') +
@@ -104,7 +98,19 @@ const jsxstyle = (defOrType: string | any | IJsxstyleDefinition, defaultStyles: 
         }
     };
 
-    return JsxStyle;
+    if (process.env.NODE_ENV !== 'production') {
+        let name;
+
+        if (typeof defaultType === 'string') {
+            name = defaultType;
+        } else {
+            name = defaultType.displayName || defaultType.name;
+        }
+
+        JsxStyleBase.displayName = `JsxStyleBase(${name})`;
+    }
+
+    return JsxStyleBase;
 };
 
-export default jsxstyle;
+export default jsxstyleBase;
