@@ -1,10 +1,10 @@
 import {cloneElement} from 'react';
-import {TCssDynamicTemplate} from '../../types/index';
+import {TCssTemplateCallback} from '../../types/index';
 import {$$el} from './util';
 import renderer from '../../renderer';
 const {extend} = require('fast-extend');
 
-const transformMethodRenderDynamic = (prototype, dynamicTemplate: TCssDynamicTemplate) => {
+const transformMethodRenderDynamic = (prototype, dynamicTemplate: TCssTemplateCallback) => {
     const render_ = prototype.render;
 
     prototype.render = function() {
@@ -12,7 +12,7 @@ const transformMethodRenderDynamic = (prototype, dynamicTemplate: TCssDynamicTem
         const {props} = ast;
         const className =
             (props.className ? props.className : '') +
-            renderer.render(this.constructor, this, this[$$el], dynamicTemplate(this), [this]);
+            renderer.render(this.constructor, this, this[$$el], dynamicTemplate(this));
 
         // Obtain ref to the root DOM element for boost in performance.
         const originalRef = ast.ref;

@@ -1,20 +1,21 @@
-import {TCssTemplate, TCssDynamicTemplate} from '../../types/index';
+import {TCssTemplateCallback} from '../../types/index';
 import transformComponentStatic from '../transform/componentStatic';
 import transformComponentDynamic from '../transform/componentDynamic';
 
-const decoratorMethod = function(tpl: TCssTemplate | TCssDynamicTemplate, dynamic: boolean = true) {
+const decoratorMethod = function(tpl: TCssTemplateCallback) {
     return (instance, key, descriptor) => {
         if (!tpl) return descriptor;
 
         const Comp = instance.constructor;
 
-        if (dynamic) transformComponentDynamic(Comp, tpl as TCssDynamicTemplate);
-        else transformComponentStatic(Comp, tpl as TCssTemplate);
+        transformComponentDynamic(Comp, tpl);
 
         const {prototype} = Comp;
+
         descriptor.value = prototype.render;
 
         const {componentWillUnmount} = prototype;
+
         if (componentWillUnmount) {
             instance.componentWillUnmount = componentWillUnmount;
         }
