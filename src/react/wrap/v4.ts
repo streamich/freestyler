@@ -1,8 +1,8 @@
 import {createElement as h} from 'react';
-import jsxstyleBase from '../jsxstyleBase';
+import jsxstyle from '../jsxstyle';
 
-const wrap = (definition, staticTemplate, dynamicTemplate, name?) => {
-    const Block = jsxstyleBase(definition, staticTemplate);
+const wrap = (type, staticTemplate, dynamicTemplate, name?) => {
+    const Block = jsxstyle(type, staticTemplate);
 
     return props => {
         const css = dynamicTemplate ? dynamicTemplate(props) : {};
