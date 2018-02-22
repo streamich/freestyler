@@ -27,7 +27,8 @@ const staticTemplate = {
     },
 };
 
-const dynamicTemplate = ({disabled, outline, lite, primary, simple, small}) => {
+const dynamicTemplate = (props) => {
+    const {disabled, outline, lite, primary, simple, small} = props;
     const style: any = {
         cur: disabled ? 'normal' : 'pointer',
         bg: primary ? 'red' : (lite ? 'transparent' : 'rgba(127,127,127,0.2)'),

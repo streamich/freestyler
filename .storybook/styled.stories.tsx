@@ -5,4 +5,4 @@ const {linkTo} = require('@storybook/addon-links');
 import Button from './styled/Example1';
 
 storiesOf('styled()()', module)
-  .add('Button', () => <Button>Click me!</Button>)
+  .add('Button', () => <Button primary>Click me!</Button>)
