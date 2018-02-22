@@ -9,7 +9,7 @@ export type TCssDecorator = any;
 
 const isReactComponent = f => !!(f && f.prototype && f.prototype.render);
 
-const css: TCssDecorator = (a?: TCssTemplate | any, b?) => {
+const css: TCssDecorator = (a?: TCssTemplate | any) => {
     // If component decorator without arguments.
     if (isReactComponent(a)) {
         decoratorCssComponent(a);
@@ -18,8 +18,8 @@ const css: TCssDecorator = (a?: TCssTemplate | any, b?) => {
 
     return (instanceOrComp, key, descriptor) =>
         typeof key === 'string'
-            ? decoratorMethod(a, b)(instanceOrComp, key, descriptor)
-            : decoratorClass(a, b)(instanceOrComp);
+            ? decoratorMethod(a)(instanceOrComp, key, descriptor)
+            : decoratorClass(a)(instanceOrComp);
 };
 
 export default css;

@@ -22,7 +22,8 @@ describe('sheet', () => {
                 rule.put([['color', 'tomato']]);
 
                 expect(style.style.setProperty).toHaveBeenCalledTimes(1);
-                expect(style.style.setProperty).toHaveBeenCalledWith('color', 'tomato');
+                expect((style.style.setProperty as any).mock.calls[0][0]).toBe('color');
+                expect((style.style.setProperty as any).mock.calls[0][1]).toBe('tomato');
             });
         });
 

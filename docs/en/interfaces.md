@@ -24,4 +24,3 @@ restrictions on scope of JavaScript variables.
   - __5<sup>th</sup> Generation__
     - [Style-it](./interfaces/5th-generation/style-it.md)
     - [jsxstyle](./interfaces/5th-generation/jsxstyle.md)
-    - [HOT](./interfaces/5th-generation/hot.md)

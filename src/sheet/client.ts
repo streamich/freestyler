@@ -17,12 +17,13 @@ export class ClientRule {
         this.style = style;
     }
 
-    put(declarations: TDeclarations) {
+    put(declarations: TDeclarations, important?: boolean) {
         const {style} = this;
         const len = declarations.length;
+        const imp = important ? 'important' : '';
 
         this.decl = declarations;
-        for (let i = 0; i < len; i++) style.setProperty.apply(style, declarations[i]);
+        for (let i = 0; i < len; i++) style.setProperty.call(style, declarations[i][0], declarations[i][1], imp);
     }
 
     putRaw(rawCss: string) {
@@ -46,7 +47,7 @@ export class ClientSheet {
         return !atRulePrelude ? (map[selectors] as ClientRule) : map[atRulePrelude] && map[atRulePrelude][selectors];
     }
 
-    add(atRulePrelude: TAtrulePrelude, selectors: string, declarations): ClientRule {
+    add(atRulePrelude: TAtrulePrelude, selectors: string, declarations, important?: boolean): ClientRule {
         const sheet = this.el.sheet as CSSStyleSheet;
         const {cssRules} = sheet;
         const {length} = cssRules;
@@ -55,12 +56,12 @@ export class ClientSheet {
         if (atRulePrelude) {
             sheet.insertRule(`${atRulePrelude}{${selectors}{}}`, length);
             rule = new ClientRule(((cssRules[length] as CSSGroupingRule).cssRules[0] as CSSStyleRule).style);
-            rule.put(declarations);
+            rule.put(declarations, important);
         } else {
             sheet.insertRule(`${selectors}{}`, length);
             // TODO: Benchmark `cssRules[length]` vs `cssRules.item(length)`.
             rule = new ClientRule((cssRules[length] as CSSStyleRule).style);
-            rule.put(declarations);
+            rule.put(declarations, important);
         }
 
         if (atRulePrelude) {

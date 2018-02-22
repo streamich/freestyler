@@ -55,7 +55,6 @@ it is *lightning fast*, *lean*, and with *gazillion* [__*feat*ures__](#feat).
 - __React.js__ [__5<sup>th</sup> Generation Interfaces__](./docs/en/5th-gen.md)
     - [`styleit()` and `<Styleit>` Interfaces](./docs/en/styleit.md)
     - [`jsxstyle()`, `<Block>`, `<Inline>`, `<InlineBlock>`, `<Row>`, and `<Column>` Interfaces](./docs/en/jsxstyle.md)
-    - [`hot()()` Higher Order Type Interface](./docs/en/hot.md)
 - [Environment Variables](./docs/en/env-vars.md)
 - [Server-side Rendering](./docs/en/ssr.md)
 - [How it Works?](./docs/en/how-it-works.md)
@@ -77,19 +76,12 @@ import {
     rule,
     StyleSheet,
     Component,
-    hyperstyle,
     hoc,
-    hot,
-    styleit,
-    Styleit,
-    jsxstyle,
-    Box,
-    Block,
-    Inline,
-    InlineBlock,
-    Row,
-    Column
+    jsxstyle
 } from 'freestyler';
+
+import hyperstyle from 'freestyler/lib/react/hyperstyle';
+import {styleit, Styleit} from 'freestyler/lib/react/styleit';
 ```
 
 Decorate *stateful* components.

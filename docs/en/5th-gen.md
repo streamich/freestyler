@@ -11,4 +11,3 @@ not only have they access to variables in component's scope, but they also have 
 
 - [`styleit()` and `<Styleit>` Interfaces](./styleit.md)
 - [`jsxstyle()`, `<Block>`, `<Inline>`, `<InlineBlock>`, `<Row>`, and `<Column>` Interfaces](./jsxstyle.md)
-- [`hot()()` Higher Order Type Interface](./hot.md)

@@ -1,4 +1,4 @@
-import {TCssTemplate, TCssDynamicTemplate} from '../../types/index';
+import {TCssTemplate, TCssTemplateCallback} from '../../types/index';
 import transformComponentStatic from './componentStatic';
 import transformComponentDynamic from './componentDynamic';
 import {sym, hidden} from '../../util';
@@ -14,7 +14,7 @@ const transformCssComponent = instance => {
         const staticTemplate: TCssTemplate = Comp.css;
         if (staticTemplate) transformComponentStatic(Comp, staticTemplate);
 
-        let dynamicTemplate: TCssDynamicTemplate = instance.css;
+        let dynamicTemplate: TCssTemplateCallback = instance.css;
 
         if (dynamicTemplate) {
             if (process.env.NODE_ENV !== 'production') {

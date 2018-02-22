@@ -22,7 +22,7 @@ import {
     InlineBlock,
     Row,
     Column
-} from 'freestyler/lib/react/jsxstyle';
+} from 'freestyler/lib/jsxstyle';
 ```
 
 Or create your own custom building blocks.
