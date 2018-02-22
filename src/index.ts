@@ -8,6 +8,4 @@ import hyperstyle from './react/hyperstyle';
 import hot from './react/hot';
 import jsxstyle from './react/jsxstyle';
 
-export {rule, StyleSheet, styled, css, hoc, Component, hyperstyle, hot, jsxstyle};
-
-export * from './react/styleit';
+export {rule, StyleSheet, styled, css, hoc, hot, Component, jsxstyle};

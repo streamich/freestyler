@@ -77,19 +77,13 @@ import {
     rule,
     StyleSheet,
     Component,
-    hyperstyle,
     hoc,
     hot,
-    styleit,
-    Styleit,
-    jsxstyle,
-    Box,
-    Block,
-    Inline,
-    InlineBlock,
-    Row,
-    Column
+    jsxstyle
 } from 'freestyler';
+
+import hyperstyle from 'freestyler/lib/react/hyperstyle';
+import {styleit, Styleit} from 'freestyler/lib/react/styleit';
 ```
 
 Decorate *stateful* components.
