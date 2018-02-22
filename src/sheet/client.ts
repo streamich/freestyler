@@ -23,7 +23,6 @@ export class ClientRule {
         const imp = important ? 'important' : '';
 
         this.decl = declarations;
-        console.log('DDD', declarations, imp);
         for (let i = 0; i < len; i++) style.setProperty.call(style, declarations[i][0], declarations[i][1], imp);
     }
 
