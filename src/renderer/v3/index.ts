@@ -372,6 +372,40 @@ class Renderer implements IRenderer {
 
         if (process.env.NODE_ENV !== 'production') {
             className = Comp.displayName || Comp.name || '';
+            [
+                '~',
+                '!',
+                '@',
+                '$',
+                '%',
+                '^',
+                '&',
+                '*',
+                '(',
+                ')',
+                '+',
+                '=',
+                ',',
+                '.',
+                '/',
+                "'",
+                ';',
+                ':',
+                '"',
+                '?',
+                '>',
+                '<',
+                '[',
+                ']',
+                '\\',
+                '{',
+                '}',
+                '|',
+                '`',
+                '#',
+            ].forEach(char => {
+                className = className.replace(char, '_');
+            });
         }
         className = genId(className);
 

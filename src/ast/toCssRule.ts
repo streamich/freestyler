@@ -17,8 +17,6 @@ const toCssRule: (selector: string, declarations: TDeclarations, atRulePrelude?:
     if (process.env.NODE_ENV === 'production') {
         css = selector + '{' + toCssDeclarations(declarations) + '}';
     } else {
-        selector = selector.replace('>', ' > ');
-        selector = selector.replace(',', ', ');
         css = selector + ' {\n' + toCssDeclarations(declarations) + '}\n';
     }
 
