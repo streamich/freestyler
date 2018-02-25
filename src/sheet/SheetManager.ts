@@ -28,7 +28,12 @@ export class SheetManager {
     injectRaw(rawCss: string, id?: string) {
         if (isClient) {
             const style = createStyleElement();
-            style.innerText = rawCss;
+
+            if ((style as any).styleSheet) {
+                (style as any).styleSheet.cssText = rawCss;
+            } else {
+                style.appendChild(document.createTextNode(rawCss));
+            }
 
             if (process.env.NODE_ENV !== 'production') {
                 style.id = id;
