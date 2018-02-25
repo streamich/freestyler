@@ -2,25 +2,25 @@ import global from './global';
 
 const CssFadeInAnimations = global({
     '@keyframes fiOpacity': {
-        '0%': {
+        from: {
             op: 0,
         },
     },
 
     '@keyframes fiScale': {
-        '0%': {
+        from: {
             transform: 'scale(.9)',
         },
     },
 
     '@keyframes fiDrop': {
-        '0%': {
+        from: {
             transform: 'translate(0,-20px)',
         },
     },
 
     '@keyframes fiAll': {
-        '0%': {
+        from: {
             op: 0,
             transform: 'scale(.9) translate(0,-20px)',
         },

@@ -2,36 +2,26 @@ import global from './global';
 
 const CssFadeOutAnimations = global({
     '@keyframes foOpacity': {
-        '100%': {
+        to: {
             op: 0,
-        },
-    },
-
-    '@keyframes foScale': {
-        '100%': {
-            transform: 'scale(.9)',
-        },
-    },
-
-    '@keyframes foDrop': {
-        '100%': {
-            transform: 'translate(0,-20px)',
         },
     },
 
     '@keyframes foAll': {
-        '100%': {
+        to: {
             op: 0,
-            transform: 'scale(.9) translate(0,-20px)',
+            transform: 'scale(.9)',
         },
     },
 
     '.foOpacity': {
-        animation: 'foOpacity .5s',
+        animation: 'foOpacity .25s',
+        animationFillMode: 'forwards',
     },
 
     '.foAll': {
         animation: 'foAll .3s',
+        animationFillMode: 'forwards',
     },
 });
 

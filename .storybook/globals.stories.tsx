@@ -3,6 +3,7 @@ import {storiesOf} from '@storybook/react';
 const {action} = require('@storybook/addon-actions');
 const {linkTo} = require('@storybook/addon-links');
 import CssFadeInAnimations from '../src/globals/CssFadeInAnimations';
+import CssFadeOutAnimations from '../src/globals/CssFadeOutAnimations';
 
 const Card = () => <div style={{
     width: 200,
@@ -64,6 +65,24 @@ storiesOf('Globals/CssFadeInAnimations', module)
         <div>
             <CssFadeInAnimations />
             <div className="fiOpacity">
+                <Card />
+            </div>
+        </div>
+    )
+
+storiesOf('Globals/CssFadeOutAnimations', module)
+    .add('foOpacity', () =>
+        <div>
+            <CssFadeOutAnimations />
+            <div className='foOpacity'>
+                <Card />
+            </div>
+        </div>
+    )
+    .add('foAll', () =>
+        <div>
+            <CssFadeOutAnimations />
+            <div className='foAll'>
                 <Card />
             </div>
         </div>
