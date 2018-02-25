@@ -12,42 +12,58 @@ const Card = () => <div style={{
 }} />;
 
 storiesOf('Globals/CssFadeInAnimations', module)
-    .add('fi-opacity', () =>
+    .add('fiOpacity', () =>
         <div>
             <CssFadeInAnimations />
-            <div style={{animation: 'fi-opacity 2s'}}>
+            <div style={{animation: 'fiOpacity 2s'}}>
                 <Card />
             </div>
         </div>
     )
-    .add('fi-scale', () =>
+    .add('fiScale', () =>
         <div>
             <CssFadeInAnimations />
-            <div style={{animation: 'fi-scale 2s'}}>
+            <div style={{animation: 'fiScale 2s'}}>
                 <Card />
             </div>
         </div>
     )
-    .add('fi-opacity + fi-scale', () =>
+    .add('fiOpacity + fiScale', () =>
         <div>
             <CssFadeInAnimations />
-            <div style={{animation: 'fi-scale .3s, fi-opacity .3s'}}>
+            <div style={{animation: 'fiScale .3s, fiOpacity .3s'}}>
                 <Card />
             </div>
         </div>
     )
-    .add('fi-drop', () =>
+    .add('fiDrop', () =>
         <div>
             <CssFadeInAnimations />
-            <div style={{animation: 'fi-drop 2s'}}>
+            <div style={{animation: 'fiDrop .3s'}}>
                 <Card />
             </div>
         </div>
     )
-    .add('fi-all', () =>
+    .add('fiAll', () =>
         <div>
             <CssFadeInAnimations />
-            <div style={{animation: 'fi-all 2s'}}>
+            <div style={{animation: 'fiAll .3s'}}>
+                <Card />
+            </div>
+        </div>
+    )
+    .add('class="fiAll"', () =>
+        <div>
+            <CssFadeInAnimations />
+            <div className="fiAll">
+                <Card />
+            </div>
+        </div>
+    )
+    .add('class="fiOpacity"', () =>
+        <div>
+            <CssFadeInAnimations />
+            <div className="fiOpacity">
                 <Card />
             </div>
         </div>
