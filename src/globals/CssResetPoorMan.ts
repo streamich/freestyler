@@ -1,4 +1,4 @@
-import createCssResetComponent from './createCssResetComponent';
+import global from './global';
 
 const css = {
     'html, body': {
@@ -16,6 +16,6 @@ const css = {
     },
 };
 
-const CssResetPoorMan = createCssResetComponent(css);
+const CssResetPoorMan = global(css);
 
 export default CssResetPoorMan;

@@ -1,4 +1,4 @@
-import createCssResetComponent from './createCssResetComponent';
+import global from './global';
 
 const css = {
     '*': {
@@ -66,6 +66,6 @@ const css = {
     },
 };
 
-const CssResetTripoli = createCssResetComponent(css);
+const CssResetTripoli = global(css);
 
 export default CssResetTripoli;

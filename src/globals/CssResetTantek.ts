@@ -1,4 +1,4 @@
-import createCssResetComponent from './createCssResetComponent';
+import global from './global';
 
 const css = {
     ':link,:visited': {
@@ -22,6 +22,6 @@ const css = {
     },
 };
 
-const CssResetTantek = createCssResetComponent(css);
+const CssResetTantek = global(css);
 
 export default CssResetTantek;

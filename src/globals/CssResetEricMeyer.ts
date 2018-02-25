@@ -1,4 +1,4 @@
-import createCssResetComponent from './createCssResetComponent';
+import global from './global';
 
 const css = {
     'html,body,div,span,applet,object,iframe,table,caption,tbody,tfoot,thead,tr,th,td,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,dl,dt,dd,ol,ul,li,fieldset,form,label,legend': {
@@ -39,6 +39,6 @@ const css = {
     },
 };
 
-const CssResetEricMeyer = createCssResetComponent(css);
+const CssResetEricMeyer = global(css);
 
 export default CssResetEricMeyer;

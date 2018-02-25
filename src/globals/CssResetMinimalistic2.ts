@@ -1,4 +1,4 @@
-import createCssResetComponent from './createCssResetComponent';
+import global from './global';
 
 const css = {
     '*': {
@@ -8,6 +8,6 @@ const css = {
     },
 };
 
-const CssResetMinimalistic2 = createCssResetComponent(css);
+const CssResetMinimalistic2 = global(css);
 
 export default CssResetMinimalistic2;

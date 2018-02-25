@@ -1,4 +1,4 @@
-import createCssResetComponent from './createCssResetComponent';
+import global from './global';
 
 const css = {
     '*': {
@@ -25,6 +25,6 @@ const css = {
     },
 };
 
-const CssResetSiolon = createCssResetComponent(css);
+const CssResetSiolon = global(css);
 
 export default CssResetSiolon;

@@ -2,7 +2,7 @@ import {createElement as h} from 'react';
 import toStylesheet from '../ast/toStylesheet';
 import toCss from '../ast/toCss';
 
-const createCssResetComponent: (tpl) => React.SFC<{}> = cssTemplate => {
+const global: (tpl) => React.SFC<{}> = cssTemplate => {
     const rawCss = toCss(toStylesheet(cssTemplate));
 
     return () =>
@@ -13,4 +13,4 @@ const createCssResetComponent: (tpl) => React.SFC<{}> = cssTemplate => {
         });
 };
 
-export default createCssResetComponent;
+export default global;
