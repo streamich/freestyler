@@ -1,3 +1,3 @@
-import Renderer from './v2';
+import Renderer from './v3';
 
 export default Renderer;
