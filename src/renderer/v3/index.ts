@@ -194,12 +194,15 @@ class Renderer implements IRenderer {
         }
 
         let drule = dsheet.get(atRulePrelude, selectorTemplate);
+
         if (!drule) {
             const className = genId();
             const selectors = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
 
-            drule = dsheet.add(atRulePrelude, selectors, declarations, true);
+            drule = dsheet.add(atRulePrelude, selectors, declarations, true, selectorTemplate);
             drule.className = className;
+        } else {
+            drule.put(declarations);
         }
 
         const className = drule.className;

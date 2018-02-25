@@ -47,7 +47,13 @@ export class ClientSheet {
         return !atRulePrelude ? (map[selectors] as ClientRule) : map[atRulePrelude] && map[atRulePrelude][selectors];
     }
 
-    add(atRulePrelude: TAtrulePrelude, selectors: string, declarations, important?: boolean): ClientRule {
+    add(
+        atRulePrelude: TAtrulePrelude,
+        selectors: string,
+        declarations,
+        important?: boolean,
+        selectorTemplate?: string
+    ): ClientRule {
         const sheet = this.el.sheet as CSSStyleSheet;
         const {cssRules} = sheet;
         const {length} = cssRules;
@@ -64,16 +70,20 @@ export class ClientSheet {
             rule.put(declarations, important);
         }
 
+        if (selectorTemplate) this.cache(atRulePrelude, selectorTemplate, rule);
+
+        return rule;
+    }
+
+    cache(atRulePrelude: TAtrulePrelude, selectorTemplate: string, rule: ClientRule) {
         if (atRulePrelude) {
             if (!this.map[atRulePrelude]) {
                 this.map[atRulePrelude] = {};
             }
-            this.map[atRulePrelude][selectors] = rule;
+            this.map[atRulePrelude][selectorTemplate] = rule;
         } else {
-            this.map[selectors] = rule;
+            this.map[selectorTemplate] = rule;
         }
-
-        return rule;
     }
 
     addRaw(rawCss: string): ClientRule {

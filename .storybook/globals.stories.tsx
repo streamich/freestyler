@@ -5,12 +5,13 @@ const {linkTo} = require('@storybook/addon-links');
 import CssFadeInAnimations from '../src/globals/CssFadeInAnimations';
 import CssFadeOutAnimations from '../src/globals/CssFadeOutAnimations';
 
-const Card = () => <div style={{
+const style = {
     width: 200,
     height: 200,
     background: 'red',
     margin: '40px',
-}} />;
+};
+const Card = () => <div style={style} />;
 
 storiesOf('Globals/CssFadeInAnimations', module)
     .add('fiOpacity', () =>
@@ -24,9 +25,7 @@ storiesOf('Globals/CssFadeInAnimations', module)
     .add('fiScale', () =>
         <div>
             <CssFadeInAnimations />
-            <div style={{animation: 'fiScale 2s'}}>
-                <Card />
-            </div>
+            <div style={{animation: 'fiScale 2s', ...style}} />
         </div>
     )
     .add('fiOpacity + fiScale', () =>
