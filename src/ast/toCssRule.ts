@@ -12,7 +12,14 @@ const toCssRule: (selector: string, declarations: TDeclarations, atRulePrelude?:
     declarations,
     atRulePrelude
 ) => {
-    let css = selector + '{' + toCssDeclarations(declarations) + '}';
+    let css;
+
+    if (process.env.NODE_ENV === 'production') {
+        css = selector + '{' + toCssDeclarations(declarations) + '}';
+    } else {
+        css = selector + ' {\n' + toCssDeclarations(declarations) + '}\n';
+    }
+
     if (atRulePrelude) css = `${atRulePrelude}{${css}}`;
     return css;
 };

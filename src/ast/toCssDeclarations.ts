@@ -9,9 +9,16 @@ import {TDeclarations} from './toStylesheet';
 const toCssDeclarations: (declarations: TDeclarations) => string = declarations => {
     let css = '';
 
-    for (let j = 0; j < declarations.length; j++) {
-        const [property, value] = declarations[j];
-        css += property + ':' + value + ';';
+    if (process.env.NODE_ENV === 'production') {
+        for (let j = 0; j < declarations.length; j++) {
+            const [property, value] = declarations[j];
+            css += property + ':' + value + ';';
+        }
+    } else {
+        for (let j = 0; j < declarations.length; j++) {
+            const [property, value] = declarations[j];
+            css += '    ' + property + ': ' + value + ';\n';
+        }
     }
 
     return css;

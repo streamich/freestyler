@@ -1,24 +1,20 @@
 import {Component, createElement as h} from 'react';
 import css from '../../src/react/css';
 
-@css
 @css({
     width: '320px',
+    borderRadius: '5px',
+    border: 'none',
+    outline: 'none',
+    '&:hover': {
+        color: '#fff',
+    },
+    '&:active': {
+        position: 'relative',
+        top: '2px',
+    },
 })
 class Button extends Component<any, any> {
-    static css = {
-        borderRadius: '5px',
-        border: 'none',
-        outline: 'none',
-        '&:hover': {
-            color: '#fff',
-        },
-        '&:active': {
-            position: 'relative',
-            top: '2px',
-        },
-    };
-
     @css(function({props}) {
         return {
             padding: '20px',
