@@ -1,4 +1,4 @@
-import global from './global';
+import globalCss from './global';
 
 const css = {
     'html, body': {
@@ -16,6 +16,6 @@ const css = {
     },
 };
 
-const CssResetPoorMan = global(css);
+const CssResetPoorMan = globalCss(css);
 
 export default CssResetPoorMan;

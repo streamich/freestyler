@@ -1,6 +1,6 @@
-import global from './global';
+import globalCss from './global';
 
-const CssFadeOutAnimations = global({
+const CssFadeOutAnimations = globalCss({
     '@keyframes foOpacity': {
         to: {
             op: 0,

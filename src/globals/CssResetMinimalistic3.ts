@@ -1,4 +1,4 @@
-import global from './global';
+import globalCss from './global';
 
 const css = {
     '*': {
@@ -9,6 +9,6 @@ const css = {
     },
 };
 
-const CssResetMinimalistic3 = global(css);
+const CssResetMinimalistic3 = globalCss(css);
 
 export default CssResetMinimalistic3;

@@ -1,4 +1,4 @@
-import global from './global';
+import globalCss from './global';
 
 const css = {
     'body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,p,blockquote,table,th,td,embed,object': {
@@ -33,6 +33,6 @@ const css = {
     },
 };
 
-const CssResetShaunInman = global(css);
+const CssResetShaunInman = globalCss(css);
 
 export default CssResetShaunInman;

@@ -1,4 +1,4 @@
-import global from './global';
+import globalCss from './global';
 
 const css = {
     'body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td': {
@@ -34,6 +34,6 @@ const css = {
     },
 };
 
-const CssResetYahoo = global(css);
+const CssResetYahoo = globalCss(css);
 
 export default CssResetYahoo;
