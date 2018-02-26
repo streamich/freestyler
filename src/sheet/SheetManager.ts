@@ -36,7 +36,9 @@ export class SheetManager {
             }
 
             if (process.env.NODE_ENV !== 'production') {
-                style.id = id;
+                if (id) {
+                    style.id = id;
+                }
             }
         } else {
             this.raw += rawCss;
