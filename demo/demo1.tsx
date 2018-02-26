@@ -1,5 +1,6 @@
 import {createElement as h} from 'react';
 import styled from '../src/react/styled';
+import CssFadeInAnimations from '../src/globals/CssFadeInAnimations';
 import {render} from 'react-dom';
 
 const Button =  styled('div')({
@@ -9,4 +10,7 @@ const Button =  styled('div')({
 const el = document.createElement('div');
 document.body.appendChild(el);
 
-render(<Button>Click me!</Button>, el);
+render(<div>
+    <CssFadeInAnimations />
+    <Button>Click me!</Button>
+</div>, el);

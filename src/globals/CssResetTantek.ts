@@ -1,4 +1,4 @@
-import global from './global';
+import globalCss from './global';
 
 const css = {
     ':link,:visited': {
@@ -22,6 +22,6 @@ const css = {
     },
 };
 
-const CssResetTantek = global(css);
+const CssResetTantek = globalCss(css);
 
 export default CssResetTantek;
