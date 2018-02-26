@@ -85,7 +85,7 @@
     "mol-conventional-changelog": "1.2.0",
     "semantic-release": "12.4.1",
     "gitbook-cli": "2.3.2",
-    "libreact": "0.9.0"
+    "libreact": "0.11.0"
   },
   "config": {
     "commitizen": {
