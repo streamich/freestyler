@@ -356,7 +356,7 @@ class Renderer implements IRenderer {
         }
     }
 
-    renderStatic(Comp, tpl: TCssTemplate, args?: any[]): string {
+    renderStatic(Comp, styles: IFreestylerStyles): string {
         let className = this.statCache.get(Comp);
 
         if (className === void 0) {
@@ -365,7 +365,6 @@ class Renderer implements IRenderer {
             return className;
         }
 
-        let styles = tplToStyles(tpl, args);
         if (!styles) return '';
 
         if (process.env.NODE_ENV !== 'production') {
@@ -373,7 +372,6 @@ class Renderer implements IRenderer {
                 type: 'RENDER_STATIC',
                 Comp,
                 styles,
-                args,
             });
         }
 
