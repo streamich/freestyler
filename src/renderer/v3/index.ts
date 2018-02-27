@@ -284,12 +284,10 @@ class Renderer implements IRenderer {
         return classNames + this.renderDynamicDecls(instance, el, atRulePrelude, selectorTemplate, dynamicDecls);
     }
 
-    render(Comp, instance, root: HTMLElement | null, tpl: TCssTemplate, args?: any[]): string {
-        if (!tpl) {
+    render(Comp, instance, root: HTMLElement | null, styles: IFreestylerStyles): string {
+        if (!styles) {
             return '';
         }
-
-        const styles = tplToStyles(tpl, args);
 
         if (process.env.NODE_ENV !== 'production') {
             require('../../debug').emit({
@@ -298,7 +296,6 @@ class Renderer implements IRenderer {
                 instance,
                 el: root,
                 styles,
-                args,
             });
         }
 

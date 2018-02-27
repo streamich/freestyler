@@ -4,38 +4,32 @@ describe('Renderer', () => {
     describe('renderFluid', () => {
         xit('works', () => {
             const renderer = new Renderer();
-            renderer.render(
-                {} as any,
-                {},
-                null,
-                () => ({
-                    '&': {
-                        color: 'red',
+            renderer.render({} as any, {}, null, {
+                '&': {
+                    color: 'red',
+                },
+                '&:hover': {
+                    color: 'blue',
+                },
+                '&:active': {
+                    color: 'yellow',
+                    $txt: {
+                        ff: 'Verdana',
                     },
-                    '&:hover': {
-                        color: 'blue',
+                },
+                '& .icon': {
+                    'text-align': 'center',
+                    '& svg': {
+                        fill: 'black',
                     },
-                    '&:active': {
-                        color: 'yellow',
-                        $txt: {
-                            ff: 'Verdana',
-                        },
-                    },
-                    '& .icon': {
-                        'text-align': 'center',
-                        '& svg': {
-                            fill: 'black',
-                        },
-                    },
-                    '.is-mobile &': {
-                        color: 'black',
-                    },
-                    '.global': {
-                        bg: '#eee',
-                    },
-                }),
-                []
-            );
+                },
+                '.is-mobile &': {
+                    color: 'black',
+                },
+                '.global': {
+                    bg: '#eee',
+                },
+            });
         });
     });
 });

@@ -72,18 +72,12 @@ describe('Renderer SSR', () => {
     describe('.render()', () => {
         it('returns class names', () => {
             const renderer = new Renderer();
-            const classNames = renderer.render(
-                {},
-                {},
-                null,
-                {
-                    bg: 'tomato',
-                    d: 'block',
-                    cur: 'pointer',
-                    w: '100%',
-                },
-                []
-            );
+            const classNames = renderer.render({}, {}, null, {
+                bg: 'tomato',
+                d: 'block',
+                cur: 'pointer',
+                w: '100%',
+            });
 
             expect(typeof classNames).to.equal('string');
             expect(classNames.length > 0).to.be.true;
@@ -91,18 +85,12 @@ describe('Renderer SSR', () => {
 
         it('can get server-side CSS string', () => {
             const renderer = new Renderer();
-            const classNames = renderer.render(
-                {},
-                {},
-                null,
-                {
-                    bg: 'red',
-                    d: 'block',
-                    cur: 'pointer',
-                    w: '100%',
-                },
-                []
-            );
+            const classNames = renderer.render({}, {}, null, {
+                bg: 'red',
+                d: 'block',
+                cur: 'pointer',
+                w: '100%',
+            });
 
             const rawCss = renderer.sheets.toString();
 
