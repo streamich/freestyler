@@ -357,12 +357,12 @@ class Renderer implements IRenderer {
     }
 
     renderStatic(Comp, tpl: TCssTemplate, args?: any[]): string {
-        let classNames = this.statCache.get(Comp);
+        let className = this.statCache.get(Comp);
 
-        if (classNames === void 0) {
+        if (className === void 0) {
             this.statCache.set(Comp, '');
         } else {
-            return classNames;
+            return className;
         }
 
         let styles = tplToStyles(tpl, args);
@@ -377,7 +377,7 @@ class Renderer implements IRenderer {
             });
         }
 
-        let className = '';
+        className = '';
 
         if (process.env.NODE_ENV !== 'production') {
             className = Comp.displayName || Comp.name || '';
@@ -427,6 +427,7 @@ class Renderer implements IRenderer {
             this.sheets.injectRaw(css, 'css-' + className);
         }
 
+        className = ' ' + className;
         this.statCache.set(Comp, className);
 
         return className;
