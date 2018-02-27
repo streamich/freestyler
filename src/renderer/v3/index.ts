@@ -1,4 +1,4 @@
-import {$$cn, $$cnt, hidden, sym, camelCase} from '../../util';
+import {$$cnt, hidden, sym, camelCase} from '../../util';
 import supportsCssVariables from '../../supportsCssVariables';
 import {TCssTemplate, TCssDynamicTemplate, IFreestylerStyles} from '../../types/index';
 import toStyleSheet, {
@@ -81,7 +81,13 @@ class DeclarationCache {
 }
 
 class Renderer implements IRenderer {
-    sheets: SheetManager = new SheetManager();
+    statCache: WeakMap<any, string>;
+    dynCache: WeakMap<any, string>;
+    sheets: SheetManager;
+
+    constructor() {
+        this.reset();
+    }
 
     toStylesheet(styles: TStyles, selector: string): TStyleSheet {
         styles = hoistGlobalsAndWrapContext(styles, selector);
@@ -351,10 +357,10 @@ class Renderer implements IRenderer {
     }
 
     renderStatic(Comp, tpl: TCssTemplate, args?: any[]): string {
-        let classNames = Comp[$$cn];
+        let classNames = this.statCache.get(Comp);
 
         if (classNames === void 0) {
-            hidden(Comp, $$cn, '');
+            this.statCache.set(Comp, '');
         } else {
             return classNames;
         }
@@ -421,9 +427,9 @@ class Renderer implements IRenderer {
             this.sheets.injectRaw(css, 'css-' + className);
         }
 
-        Comp[$$cn] = ' ' + className;
+        this.statCache.set(Comp, className);
 
-        return Comp[$$cn];
+        return className;
     }
 
     format(styles: IFreestylerStyles, selector: string): string {
@@ -439,12 +445,18 @@ class Renderer implements IRenderer {
         // this.middlewares.push(middleware);
     }
 
+    reset() {
+        this.sheets = new SheetManager();
+        this.statCache = new WeakMap();
+        this.dynCache = new WeakMap();
+    }
+
     // Use this method on server side to get raw CSS after every page render
     // and free memory before next request.
     flush(): string {
         const rawCss = this.sheets.toString();
 
-        this.sheets = new SheetManager();
+        this.reset();
 
         return rawCss;
     }
