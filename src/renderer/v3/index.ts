@@ -33,25 +33,6 @@ let classNameCounter = 1;
 const PREFIX = process.env.FREESTYLER_PREFIX || '';
 const genId = (name = '') => `${PREFIX}${name}_${(classNameCounter++).toString(36)}`;
 
-// prettier-ignore
-const tplToStyles: (tpl: TCssTemplate, args?: any[]) => IFreestylerStyles =
-    (tpl, args) => (typeof tpl === 'function' ? tpl(...args) : tpl);
-
-const getInfCardStaticCache: (obj: object, key: string) => DeclarationCache = (obj, key) => {
-    const map = obj[$$statics];
-    if (!map) return undefined;
-    return map[key];
-};
-
-const setInfCardStaticCache = (obj: object, key: string, cache: DeclarationCache) => {
-    let map = obj[$$statics];
-    if (!map) {
-        map = {};
-        hidden(obj, $$statics, map);
-    }
-    map[key] = cache;
-};
-
 const combineIntoStylesheet = (stylesheet: TStyleSheet, className: string) => {
     const dottedClassName = '.' + className;
     return (prelude, selectorTemplate, declarations) => {
@@ -82,7 +63,7 @@ class DeclarationCache {
 
 class Renderer implements IRenderer {
     statCache: WeakMap<any, string>;
-    dynCache: WeakMap<any, string>;
+    dynCache: WeakMap<any, {[key: string]: DeclarationCache}>;
     sheets: SheetManager;
 
     constructor() {
@@ -92,6 +73,24 @@ class Renderer implements IRenderer {
     toStylesheet(styles: TStyles, selector: string): TStyleSheet {
         styles = hoistGlobalsAndWrapContext(styles, selector);
         return toStyleSheet(styles);
+    }
+
+    private setInfCardStaticCache(obj: object, key: string, cache: DeclarationCache) {
+        let map = this.dynCache.get(obj);
+
+        if (!map) {
+            map = {};
+            this.dynCache.set(obj, map);
+        }
+        map[key] = cache;
+    }
+
+    private getInfCardStaticCache(obj: object, key: string): DeclarationCache {
+        const map = this.dynCache.get(obj);
+
+        if (!map) return undefined;
+
+        return map[key];
     }
 
     private putDecls(
@@ -166,8 +165,8 @@ class Renderer implements IRenderer {
         const id = className;
 
         const cache = new DeclarationCache(id, declarations);
-        setInfCardStaticCache(Comp, key, cache);
-        setInfCardStaticCache(instance, key, cache);
+        this.setInfCardStaticCache(Comp, key, cache);
+        this.setInfCardStaticCache(instance, key, cache);
 
         const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
         this.putDecls(id, selector, declarations, atRulePrelude, true);
@@ -248,13 +247,13 @@ class Renderer implements IRenderer {
         declarationSort(declarations);
 
         const key = atRulePrelude + selectorTemplate;
-        let cache = getInfCardStaticCache(instance, key);
+        let cache = this.getInfCardStaticCache(instance, key);
 
         if (!cache) {
-            cache = getInfCardStaticCache(Comp, key);
+            cache = this.getInfCardStaticCache(Comp, key);
             if (cache) {
                 cache.cnt++;
-                setInfCardStaticCache(instance, key, cache);
+                this.setInfCardStaticCache(instance, key, cache);
             } else {
                 // If both caches are empty.
                 return this.putInfStatics(Comp, instance, key, atRulePrelude, selectorTemplate, declarations);
