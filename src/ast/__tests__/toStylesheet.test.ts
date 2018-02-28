@@ -68,4 +68,17 @@ describe('toStylesheet', () => {
         };
         expect(toStyleSheet(styles)).toMatchSnapshot();
     });
+
+    it('nested SVG', () => {
+        const styles = {
+            '.sel': {
+                '& svg': {
+                    border: 'red',
+                },
+            },
+        };
+        const stylesheet = toStyleSheet(styles);
+
+        expect(stylesheet).toEqual([['.sel svg', [['border', 'red']]]]);
+    });
 });

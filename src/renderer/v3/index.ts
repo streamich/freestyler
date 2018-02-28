@@ -72,7 +72,10 @@ class Renderer implements IRenderer {
 
     toStylesheet(styles: TStyles, selector: string): TStyleSheet {
         styles = hoistGlobalsAndWrapContext(styles, selector);
-        return toStyleSheet(styles);
+
+        const stylesheet = toStyleSheet(styles);
+
+        return stylesheet;
     }
 
     private setInfCardStaticCache(obj: object, key: string, cache: DeclarationCache) {
@@ -412,7 +415,9 @@ class Renderer implements IRenderer {
         }
         className = genId(className);
 
+        // styles = hoistGlobalsAndWrapContext(styles, selector);
         const stylesheet = this.toStylesheet(styles, '.' + className);
+        console.log('STYLESHEET', className, styles, stylesheet);
         const css = toCss(stylesheet);
 
         if (process.env.NODE_ENV === 'production') {

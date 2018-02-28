@@ -1,19 +1,37 @@
-const interpolateSelectors = (prop, selectors) => {
-    let props = prop.split(',');
-    let selectorList = [];
+const interpolateSelectors = (parents: string[], selector: string) => {
+    const result = [];
+    const selectors = selector.split(',');
+    const len1 = parents.length;
+    const len2 = selectors.length;
 
-    for (var p of props) {
-        if (p.indexOf('&') > -1) {
-            for (var sel of selectors) {
-                selectorList.push(p.replace('&', sel));
+    for (let i = 0; i < len2; i++) {
+        const sel = selectors[i];
+        const pos = sel.indexOf('&');
+
+        if (pos > -1) {
+            const part1 = sel.substr(0, pos);
+            const part2 = sel.substr(pos + 1);
+
+            for (let j = 0; j < len1; j++) {
+                const parent = parents[j];
+                const replacedSelector = part1 + parent + part2;
+
+                result.push(replacedSelector);
             }
         } else {
-            for (var sel of selectors) {
-                selectorList.push(sel + ' ' + p);
+            for (let j = 0; j < len1; j++) {
+                const parent = parents[j];
+
+                if (parent) {
+                    result.push(parent + ' ' + sel);
+                } else {
+                    result.push(sel);
+                }
             }
         }
     }
-    return selectorList.join(',');
+
+    return result.join(',');
 };
 
 export default interpolateSelectors;
