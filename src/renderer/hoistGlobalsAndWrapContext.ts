@@ -1,16 +1,21 @@
-const REG_AT = /^@/;
-
 const hoistGlobalsAndWrapContext = (styles, selector: string) => {
     let global = {
         [selector]: styles,
     };
 
-    for (const rule in styles) {
-        if (REG_AT.test(rule[0])) {
-            global[rule] = {
-                [selector]: styles[rule],
-            };
-            delete styles[rule];
+    for (const key in styles) {
+        if (key[0] === '@') {
+            // At-rule.
+            if (key[1] === 'k') {
+                // @keyframes
+                global[key] = styles[key];
+            } else {
+                global[key] = {
+                    [selector]: styles[key],
+                };
+            }
+
+            delete styles[key];
         }
     }
 

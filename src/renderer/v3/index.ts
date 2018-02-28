@@ -417,7 +417,6 @@ class Renderer implements IRenderer {
 
         // styles = hoistGlobalsAndWrapContext(styles, selector);
         const stylesheet = this.toStylesheet(styles, '.' + className);
-        console.log('STYLESHEET', className, styles, stylesheet);
         const css = toCss(stylesheet);
 
         if (process.env.NODE_ENV === 'production') {
