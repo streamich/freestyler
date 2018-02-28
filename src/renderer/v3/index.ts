@@ -1,4 +1,4 @@
-import {$$cn, $$cnt, hidden, sym, camelCase} from '../../util';
+import {$$cnt, hidden, sym, camelCase} from '../../util';
 import supportsCssVariables from '../../supportsCssVariables';
 import {TCssTemplate, TCssDynamicTemplate, IFreestylerStyles} from '../../types/index';
 import toStyleSheet, {
@@ -33,25 +33,6 @@ let classNameCounter = 1;
 const PREFIX = process.env.FREESTYLER_PREFIX || '';
 const genId = (name = '') => `${PREFIX}${name}_${(classNameCounter++).toString(36)}`;
 
-// prettier-ignore
-const tplToStyles: (tpl: TCssTemplate, args?: any[]) => IFreestylerStyles =
-    (tpl, args) => (typeof tpl === 'function' ? tpl(...args) : tpl);
-
-const getInfCardStaticCache: (obj: object, key: string) => DeclarationCache = (obj, key) => {
-    const map = obj[$$statics];
-    if (!map) return undefined;
-    return map[key];
-};
-
-const setInfCardStaticCache = (obj: object, key: string, cache: DeclarationCache) => {
-    let map = obj[$$statics];
-    if (!map) {
-        map = {};
-        hidden(obj, $$statics, map);
-    }
-    map[key] = cache;
-};
-
 const combineIntoStylesheet = (stylesheet: TStyleSheet, className: string) => {
     const dottedClassName = '.' + className;
     return (prelude, selectorTemplate, declarations) => {
@@ -81,11 +62,38 @@ class DeclarationCache {
 }
 
 class Renderer implements IRenderer {
-    sheets: SheetManager = new SheetManager();
+    statCache: WeakMap<any, string>;
+    dynCache: WeakMap<any, {[key: string]: DeclarationCache}>;
+    sheets: SheetManager;
+
+    constructor() {
+        this.reset();
+    }
 
     toStylesheet(styles: TStyles, selector: string): TStyleSheet {
         styles = hoistGlobalsAndWrapContext(styles, selector);
-        return toStyleSheet(styles);
+
+        const stylesheet = toStyleSheet(styles);
+
+        return stylesheet;
+    }
+
+    private setInfCardStaticCache(obj: object, key: string, cache: DeclarationCache) {
+        let map = this.dynCache.get(obj);
+
+        if (!map) {
+            map = {};
+            this.dynCache.set(obj, map);
+        }
+        map[key] = cache;
+    }
+
+    private getInfCardStaticCache(obj: object, key: string): DeclarationCache {
+        const map = this.dynCache.get(obj);
+
+        if (!map) return undefined;
+
+        return map[key];
     }
 
     private putDecls(
@@ -160,8 +168,8 @@ class Renderer implements IRenderer {
         const id = className;
 
         const cache = new DeclarationCache(id, declarations);
-        setInfCardStaticCache(Comp, key, cache);
-        setInfCardStaticCache(instance, key, cache);
+        this.setInfCardStaticCache(Comp, key, cache);
+        this.setInfCardStaticCache(instance, key, cache);
 
         const selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
         this.putDecls(id, selector, declarations, atRulePrelude, true);
@@ -181,7 +189,7 @@ class Renderer implements IRenderer {
             return '';
         }
 
-        if (USE_INLINE_STYLES && el && !atRulePrelude && selectorTemplate === SCOPE_SENTINEL) {
+        if (isClient && USE_INLINE_STYLES && el && !atRulePrelude && selectorTemplate === SCOPE_SENTINEL) {
             renderInlineStyles(el, declarations);
             return '';
         }
@@ -242,13 +250,13 @@ class Renderer implements IRenderer {
         declarationSort(declarations);
 
         const key = atRulePrelude + selectorTemplate;
-        let cache = getInfCardStaticCache(instance, key);
+        let cache = this.getInfCardStaticCache(instance, key);
 
         if (!cache) {
-            cache = getInfCardStaticCache(Comp, key);
+            cache = this.getInfCardStaticCache(Comp, key);
             if (cache) {
                 cache.cnt++;
-                setInfCardStaticCache(instance, key, cache);
+                this.setInfCardStaticCache(instance, key, cache);
             } else {
                 // If both caches are empty.
                 return this.putInfStatics(Comp, instance, key, atRulePrelude, selectorTemplate, declarations);
@@ -278,12 +286,10 @@ class Renderer implements IRenderer {
         return classNames + this.renderDynamicDecls(instance, el, atRulePrelude, selectorTemplate, dynamicDecls);
     }
 
-    render(Comp, instance, root: HTMLElement | null, tpl: TCssTemplate, args?: any[]): string {
-        if (!tpl) {
+    render(Comp, instance, root: HTMLElement | null, styles: IFreestylerStyles): string {
+        if (!styles) {
             return '';
         }
-
-        const styles = tplToStyles(tpl, args);
 
         if (process.env.NODE_ENV !== 'production') {
             require('../../debug').emit({
@@ -292,7 +298,6 @@ class Renderer implements IRenderer {
                 instance,
                 el: root,
                 styles,
-                args,
             });
         }
 
@@ -350,16 +355,15 @@ class Renderer implements IRenderer {
         }
     }
 
-    renderStatic(Comp, tpl: TCssTemplate, args?: any[]): string {
-        let classNames = Comp[$$cn];
+    renderStatic(Comp, styles: IFreestylerStyles): string {
+        let className = this.statCache.get(Comp);
 
-        if (classNames === void 0) {
-            hidden(Comp, $$cn, '');
+        if (className === void 0) {
+            this.statCache.set(Comp, '');
         } else {
-            return classNames;
+            return className;
         }
 
-        let styles = tplToStyles(tpl, args);
         if (!styles) return '';
 
         if (process.env.NODE_ENV !== 'production') {
@@ -367,11 +371,10 @@ class Renderer implements IRenderer {
                 type: 'RENDER_STATIC',
                 Comp,
                 styles,
-                args,
             });
         }
 
-        let className = '';
+        className = '';
 
         if (process.env.NODE_ENV !== 'production') {
             className = Comp.displayName || Comp.name || '';
@@ -412,6 +415,7 @@ class Renderer implements IRenderer {
         }
         className = genId(className);
 
+        // styles = hoistGlobalsAndWrapContext(styles, selector);
         const stylesheet = this.toStylesheet(styles, '.' + className);
         const css = toCss(stylesheet);
 
@@ -421,9 +425,10 @@ class Renderer implements IRenderer {
             this.sheets.injectRaw(css, 'css-' + className);
         }
 
-        Comp[$$cn] = ' ' + className;
+        className = ' ' + className;
+        this.statCache.set(Comp, className);
 
-        return Comp[$$cn];
+        return className;
     }
 
     format(styles: IFreestylerStyles, selector: string): string {
@@ -439,12 +444,18 @@ class Renderer implements IRenderer {
         // this.middlewares.push(middleware);
     }
 
+    reset() {
+        this.sheets = new SheetManager();
+        this.statCache = new WeakMap();
+        this.dynCache = new WeakMap();
+    }
+
     // Use this method on server side to get raw CSS after every page render
     // and free memory before next request.
     flush(): string {
         const rawCss = this.sheets.toString();
 
-        this.sheets = new SheetManager();
+        this.reset();
 
         return rawCss;
     }

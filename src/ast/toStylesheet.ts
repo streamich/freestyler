@@ -66,8 +66,7 @@ const toStyleSheet: (pojso: TStyles) => TStyleSheet = pojso => {
                     declarations.push([prop, valueToString(value, prop)]);
                     break;
                 case 'object': {
-                    let selectorsInterpolated =
-                        selectors.length > 1 ? interpolateSelectors(prop, selectors) : prop.replace('&', selector);
+                    let selectorsInterpolated = interpolateSelectors(selectors, prop);
                     stylesheet = stylesheet.concat(toStyleSheet({[selectorsInterpolated]: value}));
                     break;
                 }

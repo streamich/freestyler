@@ -9,8 +9,8 @@ const transformComponentStatic = (Comp, staticTemplate: TCssTemplate) => {
     prototype.render = function() {
         const ast = render_.apply(this, arguments);
         const {props} = ast;
-        const className =
-            (props.className ? props.className : '') + renderer.renderStatic(Comp, staticTemplate, [this]);
+        const styles = typeof staticTemplate === 'function' ? staticTemplate(this) : staticTemplate;
+        const className = (props.className ? props.className : '') + renderer.renderStatic(Comp, styles);
 
         if (process.env.NODE_ENV === 'production') {
             props.className = className;
