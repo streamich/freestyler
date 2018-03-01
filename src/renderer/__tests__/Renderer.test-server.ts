@@ -1,5 +1,7 @@
 import Renderer from '../Renderer';
 import {expect} from 'chai';
+import {rule} from '../..';
+import renderer from '../../renderer';
 
 describe('Renderer SSR', () => {
     it('is a function', () => {
@@ -174,6 +176,27 @@ describe('Renderer SSR', () => {
             expect(rawCss.includes('cursor:pointer')).to.be.true;
             expect(rawCss.includes('display:block')).to.be.true;
             expect(rawCss.includes('width:100%')).to.be.true;
+        });
+    });
+
+    describe('rule()', () => {
+        it('flushes styles', () => {
+            let cn = rule({
+                bd: '1px solid red',
+            });
+
+            expect(renderer.flush().includes('border:1px solid red')).to.be.true;
+            expect(!!renderer.flush()).to.be.false;
+
+            cn = rule({
+                bd: '1px solid tomato',
+            });
+
+            const rawCss = renderer.flush();
+
+            expect(rawCss.includes('border:1px solid tomato')).to.be.true;
+            expect(rawCss.includes('border:1px solid red')).to.be.false;
+            expect(!!renderer.flush()).to.be.false;
         });
     });
 });
