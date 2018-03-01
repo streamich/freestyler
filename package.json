@@ -16,7 +16,7 @@
     "build:lib": "gulp build-ts --gulpfile build/gulpfile.js",
     "build:cjs": "webpack -p --config build/webpack.config.cjs.js",
     "build:umd": "webpack -p --config build/webpack.config.umd.js",
-    "test": "jest",
+    "test": "npm run test:server && jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "test:server": "NODE_ENV=production mocha -r ts-node/register src/**/*.test-server.ts*",
