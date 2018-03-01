@@ -62,13 +62,13 @@ export class ClientSheet {
         if (atRulePrelude) {
             sheet.insertRule(`${atRulePrelude}{${selectors}{}}`, length);
             rule = new ClientRule(((cssRules[length] as CSSGroupingRule).cssRules[0] as CSSStyleRule).style);
-            rule.put(declarations, important);
         } else {
             sheet.insertRule(`${selectors}{}`, length);
             // TODO: Benchmark `cssRules[length]` vs `cssRules.item(length)`.
             rule = new ClientRule((cssRules[length] as CSSStyleRule).style);
-            rule.put(declarations, important);
         }
+
+        rule.put(declarations, important);
 
         if (selectorTemplate) this.cache(atRulePrelude, selectorTemplate, rule);
 

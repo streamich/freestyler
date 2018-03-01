@@ -1,6 +1,6 @@
 {
   "name": "freestyler",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "5th generation React styling library",
   "main": "lib/index.js",
   "unpkg": "dist/freestyler.umd.min.js",
@@ -16,9 +16,10 @@
     "build:lib": "gulp build-ts --gulpfile build/gulpfile.js",
     "build:cjs": "webpack -p --config build/webpack.config.cjs.js",
     "build:umd": "webpack -p --config build/webpack.config.umd.js",
-    "test": "jest",
+    "test": "npm run test:server && jest",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
+    "test:server": "NODE_ENV=production mocha -r ts-node/register src/**/*.test-server.ts*",
     "test:visual": "npm run storybook",
     "test:visual:build": "build-storybook",
     "test:visual:clean": "rimraf storybook-static",
@@ -85,7 +86,9 @@
     "mol-conventional-changelog": "1.2.0",
     "semantic-release": "12.4.1",
     "gitbook-cli": "2.3.2",
-    "libreact": "0.12.2"
+    "libreact": "0.12.2",
+    "mocha": "5.0.1",
+    "chai": "4.1.2"
   },
   "config": {
     "commitizen": {
