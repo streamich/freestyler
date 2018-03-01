@@ -6,18 +6,20 @@ import {TDeclarations} from './toStylesheet';
  * @param {Array} declarations
  * @returns {string}
  */
-const toCssDeclarations: (declarations: TDeclarations) => string = declarations => {
+const toCssDeclarations: (declarations: TDeclarations, important?) => string = (declarations, important?) => {
     let css = '';
 
-    if (process.env.NODE_ENV === 'production') {
-        for (let j = 0; j < declarations.length; j++) {
-            const [property, value] = declarations[j];
-            css += property + ':' + value + ';';
-        }
-    } else {
-        for (let j = 0; j < declarations.length; j++) {
-            const [property, value] = declarations[j];
-            css += '    ' + property + ': ' + value + ';\n';
+    if (declarations) {
+        if (process.env.NODE_ENV === 'production') {
+            for (let j = 0; j < declarations.length; j++) {
+                const [property, value] = declarations[j];
+                css += property + ':' + value + (important ? ' !important' : '') + ';';
+            }
+        } else {
+            for (let j = 0; j < declarations.length; j++) {
+                const [property, value] = declarations[j];
+                css += '    ' + property + ': ' + value + (important ? ' !important' : '') + ';\n';
+            }
         }
     }
 

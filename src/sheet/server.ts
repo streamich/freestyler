@@ -10,14 +10,16 @@ export class ServerRule {
     decl: TDeclarations = null;
     rawCss: string = '';
     rawRule: string = '';
+    imp: boolean = false;
 
     constructor(atRulePrelude: string, selectors: string) {
         this.atRule = atRulePrelude;
         this.selectors = selectors;
     }
 
-    put(declarations: TDeclarations) {
+    put(declarations: TDeclarations, important: boolean = false) {
         this.decl = declarations;
+        this.imp = important;
     }
 
     putRaw(rawCss: string) {
@@ -37,7 +39,7 @@ export class ServerRule {
             return this.rawRule;
         }
 
-        let rawCss = this.rawCss || toCssDeclarations(this.decl);
+        let rawCss = this.rawCss || toCssDeclarations(this.decl, this.imp);
 
         rawCss = `${this.selectors}{${rawCss}}`;
 
@@ -64,21 +66,33 @@ export class ServerSheet {
         return !atRulePrelude ? (map[selectors] as ServerRule) : map[atRulePrelude] && map[atRulePrelude][selectors];
     }
 
-    add(atRulePrelude: TAtrulePrelude, selectors: string): ServerRule {
+    add(
+        atRulePrelude: TAtrulePrelude,
+        selectors: string,
+        declarations,
+        important?: boolean,
+        selectorTemplate?: string
+    ): ServerRule {
         const rule = new ServerRule(atRulePrelude, selectors);
 
         this.rules.push(rule);
 
+        rule.put(declarations, important);
+
+        if (selectorTemplate) this.cache(atRulePrelude, selectorTemplate, rule);
+
+        return rule;
+    }
+
+    cache(atRulePrelude: TAtrulePrelude, selectorTemplate: string, rule: ServerRule) {
         if (atRulePrelude) {
             if (!this.map[atRulePrelude]) {
                 this.map[atRulePrelude] = {};
             }
-            this.map[atRulePrelude][selectors] = rule;
+            this.map[atRulePrelude][selectorTemplate] = rule;
         } else {
-            this.map[selectors] = rule;
+            this.map[selectorTemplate] = rule;
         }
-
-        return rule;
     }
 
     addRaw(rawCss: string): ServerRule {
