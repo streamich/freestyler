@@ -2,7 +2,7 @@ import {Component, createElement as h} from 'react';
 import {IFreestylerStyles} from '../../types/styles';
 import {styleit} from '../styleit';
 import renderer from '../../renderer';
-const {extend} = require('fast-extend');
+const {extend} = require('fast-af/extend');
 
 export interface IJsxstyleDefinition {
     type: string;

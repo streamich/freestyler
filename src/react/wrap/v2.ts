@@ -3,7 +3,7 @@ import {sym, hidden, noop} from '../../util';
 import {getName} from '../../renderer/util';
 import renderer from '../../renderer';
 import {TComponentType, TComponentTag, TCssTemplate, TCssTemplateCallback} from '../../types/index';
-const {extend} = require('fast-extend');
+const {extend} = require('fast-af/extend');
 
 export type TWrap<P> = (
     Element: TComponentTag<P>,

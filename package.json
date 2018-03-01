@@ -1,6 +1,6 @@
 {
   "name": "freestyler",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.2",
   "description": "5th generation React styling library",
   "main": "lib/index.js",
   "unpkg": "dist/freestyler.umd.min.js",
@@ -43,7 +43,7 @@
     "react-dom": "*"
   },
   "dependencies": {
-    "fast-extend": "1.0.2",
+    "fast-af": "^0.1.0",
     "tslib": "^1.9.0"
   },
   "devDependencies": {

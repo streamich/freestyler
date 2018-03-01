@@ -2,7 +2,7 @@ import {cloneElement} from 'react';
 import {TCssTemplateCallback} from '../../types/index';
 import {$$el} from './util';
 import renderer from '../../renderer';
-const {extend} = require('fast-extend');
+const {extend} = require('fast-af/extend');
 
 const transformMethodRenderDynamic = (prototype, dynamicTemplate: TCssTemplateCallback) => {
     const render_ = prototype.render;
