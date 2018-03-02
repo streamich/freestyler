@@ -186,3 +186,14 @@ method when your component instance un-mounts, for example, in React you would
 do that in [`.componentWillUnmount()` life-cycle hook](https://reactjs.org/docs/react-component.html#componentwillunmount).
 
 Arguments `Comp`, `instance`, and `el` have the same semantics as in the `.render()` method.
+
+
+## Prefix
+
+Change class name prefix.
+
+```js
+import renderer from 'freestyler/lib/renderer';
+
+renderer.prefix = 'prefix-';
+```
