@@ -3,8 +3,6 @@ import memoizer from './memoizer';
 import SCOPE_SENTINEL from '../renderer/util/sentinel';
 import {ClientSheet} from './client';
 
-const PREFIX = process.env.FREESTYLER_PREFIX || '';
-
 // CacheSheet - rules rendered in cache sheet never move again.
 class CacheSheet {
     sheet: ClientSheet;
@@ -39,7 +37,7 @@ class CacheSheet {
     ): string {
         const {length} = this.memo;
         const idNumber = this.memo.getId(atRulePrelude, selectorTemplate, propIdentifier, valueIdentifier);
-        const idString = PREFIX + idNumber.toString(36);
+        const idString = require('../renderer').default.prefix + idNumber.toString(36);
 
         if (this.memo.length > length) {
             let selector = selectorTemplate.replace(SCOPE_SENTINEL, '.' + idString);

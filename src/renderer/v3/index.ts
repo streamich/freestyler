@@ -30,8 +30,6 @@ const $$statics = sym('stat'); // Static infinite cardinality declaration cache.
 const $$dynamics = sym('dyn'); // Dynamic infinite cardinality declaration cache.
 
 let classNameCounter = 1;
-const PREFIX = process.env.FREESTYLER_PREFIX || '';
-const genId = (name = '') => `${PREFIX}${name}_${(classNameCounter++).toString(36)}`;
 
 const combineIntoStylesheet = (stylesheet: TStyleSheet, className: string) => {
     const dottedClassName = '.' + className;
@@ -65,9 +63,14 @@ class Renderer implements IRenderer {
     statCache: WeakMap<any, string>;
     dynCache: WeakMap<any, {[key: string]: DeclarationCache}>;
     sheets: SheetManager;
+    prefix: string = 'f-';
 
     constructor() {
         this.reset();
+    }
+
+    genId(name = '') {
+        return `${this.prefix}${name}_${(classNameCounter++).toString(36)}`;
     }
 
     toStylesheet(styles: TStyles, selector: string): TStyleSheet {
@@ -153,7 +156,7 @@ class Renderer implements IRenderer {
                     classNames += ' ' + this.sheets.cache.insert(atRulePrelude, selectors, prop, value);
                 }
             } else {
-                const nonCacheableClassNames = genId();
+                const nonCacheableClassNames = this.genId();
 
                 this.putDecls(nonCacheableClassNames, selectors, declarations, atRulePrelude);
                 classNames += ' ' + nonCacheableClassNames;
@@ -164,7 +167,7 @@ class Renderer implements IRenderer {
     }
 
     private putInfStatics(Comp, instance, key, atRulePrelude, selectorTemplate, declarations) {
-        const className = genId();
+        const className = this.genId();
         const id = className;
 
         const cache = new DeclarationCache(id, declarations);
@@ -204,7 +207,7 @@ class Renderer implements IRenderer {
         let drule = dsheet.get(atRulePrelude, selectorTemplate);
 
         if (!drule) {
-            const className = genId();
+            const className = this.genId();
             const selectors = selectorTemplate.replace(SCOPE_SENTINEL, '.' + className);
 
             drule = dsheet.add(atRulePrelude, selectors, declarations, true, selectorTemplate);
@@ -413,7 +416,7 @@ class Renderer implements IRenderer {
                 className = className.replace(char, '_');
             });
         }
-        className = genId(className);
+        className = this.genId(className);
 
         // styles = hoistGlobalsAndWrapContext(styles, selector);
         const stylesheet = this.toStylesheet(styles, '.' + className);

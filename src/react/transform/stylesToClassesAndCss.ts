@@ -3,9 +3,8 @@ import {IFreestylerStyles} from '../../types/index';
 import SCOPE_SENTINEL from '../../renderer/util/sentinel';
 
 let classNameCounter = 0;
-const PREFIX = process.env.FREESTYLER_PREFIX || '';
 
-const genClassName = () => PREFIX + '__' + (classNameCounter++).toString(36);
+const genClassName = () => renderer.prefix + '__' + (classNameCounter++).toString(36);
 
 const transformStylesToClassesAndCss: (styles: IFreestylerStyles) => [string, string] = styles => {
     const className = genClassName();
