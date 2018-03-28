@@ -60,11 +60,11 @@ can use JavaScript variables from component's __`.render()` function scope__.
 
 |Generation|Emits CSS|Module scope variables|Component scope variables|Render method scope variables|
 |----------|---------|----------------------|-------------------------|-----------------------------|
-|1<sup>st</sup> Genration|✅|❌|❌|❌|
-|2<sup>nd</sup> Genration|❌|✅|✅|✅|
-|3<sup>rd</sup> Genration|✅|✅|❌|❌|
-|4<sup>th</sup> Genration|✅|✅|✅|❌|
-|5<sup>th</sup> Genration|✅|✅|✅|✅|
+|1<sup>st</sup> Generation|✅|❌|❌|❌|
+|2<sup>nd</sup> Generation|❌|✅|✅|✅|
+|3<sup>rd</sup> Generation|✅|✅|❌|❌|
+|4<sup>th</sup> Generation|✅|✅|✅|❌|
+|5<sup>th</sup> Generation|✅|✅|✅|✅|
 
 
 ## Survey
