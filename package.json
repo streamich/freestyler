@@ -74,7 +74,7 @@
     "ts-jest": "21.2.4",
     "ts-node": "3.3.0",
     "typescript": "2.9.2",
-    "tslib": "1.9.2",
+    "tslib": "1.9.3",
     "ts-loader": "3.5.0",
     "webpack-dev-server": "2.11.2",
     "webpack": "3.12.0",
