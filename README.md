@@ -1,3 +1,5 @@
+> Consider using [`nano-css`](https://github.com/streamich/nano-css) instead. It is smaller, tested and actively maintained.
+
 ![libreact logo](./docs/assets/freestyler.png)
 
 # freestyler
