@@ -53,7 +53,7 @@
     "@types/enzyme-to-json": "1.5.1",
     "@types/jest": "23.3.0",
     "@types/node": "8.10.21",
-    "@types/prop-types": "15.5.3",
+    "@types/prop-types": "15.5.4",
     "enzyme": "3.3.0",
     "enzyme-to-json": "3.3.4",
     "enzyme-adapter-react-16": "1.1.1",
