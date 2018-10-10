@@ -44,7 +44,7 @@
     "react-dom": "*"
   },
   "dependencies": {
-    "fast-af": "^0.2.0",
+    "fast-af": "^0.3.0",
     "tslib": "^1.9.0"
   },
   "devDependencies": {
