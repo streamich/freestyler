@@ -1,6 +1,6 @@
 # Nesting selectors
 
-`freestyler` template selectors can be nested arbitrarily deep. However, don't overuse this feature, multiple levels deep selectors is an anti-patter in React.
+`freestyler` template selectors can be nested arbitrarily deep. However, don't overuse this feature, multiple levels deep selectors is an anti-pattern in React.
 
 Use `$` syntax for nesting:
 
