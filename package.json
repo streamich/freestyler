@@ -86,7 +86,7 @@
     "mol-conventional-changelog": "1.4.0",
     "semantic-release": "15.12.0",
     "gitbook-cli": "2.3.2",
-    "libreact": "2.7.0",
+    "libreact": "2.8.0",
     "mocha": "5.2.0",
     "chai": "4.2.0"
   },
