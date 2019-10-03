@@ -55,7 +55,7 @@
     "@types/node": "8.10.54",
     "@types/prop-types": "15.7.3",
     "enzyme": "3.10.0",
-    "enzyme-to-json": "3.4.1",
+    "enzyme-to-json": "3.4.2",
     "enzyme-adapter-react-16": "1.14.0",
     "gulp": "3.9.1",
     "gulp-typescript": "4.0.2",
