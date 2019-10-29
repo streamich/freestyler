@@ -70,7 +70,7 @@
     "react-dom": "16.11.0",
     "react-test-renderer": "16.11.0",
     "rimraf": "2.7.1",
-    "source-map-support": "0.5.15",
+    "source-map-support": "0.5.16",
     "ts-jest": "23.10.5",
     "ts-node": "7.0.1",
     "typescript": "2.9.2",
