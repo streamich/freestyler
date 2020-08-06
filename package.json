@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "fast-af": "^0.3.0",
-    "tslib": "^1.9.0"
+    "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@types/react": "16.9.44",
@@ -74,7 +74,7 @@
     "ts-jest": "23.10.5",
     "ts-node": "7.0.1",
     "typescript": "2.9.2",
-    "tslib": "1.13.0",
+    "tslib": "2.0.1",
     "ts-loader": "3.5.0",
     "webpack-dev-server": "3.11.0",
     "webpack": "3.12.0",
