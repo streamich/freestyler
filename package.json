@@ -50,7 +50,7 @@
   "devDependencies": {
     "@types/react": "16.9.49",
     "@types/enzyme": "3.10.6",
-    "@types/enzyme-to-json": "1.5.3",
+    "@types/enzyme-to-json": "1.5.4",
     "@types/jest": "23.3.14",
     "@types/node": "8.10.64",
     "@types/prop-types": "15.7.3",
