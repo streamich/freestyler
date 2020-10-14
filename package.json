@@ -69,7 +69,7 @@
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "react-test-renderer": "16.14.0",
-    "rimraf": "2.7.1",
+    "rimraf": "3.0.2",
     "source-map-support": "0.5.19",
     "ts-jest": "23.10.5",
     "ts-node": "7.0.1",
