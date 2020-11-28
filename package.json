@@ -64,7 +64,7 @@
     "jest-tap-reporter": "1.9.0",
     "lerna": "2.11.0",
     "lint-staged": "7.3.0",
-    "prettier": "1.19.1",
+    "prettier": "2.2.1",
     "prop-types": "15.7.2",
     "react": "16.14.0",
     "react-dom": "16.14.0",
