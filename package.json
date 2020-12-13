@@ -58,7 +58,7 @@
     "enzyme-to-json": "3.6.1",
     "enzyme-adapter-react-16": "1.15.5",
     "gulp": "4.0.2",
-    "gulp-typescript": "4.0.2",
+    "gulp-typescript": "5.0.1",
     "husky": "4.3.5",
     "jest": "23.6.0",
     "jest-tap-reporter": "1.9.0",
