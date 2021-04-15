@@ -71,7 +71,7 @@
     "react-test-renderer": "17.0.2",
     "rimraf": "3.0.2",
     "source-map-support": "0.5.19",
-    "ts-jest": "26.5.4",
+    "ts-jest": "26.5.5",
     "ts-node": "9.1.1",
     "typescript": "4.2.4",
     "tslib": "1.14.1",
