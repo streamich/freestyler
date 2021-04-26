@@ -48,7 +48,7 @@
     "tslib": "^1.9.0"
   },
   "devDependencies": {
-    "@types/react": "17.0.3",
+    "@types/react": "17.0.4",
     "@types/enzyme": "3.10.8",
     "@types/enzyme-to-json": "1.5.4",
     "@types/jest": "26.0.23",
