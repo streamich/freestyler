@@ -87,7 +87,7 @@
     "semantic-release": "17.4.7",
     "gitbook-cli": "2.3.2",
     "libreact": "2.13.3",
-    "mocha": "9.1.0",
+    "mocha": "9.1.1",
     "chai": "4.3.4"
   },
   "config": {
