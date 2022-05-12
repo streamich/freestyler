@@ -51,7 +51,7 @@
     "@types/react": "18.0.9",
     "@types/enzyme": "3.10.12",
     "@types/enzyme-to-json": "1.5.4",
-    "@types/jest": "27.5.0",
+    "@types/jest": "27.5.1",
     "@types/node": "16.11.34",
     "@types/prop-types": "15.7.5",
     "enzyme": "3.11.0",
