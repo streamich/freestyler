@@ -83,7 +83,7 @@
     "@storybook/react": "6.5.12",
     "@storybook/addon-actions": "6.5.12",
     "@storybook/addon-links": "6.5.12",
-    "mol-conventional-changelog": "1.4.2",
+    "mol-conventional-changelog": "1.4.3",
     "semantic-release": "19.0.5",
     "gitbook-cli": "2.3.2",
     "libreact": "2.13.3",
