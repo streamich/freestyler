@@ -59,7 +59,7 @@
     "enzyme-adapter-react-16": "1.15.7",
     "gulp": "4.0.2",
     "gulp-typescript": "5.0.1",
-    "husky": "8.0.2",
+    "husky": "8.0.3",
     "jest": "29.3.1",
     "jest-tap-reporter": "1.9.0",
     "lerna": "6.3.0",
