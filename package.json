@@ -76,7 +76,7 @@
     "typescript": "5.0.4",
     "tslib": "1.14.1",
     "ts-loader": "9.4.2",
-    "webpack-dev-server": "4.13.2",
+    "webpack-dev-server": "4.13.3",
     "webpack": "5.79.0",
     "yarn": "1.22.19",
     "chai": "4.1.2",
