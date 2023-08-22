@@ -103,7 +103,7 @@ apply them as inline style. If styles cannot be applied as inline styles, `frees
 them into a `CSSStyleSheet`.
 
 If CSS Custom Properties are supported, `freestyler` will replace all style values by *"CSS variables"*.
-This allows on subsequent re-renders to simply change CSS variables, whithout re-rendering the styles.
+This allows on subsequent re-renders to simply change CSS variables, without re-rendering the styles.
 
 If component's DOM element is known, `freestyler` will create CSS variables on that element. Otherwise,
 `freestyler` will create global root CSS variables.
