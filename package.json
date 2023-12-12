@@ -84,7 +84,7 @@
     "@storybook/addon-actions": "7.6.4",
     "@storybook/addon-links": "7.6.4",
     "mol-conventional-changelog": "1.4.3",
-    "semantic-release": "22.0.10",
+    "semantic-release": "22.0.11",
     "gitbook-cli": "2.3.2",
     "libreact": "2.13.3",
     "mocha": "10.2.0",
