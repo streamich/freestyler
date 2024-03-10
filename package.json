@@ -78,7 +78,7 @@
     "ts-loader": "9.5.1",
     "webpack-dev-server": "5.0.2",
     "webpack": "5.90.3",
-    "yarn": "1.22.21",
+    "yarn": "1.22.22",
     "chai": "4.1.2",
     "@storybook/react": "7.6.17",
     "@storybook/addon-actions": "7.6.17",
