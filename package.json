@@ -73,7 +73,7 @@
     "source-map-support": "0.5.21",
     "ts-jest": "29.2.3",
     "ts-node": "10.9.2",
-    "typescript": "5.5.3",
+    "typescript": "5.5.4",
     "tslib": "1.14.1",
     "ts-loader": "9.5.1",
     "webpack-dev-server": "5.0.4",
