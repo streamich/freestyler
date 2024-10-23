@@ -88,7 +88,7 @@
     "gitbook-cli": "2.3.2",
     "libreact": "2.13.3",
     "mocha": "10.7.3",
-    "chai": "5.1.1"
+    "chai": "5.1.2"
   },
   "config": {
     "commitizen": {
