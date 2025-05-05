@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@types/react": "19.1.2",
-    "@types/enzyme": "3.10.18",
+    "@types/enzyme": "3.10.19",
     "@types/enzyme-to-json": "1.5.7",
     "@types/jest": "29.5.14",
     "@types/node": "22.15.3",
