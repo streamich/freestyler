@@ -60,7 +60,7 @@
     "gulp": "5.0.1",
     "gulp-typescript": "5.0.1",
     "husky": "9.1.7",
-    "jest": "30.0.3",
+    "jest": "30.0.4",
     "jest-tap-reporter": "1.9.0",
     "lerna": "8.2.3",
     "lint-staged": "16.1.2",
