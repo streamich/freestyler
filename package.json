@@ -63,7 +63,7 @@
     "jest": "30.0.5",
     "jest-tap-reporter": "1.9.0",
     "lerna": "8.2.3",
-    "lint-staged": "16.1.2",
+    "lint-staged": "16.1.4",
     "prettier": "3.6.2",
     "prop-types": "15.8.1",
     "react": "19.1.1",
